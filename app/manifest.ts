@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "20 apartamentów 82–133 m² w 100-letnim lesie przy Zalewie Mrożyczka w Głownie. Ceny od 633 000 zł.",
     start_url: "/",
     display: "standalone",
-    background_color: "#f4f1e9",
-    theme_color: "#1e3a2c",
+    background_color: "#f4f4f2",
+    theme_color: "#2b2e33",
     lang: "pl-PL",
     icons: [
       { src: "/icon.svg", type: "image/svg+xml", sizes: "any" },

@@ -1,5 +1,6 @@
 import { NAV, SITE, DEVELOPER } from "@/lib/data/site";
 import { Icon } from "./Icons";
+import { LogoMark } from "./Logo";
 
 const legal = [
   { label: "Polityka prywatności", href: "/polityka-prywatnosci" },
@@ -14,8 +15,13 @@ export default function Footer() {
       <div className="container-x py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
           <div>
-            <p className="font-display text-3xl text-paper">Plażowa Park</p>
-            <p className="mt-1 text-sm uppercase tracking-[0.2em] text-brass-light">Głowno · Zalew Mrożyczka</p>
+            <p className="flex items-center gap-2.5 font-display text-3xl font-semibold text-paper">
+              <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-paper/10 text-paper">
+                <LogoMark width={20} height={20} />
+              </span>
+              Plażowa Park
+            </p>
+            <p className="mt-2 text-sm uppercase tracking-[0.2em] text-brass-light">Głowno · Zalew Mrożyczka</p>
             <p className="mt-5 max-w-xs text-pretty text-sm leading-relaxed text-paper/65">
               Kameralne osiedle 20 apartamentów w 100-letnim lesie, bezpośrednio przy Zalewie Mrożyczka. Oddanie {SITE.handoverDate}.
             </p>
