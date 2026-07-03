@@ -27,6 +27,7 @@ export default function Developer() {
               <Info label="Prezes zarządu" value={DEVELOPER.ceo} />
               <Info label="KRS" value={DEVELOPER.krs} />
               <Info label="NIP" value={DEVELOPER.nip} />
+              <Info label="REGON" value={DEVELOPER.regon} />
               <Info label="Siedziba" value={`${DEVELOPER.street}, ${DEVELOPER.postal} ${DEVELOPER.city}`} wide />
             </dl>
 

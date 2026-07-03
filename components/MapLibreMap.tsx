@@ -55,10 +55,6 @@ export default function MapLibreMap() {
         <div style="width:12px;height:12px;border-radius:999px;background:#9d8760;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.4)"></div>
       </div>`;
       new maplibregl.Marker({ element: el }).setLngLat([SITE.geo.lng, SITE.geo.lat]).addTo(map);
-
-      const lakeEl = document.createElement("div");
-      lakeEl.innerHTML = `<div style="background:rgba(92,111,120,.92);color:#fff;font:600 11px/1 Inter,sans-serif;padding:5px 9px;border-radius:999px;white-space:nowrap;box-shadow:0 4px 10px rgba(0,0,0,.3)">Zalew Mrożyczka</div>`;
-      new maplibregl.Marker({ element: lakeEl }).setLngLat([19.7197, 51.9614]).addTo(map);
     };
 
     // init only when the map scrolls near the viewport

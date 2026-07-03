@@ -14,7 +14,7 @@ export const SITE = {
     county: "powiat zgierski",
     country: "PL",
   },
-  geo: { lat: 51.9605, lng: 19.7185 },
+  geo: { lat: 51.9593, lng: 19.7255 },
   phone: { display: "515 488 951", tel: "+48515488951" },
   email: "biuro@plazowa-park.pl",
   handoverDate: "IV kwartał 2026",
@@ -27,6 +27,7 @@ export const DEVELOPER = {
   postal: "95-015",
   krs: "0001031916",
   nip: "7331366052",
+  regon: "525091200",
   ceo: "Jakub Kwiatkowski",
 } as const;
 
@@ -42,17 +43,17 @@ export const NAV: NavItem[] = [
 ];
 
 // Signature selling points near Zalew Mrożyczka
+// Distances kept qualitative unless independently verified (Central Wake Park ≈ 284 m,
+// Zalew ≈ 150 m, Łódź ok. 30 km) — no unverified precise figures.
 export const POI = [
-  { name: "Zalew Mrożyczka", desc: "Ponad 30 ha, strzeżone kąpielisko, molo i altana", dist: "przy osiedlu", cat: "natura" },
-  { name: "Plaża i wydmy", desc: "Piasek ze śródlądowych wydm, wodny plac zabaw", dist: "5 min", cat: "natura" },
-  { name: "Central Wake Park", desc: "Wakeboardowa mapa Polski — sporty wodne", dist: "300 m", cat: "sport" },
-  { name: "Park linowy", desc: "Dwie trasy, wejście od ul. Plażowej", dist: "5 min", cat: "sport" },
-  { name: "100-letni las", desc: "Sosnowy drzewostan otaczający osiedle", dist: "0 m", cat: "natura" },
-  { name: "Przystanek Sosnowa / Kopernika", desc: "Komunikacja miejska", dist: "100 m", cat: "dojazd" },
-  { name: "Szkoły i przedszkola", desc: "13 placówek edukacyjnych w okolicy", dist: "200 m", cat: "usługi" },
-  { name: "Przychodnia Remedium", desc: "Opieka medyczna", dist: "200 m", cat: "usługi" },
-  { name: "Sklepy i usługi", desc: "Codzienne zakupy w zasięgu spaceru", dist: "200 m", cat: "usługi" },
-  { name: "Łódź", desc: "Dojazd autostradą A2 i DK14", dist: "~30 min", cat: "dojazd" },
+  { name: "Zalew Mrożyczka", desc: "Piaszczysta plaża, kąpielisko i molo", dist: "przy osiedlu", cat: "natura" },
+  { name: "Central Wake Park", desc: "Wakeboard i sporty wodne nad zalewem", dist: "ok. 300 m", cat: "sport" },
+  { name: "Park linowy", desc: "Wejście od ul. Plażowej", dist: "przy osiedlu", cat: "sport" },
+  { name: "100-letni las", desc: "Sosnowy drzewostan otaczający osiedle", dist: "wokół osiedla", cat: "natura" },
+  { name: "Komunikacja miejska", desc: "Przystanek autobusowy w okolicy", dist: "w pobliżu", cat: "dojazd" },
+  { name: "Szkoły i przedszkola", desc: "Placówki edukacyjne w Głownie", dist: "w zasięgu spaceru", cat: "usługi" },
+  { name: "Sklepy i usługi", desc: "Codzienne zakupy i przychodnia", dist: "w zasięgu spaceru", cat: "usługi" },
+  { name: "Łódź", desc: "Autostradą A2 i drogą DK14 (ok. 30 km)", dist: "~30 min", cat: "dojazd" },
 ] as const;
 
 export const STANDARD = [
@@ -96,7 +97,7 @@ export const FAQ = [
   },
   {
     q: "Co znajduje się w okolicy osiedla?",
-    a: "Osiedle leży bezpośrednio przy Zalewie Mrożyczka (ponad 30 ha) i 100-letnim lesie sosnowym. W zasięgu spaceru są plaża, molo, Central Wake Park, park linowy, szkoły, przychodnia i sklepy. Do Łodzi dojedziesz w około 30 minut autostradą A2 i DK14.",
+    a: "Osiedle leży bezpośrednio przy Zalewie Mrożyczka i 100-letnim lesie sosnowym. W zasięgu spaceru są plaża, molo, Central Wake Park i park linowy, a w Głownie szkoły, przychodnia i sklepy. Do Łodzi dojedziesz w około 30 minut autostradą A2 i drogą DK14.",
   },
   {
     q: "Jaki jest standard wykończenia i technologia?",

@@ -1,11 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { GALLERY } from "@/lib/data/site";
 import { Icon } from "./Icons";
 
 export default function Gallery() {
   const [open, setOpen] = useState<number | null>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const drag = useRef({ down: false, startX: 0, startScroll: 0, moved: false });
 
   const move = useCallback(
     (dir: number) => setOpen((i) => (i === null ? i : (i + dir + GALLERY.length) % GALLERY.length)),
@@ -27,71 +29,87 @@ export default function Gallery() {
     };
   }, [open, move]);
 
-  return (
-    <section id="galeria" className="bg-paper-2 py-20 sm:py-28">
-      <div className="container-x">
-        <header className="flex flex-wrap items-end justify-between gap-4" data-reveal="up">
-          <div className="max-w-2xl">
-            <p className="eyebrow">Galeria</p>
-            <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
-              Wizualizacje i <span className="italic text-brass-deep">okolica.</span>
-            </h2>
-          </div>
-          <p className="max-w-xs text-sm text-muted">
-            Wizualizacje architektoniczne i zdjęcia okolicy. Materiały poglądowe — rzeczywisty wygląd może się różnić.
-          </p>
-        </header>
+  const scrollByCards = (dir: number) => {
+    const el = trackRef.current;
+    if (el) el.scrollBy({ left: dir * Math.min(el.clientWidth * 0.8, 700), behavior: "smooth" });
+  };
 
-        <div className="mt-10 grid auto-rows-[200px] grid-cols-2 gap-3 sm:auto-rows-[240px] md:grid-cols-4" data-reveal="fade">
-          {GALLERY.map((g, i) => (
-            <button
-              key={g.src}
-              onClick={() => setOpen(i)}
-              className={`group relative overflow-hidden rounded-[12px] bg-sand ${
-                g.span === "wide" ? "col-span-2" : ""
-              } ${g.span === "tall" ? "row-span-2" : ""}`}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={g.src}
-                alt={g.alt}
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
-                loading="lazy"
-              />
-              <span className="absolute inset-0 bg-pine-deep/0 transition-colors duration-500 group-hover:bg-pine-deep/20" />
-              {g.tag && (
-                <span className="absolute bottom-3 left-3 rounded-full bg-paper/85 px-2.5 py-1 text-[0.68rem] font-semibold text-pine backdrop-blur-sm">
-                  {g.tag}
-                </span>
-              )}
-            </button>
-          ))}
+  // drag to scroll (desktop)
+  const onDown = (e: React.MouseEvent) => {
+    const el = trackRef.current;
+    if (!el) return;
+    drag.current = { down: true, startX: e.pageX, startScroll: el.scrollLeft, moved: false };
+  };
+  const onMove = (e: React.MouseEvent) => {
+    const el = trackRef.current;
+    if (!el || !drag.current.down) return;
+    const dx = e.pageX - drag.current.startX;
+    if (Math.abs(dx) > 4) drag.current.moved = true;
+    el.scrollLeft = drag.current.startScroll - dx;
+  };
+  const onUp = () => (drag.current.down = false);
+
+  return (
+    <section id="galeria" className="overflow-hidden bg-paper-2 py-20 sm:py-28">
+      <div className="container-x flex flex-wrap items-end justify-between gap-6">
+        <header data-reveal="up">
+          <p className="eyebrow">Galeria</p>
+          <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
+            Zobacz <span className="italic text-brass-deep">Plażowa Park.</span>
+          </h2>
+        </header>
+        <div className="hidden items-center gap-2 md:flex">
+          <button onClick={() => scrollByCards(-1)} aria-label="Poprzednie" className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-pine transition hover:border-pine hover:bg-pine hover:text-paper">
+            <Icon.arrow width={18} height={18} className="rotate-180" />
+          </button>
+          <button onClick={() => scrollByCards(1)} aria-label="Następne" className="flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 text-pine transition hover:border-pine hover:bg-pine hover:text-paper">
+            <Icon.arrow width={18} height={18} />
+          </button>
         </div>
+      </div>
+
+      {/* filmstrip */}
+      <div
+        ref={trackRef}
+        className="no-scrollbar mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2"
+        style={{ paddingInline: "clamp(1.25rem, 4vw, 3.5rem)", cursor: drag.current.down ? "grabbing" : "grab" }}
+        onMouseDown={onDown}
+        onMouseMove={onMove}
+        onMouseUp={onUp}
+        onMouseLeave={onUp}
+      >
+        {GALLERY.map((g, i) => (
+          <button
+            key={g.src}
+            onClick={() => { if (!drag.current.moved) setOpen(i); }}
+            className="group relative h-[clamp(300px,52vh,480px)] flex-none snap-start overflow-hidden rounded-[16px] bg-sand"
+            aria-label={g.alt}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={g.src}
+              alt={g.alt}
+              draggable={false}
+              className="h-full w-auto max-w-none select-none object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
+              loading="lazy"
+            />
+            <span className="pointer-events-none absolute inset-0 bg-pine-deep/0 transition-colors duration-500 group-hover:bg-pine-deep/10" />
+          </button>
+        ))}
       </div>
 
       {/* lightbox */}
       {open !== null && (
-        <div className="fixed inset-0 z-[85] flex items-center justify-center bg-pine-deep/90 backdrop-blur-sm" onClick={() => setOpen(null)}>
-          <button className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center rounded-full border border-paper/25 text-paper hover:bg-paper/10" aria-label="Zamknij">
+        <div className="fixed inset-0 z-[85] flex items-center justify-center bg-pine-deep/92 backdrop-blur-sm" onClick={() => setOpen(null)}>
+          <button className="absolute right-5 top-5 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-paper/25 text-paper hover:bg-paper/10" aria-label="Zamknij">
             <Icon.close width={20} height={20} />
           </button>
-          <button
-            onClick={(e) => { e.stopPropagation(); move(-1); }}
-            className="absolute left-3 flex h-12 w-12 items-center justify-center rounded-full border border-paper/25 text-paper hover:bg-paper/10 sm:left-6"
-            aria-label="Poprzednie"
-          >
+          <button onClick={(e) => { e.stopPropagation(); move(-1); }} className="absolute left-3 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-paper/25 text-paper hover:bg-paper/10 sm:left-6" aria-label="Poprzednie">
             <Icon.arrow width={20} height={20} className="rotate-180" />
           </button>
-          <figure className="max-h-[86svh] max-w-[92vw]" onClick={(e) => e.stopPropagation()}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={GALLERY[open].src} alt={GALLERY[open].alt} className="max-h-[80svh] w-auto rounded-[12px] object-contain" />
-            <figcaption className="mt-3 text-center text-sm text-paper/75">{GALLERY[open].alt}</figcaption>
-          </figure>
-          <button
-            onClick={(e) => { e.stopPropagation(); move(1); }}
-            className="absolute right-3 flex h-12 w-12 items-center justify-center rounded-full border border-paper/25 text-paper hover:bg-paper/10 sm:right-6"
-            aria-label="Następne"
-          >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={GALLERY[open].src} alt={GALLERY[open].alt} className="max-h-[86svh] max-w-[92vw] rounded-[12px] object-contain" onClick={(e) => e.stopPropagation()} />
+          <button onClick={(e) => { e.stopPropagation(); move(1); }} className="absolute right-3 z-10 flex h-12 w-12 items-center justify-center rounded-full border border-paper/25 text-paper hover:bg-paper/10 sm:right-6" aria-label="Następne">
             <Icon.arrow width={20} height={20} />
           </button>
         </div>
