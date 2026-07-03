@@ -73,6 +73,14 @@ export const FINANCE_STEPS = [
   { step: "04", title: "Odbiór i akt", desc: "Odbiór techniczny i przeniesienie własności, IV kw. 2026." },
 ] as const;
 
+export const HARMONOGRAM = [
+  { period: "I kw. 2025", title: "Rozpoczęcie budowy", state: "done" },
+  { period: "III kw. 2025", title: "Stan surowy zamknięty", state: "done" },
+  { period: "I kw. 2026", title: "Instalacje i elewacje", state: "done" },
+  { period: "III kw. 2026", title: "Prace wykończeniowe", state: "current" },
+  { period: "IV kw. 2026", title: "Odbiór i oddanie", state: "upcoming" },
+] as const;
+
 export const FAQ = [
   {
     q: "Ile apartamentów liczy osiedle Plażowa Park?",

@@ -12,6 +12,7 @@ import Gallery from "@/components/Gallery";
 import ScrollProgress from "@/components/ScrollProgress";
 import Okolica from "@/components/Okolica";
 import Finansowanie from "@/components/Finansowanie";
+import Harmonogram from "@/components/Harmonogram";
 import Developer from "@/components/Developer";
 import CinematicBand from "@/components/CinematicBand";
 import Faq from "@/components/Faq";
@@ -37,6 +38,7 @@ export default function Home() {
         <Gallery />
         <Okolica />
         <Finansowanie />
+        <Harmonogram />
         <Developer />
         <CinematicBand />
         <Faq />

@@ -1,5 +1,12 @@
 import { SITE, DEVELOPER, FAQ } from "@/lib/data/site";
-import { INVESTMENT } from "@/lib/data/units";
+import { INVESTMENT, UNITS } from "@/lib/data/units";
+
+const availabilityUrl = (s: string) =>
+  s === "available"
+    ? "https://schema.org/InStock"
+    : s === "reserved"
+      ? "https://schema.org/PreOrder"
+      : "https://schema.org/SoldOut";
 
 export default function JsonLd() {
   const graph = [
@@ -93,6 +100,30 @@ export default function JsonLd() {
         { "@type": "ListItem", position: 2, name: "Wybierz dom", item: `${SITE.url}/#lokale` },
         { "@type": "ListItem", position: 3, name: "Kontakt", item: `${SITE.url}/#kontakt` },
       ],
+    },
+    {
+      "@type": "ItemList",
+      name: "Apartamenty — Plażowa Park",
+      numberOfItems: UNITS.length,
+      itemListElement: UNITS.map((u, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: {
+          "@type": "Apartment",
+          name: `Apartament ${u.name}`,
+          numberOfRoomsTotal: u.rooms,
+          floorSize: { "@type": "QuantitativeValue", value: u.area, unitCode: "MTK" },
+          numberOfBathroomsTotal: 1,
+          petsAllowed: true,
+          offers: {
+            "@type": "Offer",
+            priceCurrency: "PLN",
+            price: u.price,
+            availability: availabilityUrl(u.status),
+            seller: { "@id": `${SITE.url}/#developer` },
+          },
+        },
+      })),
     },
   ];
 
