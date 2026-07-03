@@ -119,9 +119,11 @@ export default function EstateExplorer() {
 
         {/* grid */}
         {filtered.length > 0 ? (
-          <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-8 flex flex-wrap justify-center gap-5">
             {filtered.map((u) => (
-              <UnitCard key={u.id} unit={u} onOpen={setModal} />
+              <div key={u.id} className="w-full sm:w-[calc(50%-0.625rem)] xl:w-[calc(33.333%-0.834rem)]">
+                <UnitCard unit={u} onOpen={setModal} />
+              </div>
             ))}
           </div>
         ) : (

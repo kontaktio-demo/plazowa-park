@@ -18,8 +18,8 @@ export const POSTS: Post[] = [
     title: "Czy warto kupić mieszkanie w Głownie?",
     excerpt:
       "Głowno łączy spokój małego miasta z bliskością Łodzi i wyjątkową przyrodą Zalewu Mrożyczka. Sprawdź, dla kogo to dobry adres.",
-    cover: "/renders/aerial-golden.webp",
-    coverAlt: "Osiedle Plażowa Park w Głownie nad Zalewem Mrożyczka z lotu ptaka",
+    cover: "/renders/render-01b.webp",
+    coverAlt: "Budynek Plażowa Park w Głownie — wizualizacja w sosnowym lesie",
     date: "2026-05-12",
     readMin: 4,
     keywords: ["czy warto kupić mieszkanie w Głownie", "mieszkania Głowno", "nieruchomości Głowno"],
@@ -59,8 +59,8 @@ export const POSTS: Post[] = [
     title: "Dojazd z Głowna do Łodzi — ile zajmuje i jak dojechać",
     excerpt:
       "Około 30 minut samochodem autostradą A2 i DK14. Sprawdź, jak wygląda codzienny dojazd z Głowna do Łodzi.",
-    cover: "/renders/exterior-golden.webp",
-    coverAlt: "Apartament Plażowa Park o zachodzie słońca — dojazd do Łodzi w 30 minut",
+    cover: "/renders/render-03b.webp",
+    coverAlt: "Budynek Plażowa Park o zachodzie słońca — dojazd do Łodzi w 30 minut",
     date: "2026-06-08",
     readMin: 3,
     keywords: ["dojazd z Głowna do Łodzi", "Głowno Łódź odległość", "Głowno komunikacja"],
