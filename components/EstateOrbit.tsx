@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { INVESTMENT } from "@/lib/data/units";
 
 const FRAMES = 120;
 const framePath = (i: number) => `/orbit/f${String(i + 1).padStart(3, "0")}.webp`;
@@ -132,15 +131,10 @@ export default function EstateOrbit() {
                 największe. Każdy z prywatnym ogrodem, tarasem i dwoma miejscami postojowymi.
               </p>
               {mode === "seq" && (
-                <p className="mt-6 inline-flex items-center gap-2 text-sm text-brass-deep">
+                <p className="mt-7 inline-flex items-center gap-2 text-sm text-brass-deep">
                   <span className="scroll-cue">↓</span> Przewiń, aby obrócić osiedle
                 </p>
               )}
-              <div className="mt-7 flex gap-8">
-                <Stat n={`${INVESTMENT.totalUnits}`} l="apartamentów" />
-                <Stat n={`${INVESTMENT.buildingsCount}`} l="budynków" />
-                <Stat n={`${INVESTMENT.available}`} l="dostępnych" />
-              </div>
             </div>
 
             <div className="relative">
@@ -172,11 +166,3 @@ export default function EstateOrbit() {
   );
 }
 
-function Stat({ n, l }: { n: string; l: string }) {
-  return (
-    <div>
-      <div className="font-display text-3xl text-pine num">{n}</div>
-      <div className="mt-1 text-xs uppercase tracking-[0.14em] text-muted">{l}</div>
-    </div>
-  );
-}

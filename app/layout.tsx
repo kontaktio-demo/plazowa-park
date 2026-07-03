@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Inter, Inter_Tight } from "next/font/google";
 import "./globals.css";
 import { SITE } from "@/lib/data/site";
 import SiteMotion from "@/components/SiteMotion";
@@ -7,11 +7,10 @@ import CookieConsent from "@/components/CookieConsent";
 import JsonLd from "@/components/JsonLd";
 import Analytics from "@/components/Analytics";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const interTight = Inter_Tight({
+  variable: "--font-inter-tight",
   subsets: ["latin", "latin-ext"],
   display: "swap",
-  axes: ["opsz", "SOFT", "WONK"],
 });
 
 const inter = Inter({
@@ -63,7 +62,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f4f1e9",
+  themeColor: "#f4f4f3",
   colorScheme: "light",
   width: "device-width",
   initialScale: 1,
@@ -71,7 +70,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pl" className={`${fraunces.variable} ${inter.variable}`}>
+    <html lang="pl" className={`${interTight.variable} ${inter.variable}`}>
       <body>
         <JsonLd />
         <Analytics />

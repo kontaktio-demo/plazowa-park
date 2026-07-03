@@ -15,10 +15,6 @@ export default function Standard() {
               Energooszczędne technologie i materiały premium w standardzie. Poddasze zawarte w cenie — gotowe do
               adaptacji według Twojego pomysłu.
             </p>
-            <div className="mt-8 grid grid-cols-2 gap-4 border-t border-ink/10 pt-6">
-              <Fact k="A+" l="klasa energetyczna" />
-              <Fact k="0" l="grzejników na ścianach" />
-            </div>
           </header>
 
           <div className="grid gap-px overflow-hidden rounded-[16px] border border-ink/10 bg-ink/10 sm:grid-cols-2" data-reveal="up">
@@ -38,11 +34,3 @@ export default function Standard() {
   );
 }
 
-function Fact({ k, l }: { k: string; l: string }) {
-  return (
-    <div>
-      <div className="font-display text-3xl text-brass-deep num">{k}</div>
-      <div className="mt-1 text-xs uppercase tracking-[0.12em] text-muted">{l}</div>
-    </div>
-  );
-}

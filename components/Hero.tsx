@@ -8,7 +8,6 @@ import { Icon } from "./Icons";
 
 const facts = [
   { k: `${INVESTMENT.totalUnits}`, l: "apartamentów" },
-  { k: `${INVESTMENT.buildingsCount}`, l: "budynków" },
   { k: "82–133", l: "m² powierzchni" },
   { k: `od ${plnShort(INVESTMENT.priceMin)}`, l: "cena startowa" },
 ];
@@ -84,7 +83,7 @@ export default function Hero() {
           </div>
 
           {/* facts */}
-          <dl className="hero-in mt-12 grid max-w-3xl grid-cols-2 gap-x-6 gap-y-6 border-t border-paper/15 pt-7 sm:grid-cols-4" style={{ animationDelay: "0.6s" }}>
+          <dl className="hero-in mt-12 grid max-w-2xl grid-cols-3 gap-x-6 gap-y-6 border-t border-paper/15 pt-7" style={{ animationDelay: "0.6s" }}>
             {facts.map((f) => (
               <div key={f.l}>
                 <dt className="font-display text-[1.7rem] leading-none text-paper num">{f.k}</dt>

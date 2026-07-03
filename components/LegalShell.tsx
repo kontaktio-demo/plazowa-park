@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Footer from "./Footer";
 import { Icon } from "./Icons";
+import { LogoMark } from "./Logo";
 
 export default function LegalShell({
   title,
@@ -16,12 +17,10 @@ export default function LegalShell({
       <header className="border-b border-ink/10 bg-paper/90 backdrop-blur-md">
         <div className="container-x flex h-[var(--nav-h)] items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-pine text-paper">
-              <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.3} strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 3 3 9v11a1 1 0 0 0 1 1h5v-6h6v6h5a1 1 0 0 0 1-1V9l-9-6Z" />
-              </svg>
+            <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-pine text-paper">
+              <LogoMark width={19} height={19} />
             </span>
-            <span className="font-display text-xl text-pine">Plażowa Park</span>
+            <span className="font-display text-xl font-semibold text-pine">Plażowa Park</span>
           </Link>
           <Link href="/" className="btn btn-ghost !py-2.5 text-sm">
             <Icon.arrow width={16} height={16} className="rotate-180" /> Strona główna

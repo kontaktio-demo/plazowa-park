@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { NAV, SITE } from "@/lib/data/site";
 import { INVESTMENT } from "@/lib/data/units";
 import { Icon } from "./Icons";
+import { LogoMark } from "./Logo";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -35,7 +36,7 @@ export default function Nav() {
         <a href="#top" aria-label="Plażowa Park — strona główna" className="group flex items-center gap-2.5">
           <Logo light={light} />
           <span className="flex flex-col leading-none">
-            <span className={`font-display text-[1.35rem] tracking-tight ${light ? "text-paper" : "text-pine"}`}>Plażowa Park</span>
+            <span className={`font-display text-[1.3rem] font-semibold tracking-tight ${light ? "text-paper" : "text-pine"}`}>Plażowa Park</span>
             <span className={`mt-1 text-[0.62rem] font-medium uppercase tracking-[0.22em] ${light ? "text-brass-light" : "text-brass-deep"}`}>
               Głowno · Zalew Mrożyczka
             </span>
@@ -112,11 +113,8 @@ export default function Nav() {
 
 function Logo({ light }: { light: boolean }) {
   return (
-    <span className={`flex h-10 w-10 items-center justify-center rounded-full ${light ? "bg-paper/15 text-paper backdrop-blur-sm" : "bg-pine text-paper"}`}>
-      <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.3} strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 3 3 9v11a1 1 0 0 0 1 1h5v-6h6v6h5a1 1 0 0 0 1-1V9l-9-6Z" />
-        <path d="M3.5 15c1.2 0 1.2-1 2.4-1s1.2 1 2.4 1" opacity="0.6" />
-      </svg>
+    <span className={`flex h-10 w-10 items-center justify-center rounded-[11px] ${light ? "bg-paper/15 text-paper backdrop-blur-sm" : "bg-pine text-paper"}`}>
+      <LogoMark width={22} height={22} />
     </span>
   );
 }
