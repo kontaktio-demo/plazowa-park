@@ -49,19 +49,35 @@ export default function EstateOrbit() {
       ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2 - h * 0.02, dw, dh);
     };
 
-    // preload
+    // preload frames — deferred until the section is near the viewport (perf)
     let loaded = 0;
-    for (let i = 0; i < FRAMES; i++) {
-      const img = new Image();
-      img.decoding = "async";
-      img.src = framePath(i);
-      img.onload = () => {
-        loaded++;
-        setReady(loaded);
-        if (i === 0) draw(0);
-      };
-      imgs.current[i] = img;
-    }
+    let preloadStarted = false;
+    const startPreload = () => {
+      if (preloadStarted) return;
+      preloadStarted = true;
+      for (let i = 0; i < FRAMES; i++) {
+        const img = new Image();
+        img.decoding = "async";
+        img.src = framePath(i);
+        img.onload = () => {
+          loaded++;
+          setReady(loaded);
+          if (i === 0) draw(0);
+        };
+        imgs.current[i] = img;
+      }
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          startPreload();
+          io.disconnect();
+        }
+      },
+      { rootMargin: "200% 0px 200% 0px" }
+    );
+    if (sectionRef.current) io.observe(sectionRef.current);
+    else startPreload();
 
     (async () => {
       const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
@@ -95,6 +111,7 @@ export default function EstateOrbit() {
     return () => {
       killed = true;
       st?.kill();
+      io.disconnect();
     };
   }, []);
 

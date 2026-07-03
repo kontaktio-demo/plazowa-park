@@ -85,6 +85,11 @@
   }
   a { color: inherit; text-decoration: none; }
   img, video { max-width: 100%; height: auto; display: block; }
+  :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-brass);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
   ::-webkit-scrollbar { width: 11px; height: 11px; }
   ::-webkit-scrollbar-track { background: var(--color-paper-2); }
   ::-webkit-scrollbar-thumb {
