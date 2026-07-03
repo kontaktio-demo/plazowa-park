@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 import type { Unit } from "@/lib/data/units";
 import { plnShort, area, rooms, STATUS_META } from "@/lib/format";
 import { SITE } from "@/lib/data/site";
+import { unitSlug } from "@/lib/slug";
 import { selectUnit } from "@/lib/selectUnit";
 import { Icon } from "../Icons";
 
@@ -88,7 +90,10 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
                 )}
               </div>
             </div>
-            <p className="mt-4 text-xs text-faint">
+            <Link href={`/lokal/${unitSlug(unit.name)}`} className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brass-deep hover:text-pine">
+              Otwórz pełną stronę lokalu <Icon.arrow width={15} height={15} />
+            </Link>
+            <p className="mt-3 text-xs text-faint">
               Dane wg konfiguratora dewelopera. Ceny i dostępność potwierdzamy w biurze sprzedaży.
             </p>
           </div>
