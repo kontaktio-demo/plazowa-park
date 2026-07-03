@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { SITE } from "@/lib/data/site";
 import { INVESTMENT } from "@/lib/data/units";
 import { SELECT_UNIT_EVENT } from "@/lib/selectUnit";
+import { track } from "@/lib/track";
 import { Icon } from "./Icons";
 
 type State = "idle" | "sending" | "ok" | "error";
@@ -40,6 +41,7 @@ export default function Contact() {
         body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || "Błąd wysyłki");
+      track("generate_lead", { unit: String(data.unit || "") });
       setState("ok");
       form.reset();
       setUnit("");

@@ -44,9 +44,13 @@ npm run build && npm run start
 `POST /api/lead` waliduje i loguje zgłoszenia. Aby włączyć wysyłkę e-mail, ustaw zmienne środowiskowe:
 
 ```
-RESEND_API_KEY=...   # klucz Resend
-LEAD_TO=biuro@plazowa-park.pl
+RESEND_API_KEY=...            # klucz Resend (wysyłka e-mail leada)
+LEAD_TO=biuro@plazowa-park.pl # adres odbiorcy leadów
+NEXT_PUBLIC_GA_ID=G-XXXXXXX   # (opcjonalnie) GA4 — bez tego analityka jest wyłączona
 ```
+
+Analityka (jeśli `NEXT_PUBLIC_GA_ID` ustawione) śledzi konwersje: `generate_lead` (wysłany formularz)
+oraz `contact_call` / `contact_click` (klik w telefon / e-mail). IP anonimizowane.
 
 ## Uwagi
 
