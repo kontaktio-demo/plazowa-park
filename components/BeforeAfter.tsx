@@ -42,15 +42,15 @@ export default function BeforeAfter() {
         >
           {/* night (base) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/renders/facade-night.webp" alt="Apartament Plażowa Park o zmierzchu" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
+          <img src="/renders/facade-night-01b.webp" alt="Budynek Plażowa Park o zmierzchu" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
           <span className="absolute bottom-4 right-4 rounded-full bg-pine-deep/70 px-3 py-1 text-xs font-medium text-paper backdrop-blur-sm">Noc</span>
 
           {/* day (clipped from the right) */}
           <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/renders/exterior-golden.webp"
-              alt="Apartament Plażowa Park o zachodzie słońca"
+              src="/renders/render-01b.webp"
+              alt="Budynek Plażowa Park o zachodzie słońca"
               className="absolute inset-0 h-full w-full object-cover"
               draggable={false}
             />

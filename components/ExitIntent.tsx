@@ -73,7 +73,7 @@ export default function ExitIntent() {
       <div className="grain relative z-10 w-full max-w-lg overflow-hidden rounded-[18px] bg-paper shadow-[var(--shadow-lift)]">
         <div className="relative">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/renders/exterior-golden.webp" alt="Apartament Plażowa Park" className="h-40 w-full object-cover" />
+          <img src="/renders/render-01b.webp" alt="Apartament Plażowa Park" className="h-40 w-full object-cover object-[center_60%]" />
           <button onClick={() => setOpen(false)} aria-label="Zamknij" className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-paper/90 text-ink hover:bg-paper">
             <Icon.close width={18} height={18} />
           </button>

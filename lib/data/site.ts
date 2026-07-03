@@ -112,23 +112,21 @@ export const FAQ = [
   },
 ] as const;
 
-// Curated gallery — mixes real developer renders with cinematic Higgsfield visuals
+// Gallery — real developer renders first, then interior visualisations + area photos.
 export type GalleryItem = { src: string; alt: string; span?: "wide" | "tall"; tag?: string; ai?: boolean };
 export const GALLERY: GalleryItem[] = [
-  { src: "/renders/exterior-golden.webp", alt: "Apartament narożny o zachodzie słońca — osiedle Plażowa Park w Głownie", span: "wide", tag: "Elewacja", ai: true },
+  { src: "/renders/render-03b.webp", alt: "Wizualizacja budynku Plażowa Park — elewacja w sosnowym lesie", span: "wide", tag: "Wizualizacja dewelopera" },
   { src: "/interiors/living.webp", alt: "Salon z panoramicznymi oknami i widokiem na sosnowy las — Plażowa Park", tag: "Salon", ai: true },
   { src: "/interiors/kitchen.webp", alt: "Otwarta kuchnia z wyspą i widokiem na las — apartament Plażowa Park", tag: "Kuchnia", ai: true },
-  { src: "/renders/aerial-golden.webp", alt: "Osiedle Plażowa Park z lotu ptaka w sosnowym lesie nad Zalewem Mrożyczka", span: "wide", tag: "Osiedle", ai: true },
+  { src: "/renders/exterior-bluehour.webp", alt: "Budynek Plażowa Park o zmierzchu z rozświetlonymi oknami", span: "wide", tag: "Wizualizacja dewelopera" },
   { src: "/interiors/bedroom.webp", alt: "Sypialnia z panoramicznym oknem na las — apartament Plażowa Park", tag: "Sypialnia", ai: true },
   { src: "/interiors/bathroom.webp", alt: "Łazienka premium z dużym prysznicem i wanną — Plażowa Park", tag: "Łazienka", ai: true },
-  { src: "/renders/facade-night.webp", alt: "Apartament Plażowa Park o zmierzchu z rozświetlonymi oknami", span: "wide", tag: "Elewacja nocą", ai: true },
+  { src: "/renders/exterior-06.webp", alt: "Wizualizacja apartamentu Plażowa Park — bryła i materiały", span: "tall", tag: "Wizualizacja dewelopera" },
   { src: "/interiors/dining.webp", alt: "Jadalnia z widokiem na sosnowy las — apartament Plażowa Park", tag: "Jadalnia", ai: true },
   { src: "/interiors/office.webp", alt: "Gabinet z panoramicznym oknem na las — Plażowa Park", tag: "Gabinet", ai: true },
   { src: "/interiors/terrace.webp", alt: "Prywatny taras apartamentu o zmierzchu — Plażowa Park", tag: "Taras", ai: true },
+  { src: "/renders/exterior-04.webp", alt: "Wizualizacja budynku Plażowa Park w otoczeniu lasu", tag: "Wizualizacja dewelopera" },
   { src: "/interiors/kids.webp", alt: "Pokój dziecka z widokiem na las — apartament Plażowa Park", tag: "Pokój dziecka", ai: true },
-  { src: "/renders/detail.webp", alt: "Detal elewacji: blacha na rąbek, elastyczna cegła i panoramiczne okno", tag: "Detal", ai: true },
-  { src: "/renders/render-01b.webp", alt: "Wizualizacja apartamentu Plażowa Park — bryła budynku", tag: "Architektura" },
-  { src: "/renders/render-03b.webp", alt: "Wizualizacja osiedla Plażowa Park w Głownie", tag: "Architektura" },
   { src: "/area/plaza.webp", alt: "Plaża nad Zalewem Mrożyczka w Głownie", span: "tall", tag: "Okolica" },
   { src: "/area/molo.webp", alt: "Molo i pomost nad Zalewem Mrożyczka", tag: "Okolica" },
   { src: "/area/wakepark.webp", alt: "Central Wake Park nad Zalewem Mrożyczka", tag: "Okolica" },

@@ -40,9 +40,9 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
 
   const s = STATUS_META[u.status];
   const building = BUILDINGS.find((b) => b.stageId === u.stageId);
-  const related = UNITS.filter((x) => x.stageId === u.stageId && x.id !== u.id).slice(0, 3);
-  const fallbackRelated = UNITS.filter((x) => x.id !== u.id).slice(0, 3);
-  const rel = related.length ? related : fallbackRelated;
+  const sameBuilding = UNITS.filter((x) => x.stageId === u.stageId && x.id !== u.id);
+  const others = UNITS.filter((x) => x.stageId !== u.stageId && x.id !== u.id);
+  const rel = [...sameBuilding, ...others].slice(0, 3);
   const inquireHref = `/?lokal=${encodeURIComponent(`Apartament ${u.name}`)}#kontakt`;
 
   const jsonLd = {
