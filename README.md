@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Plażowa Park — landing page inwestycji
 
-## Getting Started
+Awwwards-grade, konwersyjny one-page dla inwestycji deweloperskiej **Plażowa Park** w Głownie
+(20 apartamentów w 6 budynkach, bezpośrednio przy Zalewie Mrożyczka). Celem strony jest maksymalizacja
+konwersji (twarde CTA, lead capture, jawne ceny i statusy, interaktywna mapa osiedla) oraz dominacja
+lokalnego SEO.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16 (App Router) + TypeScript**
+- **Tailwind CSS v4** — design system (pine / limestone / brass, Fraunces + Inter)
+- **GSAP + ScrollTrigger + Lenis** — scroll-driven storytelling, scrubowany obrót osiedla, reveals (z pełnym `prefers-reduced-motion`)
+- **MapLibre GL** — interaktywna mapa okolicy (zdjęcia satelitarne + POI)
+- **Higgsfield** (Veo 3.1 / Kling 3.0 / Nano Banana Pro) — filmowe wideo i wizualizacje wnętrz na bazie realnych renderów inwestycji
+
+## Sekcje
+
+Hero (wideo) · pasek zaufania · **obracane 360° osiedle** (scroll) · lifestyle · **interaktywna mapa osiedla
+z klikalnymi budynkami** + eksplorator lokali (filtry, karty, modal z rzutem) · **wirtualny spacer po wnętrzach**
+(wideo + przełączanie pomieszczeń) · standard i technologia · galeria (lightbox) · **okolica** (mapa satelitarna
++ POI + wideo Central Wake Park) · finansowanie · deweloper · FAQ · formularz kontaktowy · stopka.
+Podstrony: polityka prywatności, polityka cookies, regulamin. Baner cookie, JSON-LD, sitemap, robots.
+
+## Dane
+
+Dane lokali (metraż, cena, cena/m², liczba pokoi, status, rzuty) pochodzą z rzeczywistego konfiguratora
+dewelopera (SenseVR / Qupto, investment 214) i są zapisane w [`lib/data/units.ts`](lib/data/units.ts).
+Geometria interaktywnej mapy osiedla (obrysy i pozycje budynków) pochodzi z tego samego źródła
+([`public/estate-map.json`](public/estate-map.json)). Treści i fakty: [`lib/data/site.ts`](lib/data/site.ts).
+
+Wizualizacje wnętrz i część ujęć zewnętrznych wygenerowano narzędziami Higgsfield **na podstawie realnych
+renderów inwestycji** — mają charakter poglądowy (oznaczone w stopce i galerii).
+
+## Uruchomienie
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build && npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Formularz leadów
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`POST /api/lead` waliduje i loguje zgłoszenia. Aby włączyć wysyłkę e-mail, ustaw zmienne środowiskowe:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+RESEND_API_KEY=...   # klucz Resend
+LEAD_TO=biuro@plazowa-park.pl
+```
 
-## Learn More
+## Uwagi
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Ceny, metraże i statusy dostępności należy potwierdzić z biurem sprzedaży KS Prestige Development przed
+publikacją produkcyjną. Materiały wizualne mają charakter poglądowy i nie stanowią oferty w rozumieniu
+art. 66 Kodeksu cywilnego.
