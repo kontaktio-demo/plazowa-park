@@ -19,6 +19,7 @@ import Faq from "@/components/Faq";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import StickyCta from "@/components/StickyCta";
+import ExitIntent from "@/components/ExitIntent";
 
 export default function Home() {
   return (
@@ -46,6 +47,7 @@ export default function Home() {
       </main>
       <Footer />
       <StickyCta />
+      <ExitIntent />
     </>
   );
 }
