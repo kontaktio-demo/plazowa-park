@@ -6,7 +6,9 @@ import Lifestyle from "@/components/Lifestyle";
 import EstateExplorer from "@/components/estate/EstateExplorer";
 import InteriorTour from "@/components/InteriorTour";
 import Standard from "@/components/Standard";
+import BeforeAfter from "@/components/BeforeAfter";
 import Gallery from "@/components/Gallery";
+import ScrollProgress from "@/components/ScrollProgress";
 import Okolica from "@/components/Okolica";
 import Finansowanie from "@/components/Finansowanie";
 import Developer from "@/components/Developer";
@@ -18,6 +20,7 @@ import StickyCta from "@/components/StickyCta";
 export default function Home() {
   return (
     <>
+      <ScrollProgress />
       <Nav />
       <main>
         <Hero />
@@ -27,6 +30,7 @@ export default function Home() {
         <EstateExplorer />
         <InteriorTour />
         <Standard />
+        <BeforeAfter />
         <Gallery />
         <Okolica />
         <Finansowanie />

@@ -113,6 +113,12 @@ export const GALLERY: GalleryItem[] = [
   { src: "/renders/aerial-golden.webp", alt: "Osiedle Plażowa Park z lotu ptaka w sosnowym lesie nad Zalewem Mrożyczka", span: "wide", tag: "Osiedle", ai: true },
   { src: "/interiors/bedroom.webp", alt: "Sypialnia z panoramicznym oknem na las — apartament Plażowa Park", tag: "Sypialnia", ai: true },
   { src: "/interiors/bathroom.webp", alt: "Łazienka premium z dużym prysznicem i wanną — Plażowa Park", tag: "Łazienka", ai: true },
+  { src: "/renders/facade-night.webp", alt: "Apartament Plażowa Park o zmierzchu z rozświetlonymi oknami", span: "wide", tag: "Elewacja nocą", ai: true },
+  { src: "/interiors/dining.webp", alt: "Jadalnia z widokiem na sosnowy las — apartament Plażowa Park", tag: "Jadalnia", ai: true },
+  { src: "/interiors/office.webp", alt: "Gabinet z panoramicznym oknem na las — Plażowa Park", tag: "Gabinet", ai: true },
+  { src: "/interiors/terrace.webp", alt: "Prywatny taras apartamentu o zmierzchu — Plażowa Park", tag: "Taras", ai: true },
+  { src: "/interiors/kids.webp", alt: "Pokój dziecka z widokiem na las — apartament Plażowa Park", tag: "Pokój dziecka", ai: true },
+  { src: "/renders/detail.webp", alt: "Detal elewacji: blacha na rąbek, elastyczna cegła i panoramiczne okno", tag: "Detal", ai: true },
   { src: "/renders/render-01b.webp", alt: "Wizualizacja apartamentu Plażowa Park — bryła budynku", tag: "Architektura" },
   { src: "/renders/render-03b.webp", alt: "Wizualizacja osiedla Plażowa Park w Głownie", tag: "Architektura" },
   { src: "/area/plaza.webp", alt: "Plaża nad Zalewem Mrożyczka w Głownie", span: "tall", tag: "Okolica" },
@@ -122,7 +128,9 @@ export const GALLERY: GalleryItem[] = [
 
 export const INTERIOR_TOUR = [
   { key: "salon", label: "Salon", src: "/interiors/living.webp", note: "Otwarta strefa dzienna z kominkiem i wyjściem na taras." },
+  { key: "jadalnia", label: "Jadalnia", src: "/interiors/dining.webp", note: "Strefa jadalna przy panoramicznym oknie na las." },
   { key: "kuchnia", label: "Kuchnia", src: "/interiors/kitchen.webp", note: "Kuchnia z wyspą, płynnie połączona z salonem." },
   { key: "sypialnia", label: "Sypialnia", src: "/interiors/bedroom.webp", note: "Cicha sypialnia z panoramicznym oknem na las." },
+  { key: "gabinet", label: "Gabinet", src: "/interiors/office.webp", note: "Miejsce do pracy z widokiem na sosny." },
   { key: "lazienka", label: "Łazienka", src: "/interiors/bathroom.webp", note: "Łazienka w standardzie premium, spa we własnym domu." },
 ] as const;
