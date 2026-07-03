@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import TrustStrip from "@/components/TrustStrip";
 import EstateOrbit from "@/components/EstateOrbit";
 import Lifestyle from "@/components/Lifestyle";
+import StatsBand from "@/components/StatsBand";
 import EstateExplorer from "@/components/estate/EstateExplorer";
 import InteriorTour from "@/components/InteriorTour";
 import Standard from "@/components/Standard";
@@ -12,6 +13,7 @@ import ScrollProgress from "@/components/ScrollProgress";
 import Okolica from "@/components/Okolica";
 import Finansowanie from "@/components/Finansowanie";
 import Developer from "@/components/Developer";
+import CinematicBand from "@/components/CinematicBand";
 import Faq from "@/components/Faq";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -27,6 +29,7 @@ export default function Home() {
         <TrustStrip />
         <EstateOrbit />
         <Lifestyle />
+        <StatsBand />
         <EstateExplorer />
         <InteriorTour />
         <Standard />
@@ -35,6 +38,7 @@ export default function Home() {
         <Okolica />
         <Finansowanie />
         <Developer />
+        <CinematicBand />
         <Faq />
         <Contact />
       </main>
