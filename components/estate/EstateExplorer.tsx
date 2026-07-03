@@ -135,10 +135,6 @@ export default function EstateExplorer() {
           </div>
         )}
 
-        <p className="mt-6 text-xs text-faint">
-          Powierzchnia „Ogród” wg konfiguratora dewelopera (pole total_area). Ceny i dostępność potwierdzamy w biurze
-          sprzedaży — dane mają charakter poglądowy i nie stanowią oferty w rozumieniu art. 66 Kodeksu cywilnego.
-        </p>
       </div>
 
       <UnitModal unit={modal} onClose={() => setModal(null)} />

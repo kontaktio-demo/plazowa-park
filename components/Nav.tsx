@@ -25,6 +25,7 @@ export default function Nav() {
   const light = !solid;
 
   return (
+    <>
     <header
       className={`fixed inset-x-0 top-0 z-[60] transition-[background,box-shadow,backdrop-filter] duration-500 ${
         solid
@@ -43,18 +44,18 @@ export default function Nav() {
           </span>
         </a>
 
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav className="hidden items-center gap-x-6 xl:flex">
           {NAV.map((n) => (
-            <a key={n.href} href={n.href} className={`link-underline text-[0.92rem] font-medium ${light ? "text-paper/85 hover:text-paper" : "text-ink-soft hover:text-pine"}`}>
+            <a key={n.href} href={n.href} className={`link-underline whitespace-nowrap text-[0.9rem] font-medium ${light ? "text-paper/85 hover:text-paper" : "text-ink-soft hover:text-pine"}`}>
               {n.label}
             </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <a href={`tel:${SITE.phone.tel}`} className={`hidden items-center gap-2 text-sm font-medium md:flex ${light ? "text-paper/85 hover:text-paper" : "text-ink-soft hover:text-pine"}`}>
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <a href={`tel:${SITE.phone.tel}`} className={`hidden items-center gap-2 whitespace-nowrap text-sm font-medium xl:flex ${light ? "text-paper/85 hover:text-paper" : "text-ink-soft hover:text-pine"}`}>
             <Icon.phone width={17} height={17} className={light ? "text-brass-light" : "text-brass"} />
-            <span className="num">{SITE.phone.display}</span>
+            <span className="num whitespace-nowrap">{SITE.phone.display}</span>
           </a>
           <a href="#lokale" className="hidden btn btn-primary !py-2.5 !px-5 text-sm sm:inline-flex">
             Sprawdź dostępność
@@ -66,7 +67,7 @@ export default function Nav() {
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Zamknij menu" : "Otwórz menu"}
             aria-expanded={open}
-            className={`flex h-11 w-11 items-center justify-center rounded-full border lg:hidden ${light ? "border-paper/30 text-paper" : "border-ink/15 text-pine"}`}
+            className={`flex h-11 w-11 flex-none items-center justify-center rounded-full border xl:hidden ${light ? "border-paper/30 text-paper" : "border-ink/15 text-pine"}`}
           >
             {open ? <Icon.close width={20} height={20} /> : (
               <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round">
@@ -76,38 +77,40 @@ export default function Nav() {
           </button>
         </div>
       </div>
+    </header>
 
-      {/* mobile menu */}
+      {/* mobile / tablet menu — full-screen overlay (outside header so `fixed` is not trapped by its backdrop-filter) */}
       <div
-        className={`grid overflow-hidden bg-paper/95 backdrop-blur-md transition-[grid-template-rows] duration-500 lg:hidden ${
-          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        className={`fixed inset-x-0 bottom-0 top-[var(--nav-h)] z-[55] bg-paper transition-[opacity,transform] duration-300 xl:hidden ${
+          open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"
         }`}
+        aria-hidden={!open}
       >
-        <div className="min-h-0">
-          <nav className="container-x flex flex-col gap-1 py-4">
+        <nav className="container-x flex h-full flex-col overflow-y-auto py-6">
+          <div className="flex flex-col">
             {NAV.map((n) => (
               <a
                 key={n.href}
                 href={n.href}
                 onClick={() => setOpen(false)}
-                className="flex items-center justify-between border-b border-ink/8 py-3.5 font-display text-2xl text-pine"
+                className="flex items-center justify-between border-b border-ink/8 py-4 font-display text-[1.7rem] font-semibold text-pine"
               >
                 {n.label}
-                <Icon.arrow width={18} height={18} className="text-brass" />
+                <Icon.arrow width={20} height={20} className="text-brass" />
               </a>
             ))}
-            <div className="mt-3 flex flex-col gap-2.5">
-              <a href="#lokale" onClick={() => setOpen(false)} className="btn btn-primary">
-                Sprawdź dostępność ({INVESTMENT.available})
-              </a>
-              <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost">
-                <Icon.phone width={17} height={17} /> {SITE.phone.display}
-              </a>
-            </div>
-          </nav>
-        </div>
+          </div>
+          <div className="mt-auto flex flex-col gap-2.5 pt-8">
+            <a href="#lokale" onClick={() => setOpen(false)} className="btn btn-primary">
+              Sprawdź dostępność ({INVESTMENT.available})
+            </a>
+            <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost">
+              <Icon.phone width={17} height={17} /> {SITE.phone.display}
+            </a>
+          </div>
+        </nav>
       </div>
-    </header>
+    </>
   );
 }
 

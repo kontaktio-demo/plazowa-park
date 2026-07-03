@@ -74,11 +74,9 @@ export default function Footer() {
           </ul>
         </div>
 
-        <p className="mt-6 max-w-4xl text-xs leading-relaxed text-paper/40">
-          Materiały zamieszczone na stronie (wizualizacje, animacje, plany i ceny) mają charakter poglądowy i
-          informacyjny, nie stanowią oferty w rozumieniu art. 66 Kodeksu cywilnego. Część wizualizacji wnętrz i
-          otoczenia została przygotowana z użyciem narzędzi generatywnych na podstawie rzeczywistych materiałów
-          inwestycji i może różnić się od stanu faktycznego. Wiążące dane, ceny i dostępność potwierdza biuro sprzedaży.
+        <p className="mt-6 max-w-3xl text-xs leading-relaxed text-paper/45">
+          Wizualizacje i ceny mają charakter poglądowy i nie stanowią oferty w rozumieniu art. 66 Kodeksu cywilnego;
+          część aranżacji wnętrz przygotowano z użyciem narzędzi AI. Wiążące dane potwierdza biuro sprzedaży.
         </p>
       </div>
     </footer>
