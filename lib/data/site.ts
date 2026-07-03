@@ -116,28 +116,24 @@ export const FAQ = [
 // Gallery — real developer renders first, then interior visualisations + area photos.
 export type GalleryItem = { src: string; alt: string; span?: "wide" | "tall"; tag?: string; ai?: boolean };
 export const GALLERY: GalleryItem[] = [
-  { src: "/renders/render-03b.webp", alt: "Wizualizacja budynku Plażowa Park — elewacja w sosnowym lesie", span: "wide", tag: "Wizualizacja dewelopera" },
-  { src: "/interiors/living.webp", alt: "Salon z panoramicznymi oknami i widokiem na sosnowy las — Plażowa Park", tag: "Salon", ai: true },
-  { src: "/interiors/kitchen.webp", alt: "Otwarta kuchnia z wyspą i widokiem na las — apartament Plażowa Park", tag: "Kuchnia", ai: true },
-  { src: "/renders/exterior-bluehour.webp", alt: "Budynek Plażowa Park o zmierzchu z rozświetlonymi oknami", span: "wide", tag: "Wizualizacja dewelopera" },
-  { src: "/interiors/bedroom.webp", alt: "Sypialnia z panoramicznym oknem na las — apartament Plażowa Park", tag: "Sypialnia", ai: true },
-  { src: "/interiors/bathroom.webp", alt: "Łazienka premium z dużym prysznicem i wanną — Plażowa Park", tag: "Łazienka", ai: true },
-  { src: "/renders/exterior-06.webp", alt: "Wizualizacja apartamentu Plażowa Park — bryła i materiały", span: "tall", tag: "Wizualizacja dewelopera" },
-  { src: "/interiors/dining.webp", alt: "Jadalnia z widokiem na sosnowy las — apartament Plażowa Park", tag: "Jadalnia", ai: true },
-  { src: "/interiors/office.webp", alt: "Gabinet z panoramicznym oknem na las — Plażowa Park", tag: "Gabinet", ai: true },
-  { src: "/interiors/terrace.webp", alt: "Prywatny taras apartamentu o zmierzchu — Plażowa Park", tag: "Taras", ai: true },
-  { src: "/renders/exterior-04.webp", alt: "Wizualizacja budynku Plażowa Park w otoczeniu lasu", tag: "Wizualizacja dewelopera" },
-  { src: "/interiors/kids.webp", alt: "Pokój dziecka z widokiem na las — apartament Plażowa Park", tag: "Pokój dziecka", ai: true },
-  { src: "/area/plaza.webp", alt: "Plaża nad Zalewem Mrożyczka w Głownie", span: "tall", tag: "Okolica" },
-  { src: "/area/molo.webp", alt: "Molo i pomost nad Zalewem Mrożyczka", tag: "Okolica" },
-  { src: "/area/wakepark.webp", alt: "Central Wake Park nad Zalewem Mrożyczka", tag: "Okolica" },
+  { src: "/renders/render-03b.webp", alt: "Wizualizacja budynku Plażowa Park — elewacja w sosnowym lesie" },
+  { src: "/renders/render-07.webp", alt: "Otwarta strefa dzienna z jadalnią i kuchnią — apartament Plażowa Park" },
+  { src: "/renders/render-08.webp", alt: "Sypialnia apartamentu Plażowa Park z widokiem na las" },
+  { src: "/renders/render-024.webp", alt: "Prywatny ogród i taras apartamentu — Plażowa Park" },
+  { src: "/renders/render-01b.webp", alt: "Wizualizacja budynku Plażowa Park o zachodzie słońca" },
+  { src: "/interiors/kitchen.webp", alt: "Kuchnia z wyspą i widokiem na las — apartament Plażowa Park", ai: true },
+  { src: "/interiors/bathroom.webp", alt: "Łazienka premium — apartament Plażowa Park", ai: true },
+  { src: "/interiors/office.webp", alt: "Gabinet z panoramicznym oknem na las — Plażowa Park", ai: true },
+  { src: "/area/plaza.webp", alt: "Plaża nad Zalewem Mrożyczka w Głownie" },
+  { src: "/area/wakepark.webp", alt: "Central Wake Park nad Zalewem Mrożyczka" },
+  { src: "/area/molo.webp", alt: "Molo i pomost nad Zalewem Mrożyczka" },
 ];
 
 export const INTERIOR_TOUR = [
-  { key: "salon", label: "Salon", src: "/interiors/living.webp", note: "Otwarta strefa dzienna z kominkiem i wyjściem na taras." },
-  { key: "jadalnia", label: "Jadalnia", src: "/interiors/dining.webp", note: "Strefa jadalna przy panoramicznym oknie na las." },
+  { key: "salon", label: "Strefa dzienna", src: "/renders/render-07.webp", note: "Otwarty salon z jadalnią i kuchnią oraz schodami na piętro." },
   { key: "kuchnia", label: "Kuchnia", src: "/interiors/kitchen.webp", note: "Kuchnia z wyspą, płynnie połączona z salonem." },
-  { key: "sypialnia", label: "Sypialnia", src: "/interiors/bedroom.webp", note: "Cicha sypialnia z panoramicznym oknem na las." },
+  { key: "sypialnia", label: "Sypialnia", src: "/renders/render-08.webp", note: "Cicha sypialnia z dużym oknem na las." },
   { key: "gabinet", label: "Gabinet", src: "/interiors/office.webp", note: "Miejsce do pracy z widokiem na sosny." },
-  { key: "lazienka", label: "Łazienka", src: "/interiors/bathroom.webp", note: "Łazienka w standardzie premium, spa we własnym domu." },
+  { key: "lazienka", label: "Łazienka", src: "/interiors/bathroom.webp", note: "Łazienka w standardzie premium." },
+  { key: "ogrod", label: "Ogród", src: "/renders/render-024.webp", note: "Prywatny ogród i taras w otoczeniu lasu." },
 ] as const;
