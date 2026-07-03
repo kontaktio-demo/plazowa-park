@@ -16,6 +16,13 @@ export default function Contact() {
   useEffect(() => {
     const onSelect = (e: Event) => setUnit((e as CustomEvent<string>).detail || "");
     window.addEventListener(SELECT_UNIT_EVENT, onSelect);
+    // prefill from ?lokal= (e.g. arriving from a unit subpage)
+    try {
+      const q = new URLSearchParams(window.location.search).get("lokal");
+      if (q) setUnit(q);
+    } catch {
+      /* ignore */
+    }
     return () => window.removeEventListener(SELECT_UNIT_EVENT, onSelect);
   }, []);
 

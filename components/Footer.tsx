@@ -32,6 +32,9 @@ export default function Footer() {
                   <a href={`/${n.href}`} className="link-underline text-paper/80 hover:text-paper">{n.label}</a>
                 </li>
               ))}
+              <li>
+                <a href="/blog" className="link-underline text-paper/80 hover:text-paper">Blog</a>
+              </li>
             </ul>
           </nav>
 

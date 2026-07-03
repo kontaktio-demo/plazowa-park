@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import type { Unit } from "@/lib/data/units";
 import { plnShort, area, rooms, STATUS_META } from "@/lib/format";
+import { unitSlug } from "@/lib/slug";
 import { selectUnit } from "@/lib/selectUnit";
 import { Icon } from "../Icons";
 
@@ -9,10 +11,10 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
   const s = STATUS_META[unit.status];
   return (
     <article className="card group flex flex-col overflow-hidden transition-[transform,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
-      <button
-        onClick={() => onOpen(unit)}
-        className="relative aspect-[5/4] w-full overflow-hidden bg-sand text-left"
-        aria-label={`Podgląd — apartament ${unit.name}`}
+      <Link
+        href={`/lokal/${unitSlug(unit.name)}`}
+        className="relative block aspect-[5/4] w-full overflow-hidden bg-sand text-left"
+        aria-label={`Zobacz apartament ${unit.name}`}
       >
         {unit.viewThumb ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -30,7 +32,7 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
         <span className="absolute right-3 top-3 rounded-full bg-pine px-2.5 py-1 text-[0.72rem] font-medium text-paper">
           Budynek {unit.buildingLabel}
         </span>
-      </button>
+      </Link>
 
       <div className="flex flex-1 flex-col p-5">
         <div className="flex items-baseline justify-between gap-3">
