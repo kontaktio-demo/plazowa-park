@@ -5,6 +5,7 @@ import { SITE } from "@/lib/data/site";
 import SiteMotion from "@/components/SiteMotion";
 import CookieConsent from "@/components/CookieConsent";
 import JsonLd from "@/components/JsonLd";
+import Analytics from "@/components/Analytics";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -73,6 +74,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="pl" className={`${fraunces.variable} ${inter.variable}`}>
       <body>
         <JsonLd />
+        <Analytics />
         <SiteMotion />
         {children}
         <CookieConsent />
