@@ -7,7 +7,7 @@ import { Icon } from "./Icons";
 type Tab = "spacer" | (typeof INTERIOR_TOUR)[number]["key"];
 
 export default function InteriorTour() {
-  const [tab, setTab] = useState<Tab>("spacer");
+  const [tab, setTab] = useState<Tab>("salon");
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
