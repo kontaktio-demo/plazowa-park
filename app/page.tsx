@@ -5,7 +5,6 @@ import EstateExplorer from "@/components/estate/EstateExplorer";
 import InteriorTour from "@/components/InteriorTour";
 import Standard from "@/components/Standard";
 import BeforeAfter from "@/components/BeforeAfter";
-import Gallery from "@/components/Gallery";
 import ScrollProgress from "@/components/ScrollProgress";
 import Okolica from "@/components/Okolica";
 import Finansowanie from "@/components/Finansowanie";
@@ -28,7 +27,6 @@ export default function Home() {
         <InteriorTour />
         <Standard />
         <BeforeAfter />
-        <Gallery />
         <Okolica />
         <Finansowanie />
         <Developer />
