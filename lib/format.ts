@@ -5,7 +5,7 @@ export const plnFmt = new Intl.NumberFormat("pl-PL", {
 });
 
 export function pln(v: number): string {
-  return plnFmt.format(v).replace(/ /g, " ");
+  return plnFmt.format(v).replace(/ /g, " ");
 }
 
 export function plnShort(v: number): string {

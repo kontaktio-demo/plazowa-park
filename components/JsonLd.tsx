@@ -39,7 +39,7 @@ export default function JsonLd() {
     },
     {
       "@type": "RealEstateListing",
-      name: "Plażowa Park — apartamenty nad Zalewem Mrożyczka",
+      name: "Plażowa Park - apartamenty nad Zalewem Mrożyczka",
       url: `${SITE.url}/`,
       inLanguage: "pl-PL",
       datePosted: "2026-01-01",
@@ -73,7 +73,7 @@ export default function JsonLd() {
       image: `${SITE.url}/og.jpg`,
       telephone: SITE.phone.tel,
       email: SITE.email,
-      priceRange: `${INVESTMENT.priceMin}–${INVESTMENT.priceMax} PLN`,
+      priceRange: `${INVESTMENT.priceMin}-${INVESTMENT.priceMax} PLN`,
       address: {
         "@type": "PostalAddress",
         streetAddress: SITE.address.street,
@@ -103,7 +103,7 @@ export default function JsonLd() {
     },
     {
       "@type": "ItemList",
-      name: "Apartamenty — Plażowa Park",
+      name: "Apartamenty - Plażowa Park",
       numberOfItems: UNITS.length,
       itemListElement: UNITS.map((u, i) => ({
         "@type": "ListItem",

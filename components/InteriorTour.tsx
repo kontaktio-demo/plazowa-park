@@ -23,7 +23,7 @@ export default function InteriorTour() {
     <section id="wnetrza" className="bg-pine-deep py-20 text-paper sm:py-28">
       <div className="container-x">
         <header className="max-w-2xl" data-reveal="up">
-          <p className="eyebrow !text-brass-light">03 — Wnętrza</p>
+          <p className="eyebrow !text-brass-light">03 - Wnętrza</p>
           <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-paper">
             Wejdź do środka. <span className="italic text-brass-light">Wirtualny spacer.</span>
           </h2>
@@ -65,7 +65,7 @@ export default function InteriorTour() {
               <img
                 key={r.key}
                 src={r.src}
-                alt={`${r.label} — apartament Plażowa Park`}
+                alt={`${r.label} - apartament Plażowa Park`}
                 className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${tab === r.key ? "opacity-100" : "opacity-0"}`}
                 loading="lazy"
               />

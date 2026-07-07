@@ -9,7 +9,7 @@ export default function Finansowanie() {
       <div className="container-x">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <div data-reveal="up">
-            <p className="eyebrow">06 — Finansowanie</p>
+            <p className="eyebrow">06 - Finansowanie</p>
             <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
               Przejrzysty zakup, <span className="italic text-brass-deep">krok po kroku.</span>
             </h2>

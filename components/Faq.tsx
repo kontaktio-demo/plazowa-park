@@ -17,7 +17,7 @@ export default function Faq() {
               Najczęstsze <span className="italic text-brass-deep">pytania.</span>
             </h2>
             <p className="mt-5 max-w-sm text-pretty leading-relaxed text-muted">
-              Nie znalazłeś odpowiedzi? Zadzwoń lub napisz — odpowiadamy zwykle w ciągu jednego dnia roboczego.
+              Nie znalazłeś odpowiedzi? Zadzwoń lub napisz - odpowiadamy zwykle w ciągu jednego dnia roboczego.
             </p>
           </header>
 

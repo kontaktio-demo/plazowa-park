@@ -35,7 +35,7 @@ export default function EstateMap({
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={data.frame}
-        alt="Interaktywny plan osiedla Plażowa Park — sześć budynków"
+        alt="Interaktywny plan osiedla Plażowa Park - sześć budynków"
         className="absolute inset-0 h-full w-full object-cover"
         draggable={false}
       />

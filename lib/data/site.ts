@@ -44,7 +44,7 @@ export const NAV: NavItem[] = [
 
 // Signature selling points near Zalew Mrożyczka
 // Distances kept qualitative unless independently verified (Central Wake Park ≈ 284 m,
-// Zalew ≈ 150 m, Łódź ok. 30 km) — no unverified precise figures.
+// Zalew ≈ 150 m, Łódź ok. 30 km) - no unverified precise figures.
 export const POI = [
   { name: "Zalew Mrożyczka", desc: "Piaszczysta plaża, kąpielisko i molo", dist: "przy osiedlu", cat: "natura" },
   { name: "Central Wake Park", desc: "Wakeboard i sporty wodne nad zalewem", dist: "ok. 300 m", cat: "sport" },
@@ -58,7 +58,7 @@ export const POI = [
 
 export const STANDARD = [
   { title: "Pompy ciepła", desc: "Ekonomiczne, ekologiczne źródło ogrzewania dla każdego domu.", icon: "heat" },
-  { title: "Ogrzewanie podłogowe", desc: "Równomierne ciepło i pełna swoboda aranżacji — bez grzejników.", icon: "floor" },
+  { title: "Ogrzewanie podłogowe", desc: "Równomierne ciepło i pełna swoboda aranżacji - bez grzejników.", icon: "floor" },
   { title: "Rekuperacja", desc: "Stały dopływ świeżego powietrza z odzyskiem ciepła.", icon: "air" },
   { title: "Fotowoltaika (opcja)", desc: "Możliwość obniżenia rachunków dzięki własnej energii.", icon: "solar" },
   { title: "Panoramiczne okna", desc: "Przeszklenia od podłogi do sufitu z widokiem na las.", icon: "window" },
@@ -89,7 +89,7 @@ export const FAQ = [
   },
   {
     q: "Jakie są ceny i czy są dostępne lokale?",
-    a: "Ceny zaczynają się od 633 000 zł. Aktualnie wszystkie lokale są w sprzedaży — bieżącą dostępność i ceny każdego apartamentu prezentujemy w sekcji „Wybierz dom”. Dane potwierdzamy w biurze sprzedaży.",
+    a: "Ceny zaczynają się od 633 000 zł. Aktualnie wszystkie lokale są w sprzedaży - bieżącą dostępność i ceny każdego apartamentu prezentujemy w sekcji 'Wybierz dom'. Dane potwierdzamy w biurze sprzedaży.",
   },
   {
     q: "Kiedy planowane jest oddanie inwestycji?",
@@ -113,17 +113,17 @@ export const FAQ = [
   },
 ] as const;
 
-// Gallery — real developer renders first, then interior visualisations + area photos.
+// Gallery - real developer renders first, then interior visualisations + area photos.
 export type GalleryItem = { src: string; alt: string; span?: "wide" | "tall"; tag?: string; ai?: boolean };
 export const GALLERY: GalleryItem[] = [
-  { src: "/renders/render-03b.webp", alt: "Wizualizacja budynku Plażowa Park — elewacja w sosnowym lesie" },
-  { src: "/renders/render-07.webp", alt: "Otwarta strefa dzienna z jadalnią i kuchnią — apartament Plażowa Park" },
+  { src: "/renders/render-03b.webp", alt: "Wizualizacja budynku Plażowa Park - elewacja w sosnowym lesie" },
+  { src: "/renders/render-07.webp", alt: "Otwarta strefa dzienna z jadalnią i kuchnią - apartament Plażowa Park" },
   { src: "/renders/render-08.webp", alt: "Sypialnia apartamentu Plażowa Park z widokiem na las" },
-  { src: "/renders/render-024.webp", alt: "Prywatny ogród i taras apartamentu — Plażowa Park" },
+  { src: "/renders/render-024.webp", alt: "Prywatny ogród i taras apartamentu - Plażowa Park" },
   { src: "/renders/render-01b.webp", alt: "Wizualizacja budynku Plażowa Park o zachodzie słońca" },
-  { src: "/interiors/kitchen.webp", alt: "Kuchnia z wyspą i widokiem na las — apartament Plażowa Park", ai: true },
-  { src: "/interiors/bathroom.webp", alt: "Łazienka premium — apartament Plażowa Park", ai: true },
-  { src: "/interiors/office.webp", alt: "Gabinet z panoramicznym oknem na las — Plażowa Park", ai: true },
+  { src: "/interiors/kitchen.webp", alt: "Kuchnia z wyspą i widokiem na las - apartament Plażowa Park", ai: true },
+  { src: "/interiors/bathroom.webp", alt: "Łazienka premium - apartament Plażowa Park", ai: true },
+  { src: "/interiors/office.webp", alt: "Gabinet z panoramicznym oknem na las - Plażowa Park", ai: true },
   { src: "/area/plaza.webp", alt: "Plaża nad Zalewem Mrożyczka w Głownie" },
   { src: "/area/wakepark.webp", alt: "Central Wake Park nad Zalewem Mrożyczka" },
   { src: "/area/molo.webp", alt: "Molo i pomost nad Zalewem Mrożyczka" },

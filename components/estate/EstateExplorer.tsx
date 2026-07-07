@@ -39,7 +39,7 @@ export default function EstateExplorer() {
     <section id="lokale" className="bg-paper-2 py-20 sm:py-28">
       <div className="container-x">
         <header className="max-w-2xl" data-reveal="up">
-          <p className="eyebrow">02 — Wybierz dom</p>
+          <p className="eyebrow">02 - Wybierz dom</p>
           <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
             Dwadzieścia apartamentów. <span className="italic text-brass-deep">Wybierz swój.</span>
           </h2>
@@ -74,8 +74,8 @@ export default function EstateExplorer() {
             </div>
 
             <p className="mt-7 max-w-md text-sm leading-relaxed text-muted">
-              Budynki narożne (1&nbsp;i&nbsp;2, 4&nbsp;i&nbsp;5, 6&nbsp;i&nbsp;7, 9&nbsp;i&nbsp;10) mieszczą po cztery
-              apartamenty 82–94&nbsp;m². Budynki środkowe (3, 8) to dwa największe lokale pięciopokojowe do 133&nbsp;m².
+              Budynki narożne (1 i 2, 4 i 5, 6 i 7, 9 i 10) mieszczą po cztery
+              apartamenty 82-94 m². Budynki środkowe (3, 8) to dwa największe lokale pięciopokojowe do 133 m².
             </p>
           </div>
         </div>

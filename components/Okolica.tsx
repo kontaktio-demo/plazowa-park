@@ -14,7 +14,7 @@ export default function Okolica() {
     <section id="okolica" className="bg-paper py-20 sm:py-28">
       <div className="container-x">
         <header className="max-w-2xl" data-reveal="up">
-          <p className="eyebrow">05 — Okolica</p>
+          <p className="eyebrow">05 - Okolica</p>
           <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
             Wszystko, co ważne, <span className="italic text-brass-deep">w zasięgu spaceru.</span>
           </h2>
@@ -28,7 +28,7 @@ export default function Okolica() {
           <div className="min-h-[420px]">
             <MapLibreMap />
             <p className="mt-2 text-xs text-faint">
-              Zdjęcia satelitarne © Esri, Maxar. Lokalizacja poglądowa — dokładny obrys działki potwierdza geodeta.
+              Zdjęcia satelitarne © Esri, Maxar. Lokalizacja poglądowa - dokładny obrys działki potwierdza geodeta.
             </p>
           </div>
 

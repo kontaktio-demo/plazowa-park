@@ -6,12 +6,12 @@ import { Icon } from "./Icons";
 export default function Hero() {
   return (
     <section id="top" className="relative min-h-[100svh] w-full overflow-hidden bg-pine-deep">
-      {/* real developer render — faithful, no invented layout */}
+      {/* real developer render - faithful, no invented layout */}
       <div className="absolute inset-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/renders/render-01b.webp"
-          alt="Apartamenty Plażowa Park w sosnowym lesie o zachodzie słońca — Głowno"
+          alt="Apartamenty Plażowa Park w sosnowym lesie o zachodzie słońca - Głowno"
           className="h-full w-full object-cover object-[center_56%]"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-pine-deep/60 via-transparent to-transparent" />
@@ -27,7 +27,7 @@ export default function Hero() {
             Apartamenty nad<br />Zalewem Mrożyczka
           </h1>
           <p className="hero-in mt-5 max-w-lg text-pretty leading-relaxed text-paper/80" style={{ animationDelay: "0.3s" }}>
-            Kameralne osiedle {INVESTMENT.totalUnits} apartamentów z prywatnym ogrodem — przy plaży i 100-letnim
+            Kameralne osiedle {INVESTMENT.totalUnits} apartamentów z prywatnym ogrodem - przy plaży i 100-letnim
             lesie. Oddanie {SITE.handoverDate}.
           </p>
 
@@ -41,7 +41,7 @@ export default function Hero() {
           <p className="hero-in mt-7 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-paper/70" style={{ animationDelay: "0.54s" }}>
             <span className="num">{INVESTMENT.totalUnits} apartamentów</span>
             <span className="text-brass-light">·</span>
-            <span className="num">82–133 m²</span>
+            <span className="num">82-133 m²</span>
             <span className="text-brass-light">·</span>
             <span className="num">od {plnShort(INVESTMENT.priceMin)}</span>
           </p>

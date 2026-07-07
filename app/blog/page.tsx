@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import { Icon } from "@/components/Icons";
 
 export const metadata: Metadata = {
-  title: "Blog — życie w Głownie nad Zalewem Mrożyczka",
+  title: "Blog - życie w Głownie nad Zalewem Mrożyczka",
   description:
     "Poradnik o życiu w Głownie: dojazd do Łodzi, Zalew Mrożyczka, koszty domu z pompą ciepła i zakup mieszkania. Blog inwestycji Plażowa Park.",
   alternates: { canonical: "/blog" },

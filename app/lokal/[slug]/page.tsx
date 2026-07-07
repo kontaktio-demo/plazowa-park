@@ -19,10 +19,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!u) return { title: "Lokal nie znaleziony" };
   const desc = `${area(u.area)}, ${rooms(u.rooms)}, prywatny ogród ${area(u.garden)} i taras. ${STATUS_META[u.status].label}. Cena ${plnShort(u.price)}. Osiedle Plażowa Park w Głownie, nad Zalewem Mrożyczka.`;
   return {
-    title: `Apartament ${u.name} – ${area(u.area)} z ogrodem`,
+    title: `Apartament ${u.name} - ${area(u.area)} z ogrodem`,
     description: desc,
     alternates: { canonical: `/lokal/${slug}` },
-    openGraph: { title: `Apartament ${u.name} – Plażowa Park Głowno`, description: desc, images: ["/og.jpg"] },
+    openGraph: { title: `Apartament ${u.name} - Plażowa Park Głowno`, description: desc, images: ["/og.jpg"] },
   };
 }
 
@@ -48,7 +48,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Apartment",
-    name: `Apartament ${u.name} — Plażowa Park`,
+    name: `Apartament ${u.name} - Plażowa Park`,
     url: `${SITE.url}/lokal/${slug}`,
     numberOfRoomsTotal: u.rooms,
     floorSize: { "@type": "QuantitativeValue", value: u.area, unitCode: "MTK" },
@@ -98,7 +98,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
               <div className="mt-3 grid grid-cols-4 gap-3">
                 {galleryImgs.map((g) => (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img key={g.src} src={g.src} alt={`${g.alt} — Plażowa Park`} className="aspect-square w-full rounded-[10px] object-cover" loading="lazy" />
+                  <img key={g.src} src={g.src} alt={`${g.alt} - Plażowa Park`} className="aspect-square w-full rounded-[10px] object-cover" loading="lazy" />
                 ))}
               </div>
               <p className="mt-3 text-xs text-faint">Wizualizacje wnętrz poglądowe. Rzut lokalu wg konfiguratora dewelopera.</p>
