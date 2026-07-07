@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Plażowa Park — design system
+   Plażowa Park - design system
    Natural luxury: pine forest + lake light + limestone + brass
    ============================================================ */
 
@@ -18,7 +18,7 @@
   --color-muted: #6b6d72;
   --color-faint: #9a9ca1;
 
-  /* graphite (brand primary — replaces green) */
+  /* graphite (brand primary - replaces green) */
   --color-pine: #2b2e33;
   --color-pine-deep: #17191d;
   --color-pine-soft: #41454c;
@@ -216,7 +216,7 @@
   .scroll-cue { animation: none !important; }
 }
 
-/* reveal — only active once JS mounts the motion layer (no-JS shows content) */
+/* reveal - only active once JS mounts the motion layer (no-JS shows content) */
 body.motion-ready [data-reveal] { opacity: 0; }
 body.motion-ready [data-reveal="up"] { transform: translateY(30px); }
 body.motion-ready [data-reveal="fade"] { transform: none; }

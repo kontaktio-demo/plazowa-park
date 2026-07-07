@@ -15,9 +15,9 @@ export default function Page() {
       <h2>§1. Postanowienia ogólne</h2>
       <p>
         Niniejszy Regulamin określa zasady korzystania z serwisu internetowego dostępnego pod adresem
-        {" "}<strong>plazowa-park.pl</strong> („Serwis”), prowadzonego przez {DEVELOPER.name} z siedzibą w
+        {" "}<strong>plazowa-park.pl</strong> ("Serwis"), prowadzonego przez {DEVELOPER.name} z siedzibą w
         {" "}{DEVELOPER.city}, {DEVELOPER.street}, {DEVELOPER.postal} {DEVELOPER.city} (KRS {DEVELOPER.krs},
-        NIP {DEVELOPER.nip}) („Usługodawca”).
+        NIP {DEVELOPER.nip}) ("Usługodawca").
       </p>
 
       <h2>§2. Zakres usług</h2>
@@ -29,7 +29,7 @@ export default function Page() {
 
       <h2>§3. Charakter prezentowanych informacji</h2>
       <p>
-        Informacje zawarte w Serwisie — w tym wizualizacje, animacje, plany, metraże, ceny i statusy dostępności —
+        Informacje zawarte w Serwisie - w tym wizualizacje, animacje, plany, metraże, ceny i statusy dostępności -
         mają charakter <strong>poglądowy i informacyjny i nie stanowią oferty</strong> w rozumieniu art. 66 i nast.
         Kodeksu cywilnego. Część wizualizacji wnętrz i otoczenia została przygotowana z użyciem narzędzi generatywnych
         na podstawie rzeczywistych materiałów inwestycji i może różnić się od stanu faktycznego. Wiążące warunki

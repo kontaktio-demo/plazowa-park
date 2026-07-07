@@ -7,12 +7,12 @@ export default function Standard() {
       <div className="container-x">
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <header className="lg:sticky lg:top-28 lg:self-start" data-reveal="up">
-            <p className="eyebrow">04 — Standard i technologia</p>
+            <p className="eyebrow">04 - Standard i technologia</p>
             <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
               Zbudowane, by <span className="italic text-brass-deep">mieszkało się dobrze.</span>
             </h2>
             <p className="mt-5 max-w-md text-pretty leading-relaxed text-muted">
-              Energooszczędne technologie i materiały premium w standardzie. Poddasze zawarte w cenie — gotowe do
+              Energooszczędne technologie i materiały premium w standardzie. Poddasze zawarte w cenie - gotowe do
               adaptacji według Twojego pomysłu.
             </p>
           </header>

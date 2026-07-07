@@ -95,7 +95,7 @@ export default function ExitIntent() {
                 Odbierz cennik <span className="italic text-brass-deep">i kartę osiedla.</span>
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">
-                Zostaw e-mail — prześlemy aktualne ceny 20 apartamentów, metraże i plan osiedla Plażowa Park.
+                Zostaw e-mail - prześlemy aktualne ceny 20 apartamentów, metraże i plan osiedla Plażowa Park.
               </p>
               <form onSubmit={onSubmit} className="mt-5 flex flex-col gap-2.5 sm:flex-row">
                 <input
@@ -106,7 +106,7 @@ export default function ExitIntent() {
                   className="flex-1 rounded-[12px] border border-ink/15 bg-paper px-4 py-3 text-ink placeholder:text-faint focus:border-pine focus:outline-none"
                 />
                 <button type="submit" disabled={state === "sending"} className="btn btn-primary disabled:opacity-60">
-                  {state === "sending" ? "Wysyłanie…" : "Wyślij cennik"}
+                  {state === "sending" ? "Wysyłanie..." : "Wyślij cennik"}
                 </button>
               </form>
               <p className="mt-3 text-xs text-faint">

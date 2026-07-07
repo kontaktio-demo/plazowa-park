@@ -1,4 +1,4 @@
-# Plażowa Park — landing page inwestycji
+# Plażowa Park - landing page inwestycji
 
 Awwwards-grade, konwersyjny one-page dla inwestycji deweloperskiej **Plażowa Park** w Głownie
 (20 apartamentów w 6 budynkach, bezpośrednio przy Zalewie Mrożyczka). Celem strony jest maksymalizacja
@@ -8,10 +8,10 @@ lokalnego SEO.
 ## Stack
 
 - **Next.js 16 (App Router) + TypeScript**
-- **Tailwind CSS v4** — design system (pine / limestone / brass, Fraunces + Inter)
-- **GSAP + ScrollTrigger + Lenis** — scroll-driven storytelling, scrubowany obrót osiedla, reveals (z pełnym `prefers-reduced-motion`)
-- **MapLibre GL** — interaktywna mapa okolicy (zdjęcia satelitarne + POI)
-- **Higgsfield** (Veo 3.1 / Kling 3.0 / Nano Banana Pro) — filmowe wideo i wizualizacje wnętrz na bazie realnych renderów inwestycji
+- **Tailwind CSS v4** - design system (pine / limestone / brass, Fraunces + Inter)
+- **GSAP + ScrollTrigger + Lenis** - scroll-driven storytelling, scrubowany obrót osiedla, reveals (z pełnym `prefers-reduced-motion`)
+- **MapLibre GL** - interaktywna mapa okolicy (zdjęcia satelitarne + POI)
+- **Higgsfield** (Veo 3.1 / Kling 3.0 / Nano Banana Pro) - filmowe wideo i wizualizacje wnętrz na bazie realnych renderów inwestycji
 
 ## Sekcje
 
@@ -29,7 +29,7 @@ Geometria interaktywnej mapy osiedla (obrysy i pozycje budynków) pochodzi z teg
 ([`public/estate-map.json`](public/estate-map.json)). Treści i fakty: [`lib/data/site.ts`](lib/data/site.ts).
 
 Wizualizacje wnętrz i część ujęć zewnętrznych wygenerowano narzędziami Higgsfield **na podstawie realnych
-renderów inwestycji** — mają charakter poglądowy (oznaczone w stopce i galerii).
+renderów inwestycji** - mają charakter poglądowy (oznaczone w stopce i galerii).
 
 ## Uruchomienie
 
@@ -46,7 +46,7 @@ npm run build && npm run start
 ```
 RESEND_API_KEY=...            # klucz Resend (wysyłka e-mail leada)
 LEAD_TO=biuro@plazowa-park.pl # adres odbiorcy leadów
-NEXT_PUBLIC_GA_ID=G-XXXXXXX   # (opcjonalnie) GA4 — bez tego analityka jest wyłączona
+NEXT_PUBLIC_GA_ID=G-XXXXXXX   # (opcjonalnie) GA4 - bez tego analityka jest wyłączona
 ```
 
 Analityka (jeśli `NEXT_PUBLIC_GA_ID` ustawione) śledzi konwersje: `generate_lead` (wysłany formularz)

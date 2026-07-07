@@ -34,7 +34,7 @@ export default function Nav() {
       }`}
     >
       <div className="container-x flex h-[var(--nav-h)] items-center justify-between gap-4">
-        <a href="#top" aria-label="Plażowa Park — strona główna" className="group flex items-center gap-2.5">
+        <a href="#top" aria-label="Plażowa Park - strona główna" className="group flex items-center gap-2.5">
           <Logo light={light} />
           <span className="flex flex-col leading-none">
             <span className={`font-display text-[1.3rem] font-semibold tracking-tight ${light ? "text-paper" : "text-pine"}`}>Plażowa Park</span>
@@ -79,7 +79,7 @@ export default function Nav() {
       </div>
     </header>
 
-      {/* mobile / tablet menu — full-screen overlay (outside header so `fixed` is not trapped by its backdrop-filter) */}
+      {/* mobile / tablet menu - full-screen overlay (outside header so `fixed` is not trapped by its backdrop-filter) */}
       <div
         className={`fixed inset-x-0 bottom-0 top-[var(--nav-h)] z-[55] bg-paper transition-[opacity,transform] duration-300 xl:hidden ${
           open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"

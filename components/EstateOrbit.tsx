@@ -48,7 +48,7 @@ export default function EstateOrbit() {
       ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2 - h * 0.02, dw, dh);
     };
 
-    // preload frames — deferred until the section is near the viewport (perf)
+    // preload frames - deferred until the section is near the viewport (perf)
     let loaded = 0;
     let preloadStarted = false;
     const startPreload = () => {
@@ -122,12 +122,12 @@ export default function EstateOrbit() {
         <div className="container-x">
           <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.5fr]">
             <div data-reveal="up" className="max-w-md">
-              <p className="eyebrow">01 — Osiedle</p>
+              <p className="eyebrow">01 - Osiedle</p>
               <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
-                Sześć&nbsp;budynków. <span className="italic text-brass-deep">Dwadzieścia&nbsp;domów.</span>
+                Sześć budynków. <span className="italic text-brass-deep">Dwadzieścia domów.</span>
               </h2>
               <p className="mt-5 text-pretty leading-relaxed text-muted">
-                Kameralny układ w zaciszu lasu. Budynki narożne mieszczą po cztery apartamenty, środkowe — po dwa
+                Kameralny układ w zaciszu lasu. Budynki narożne mieszczą po cztery apartamenty, środkowe - po dwa
                 największe. Każdy z prywatnym ogrodem, tarasem i dwoma miejscami postojowymi.
               </p>
               {mode === "seq" && (
@@ -141,7 +141,7 @@ export default function EstateOrbit() {
               <div className="relative aspect-square w-full overflow-hidden rounded-[16px]">
                 {mode === "static" ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src="/map/estate-frame.webp" alt="Osiedle Plażowa Park z lotu ptaka — sześć budynków w sosnowym lesie" className="h-full w-full object-cover" />
+                  <img src="/map/estate-frame.webp" alt="Osiedle Plażowa Park z lotu ptaka - sześć budynków w sosnowym lesie" className="h-full w-full object-cover" />
                 ) : (
                   <>
                     <canvas ref={canvasRef} className="h-full w-full" />

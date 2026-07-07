@@ -47,7 +47,7 @@ export async function POST(req: Request) {
   const to = process.env.LEAD_TO || SITE.email;
   if (key) {
     try {
-      const html = `<h2>Nowe zapytanie — Plażowa Park</h2>
+      const html = `<h2>Nowe zapytanie - Plażowa Park</h2>
         <p><b>Imię:</b> ${escape(lead.name)}</p>
         <p><b>Telefon:</b> ${escape(lead.phone)}</p>
         <p><b>E-mail:</b> ${escape(lead.email)}</p>
@@ -61,13 +61,13 @@ export async function POST(req: Request) {
           from: "Plażowa Park <lead@plazowa-park.pl>",
           to: [to],
           reply_to: lead.email || undefined,
-          subject: `Zapytanie: ${lead.unit || "Plażowa Park"} — ${lead.name}`,
+          subject: `Zapytanie: ${lead.unit || "Plażowa Park"} - ${lead.name}`,
           html,
         }),
       });
       if (!r.ok) throw new Error("provider");
     } catch {
-      // fall through — still acknowledge to the user; lead is logged below
+      // fall through - still acknowledge to the user; lead is logged below
     }
   }
 

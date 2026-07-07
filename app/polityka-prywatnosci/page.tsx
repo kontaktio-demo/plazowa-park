@@ -14,7 +14,7 @@ export default function Page() {
     <LegalShell title="Polityka prywatności" updated="3 lipca 2026">
       <p>
         Niniejsza Polityka prywatności opisuje zasady przetwarzania danych osobowych osób korzystających z serwisu
-        internetowego <strong>plazowa-park.pl</strong> („Serwis”) oraz kontaktujących się z nami w sprawie inwestycji
+        internetowego <strong>plazowa-park.pl</strong> ("Serwis") oraz kontaktujących się z nami w sprawie inwestycji
         Plażowa Park w Głownie. Dbamy o Twoją prywatność i przetwarzamy dane zgodnie z Rozporządzeniem (UE) 2016/679
         (RODO).
       </p>
@@ -23,7 +23,7 @@ export default function Page() {
       <p>
         Administratorem danych osobowych jest <strong>{DEVELOPER.name}</strong> z siedzibą w {DEVELOPER.city},
         {" "}{DEVELOPER.street}, {DEVELOPER.postal} {DEVELOPER.city}, wpisana do rejestru przedsiębiorców KRS pod
-        numerem {DEVELOPER.krs}, NIP {DEVELOPER.nip} („Administrator”).
+        numerem {DEVELOPER.krs}, NIP {DEVELOPER.nip} ("Administrator").
       </p>
       <p>
         W sprawach dotyczących danych osobowych możesz kontaktować się z nami: e-mail{" "}
@@ -33,16 +33,16 @@ export default function Page() {
       <h2>2. Zakres i cele przetwarzania</h2>
       <p>Przetwarzamy dane, które podajesz dobrowolnie w formularzu kontaktowym lub podczas kontaktu telefonicznego:</p>
       <ul>
-        <li><strong>Imię i nazwisko, telefon, adres e-mail</strong> — w celu obsługi zapytania, przedstawienia oferty i kontaktu handlowego.</li>
-        <li><strong>Treść wiadomości oraz wybrany apartament</strong> — w celu przygotowania odpowiedzi dopasowanej do Twoich potrzeb.</li>
-        <li><strong>Dane techniczne</strong> (adres IP, pliki cookie, dane analityczne) — w celu zapewnienia działania i bezpieczeństwa Serwisu oraz analizy ruchu.</li>
+        <li><strong>Imię i nazwisko, telefon, adres e-mail</strong> - w celu obsługi zapytania, przedstawienia oferty i kontaktu handlowego.</li>
+        <li><strong>Treść wiadomości oraz wybrany apartament</strong> - w celu przygotowania odpowiedzi dopasowanej do Twoich potrzeb.</li>
+        <li><strong>Dane techniczne</strong> (adres IP, pliki cookie, dane analityczne) - w celu zapewnienia działania i bezpieczeństwa Serwisu oraz analizy ruchu.</li>
       </ul>
 
       <h2>3. Podstawy prawne</h2>
       <ul>
-        <li>art. 6 ust. 1 lit. b RODO — podjęcie działań na Twoje żądanie przed zawarciem umowy;</li>
-        <li>art. 6 ust. 1 lit. a RODO — zgoda (np. na kontakt marketingowy), którą możesz w każdej chwili wycofać;</li>
-        <li>art. 6 ust. 1 lit. f RODO — prawnie uzasadniony interes Administratora (kontakt, obsługa zapytań, analityka, zapewnienie bezpieczeństwa).</li>
+        <li>art. 6 ust. 1 lit. b RODO - podjęcie działań na Twoje żądanie przed zawarciem umowy;</li>
+        <li>art. 6 ust. 1 lit. a RODO - zgoda (np. na kontakt marketingowy), którą możesz w każdej chwili wycofać;</li>
+        <li>art. 6 ust. 1 lit. f RODO - prawnie uzasadniony interes Administratora (kontakt, obsługa zapytań, analityka, zapewnienie bezpieczeństwa).</li>
       </ul>
 
       <h2>4. Okres przechowywania</h2>

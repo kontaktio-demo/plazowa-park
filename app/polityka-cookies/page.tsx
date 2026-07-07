@@ -25,9 +25,9 @@ export default function Page() {
 
       <h2>2. Rodzaje wykorzystywanych plików cookie</h2>
       <ul>
-        <li><strong>Niezbędne</strong> — konieczne do działania Serwisu, m.in. zapamiętanie decyzji dotyczącej zgody na cookie. Nie wymagają zgody.</li>
-        <li><strong>Analityczne / statystyczne</strong> — pomagają zrozumieć, jak użytkownicy korzystają z Serwisu (np. Google Analytics). Uruchamiane po wyrażeniu zgody.</li>
-        <li><strong>Funkcjonalne</strong> — zapamiętują wybory użytkownika, np. w interaktywnej mapie osiedla.</li>
+        <li><strong>Niezbędne</strong> - konieczne do działania Serwisu, m.in. zapamiętanie decyzji dotyczącej zgody na cookie. Nie wymagają zgody.</li>
+        <li><strong>Analityczne / statystyczne</strong> - pomagają zrozumieć, jak użytkownicy korzystają z Serwisu (np. Google Analytics). Uruchamiane po wyrażeniu zgody.</li>
+        <li><strong>Funkcjonalne</strong> - zapamiętują wybory użytkownika, np. w interaktywnej mapie osiedla.</li>
       </ul>
 
       <h2>3. Zarządzanie zgodą i cookie</h2>

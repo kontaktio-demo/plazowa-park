@@ -1,6 +1,6 @@
 import type { SVGProps } from "react";
 
-/** Plażowa Park mark — asymmetric mono-pitch roofline (the estate's signature
+/** Plażowa Park mark - asymmetric mono-pitch roofline (the estate's signature
  *  architecture) over two water ripples (Zalew Mrożyczka). Monochrome / currentColor. */
 export function LogoMark({ strokeWidth = 1.7, ...props }: SVGProps<SVGSVGElement> & { strokeWidth?: number }) {
   return (

@@ -62,7 +62,7 @@ export default function Contact() {
               Umów prezentację <span className="italic text-brass-deep">osiedla.</span>
             </h2>
             <p className="mt-5 max-w-md text-pretty leading-relaxed text-muted">
-              Zostaw kontakt lub zadzwoń — pokażemy dostępne apartamenty, przekażemy cennik i harmonogram.
+              Zostaw kontakt lub zadzwoń - pokażemy dostępne apartamenty, przekażemy cennik i harmonogram.
               Odpowiadamy zwykle w ciągu jednego dnia roboczego.
             </p>
 
@@ -117,7 +117,7 @@ export default function Contact() {
                 <Field label="Wybrany apartament (opcjonalnie)" name="unit" value={unit} onChange={setUnit} placeholder="np. Apartament 3.3A" />
                 <label className="block">
                   <span className="mb-1.5 block text-sm font-medium text-ink-soft">Wiadomość (opcjonalnie)</span>
-                  <textarea name="message" rows={3} placeholder="Interesuje mnie prezentacja i cennik…" className="w-full resize-none rounded-[12px] border border-ink/15 bg-paper px-4 py-3 text-ink placeholder:text-faint focus:border-pine focus:outline-none" />
+                  <textarea name="message" rows={3} placeholder="Interesuje mnie prezentacja i cennik..." className="w-full resize-none rounded-[12px] border border-ink/15 bg-paper px-4 py-3 text-ink placeholder:text-faint focus:border-pine focus:outline-none" />
                 </label>
                 <label className="flex items-start gap-3 text-sm text-muted">
                   <input type="checkbox" name="rodo" required className="mt-1 h-4 w-4 flex-none accent-[var(--color-pine)]" />
@@ -130,11 +130,11 @@ export default function Contact() {
                 {state === "error" && <p className="text-sm text-sold">{err || "Wystąpił błąd. Spróbuj ponownie."}</p>}
 
                 <button type="submit" disabled={state === "sending"} className="btn btn-primary w-full disabled:opacity-60">
-                  {state === "sending" ? "Wysyłanie…" : "Wyślij zapytanie"}
+                  {state === "sending" ? "Wysyłanie..." : "Wyślij zapytanie"}
                   {state !== "sending" && <Icon.arrow width={18} height={18} />}
                 </button>
                 <p className="text-center text-xs text-faint">
-                  Klikając „Wyślij”, akceptujesz{" "}
+                  Klikając "Wyślij", akceptujesz{" "}
                   <a href="/regulamin" className="link-underline">Regulamin serwisu</a>. Pola oznaczone * są wymagane.
                 </p>
               </form>

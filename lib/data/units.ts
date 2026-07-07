@@ -1,4 +1,4 @@
-// AUTO-GENERATED from SenseVR / Qupto backend (investment 214) — real developer data.
+// AUTO-GENERATED from SenseVR / Qupto backend (investment 214) - real developer data.
 // Regenerate via scripts. Do not hand-edit unless updating live prices/statuses.
 export type UnitStatus = "available" | "reserved" | "sold";
 export interface Unit {

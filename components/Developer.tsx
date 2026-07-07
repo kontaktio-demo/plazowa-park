@@ -13,7 +13,7 @@ export default function Developer() {
       <div className="container-x">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div data-reveal="up">
-            <p className="eyebrow !text-brass-light">07 — Deweloper</p>
+            <p className="eyebrow !text-brass-light">07 - Deweloper</p>
             <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-paper">
               Budujemy z myślą <span className="italic text-brass-light">o pokoleniach.</span>
             </h2>
