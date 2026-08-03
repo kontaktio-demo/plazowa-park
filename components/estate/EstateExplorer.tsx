@@ -6,6 +6,7 @@ import { plnShort, area } from "@/lib/format";
 import EstateMap from "./EstateMap";
 import UnitCard from "./UnitCard";
 import UnitModal from "./UnitModal";
+import CountUp from "../CountUp";
 
 type Sort = "price-asc" | "price-desc" | "area-desc";
 
@@ -41,11 +42,11 @@ export default function EstateExplorer() {
         <header className="max-w-2xl" data-reveal="up">
           <p className="eyebrow">02 - Wybierz dom</p>
           <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
-            Dwadzieścia apartamentów. <span className="italic text-brass-deep">Wybierz swój.</span>
+            Apartamenty z ogrodem <span className="italic text-brass-deep">i tarasem.</span>
           </h2>
           <p className="mt-5 text-pretty leading-relaxed text-muted">
-            Kliknij budynek na planie osiedla lub filtruj lokale według metrażu i liczby pokoi. Ceny i statusy
-            pochodzą z bieżącego konfiguratora dewelopera.
+            Kliknij budynek na planie osiedla lub filtruj apartamenty według metrażu i liczby pokoi. Ceny i
+            dostępność pochodzą z bieżącego konfiguratora dewelopera.
           </p>
         </header>
 
@@ -55,8 +56,8 @@ export default function EstateExplorer() {
 
           <div className="flex flex-col justify-center">
             <div className="grid grid-cols-3 gap-4">
-              <Kpi n={`${INVESTMENT.available}`} l="dostępnych" />
-              <Kpi n={`${INVESTMENT.buildingsCount}`} l="budynków" />
+              <Kpi n={INVESTMENT.available} l="dostępnych" />
+              <Kpi n={INVESTMENT.buildingsCount} l="budynków" />
               <Kpi n={`od ${plnShort(INVESTMENT.priceMin)}`} l="cena" small />
             </div>
 
@@ -142,10 +143,12 @@ export default function EstateExplorer() {
   );
 }
 
-function Kpi({ n, l, small }: { n: string; l: string; small?: boolean }) {
+function Kpi({ n, l, small }: { n: number | string; l: string; small?: boolean }) {
   return (
     <div className="rounded-[14px] border border-ink/10 bg-paper p-4">
-      <div className={`font-display text-pine num ${small ? "text-lg" : "text-3xl"}`}>{n}</div>
+      <div className={`font-display text-pine num ${small ? "text-lg" : "text-3xl"}`}>
+        {typeof n === "number" ? <CountUp to={n} /> : n}
+      </div>
       <div className="mt-1 text-xs uppercase tracking-[0.12em] text-muted">{l}</div>
     </div>
   );

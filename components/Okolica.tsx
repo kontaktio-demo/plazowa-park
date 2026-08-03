@@ -19,11 +19,12 @@ export default function Okolica() {
         <header className="max-w-2xl" data-reveal="up">
           <p className="eyebrow">05 - Okolica</p>
           <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
-            Nad wodą, <span className="italic text-brass-deep">w sercu lasu.</span>
+            Spokojna okolica <span className="italic text-brass-deep">nad Zalewem Mrożyczka.</span>
           </h2>
           <p className="mt-5 text-pretty leading-relaxed text-muted">
-            Osiedle leży bezpośrednio przy Zalewie Mrożyczka i w ponad 100-letnim lesie. Plaża, przystań,
-            Central Wake Park i ścieżki rowerowe są w zasięgu spaceru.
+            Osiedle Plażowa Park leży bezpośrednio przy Zalewie Mrożyczka i w otoczeniu ponad 100-letniego lasu.
+            Plaża, przystań, Central Wake Park i ścieżki rowerowe są w zasięgu spaceru, a codzienne usługi
+            w Głownie w kilka minut.
           </p>
         </header>
 

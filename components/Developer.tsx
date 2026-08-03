@@ -9,17 +9,24 @@ const trust = [
 
 export default function Developer() {
   return (
-    <section id="deweloper" className="bg-pine py-20 text-paper sm:py-28">
-      <div className="container-x">
+    <section id="deweloper" className="relative overflow-hidden bg-pine py-20 text-paper sm:py-28">
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <div className="deco-grid-dark absolute inset-0" />
+        <div className="absolute right-[-8%] top-[6%]">
+          <div className="glow-drift h-[40vh] w-[40vh] rounded-full blur-[90px]" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--color-brass) 18%, transparent), transparent 70%)" }} />
+        </div>
+      </div>
+      <div className="container-x relative z-10">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div data-reveal="up">
             <p className="eyebrow !text-brass-light">07 - Deweloper</p>
             <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-paper">
-              Budujemy z myślą <span className="italic text-brass-light">o pokoleniach.</span>
+              Lokalny deweloper <span className="italic text-brass-light">z Głowna.</span>
             </h2>
             <p className="mt-6 max-w-xl text-pretty leading-relaxed text-paper/75">
-              {DEVELOPER.name} to lokalny deweloper z Głowna. Plażowa Park to kameralne osiedle, które łączy
-              energooszczędne technologie z wyjątkową lokalizacją nad Zalewem Mrożyczka, w otoczeniu 100-letniego lasu.
+              Inwestorem i deweloperem osiedla Plażowa Park jest {DEVELOPER.name}, lokalna spółka z Głowna.
+              Stawiamy na kameralną, energooszczędną zabudowę w zgodzie z naturą, w wyjątkowej lokalizacji nad
+              Zalewem Mrożyczka.
             </p>
 
             <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-paper/15 pt-6 text-sm">

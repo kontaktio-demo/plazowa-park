@@ -2,6 +2,7 @@ import Image from "next/image";
 import { INVESTMENT } from "@/lib/data/units";
 import { plnShort } from "@/lib/format";
 import { Icon } from "./Icons";
+import CountUp from "./CountUp";
 
 export default function Hero() {
   return (
@@ -13,7 +14,7 @@ export default function Hero() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-center"
+          className="kenburns object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-pine-deep/55 via-transparent to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-pine-deep/94 via-pine-deep/35 to-transparent" />
@@ -28,8 +29,8 @@ export default function Hero() {
             Apartamenty nad<br />Zalewem Mrożyczka
           </h1>
           <p className="hero-in mt-5 max-w-xl text-pretty text-lg leading-relaxed text-paper/85" style={{ animationDelay: "0.3s" }}>
-            Luksusowe osiedle domów blisko natury. {INVESTMENT.totalUnits} apartamentów z prywatnym ogrodem
-            i tarasem, w ponad 100-letnim lesie, tuż przy plaży i Central Wake Park.
+            Plażowa Park to kameralne osiedle {INVESTMENT.totalUnits} apartamentów z prywatnym ogrodem i tarasem,
+            w otoczeniu ponad 100-letniego lasu, tuż przy plaży i Central Wake Park w Głownie.
           </p>
 
           <div className="hero-in mt-8 flex flex-wrap items-center gap-3" style={{ animationDelay: "0.42s" }}>
@@ -41,13 +42,13 @@ export default function Hero() {
 
           <dl className="hero-in mt-10 flex flex-wrap gap-x-10 gap-y-4 border-t border-paper/15 pt-6" style={{ animationDelay: "0.54s" }}>
             {[
-              { k: `${INVESTMENT.totalUnits}`, l: "apartamentów" },
-              { k: `${INVESTMENT.buildingsCount}`, l: "budynków" },
-              { k: "82-133", l: "m² powierzchni" },
-              { k: `od ${plnShort(INVESTMENT.priceMin)}`, l: "cena" },
+              { v: <CountUp to={INVESTMENT.totalUnits} />, l: "apartamentów" },
+              { v: <CountUp to={INVESTMENT.buildingsCount} />, l: "budynków" },
+              { v: "82-133", l: "m² powierzchni" },
+              { v: `od ${plnShort(INVESTMENT.priceMin)}`, l: "cena" },
             ].map((f) => (
               <div key={f.l}>
-                <dt className="font-display text-2xl font-semibold text-paper num">{f.k}</dt>
+                <dt className="font-display text-2xl font-semibold text-paper num">{f.v}</dt>
                 <dd className="mt-0.5 text-xs uppercase tracking-[0.14em] text-paper/60">{f.l}</dd>
               </div>
             ))}

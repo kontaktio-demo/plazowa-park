@@ -120,16 +120,23 @@ export default function EstateOrbit() {
   return (
     <section id="osiedle" ref={sectionRef} className="relative bg-paper" style={{ height: mode === "seq" ? "360vh" : "auto" }}>
       <div className={`${mode === "seq" ? "sticky top-0 h-[100svh]" : "py-20 sm:py-28"} flex flex-col justify-center overflow-hidden`}>
-        <div className="container-x">
+        <div className="pointer-events-none absolute inset-0" aria-hidden>
+          <div className="deco-grid absolute inset-0" />
+          <div className="absolute left-[64%] top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div className="glow-drift h-[44vh] w-[44vh] rounded-full blur-[70px]" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--color-brass) 22%, transparent), transparent 70%)" }} />
+          </div>
+        </div>
+        <div className="container-x relative z-10">
           <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.5fr]">
             <div data-reveal="up" className="max-w-md">
               <p className="eyebrow">01 - Osiedle</p>
               <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
-                Sześć budynków. <span className="italic text-brass-deep">Dwadzieścia apartamentów.</span>
+                Kameralne osiedle <span className="italic text-brass-deep">nowoczesnych apartamentów.</span>
               </h2>
               <p className="mt-5 text-pretty leading-relaxed text-muted">
-                Kameralny układ w zaciszu lasu. Budynki narożne mieszczą po cztery apartamenty, środkowe - po dwa
-                największe. Każdy z prywatnym ogrodem, tarasem i dwoma miejscami postojowymi.
+                Plażowa Park to sześć budynków i zaledwie 20 apartamentów, ukrytych w zaciszu ponad 100-letniego
+                lasu. Budynki narożne mieszczą po cztery apartamenty, a środkowe po dwa większe. Do każdego
+                apartamentu należy prywatny ogród, taras i dwa miejsca postojowe.
               </p>
               {mode === "seq" && (
                 <p className="mt-7 inline-flex items-center gap-2 text-sm text-brass-deep">

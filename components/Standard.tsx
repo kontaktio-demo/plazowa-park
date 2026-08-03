@@ -9,11 +9,11 @@ export default function Standard() {
           <header className="lg:sticky lg:top-28 lg:self-start" data-reveal="up">
             <p className="eyebrow">04 - Standard i technologia</p>
             <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
-              Zbudowane, by <span className="italic text-brass-deep">mieszkało się dobrze.</span>
+              Nowoczesny standard <span className="italic text-brass-deep">i technologie.</span>
             </h2>
             <p className="mt-5 max-w-md text-pretty leading-relaxed text-muted">
-              Energooszczędne technologie i materiały premium w standardzie. Poddasze zawarte w cenie - gotowe do
-              adaptacji według Twojego pomysłu.
+              Apartamenty w Plażowa Park powstają w energooszczędnej technologii, z materiałami wysokiej jakości
+              w standardzie. Poddasze jest zawarte w cenie i gotowe do adaptacji według własnego pomysłu.
             </p>
           </header>
 

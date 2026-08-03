@@ -95,8 +95,14 @@ export default function VirtualTour() {
   }, []);
 
   return (
-    <section id="spacer" className="bg-pine-deep py-20 text-paper sm:py-28">
-      <div className="container-x">
+    <section id="spacer" className="relative overflow-hidden bg-pine-deep py-20 text-paper sm:py-28">
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <div className="deco-grid-dark absolute inset-0" />
+        <div className="absolute left-[-6%] top-[18%]">
+          <div className="glow-drift h-[36vh] w-[36vh] rounded-full blur-[90px]" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--color-brass) 15%, transparent), transparent 70%)" }} />
+        </div>
+      </div>
+      <div className="container-x relative z-10">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between" data-reveal="up">
           <div className="max-w-2xl">
             <p className="eyebrow !text-brass-light">03 - Spacer 360</p>
@@ -104,8 +110,8 @@ export default function VirtualTour() {
               Zwiedź osiedle <span className="italic text-brass-light">w 360 stopni.</span>
             </h2>
             <p className="mt-5 text-pretty leading-relaxed text-paper/70">
-              Przejdź się uliczkami Plażowa Park, zajrzyj między domy i zobacz ogrody oraz otoczenie. To
-              autentyczny spacer 360 stopni przygotowany przez dewelopera.
+              Przejdź się uliczkami osiedla Plażowa Park, zajrzyj między budynki i zobacz ogrody oraz najbliższe
+              otoczenie. Wirtualny spacer 360 stopni przygotował deweloper. To autentyczny widok inwestycji.
             </p>
           </div>
         </div>
