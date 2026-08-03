@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { UNITS, BUILDINGS, INVESTMENT, type Unit } from "@/lib/data/units";
 import { plnShort, area } from "@/lib/format";
 import EstateMap from "./EstateMap";
@@ -17,6 +17,38 @@ export default function EstateExplorer() {
   const [sort, setSort] = useState<Sort>("price-asc");
   const [modal, setModal] = useState<Unit | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  const [gen, setGen] = useState(0);
+  const firstRun = useRef(true);
+
+  useEffect(() => {
+    if (firstRun.current) {
+      firstRun.current = false;
+      return;
+    }
+    setGen((g) => g + 1);
+  }, [building, status, roomsF, sort]);
+
+  useEffect(() => {
+    const el = cardsRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setInView(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setInView(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -8% 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   const filtered = useMemo(() => {
     let list = UNITS.slice();
@@ -120,9 +152,13 @@ export default function EstateExplorer() {
 
         {/* grid */}
         {filtered.length > 0 ? (
-          <div className="mt-8 flex flex-wrap justify-center gap-5">
-            {filtered.map((u) => (
-              <div key={u.id} className="w-full sm:w-[calc(50%-0.625rem)] xl:w-[calc(33.333%-0.834rem)]">
+          <div ref={cardsRef} className={`grid-cards mt-8 flex flex-wrap justify-center gap-5 ${inView ? "in" : ""}`}>
+            {filtered.map((u, i) => (
+              <div
+                key={`${gen}-${u.id}`}
+                className="card-in w-full sm:w-[calc(50%-0.625rem)] xl:w-[calc(33.333%-0.834rem)]"
+                style={{ animationDelay: `${Math.min(i, 14) * 0.05}s` }}
+              >
                 <UnitCard unit={u} onOpen={setModal} />
               </div>
             ))}
