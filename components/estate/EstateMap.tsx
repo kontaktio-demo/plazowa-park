@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import estateMap from "@/lib/data/estate-map.json";
 
@@ -32,11 +33,12 @@ export default function EstateMap({
 
   return (
     <div className="relative aspect-square w-full overflow-hidden rounded-[16px] border border-ink/10 bg-[#f3efe6] shadow-[var(--shadow-soft)]">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src={data.frame}
         alt="Interaktywny plan osiedla Plażowa Park - sześć budynków"
-        className="absolute inset-0 h-full w-full object-cover"
+        fill
+        sizes="(max-width: 1024px) 100vw, 60vw"
+        className="object-cover"
         draggable={false}
       />
 

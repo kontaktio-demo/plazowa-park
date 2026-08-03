@@ -4,7 +4,7 @@ import { Icon } from "./Icons";
 const trust = [
   { title: "Umowa deweloperska u notariusza", desc: "Bezpieczeństwo transakcji zgodne z ustawą deweloperską." },
   { title: "Dziennik i postęp budowy", desc: "Bieżąca dokumentacja etapów prac na osiedlu." },
-  { title: "Standard premium w cenie", desc: "Pompy ciepła, rekuperacja i materiały najwyższej jakości." },
+  { title: "Standard premium w cenie", desc: "Pompy ciepła, ogrzewanie podłogowe i materiały najwyższej jakości." },
 ];
 
 export default function Developer() {
@@ -18,13 +18,13 @@ export default function Developer() {
               Budujemy z myślą <span className="italic text-brass-light">o pokoleniach.</span>
             </h2>
             <p className="mt-6 max-w-xl text-pretty leading-relaxed text-paper/75">
-              {DEVELOPER.name} to lokalny deweloper z Głowna, tworzący kameralne osiedla w zgodzie z naturą.
-              Plażowa Park łączy energooszczędne technologie z wyjątkową lokalizacją nad Zalewem Mrożyczka.
+              {DEVELOPER.name} to lokalny deweloper z Głowna. Plażowa Park to kameralne osiedle, które łączy
+              energooszczędne technologie z wyjątkową lokalizacją nad Zalewem Mrożyczka, w otoczeniu 100-letniego lasu.
             </p>
 
             <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-paper/15 pt-6 text-sm">
               <Info label="Spółka" value={DEVELOPER.name} />
-              <Info label="Prezes zarządu" value={DEVELOPER.ceo} />
+              <Info label="Status VAT" value={DEVELOPER.statusVat} />
               <Info label="KRS" value={DEVELOPER.krs} />
               <Info label="NIP" value={DEVELOPER.nip} />
               <Info label="REGON" value={DEVELOPER.regon} />

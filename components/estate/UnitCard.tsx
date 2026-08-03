@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import type { Unit } from "@/lib/data/units";
 import { plnShort, area, rooms, STATUS_META } from "@/lib/format";
@@ -17,12 +18,12 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
         aria-label={`Zobacz apartament ${unit.name}`}
       >
         {unit.viewThumb ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={`/unit-views/${unit.viewThumb}`}
             alt={`Położenie apartamentu ${unit.name} w budynku ${unit.buildingLabel}`}
-            className="h-full w-full object-contain p-4 transition-transform duration-700 group-hover:scale-[1.04]"
-            loading="lazy"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-contain p-4 transition-transform duration-700 group-hover:scale-[1.04]"
           />
         ) : null}
         <span className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full bg-paper/90 px-2.5 py-1 text-[0.72rem] font-semibold text-ink-soft backdrop-blur-sm">
