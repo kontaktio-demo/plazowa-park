@@ -14,30 +14,44 @@ const SECTIONS = [
 
 export default function SideRails() {
   const [idx, setIdx] = useState(0);
-  const [dark, setDark] = useState(true); // starts over the dark hero
+  const [dark, setDark] = useState(true);
   const clockRef = useRef<HTMLSpanElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
   const idxRef = useRef(0);
   const darkRef = useRef(true);
-  const scheduled = useRef(false);
 
   useEffect(() => {
     const root = document.documentElement;
-    const els = SECTIONS.map((s) => document.getElementById(s.id));
+    let max = 1;
+    let vh = root.clientHeight;
+    let tops: number[] = [];
+    let osiedleTop = Number.POSITIVE_INFINITY;
 
+    const measure = () => {
+      max = Math.max(1, root.scrollHeight - root.clientHeight);
+      vh = root.clientHeight;
+      tops = SECTIONS.map((s) => {
+        const el = document.getElementById(s.id);
+        return el ? el.offsetTop : Number.POSITIVE_INFINITY;
+      });
+      osiedleTop = tops[0] ?? Number.POSITIVE_INFINITY;
+    };
+
+    let scheduled = false;
     const update = () => {
-      scheduled.current = false;
+      scheduled = false;
       const y = window.scrollY || root.scrollTop;
-      const mid = y + root.clientHeight * 0.5;
+      const p = Math.min(1, Math.max(0, y / max));
+      if (lineRef.current) lineRef.current.style.transform = `scaleY(${p})`;
+      const mid = y + vh * 0.5;
       let cur = 0;
-      for (let i = 0; i < SECTIONS.length; i++) {
-        const el = els[i];
-        if (el && el.offsetTop <= mid) cur = i;
+      for (let i = 0; i < tops.length; i++) {
+        if (tops[i] <= mid) cur = i;
       }
       if (cur !== idxRef.current) {
         idxRef.current = cur;
         setIdx(cur);
       }
-      const osiedleTop = els[0]?.offsetTop ?? Number.POSITIVE_INFINITY;
       const isDark = mid < osiedleTop ? true : SECTIONS[cur].dark;
       if (isDark !== darkRef.current) {
         darkRef.current = isDark;
@@ -45,14 +59,22 @@ export default function SideRails() {
       }
     };
     const onScroll = () => {
-      if (!scheduled.current) {
-        scheduled.current = true;
+      if (!scheduled) {
+        scheduled = true;
         requestAnimationFrame(update);
       }
     };
+    const onResize = () => {
+      measure();
+      update();
+    };
+
+    measure();
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
+    window.addEventListener("load", onResize);
+    const remeasure = window.setTimeout(onResize, 600);
 
     let clockId = 0;
     let fmt: Intl.DateTimeFormat | null = null;
@@ -75,7 +97,9 @@ export default function SideRails() {
 
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("load", onResize);
+      window.clearTimeout(remeasure);
       window.clearInterval(clockId);
       document.removeEventListener("visibilitychange", onVis);
     };
@@ -100,7 +124,7 @@ export default function SideRails() {
         </span>
         <div className="relative my-2 flex h-[32vh] w-full justify-center">
           <div className={`relative w-px ${lineBg}`}>
-            <div className={`absolute inset-x-0 top-0 h-full origin-top ${lineFill}`} style={{ transform: "scaleY(var(--progress, 0))" }} />
+            <div ref={lineRef} className={`absolute inset-x-0 top-0 h-full origin-top ${lineFill}`} style={{ transform: "scaleY(0)" }} />
           </div>
           <div className="absolute inset-y-0 flex flex-col justify-between">
             {SECTIONS.map((s, i) => (
