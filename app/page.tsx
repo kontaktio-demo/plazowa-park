@@ -4,6 +4,7 @@ import EstateOrbit from "@/components/EstateOrbit";
 import EstateExplorer from "@/components/estate/EstateExplorer";
 import VirtualTour from "@/components/VirtualTour";
 import Standard from "@/components/Standard";
+import Lifestyle from "@/components/Lifestyle";
 import ScrollProgress from "@/components/ScrollProgress";
 import Okolica from "@/components/Okolica";
 import Developer from "@/components/Developer";
@@ -23,6 +24,7 @@ export default function Home() {
         <EstateExplorer />
         <VirtualTour />
         <Standard />
+        <Lifestyle />
         <Okolica />
         <Developer />
         <Faq />
