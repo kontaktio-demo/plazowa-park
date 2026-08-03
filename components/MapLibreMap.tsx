@@ -1,20 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { SITE } from "@/lib/data/site";
 
 const SAT = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}";
-const CARTO = [
-  "https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
-  "https://b.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
-  "https://c.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
-];
 
 export default function MapLibreMap() {
   const ref = useRef<HTMLDivElement>(null);
-  const [layer, setLayer] = useState<"sat" | "mapa">("sat");
-  const mapRef = useRef<import("maplibre-gl").Map | null>(null);
 
   useEffect(() => {
     let map: import("maplibre-gl").Map | undefined;
@@ -32,20 +25,15 @@ export default function MapLibreMap() {
         style: {
           version: 8,
           sources: {
-            base: { type: "raster", tiles: CARTO, tileSize: 256, attribution: "© CARTO © OpenStreetMap" },
-            sat: { type: "raster", tiles: [SAT], tileSize: 256, maxzoom: 19, attribution: "© Esri, Maxar" },
+            sat: { type: "raster", tiles: [SAT], tileSize: 256, maxzoom: 19, attribution: "Esri, Maxar" },
           },
-          layers: [
-            { id: "base", type: "raster", source: "base" },
-            { id: "sat", type: "raster", source: "sat", layout: { visibility: "visible" } },
-          ],
+          layers: [{ id: "sat", type: "raster", source: "sat" }],
         },
         center: [SITE.geo.lng, SITE.geo.lat],
-        zoom: 14.4,
+        zoom: 15,
         attributionControl: { compact: true },
         cooperativeGestures: true,
       });
-      mapRef.current = map;
       map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
 
       const el = document.createElement("div");
@@ -57,7 +45,6 @@ export default function MapLibreMap() {
       new maplibregl.Marker({ element: el }).setLngLat([SITE.geo.lng, SITE.geo.lat]).addTo(map);
     };
 
-    // init only when the map scrolls near the viewport
     const io = new IntersectionObserver(
       (entries) => {
         if (entries.some((e) => e.isIntersecting)) {
@@ -76,18 +63,12 @@ export default function MapLibreMap() {
     };
   }, []);
 
-  const toggle = (l: "sat" | "mapa") => {
-    setLayer(l);
-    mapRef.current?.setLayoutProperty("sat", "visibility", l === "sat" ? "visible" : "none");
-  };
-
   return (
-    <div className="relative h-full min-h-[360px] w-full overflow-hidden rounded-[16px] border border-ink/10">
+    <div className="relative h-full min-h-[320px] w-full overflow-hidden rounded-[16px] border border-ink/10">
       <div ref={ref} className="h-full w-full" />
-      <div className="absolute left-3 top-3 z-10 flex gap-1 rounded-full border border-ink/10 bg-paper/90 p-1 backdrop-blur-sm">
-        <button onClick={() => toggle("sat")} className={`rounded-full px-3 py-1 text-xs font-medium transition ${layer === "sat" ? "bg-pine text-paper" : "text-ink-soft"}`}>Satelita</button>
-        <button onClick={() => toggle("mapa")} className={`rounded-full px-3 py-1 text-xs font-medium transition ${layer === "mapa" ? "bg-pine text-paper" : "text-ink-soft"}`}>Mapa</button>
-      </div>
+      <span className="pointer-events-none absolute left-3 top-3 z-10 rounded-full bg-paper/90 px-3 py-1 text-xs font-medium text-ink-soft backdrop-blur-sm">
+        Zdjęcia satelitarne
+      </span>
     </div>
   );
 }

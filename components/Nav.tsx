@@ -33,8 +33,8 @@ export default function Nav() {
           : "bg-transparent"
       }`}
     >
-      <div className="container-x flex h-[var(--nav-h)] items-center justify-between gap-4">
-        <a href="#top" aria-label="Plażowa Park - strona główna" className="group flex items-center gap-2.5">
+      <div className="container-x flex h-[var(--nav-h)] items-center gap-4">
+        <a href="#top" aria-label="Plażowa Park - strona główna" className="group flex flex-none items-center gap-2.5">
           <Logo light={light} />
           <span className="flex flex-col leading-none">
             <span className={`font-display text-[1.3rem] font-semibold tracking-tight ${light ? "text-paper" : "text-pine"}`}>Plażowa Park</span>
@@ -44,7 +44,7 @@ export default function Nav() {
           </span>
         </a>
 
-        <nav className="hidden items-center gap-x-6 xl:flex">
+        <nav className="hidden flex-1 items-center justify-center gap-x-8 xl:flex">
           {NAV.map((n) => (
             <a key={n.href} href={n.href} className={`link-underline whitespace-nowrap text-[0.9rem] font-medium ${light ? "text-paper/85 hover:text-paper" : "text-ink-soft hover:text-pine"}`}>
               {n.label}
@@ -52,7 +52,7 @@ export default function Nav() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2.5 sm:gap-3">
+        <div className="ml-auto flex flex-none items-center gap-2.5 sm:gap-3">
           <a href={`tel:${SITE.phone.tel}`} className={`hidden items-center gap-2 whitespace-nowrap text-sm font-medium xl:flex ${light ? "text-paper/85 hover:text-paper" : "text-ink-soft hover:text-pine"}`}>
             <Icon.phone width={17} height={17} className={light ? "text-brass-light" : "text-brass"} />
             <span className="num whitespace-nowrap">{SITE.phone.display}</span>
