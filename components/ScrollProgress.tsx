@@ -1,19 +1,30 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function ScrollProgress() {
-  const [p, setP] = useState(0);
+  const barRef = useRef<HTMLDivElement>(null);
+  const scheduled = useRef(false);
 
   useEffect(() => {
-    const onScroll = () => {
-      const h = document.documentElement;
-      const max = h.scrollHeight - h.clientHeight;
-      setP(max > 0 ? (h.scrollTop / max) * 100 : 0);
+    const root = document.documentElement;
+    const write = () => {
+      scheduled.current = false;
+      const max = root.scrollHeight - root.clientHeight;
+      const y = window.scrollY || root.scrollTop;
+      const p = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0;
+      root.style.setProperty("--progress", `${p}`);
+      if (barRef.current) barRef.current.style.transform = `scaleX(${p})`;
     };
-    onScroll();
+    const onScroll = () => {
+      if (!scheduled.current) {
+        scheduled.current = true;
+        requestAnimationFrame(write);
+      }
+    };
+    write();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
@@ -22,10 +33,7 @@ export default function ScrollProgress() {
 
   return (
     <div className="fixed inset-x-0 top-0 z-[65] h-[3px] bg-transparent" aria-hidden>
-      <div
-        className="h-full bg-gradient-to-r from-brass to-brass-light transition-[width] duration-100 ease-out"
-        style={{ width: `${p}%` }}
-      />
+      <div ref={barRef} className="h-full origin-left bg-gradient-to-r from-brass to-brass-light" style={{ transform: "scaleX(0)" }} />
     </div>
   );
 }

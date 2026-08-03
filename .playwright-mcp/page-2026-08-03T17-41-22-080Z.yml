@@ -1,0 +1,1035 @@
+- generic [active] [ref=f9e1]:
+  - generic:
+    - generic:
+      - generic:
+        - generic:
+          - generic: Plażowa Park — Głowno — Zalew Mrożyczka — 20 apartamentów w sercu lasu — Plażowa Park — Głowno — Zalew Mrożyczka — 20 apartamentów w sercu lasu — Plażowa Park — Głowno — Zalew Mrożyczka — 20 apartamentów w sercu lasu —
+          - generic: Plażowa Park — Głowno — Zalew Mrożyczka — 20 apartamentów w sercu lasu — Plażowa Park — Głowno — Zalew Mrożyczka — 20 apartamentów w sercu lasu — Plażowa Park — Głowno — Zalew Mrożyczka — 20 apartamentów w sercu lasu —
+      - generic: "000"
+    - generic:
+      - generic: "01"
+      - generic: Osiedle
+      - generic: "--:--:--"
+  - banner [ref=f9e3]:
+    - generic [ref=f9e4]:
+      - link "Plażowa Park - strona główna" [ref=f9e5] [cursor=pointer]:
+        - /url: "#top"
+        - generic [ref=f9e11]:
+          - generic [ref=f9e12]: Plażowa Park
+          - generic [ref=f9e13]: Głowno · Zalew Mrożyczka
+      - navigation [ref=f9e14]:
+        - link "Osiedle" [ref=f9e15] [cursor=pointer]:
+          - /url: "#osiedle"
+        - link "Apartamenty" [ref=f9e16] [cursor=pointer]:
+          - /url: "#lokale"
+        - link "Spacer 360" [ref=f9e17] [cursor=pointer]:
+          - /url: "#spacer"
+        - link "Standard" [ref=f9e18] [cursor=pointer]:
+          - /url: "#standard"
+        - link "Okolica" [ref=f9e19] [cursor=pointer]:
+          - /url: "#okolica"
+        - link "Kontakt" [ref=f9e20] [cursor=pointer]:
+          - /url: "#kontakt"
+      - generic [ref=f9e21]:
+        - link "515 488 951" [ref=f9e22] [cursor=pointer]:
+          - /url: tel:+48515488951
+        - link "Sprawdź dostępność 20" [ref=f9e26] [cursor=pointer]:
+          - /url: "#lokale"
+          - text: Sprawdź dostępność
+          - generic [ref=f9e27]: "20"
+  - main [ref=f9e28]:
+    - generic [ref=f9e29]:
+      - img "Apartamenty Plażowa Park w sosnowym lesie nad Zalewem Mrożyczka w Głownie" [ref=f9e31]
+      - generic [ref=f9e34]:
+        - generic [ref=f9e35]:
+          - paragraph [ref=f9e36]: Nowa inwestycja · Głowno
+          - heading "Apartamenty nad Zalewem Mrożyczka" [level=1] [ref=f9e37]: Apartamenty nadZalewem Mrożyczka
+          - paragraph [ref=f9e38]: Plażowa Park to kameralne osiedle 20 apartamentów z prywatnym ogrodem i tarasem, w otoczeniu ponad 100-letniego lasu, tuż przy plaży i Central Wake Park w Głownie.
+          - generic [ref=f9e39]:
+            - link "Wybierz apartament" [ref=f9e40] [cursor=pointer]:
+              - /url: "#lokale"
+            - link "Umów prezentację" [ref=f9e43] [cursor=pointer]:
+              - /url: "#kontakt"
+          - generic [ref=f9e44]:
+            - generic [ref=f9e45]:
+              - term [ref=f9e46]: "0"
+              - definition [ref=f9e47]: apartamentów
+            - generic [ref=f9e48]:
+              - term [ref=f9e49]: "0"
+              - definition [ref=f9e50]: budynków
+            - generic [ref=f9e51]:
+              - term [ref=f9e52]: 82-133
+              - definition [ref=f9e53]: m² powierzchni
+            - generic [ref=f9e54]:
+              - term [ref=f9e55]: od 633 000 zł
+              - definition [ref=f9e56]: cena
+        - link "Przewiń" [ref=f9e57] [cursor=pointer]:
+          - /url: "#osiedle"
+    - generic [ref=f9e64]:
+      - generic [ref=f9e65]:
+        - paragraph [ref=f9e66]: 01 - Osiedle
+        - heading "Kameralne osiedle nowoczesnych apartamentów." [level=2] [ref=f9e67]
+        - paragraph [ref=f9e68]: Plażowa Park to sześć budynków i zaledwie 20 apartamentów, ukrytych w zaciszu ponad 100-letniego lasu. Budynki narożne mieszczą po cztery apartamenty, a środkowe po dwa większe. Do każdego apartamentu należy prywatny ogród, taras i dwa miejsca postojowe.
+      - paragraph [ref=f9e72]: Wizualizacja poglądowa układu osiedla. Model 3D · KS Prestige Development.
+    - generic [ref=f9e74]:
+      - generic [ref=f9e75]:
+        - paragraph [ref=f9e76]: 02 - Wybierz dom
+        - heading "Apartamenty z ogrodem i tarasem." [level=2] [ref=f9e77]
+        - paragraph [ref=f9e78]: Kliknij budynek na planie osiedla lub filtruj apartamenty według metrażu i liczby pokoi. Ceny i dostępność pochodzą z bieżącego konfiguratora dewelopera.
+      - generic [ref=f9e79]:
+        - generic [ref=f9e80]:
+          - img "Interaktywny plan osiedla Plażowa Park - sześć budynków" [ref=f9e81]
+          - group "Klikalny plan budynków" [ref=f9e82]:
+            - generic [ref=f9e83]:
+              - button "Budynek 1 i 2, 4 z 4 dostępnych" [ref=f9e84] [cursor=pointer]
+              - button "Budynek 3, 2 z 2 dostępnych" [ref=f9e85] [cursor=pointer]
+              - button "Budynek 4 i 5, 4 z 4 dostępnych" [ref=f9e86] [cursor=pointer]
+              - button "Budynek 6 i 7, 4 z 4 dostępnych" [ref=f9e87] [cursor=pointer]
+              - button "Budynek 8, 2 z 2 dostępnych" [ref=f9e88] [cursor=pointer]
+              - button "Budynek 9 i 10, 4 z 4 dostępnych" [ref=f9e89] [cursor=pointer]
+          - button "Budynek 1 i 2" [ref=f9e90]:
+            - generic [ref=f9e91]: 1 i 2
+          - button "Budynek 3" [ref=f9e93]:
+            - generic [ref=f9e94]: "3"
+          - button "Budynek 4 i 5" [ref=f9e96]:
+            - generic [ref=f9e97]: 4 i 5
+          - button "Budynek 6 i 7" [ref=f9e99]:
+            - generic [ref=f9e100]: 6 i 7
+          - button "Budynek 8" [ref=f9e102]:
+            - generic [ref=f9e103]: "8"
+          - button "Budynek 9 i 10" [ref=f9e105]:
+            - generic [ref=f9e106]: 9 i 10
+          - generic [ref=f9e108]:
+            - generic [ref=f9e109]: Dostępny
+            - generic [ref=f9e111]: Rezerwacja
+            - generic [ref=f9e113]: Sprzedany
+        - generic [ref=f9e115]:
+          - generic [ref=f9e116]:
+            - generic [ref=f9e117]:
+              - generic [ref=f9e118]: "0"
+              - generic [ref=f9e119]: dostępnych
+            - generic [ref=f9e120]:
+              - generic [ref=f9e121]: "0"
+              - generic [ref=f9e122]: budynków
+            - generic [ref=f9e123]:
+              - generic [ref=f9e124]: od 633 000 zł
+              - generic [ref=f9e125]: cena
+          - paragraph [ref=f9e126]: Budynki
+          - generic [ref=f9e127]:
+            - button "Wszystkie" [ref=f9e128]
+            - button "1 i 24" [ref=f9e129]
+            - button "32" [ref=f9e130]
+            - button "4 i 54" [ref=f9e131]
+            - button "6 i 74" [ref=f9e132]
+            - button "82" [ref=f9e133]
+            - button "9 i 104" [ref=f9e134]
+          - paragraph [ref=f9e135]: Budynki narożne (1 i 2, 4 i 5, 6 i 7, 9 i 10) mieszczą po cztery apartamenty 82-94 m². Budynki środkowe (3, 8) to dwa największe lokale pięciopokojowe do 133 m².
+      - generic [ref=f9e136]:
+        - generic [ref=f9e137]:
+          - button "Wszystkie" [ref=f9e138]
+          - button "Dostępne" [ref=f9e139]
+          - 'button "Pokoje: wszystkie" [ref=f9e141]'
+          - button "4 pok." [ref=f9e142]
+          - button "5 pok." [ref=f9e143]
+        - generic [ref=f9e144]:
+          - generic [ref=f9e145]: 20 z 20
+          - combobox "Sortowanie" [ref=f9e146]:
+            - 'option "Cena: rosnąco" [selected]'
+            - 'option "Cena: malejąco"'
+            - 'option "Metraż: największe"'
+      - generic [ref=f9e147]:
+        - article [ref=f9e149]:
+          - link "Zobacz apartament 2.2B" [ref=f9e150] [cursor=pointer]:
+            - /url: /lokal/2-2b
+            - img "Położenie apartamentu 2.2B w budynku 1 i 2" [ref=f9e151]
+            - generic [ref=f9e152]: Dostępny
+            - generic [ref=f9e154]: Budynek 1 i 2
+          - generic [ref=f9e155]:
+            - generic [ref=f9e156]:
+              - heading "Apartament 2.2B" [level=3] [ref=f9e157]
+              - generic [ref=f9e158]: 4 pokoje
+            - generic [ref=f9e159]:
+              - generic [ref=f9e160]:
+                - term [ref=f9e161]: Powierzchnia
+                - definition [ref=f9e162]: 82,05 m²
+              - generic [ref=f9e163]:
+                - term [ref=f9e164]: Ogród
+                - definition [ref=f9e165]: 30,98 m²
+              - generic [ref=f9e166]:
+                - term [ref=f9e167]: Kondygnacje
+                - definition [ref=f9e168]: "2"
+            - generic [ref=f9e170]:
+              - generic [ref=f9e171]: 633 000 zł
+              - generic [ref=f9e172]: 7715 zł/m²
+            - generic [ref=f9e173]:
+              - button "Szczegóły" [ref=f9e174] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e175] [cursor=pointer]
+        - article [ref=f9e179]:
+          - link "Zobacz apartament 7.2B" [ref=f9e180] [cursor=pointer]:
+            - /url: /lokal/7-2b
+            - img "Położenie apartamentu 7.2B w budynku 6 i 7" [ref=f9e181]
+            - generic [ref=f9e182]: Dostępny
+            - generic [ref=f9e184]: Budynek 6 i 7
+          - generic [ref=f9e185]:
+            - generic [ref=f9e186]:
+              - heading "Apartament 7.2B" [level=3] [ref=f9e187]
+              - generic [ref=f9e188]: 4 pokoje
+            - generic [ref=f9e189]:
+              - generic [ref=f9e190]:
+                - term [ref=f9e191]: Powierzchnia
+                - definition [ref=f9e192]: 82,05 m²
+              - generic [ref=f9e193]:
+                - term [ref=f9e194]: Ogród
+                - definition [ref=f9e195]: 38,88 m²
+              - generic [ref=f9e196]:
+                - term [ref=f9e197]: Kondygnacje
+                - definition [ref=f9e198]: "2"
+            - generic [ref=f9e200]:
+              - generic [ref=f9e201]: 634 000 zł
+              - generic [ref=f9e202]: 7727 zł/m²
+            - generic [ref=f9e203]:
+              - button "Szczegóły" [ref=f9e204] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e205] [cursor=pointer]
+        - article [ref=f9e209]:
+          - link "Zobacz apartament 10.2B" [ref=f9e210] [cursor=pointer]:
+            - /url: /lokal/10-2b
+            - img "Położenie apartamentu 10.2B w budynku 9 i 10" [ref=f9e211]
+            - generic [ref=f9e212]: Dostępny
+            - generic [ref=f9e214]: Budynek 9 i 10
+          - generic [ref=f9e215]:
+            - generic [ref=f9e216]:
+              - heading "Apartament 10.2B" [level=3] [ref=f9e217]
+              - generic [ref=f9e218]: 4 pokoje
+            - generic [ref=f9e219]:
+              - generic [ref=f9e220]:
+                - term [ref=f9e221]: Powierzchnia
+                - definition [ref=f9e222]: 82,05 m²
+              - generic [ref=f9e223]:
+                - term [ref=f9e224]: Ogród
+                - definition [ref=f9e225]: 63 m²
+              - generic [ref=f9e226]:
+                - term [ref=f9e227]: Kondygnacje
+                - definition [ref=f9e228]: "2"
+            - generic [ref=f9e230]:
+              - generic [ref=f9e231]: 646 000 zł
+              - generic [ref=f9e232]: 7873 zł/m²
+            - generic [ref=f9e233]:
+              - button "Szczegóły" [ref=f9e234] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e235] [cursor=pointer]
+        - article [ref=f9e239]:
+          - link "Zobacz apartament 9.1B" [ref=f9e240] [cursor=pointer]:
+            - /url: /lokal/9-1b
+            - img "Położenie apartamentu 9.1B w budynku 9 i 10" [ref=f9e241]
+            - generic [ref=f9e242]: Dostępny
+            - generic [ref=f9e244]: Budynek 9 i 10
+          - generic [ref=f9e245]:
+            - generic [ref=f9e246]:
+              - heading "Apartament 9.1B" [level=3] [ref=f9e247]
+              - generic [ref=f9e248]: 4 pokoje
+            - generic [ref=f9e249]:
+              - generic [ref=f9e250]:
+                - term [ref=f9e251]: Powierzchnia
+                - definition [ref=f9e252]: 85,94 m²
+              - generic [ref=f9e253]:
+                - term [ref=f9e254]: Ogród
+                - definition [ref=f9e255]: 31,4 m²
+              - generic [ref=f9e256]:
+                - term [ref=f9e257]: Kondygnacje
+                - definition [ref=f9e258]: "2"
+            - generic [ref=f9e260]:
+              - generic [ref=f9e261]: 662 000 zł
+              - generic [ref=f9e262]: 7703 zł/m²
+            - generic [ref=f9e263]:
+              - button "Szczegóły" [ref=f9e264] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e265] [cursor=pointer]
+        - article [ref=f9e269]:
+          - link "Zobacz apartament 4.1B" [ref=f9e270] [cursor=pointer]:
+            - /url: /lokal/4-1b
+            - img "Położenie apartamentu 4.1B w budynku 4 i 5" [ref=f9e271]
+            - generic [ref=f9e272]: Dostępny
+            - generic [ref=f9e274]: Budynek 4 i 5
+          - generic [ref=f9e275]:
+            - generic [ref=f9e276]:
+              - heading "Apartament 4.1B" [level=3] [ref=f9e277]
+              - generic [ref=f9e278]: 4 pokoje
+            - generic [ref=f9e279]:
+              - generic [ref=f9e280]:
+                - term [ref=f9e281]: Powierzchnia
+                - definition [ref=f9e282]: 85,94 m²
+              - generic [ref=f9e283]:
+                - term [ref=f9e284]: Ogród
+                - definition [ref=f9e285]: 37,25 m²
+              - generic [ref=f9e286]:
+                - term [ref=f9e287]: Kondygnacje
+                - definition [ref=f9e288]: "2"
+            - generic [ref=f9e290]:
+              - generic [ref=f9e291]: 664 000 zł
+              - generic [ref=f9e292]: 7726 zł/m²
+            - generic [ref=f9e293]:
+              - button "Szczegóły" [ref=f9e294] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e295] [cursor=pointer]
+        - article [ref=f9e299]:
+          - link "Zobacz apartament 5.2B" [ref=f9e300] [cursor=pointer]:
+            - /url: /lokal/5-2b
+            - img "Położenie apartamentu 5.2B w budynku 4 i 5" [ref=f9e301]
+            - generic [ref=f9e302]: Dostępny
+            - generic [ref=f9e304]: Budynek 4 i 5
+          - generic [ref=f9e305]:
+            - generic [ref=f9e306]:
+              - heading "Apartament 5.2B" [level=3] [ref=f9e307]
+              - generic [ref=f9e308]: 4 pokoje
+            - generic [ref=f9e309]:
+              - generic [ref=f9e310]:
+                - term [ref=f9e311]: Powierzchnia
+                - definition [ref=f9e312]: 82,05 m²
+              - generic [ref=f9e313]:
+                - term [ref=f9e314]: Ogród
+                - definition [ref=f9e315]: 115,71 m²
+              - generic [ref=f9e316]:
+                - term [ref=f9e317]: Kondygnacje
+                - definition [ref=f9e318]: "2"
+            - generic [ref=f9e320]:
+              - generic [ref=f9e321]: 666 000 zł
+              - generic [ref=f9e322]: 8117 zł/m²
+            - generic [ref=f9e323]:
+              - button "Szczegóły" [ref=f9e324] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e325] [cursor=pointer]
+        - article [ref=f9e329]:
+          - link "Zobacz apartament 1.1B" [ref=f9e330] [cursor=pointer]:
+            - /url: /lokal/1-1b
+            - img "Położenie apartamentu 1.1B w budynku 1 i 2" [ref=f9e331]
+            - generic [ref=f9e332]: Dostępny
+            - generic [ref=f9e334]: Budynek 1 i 2
+          - generic [ref=f9e335]:
+            - generic [ref=f9e336]:
+              - heading "Apartament 1.1B" [level=3] [ref=f9e337]
+              - generic [ref=f9e338]: 4 pokoje
+            - generic [ref=f9e339]:
+              - generic [ref=f9e340]:
+                - term [ref=f9e341]: Powierzchnia
+                - definition [ref=f9e342]: 85,94 m²
+              - generic [ref=f9e343]:
+                - term [ref=f9e344]: Ogród
+                - definition [ref=f9e345]: 64,3 m²
+              - generic [ref=f9e346]:
+                - term [ref=f9e347]: Kondygnacje
+                - definition [ref=f9e348]: "2"
+            - generic [ref=f9e350]:
+              - generic [ref=f9e351]: 674 000 zł
+              - generic [ref=f9e352]: 7843 zł/m²
+            - generic [ref=f9e353]:
+              - button "Szczegóły" [ref=f9e354] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e355] [cursor=pointer]
+        - article [ref=f9e359]:
+          - link "Zobacz apartament 6.1B" [ref=f9e360] [cursor=pointer]:
+            - /url: /lokal/6-1b
+            - img "Położenie apartamentu 6.1B w budynku 6 i 7" [ref=f9e361]
+            - generic [ref=f9e362]: Dostępny
+            - generic [ref=f9e364]: Budynek 6 i 7
+          - generic [ref=f9e365]:
+            - generic [ref=f9e366]:
+              - heading "Apartament 6.1B" [level=3] [ref=f9e367]
+              - generic [ref=f9e368]: 4 pokoje
+            - generic [ref=f9e369]:
+              - generic [ref=f9e370]:
+                - term [ref=f9e371]: Powierzchnia
+                - definition [ref=f9e372]: 85,94 m²
+              - generic [ref=f9e373]:
+                - term [ref=f9e374]: Ogród
+                - definition [ref=f9e375]: 115,94 m²
+              - generic [ref=f9e376]:
+                - term [ref=f9e377]: Kondygnacje
+                - definition [ref=f9e378]: "2"
+            - generic [ref=f9e380]:
+              - generic [ref=f9e381]: 694 000 zł
+              - generic [ref=f9e382]: 8075 zł/m²
+            - generic [ref=f9e383]:
+              - button "Szczegóły" [ref=f9e384] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e385] [cursor=pointer]
+        - article [ref=f9e389]:
+          - link "Zobacz apartament 2.2A" [ref=f9e390] [cursor=pointer]:
+            - /url: /lokal/2-2a
+            - img "Położenie apartamentu 2.2A w budynku 1 i 2" [ref=f9e391]
+            - generic [ref=f9e392]: Dostępny
+            - generic [ref=f9e394]: Budynek 1 i 2
+          - generic [ref=f9e395]:
+            - generic [ref=f9e396]:
+              - heading "Apartament 2.2A" [level=3] [ref=f9e397]
+              - generic [ref=f9e398]: 4 pokoje
+            - generic [ref=f9e399]:
+              - generic [ref=f9e400]:
+                - term [ref=f9e401]: Powierzchnia
+                - definition [ref=f9e402]: 92,72 m²
+              - generic [ref=f9e403]:
+                - term [ref=f9e404]: Ogród
+                - definition [ref=f9e405]: 70,98 m²
+              - generic [ref=f9e406]:
+                - term [ref=f9e407]: Kondygnacje
+                - definition [ref=f9e408]: "2"
+            - generic [ref=f9e410]:
+              - generic [ref=f9e411]: 725 000 zł
+              - generic [ref=f9e412]: 7819 zł/m²
+            - generic [ref=f9e413]:
+              - button "Szczegóły" [ref=f9e414] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e415] [cursor=pointer]
+        - article [ref=f9e419]:
+          - link "Zobacz apartament 7.2A" [ref=f9e420] [cursor=pointer]:
+            - /url: /lokal/7-2a
+            - img "Położenie apartamentu 7.2A w budynku 6 i 7" [ref=f9e421]
+            - generic [ref=f9e422]: Dostępny
+            - generic [ref=f9e424]: Budynek 6 i 7
+          - generic [ref=f9e425]:
+            - generic [ref=f9e426]:
+              - heading "Apartament 7.2A" [level=3] [ref=f9e427]
+              - generic [ref=f9e428]: 4 pokoje
+            - generic [ref=f9e429]:
+              - generic [ref=f9e430]:
+                - term [ref=f9e431]: Powierzchnia
+                - definition [ref=f9e432]: 92,74 m²
+              - generic [ref=f9e433]:
+                - term [ref=f9e434]: Ogród
+                - definition [ref=f9e435]: 68,06 m²
+              - generic [ref=f9e436]:
+                - term [ref=f9e437]: Kondygnacje
+                - definition [ref=f9e438]: "2"
+            - generic [ref=f9e440]:
+              - generic [ref=f9e441]: 725 000 zł
+              - generic [ref=f9e442]: 7818 zł/m²
+            - generic [ref=f9e443]:
+              - button "Szczegóły" [ref=f9e444] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e445] [cursor=pointer]
+        - article [ref=f9e449]:
+          - link "Zobacz apartament 10.2A" [ref=f9e450] [cursor=pointer]:
+            - /url: /lokal/10-2a
+            - img "Położenie apartamentu 10.2A w budynku 9 i 10" [ref=f9e451]
+            - generic [ref=f9e452]: Dostępny
+            - generic [ref=f9e454]: Budynek 9 i 10
+          - generic [ref=f9e455]:
+            - generic [ref=f9e456]:
+              - heading "Apartament 10.2A" [level=3] [ref=f9e457]
+              - generic [ref=f9e458]: 4 pokoje
+            - generic [ref=f9e459]:
+              - generic [ref=f9e460]:
+                - term [ref=f9e461]: Powierzchnia
+                - definition [ref=f9e462]: 92,74 m²
+              - generic [ref=f9e463]:
+                - term [ref=f9e464]: Ogród
+                - definition [ref=f9e465]: 95,5 m²
+              - generic [ref=f9e466]:
+                - term [ref=f9e467]: Kondygnacje
+                - definition [ref=f9e468]: "2"
+            - generic [ref=f9e470]:
+              - generic [ref=f9e471]: 735 000 zł
+              - generic [ref=f9e472]: 7925 zł/m²
+            - generic [ref=f9e473]:
+              - button "Szczegóły" [ref=f9e474] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e475] [cursor=pointer]
+        - article [ref=f9e479]:
+          - link "Zobacz apartament 4.1A" [ref=f9e480] [cursor=pointer]:
+            - /url: /lokal/4-1a
+            - img "Położenie apartamentu 4.1A w budynku 4 i 5" [ref=f9e481]
+            - generic [ref=f9e482]: Dostępny
+            - generic [ref=f9e484]: Budynek 4 i 5
+          - generic [ref=f9e485]:
+            - generic [ref=f9e486]:
+              - heading "Apartament 4.1A" [level=3] [ref=f9e487]
+              - generic [ref=f9e488]: 4 pokoje
+            - generic [ref=f9e489]:
+              - generic [ref=f9e490]:
+                - term [ref=f9e491]: Powierzchnia
+                - definition [ref=f9e492]: 94,42 m²
+              - generic [ref=f9e493]:
+                - term [ref=f9e494]: Ogród
+                - definition [ref=f9e495]: 69,32 m²
+              - generic [ref=f9e496]:
+                - term [ref=f9e497]: Kondygnacje
+                - definition [ref=f9e498]: "2"
+            - generic [ref=f9e500]:
+              - generic [ref=f9e501]: 738 000 zł
+              - generic [ref=f9e502]: 7816 zł/m²
+            - generic [ref=f9e503]:
+              - button "Szczegóły" [ref=f9e504] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e505] [cursor=pointer]
+        - article [ref=f9e509]:
+          - link "Zobacz apartament 9.1A" [ref=f9e510] [cursor=pointer]:
+            - /url: /lokal/9-1a
+            - img "Położenie apartamentu 9.1A w budynku 9 i 10" [ref=f9e511]
+            - generic [ref=f9e512]: Dostępny
+            - generic [ref=f9e514]: Budynek 9 i 10
+          - generic [ref=f9e515]:
+            - generic [ref=f9e516]:
+              - heading "Apartament 9.1A" [level=3] [ref=f9e517]
+              - generic [ref=f9e518]: 4 pokoje
+            - generic [ref=f9e519]:
+              - generic [ref=f9e520]:
+                - term [ref=f9e521]: Powierzchnia
+                - definition [ref=f9e522]: 94,42 m²
+              - generic [ref=f9e523]:
+                - term [ref=f9e524]: Ogród
+                - definition [ref=f9e525]: 71,33 m²
+              - generic [ref=f9e526]:
+                - term [ref=f9e527]: Kondygnacje
+                - definition [ref=f9e528]: "2"
+            - generic [ref=f9e530]:
+              - generic [ref=f9e531]: 738 000 zł
+              - generic [ref=f9e532]: 7816 zł/m²
+            - generic [ref=f9e533]:
+              - button "Szczegóły" [ref=f9e534] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e535] [cursor=pointer]
+        - article [ref=f9e539]:
+          - link "Zobacz apartament 1.1A" [ref=f9e540] [cursor=pointer]:
+            - /url: /lokal/1-1a
+            - img "Położenie apartamentu 1.1A w budynku 1 i 2" [ref=f9e541]
+            - generic [ref=f9e542]: Dostępny
+            - generic [ref=f9e544]: Budynek 1 i 2
+          - generic [ref=f9e545]:
+            - generic [ref=f9e546]:
+              - heading "Apartament 1.1A" [level=3] [ref=f9e547]
+              - generic [ref=f9e548]: 4 pokoje
+            - generic [ref=f9e549]:
+              - generic [ref=f9e550]:
+                - term [ref=f9e551]: Powierzchnia
+                - definition [ref=f9e552]: 94,42 m²
+              - generic [ref=f9e553]:
+                - term [ref=f9e554]: Ogród
+                - definition [ref=f9e555]: 98,94 m²
+              - generic [ref=f9e556]:
+                - term [ref=f9e557]: Kondygnacje
+                - definition [ref=f9e558]: "2"
+            - generic [ref=f9e560]:
+              - generic [ref=f9e561]: 749 000 zł
+              - generic [ref=f9e562]: 7933 zł/m²
+            - generic [ref=f9e563]:
+              - button "Szczegóły" [ref=f9e564] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e565] [cursor=pointer]
+        - article [ref=f9e569]:
+          - link "Zobacz apartament 5.2A" [ref=f9e570] [cursor=pointer]:
+            - /url: /lokal/5-2a
+            - img "Położenie apartamentu 5.2A w budynku 4 i 5" [ref=f9e571]
+            - generic [ref=f9e572]: Dostępny
+            - generic [ref=f9e574]: Budynek 4 i 5
+          - generic [ref=f9e575]:
+            - generic [ref=f9e576]:
+              - heading "Apartament 5.2A" [level=3] [ref=f9e577]
+              - generic [ref=f9e578]: 4 pokoje
+            - generic [ref=f9e579]:
+              - generic [ref=f9e580]:
+                - term [ref=f9e581]: Powierzchnia
+                - definition [ref=f9e582]: 92,74 m²
+              - generic [ref=f9e583]:
+                - term [ref=f9e584]: Ogród
+                - definition [ref=f9e585]: 145,12 m²
+              - generic [ref=f9e586]:
+                - term [ref=f9e587]: Kondygnacje
+                - definition [ref=f9e588]: "2"
+            - generic [ref=f9e590]:
+              - generic [ref=f9e591]: 751 000 zł
+              - generic [ref=f9e592]: 8098 zł/m²
+            - generic [ref=f9e593]:
+              - button "Szczegóły" [ref=f9e594] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e595] [cursor=pointer]
+        - article [ref=f9e599]:
+          - link "Zobacz apartament 6.1A" [ref=f9e600] [cursor=pointer]:
+            - /url: /lokal/6-1a
+            - img "Położenie apartamentu 6.1A w budynku 6 i 7" [ref=f9e601]
+            - generic [ref=f9e602]: Dostępny
+            - generic [ref=f9e604]: Budynek 6 i 7
+          - generic [ref=f9e605]:
+            - generic [ref=f9e606]:
+              - heading "Apartament 6.1A" [level=3] [ref=f9e607]
+              - generic [ref=f9e608]: 4 pokoje
+            - generic [ref=f9e609]:
+              - generic [ref=f9e610]:
+                - term [ref=f9e611]: Powierzchnia
+                - definition [ref=f9e612]: 94,42 m²
+              - generic [ref=f9e613]:
+                - term [ref=f9e614]: Ogród
+                - definition [ref=f9e615]: 145,29 m²
+              - generic [ref=f9e616]:
+                - term [ref=f9e617]: Kondygnacje
+                - definition [ref=f9e618]: "2"
+            - generic [ref=f9e620]:
+              - generic [ref=f9e621]: 764 000 zł
+              - generic [ref=f9e622]: 8092 zł/m²
+            - generic [ref=f9e623]:
+              - button "Szczegóły" [ref=f9e624] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e625] [cursor=pointer]
+        - article [ref=f9e629]:
+          - link "Zobacz apartament 8.3B" [ref=f9e630] [cursor=pointer]:
+            - /url: /lokal/8-3b
+            - img "Położenie apartamentu 8.3B w budynku 8" [ref=f9e631]
+            - generic [ref=f9e632]: Dostępny
+            - generic [ref=f9e634]: Budynek 8
+          - generic [ref=f9e635]:
+            - generic [ref=f9e636]:
+              - heading "Apartament 8.3B" [level=3] [ref=f9e637]
+              - generic [ref=f9e638]: 5 pokoi
+            - generic [ref=f9e639]:
+              - generic [ref=f9e640]:
+                - term [ref=f9e641]: Powierzchnia
+                - definition [ref=f9e642]: 127,28 m²
+              - generic [ref=f9e643]:
+                - term [ref=f9e644]: Ogród
+                - definition [ref=f9e645]: 141,44 m²
+              - generic [ref=f9e646]:
+                - term [ref=f9e647]: Kondygnacje
+                - definition [ref=f9e648]: "2"
+            - generic [ref=f9e650]:
+              - generic [ref=f9e651]: 888 000 zł
+              - generic [ref=f9e652]: 6977 zł/m²
+            - generic [ref=f9e653]:
+              - button "Szczegóły" [ref=f9e654] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e655] [cursor=pointer]
+        - article [ref=f9e659]:
+          - link "Zobacz apartament 3.3B" [ref=f9e660] [cursor=pointer]:
+            - /url: /lokal/3-3b
+            - img "Położenie apartamentu 3.3B w budynku 3" [ref=f9e661]
+            - generic [ref=f9e662]: Dostępny
+            - generic [ref=f9e664]: Budynek 3
+          - generic [ref=f9e665]:
+            - generic [ref=f9e666]:
+              - heading "Apartament 3.3B" [level=3] [ref=f9e667]
+              - generic [ref=f9e668]: 5 pokoi
+            - generic [ref=f9e669]:
+              - generic [ref=f9e670]:
+                - term [ref=f9e671]: Powierzchnia
+                - definition [ref=f9e672]: 127,28 m²
+              - generic [ref=f9e673]:
+                - term [ref=f9e674]: Ogród
+                - definition [ref=f9e675]: 147,27 m²
+              - generic [ref=f9e676]:
+                - term [ref=f9e677]: Kondygnacje
+                - definition [ref=f9e678]: "2"
+            - generic [ref=f9e680]:
+              - generic [ref=f9e681]: 891 000 zł
+              - generic [ref=f9e682]: 7000 zł/m²
+            - generic [ref=f9e683]:
+              - button "Szczegóły" [ref=f9e684] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e685] [cursor=pointer]
+        - article [ref=f9e689]:
+          - link "Zobacz apartament 3.3A" [ref=f9e690] [cursor=pointer]:
+            - /url: /lokal/3-3a
+            - img "Położenie apartamentu 3.3A w budynku 3" [ref=f9e691]
+            - generic [ref=f9e692]: Dostępny
+            - generic [ref=f9e694]: Budynek 3
+          - generic [ref=f9e695]:
+            - generic [ref=f9e696]:
+              - heading "Apartament 3.3A" [level=3] [ref=f9e697]
+              - generic [ref=f9e698]: 5 pokoi
+            - generic [ref=f9e699]:
+              - generic [ref=f9e700]:
+                - term [ref=f9e701]: Powierzchnia
+                - definition [ref=f9e702]: 133,03 m²
+              - generic [ref=f9e703]:
+                - term [ref=f9e704]: Ogród
+                - definition [ref=f9e705]: 142,77 m²
+              - generic [ref=f9e706]:
+                - term [ref=f9e707]: Kondygnacje
+                - definition [ref=f9e708]: "2"
+            - generic [ref=f9e710]:
+              - generic [ref=f9e711]: 925 000 zł
+              - generic [ref=f9e712]: 6953 zł/m²
+            - generic [ref=f9e713]:
+              - button "Szczegóły" [ref=f9e714] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e715] [cursor=pointer]
+        - article [ref=f9e719]:
+          - link "Zobacz apartament 8.3A" [ref=f9e720] [cursor=pointer]:
+            - /url: /lokal/8-3a
+            - img "Położenie apartamentu 8.3A w budynku 8" [ref=f9e721]
+            - generic [ref=f9e722]: Dostępny
+            - generic [ref=f9e724]: Budynek 8
+          - generic [ref=f9e725]:
+            - generic [ref=f9e726]:
+              - heading "Apartament 8.3A" [level=3] [ref=f9e727]
+              - generic [ref=f9e728]: 5 pokoi
+            - generic [ref=f9e729]:
+              - generic [ref=f9e730]:
+                - term [ref=f9e731]: Powierzchnia
+                - definition [ref=f9e732]: 133,03 m²
+              - generic [ref=f9e733]:
+                - term [ref=f9e734]: Ogród
+                - definition [ref=f9e735]: 146,31 m²
+              - generic [ref=f9e736]:
+                - term [ref=f9e737]: Kondygnacje
+                - definition [ref=f9e738]: "2"
+            - generic [ref=f9e740]:
+              - generic [ref=f9e741]: 926 000 zł
+              - generic [ref=f9e742]: 6961 zł/m²
+            - generic [ref=f9e743]:
+              - button "Szczegóły" [ref=f9e744] [cursor=pointer]
+              - button "Zapytaj" [ref=f9e745] [cursor=pointer]
+    - generic [ref=f9e749]:
+      - generic [ref=f9e750]:
+        - generic [ref=f9e751]:
+          - generic [ref=f9e752]: 82-133 m² powierzchni
+          - generic [ref=f9e753]: ✦
+        - generic [ref=f9e754]:
+          - generic [ref=f9e755]: prywatny ogród
+          - generic [ref=f9e756]: ✦
+        - generic [ref=f9e757]:
+          - generic [ref=f9e758]: taras z panoramicznymi oknami
+          - generic [ref=f9e759]: ✦
+        - generic [ref=f9e760]:
+          - generic [ref=f9e761]: 2 miejsca postojowe
+          - generic [ref=f9e762]: ✦
+        - generic [ref=f9e763]:
+          - generic [ref=f9e764]: poddasze w cenie
+          - generic [ref=f9e765]: ✦
+      - generic [ref=f9e766]:
+        - generic [ref=f9e767]:
+          - generic [ref=f9e768]: 82-133 m² powierzchni
+          - generic [ref=f9e769]: ✦
+        - generic [ref=f9e770]:
+          - generic [ref=f9e771]: prywatny ogród
+          - generic [ref=f9e772]: ✦
+        - generic [ref=f9e773]:
+          - generic [ref=f9e774]: taras z panoramicznymi oknami
+          - generic [ref=f9e775]: ✦
+        - generic [ref=f9e776]:
+          - generic [ref=f9e777]: 2 miejsca postojowe
+          - generic [ref=f9e778]: ✦
+        - generic [ref=f9e779]:
+          - generic [ref=f9e780]: poddasze w cenie
+          - generic [ref=f9e781]: ✦
+    - generic [ref=f9e783]:
+      - generic [ref=f9e785]:
+        - paragraph [ref=f9e786]: 03 - Spacer 360
+        - heading "Zwiedź osiedle w 360 stopni." [level=2] [ref=f9e787]
+        - paragraph [ref=f9e788]: Przejdź się uliczkami osiedla Plażowa Park, zajrzyj między budynki i zobacz ogrody oraz najbliższe otoczenie. To autentyczny widok inwestycji.
+      - button "Rozpocznij wirtualny spacer 360 stopni" [ref=f9e791]:
+        - img "Osiedle Plażowa Park w otoczeniu sosnowego lasu - podgląd wirtualnego spaceru 360 stopni" [ref=f9e792]
+        - generic [ref=f9e794]: Wirtualny spacer 360 stopni
+        - generic [ref=f9e802]:
+          - generic [ref=f9e803]: Przejdź się osiedlem w otoczeniu lasu
+          - generic [ref=f9e804]: Rozpocznij spacer 360 stopni
+    - generic [ref=f9e809]:
+      - generic [ref=f9e810]:
+        - paragraph [ref=f9e811]: 04 - Standard i technologia
+        - heading "Nowoczesny standard i technologie." [level=2] [ref=f9e812]
+        - paragraph [ref=f9e813]: Apartamenty w Plażowa Park powstają w energooszczędnej technologii, z materiałami wysokiej jakości w standardzie. Poddasze jest zawarte w cenie i gotowe do adaptacji według własnego pomysłu.
+      - generic [ref=f9e814]:
+        - generic [ref=f9e815]:
+          - heading "Pompy ciepła" [level=3] [ref=f9e819]
+          - paragraph [ref=f9e820]: Ekonomiczne, ekologiczne źródło ogrzewania dla każdego domu.
+        - generic [ref=f9e821]:
+          - heading "Ogrzewanie podłogowe" [level=3] [ref=f9e825]
+          - paragraph [ref=f9e826]: Równomierne ciepło i pełna swoboda aranżacji bez grzejników.
+        - generic [ref=f9e827]:
+          - heading "Rekuperacja (opcja)" [level=3] [ref=f9e831]
+          - paragraph [ref=f9e832]: Możliwość montażu wentylacji z odzyskiem ciepła na etapie budowy.
+        - generic [ref=f9e833]:
+          - heading "Fotowoltaika (opcja)" [level=3] [ref=f9e837]
+          - paragraph [ref=f9e838]: Możliwość obniżenia rachunków dzięki własnej energii.
+        - generic [ref=f9e839]:
+          - heading "Panoramiczne okna" [level=3] [ref=f9e844]
+          - paragraph [ref=f9e845]: Przeszklenia od podłogi do sufitu z widokiem na las.
+        - generic [ref=f9e846]:
+          - heading "Materiały premium" [level=3] [ref=f9e850]
+          - paragraph [ref=f9e851]: Elastyczna cegła, tynk najwyższej klasy i blacha na rąbek stojący.
+        - generic [ref=f9e852]:
+          - heading "Prywatny ogród i taras" [level=3] [ref=f9e856]
+          - paragraph [ref=f9e857]: Własna zielona przestrzeń przy każdym apartamencie.
+        - generic [ref=f9e858]:
+          - heading "2 miejsca postojowe" [level=3] [ref=f9e862]
+          - paragraph [ref=f9e863]: Dwa miejsca na lokal; cztery lokale z własnym garażem.
+    - generic [ref=f9e866]:
+      - figure [ref=f9e867]:
+        - img "Rodzina spacerująca po trawie przed domem w otoczeniu sosnowego lasu" [ref=f9e868]
+      - generic [ref=f9e869]:
+        - paragraph [ref=f9e870]: Życie w Plażowa Park
+        - heading "Twoja rodzinna przestrzeń blisko natury." [level=2] [ref=f9e871]
+        - paragraph [ref=f9e872]: W Plażowa Park dzieci bawią się we własnym ogrodzie, a las i Zalew Mrożyczka zaczynają się tuż za progiem. To spokojne, kameralne osiedle stworzone z myślą o rodzinach, które cenią bliskość natury i codzienny komfort.
+        - list [ref=f9e873]:
+          - listitem [ref=f9e874]:
+            - generic [ref=f9e878]:
+              - heading "Kameralne, bezpieczne osiedle" [level=3] [ref=f9e879]
+              - paragraph [ref=f9e880]: Zaledwie 20 apartamentów w cichym, zielonym otoczeniu.
+          - listitem [ref=f9e881]:
+            - generic [ref=f9e885]:
+              - heading "Las i woda tuż za progiem" [level=3] [ref=f9e886]
+              - paragraph [ref=f9e887]: Ponad 100-letni las i Zalew Mrożyczka w zasięgu spaceru.
+          - listitem [ref=f9e888]:
+            - generic [ref=f9e892]:
+              - heading "Przestrzeń dla dzieci" [level=3] [ref=f9e893]
+              - paragraph [ref=f9e894]: Prywatny ogród i taras przy każdym apartamencie.
+        - link "Wybierz apartament" [ref=f9e895] [cursor=pointer]:
+          - /url: "#lokale"
+    - generic [ref=f9e899]:
+      - generic [ref=f9e900]:
+        - generic [ref=f9e901]:
+          - generic [ref=f9e902]: Zalew Mrożyczka
+          - generic [ref=f9e903]: ✦
+        - generic [ref=f9e904]:
+          - generic [ref=f9e905]: Central Wake Park
+          - generic [ref=f9e906]: ✦
+        - generic [ref=f9e907]:
+          - generic [ref=f9e908]: plaża i przystań
+          - generic [ref=f9e909]: ✦
+        - generic [ref=f9e910]:
+          - generic [ref=f9e911]: ścieżki rowerowe
+          - generic [ref=f9e912]: ✦
+        - generic [ref=f9e913]:
+          - generic [ref=f9e914]: ponad 100-letni las
+          - generic [ref=f9e915]: ✦
+      - generic [ref=f9e916]:
+        - generic [ref=f9e917]:
+          - generic [ref=f9e918]: Zalew Mrożyczka
+          - generic [ref=f9e919]: ✦
+        - generic [ref=f9e920]:
+          - generic [ref=f9e921]: Central Wake Park
+          - generic [ref=f9e922]: ✦
+        - generic [ref=f9e923]:
+          - generic [ref=f9e924]: plaża i przystań
+          - generic [ref=f9e925]: ✦
+        - generic [ref=f9e926]:
+          - generic [ref=f9e927]: ścieżki rowerowe
+          - generic [ref=f9e928]: ✦
+        - generic [ref=f9e929]:
+          - generic [ref=f9e930]: ponad 100-letni las
+          - generic [ref=f9e931]: ✦
+    - generic [ref=f9e933]:
+      - generic [ref=f9e934]:
+        - paragraph [ref=f9e935]: 05 - Okolica
+        - heading "Spokojna okolica nad Zalewem Mrożyczka." [level=2] [ref=f9e936]
+        - paragraph [ref=f9e937]: Osiedle Plażowa Park leży bezpośrednio przy Zalewie Mrożyczka i w otoczeniu ponad 100-letniego lasu. Plaża, przystań, Central Wake Park i ścieżki rowerowe są w zasięgu spaceru, a codzienne usługi w Głownie w kilka minut.
+      - generic [ref=f9e938]:
+        - figure "Orientacyjny plan okolicy. Materiał dewelopera." [ref=f9e939]:
+          - 'img "Plan okolicy: Plażowa Park nad Zalewem Mrożyczka, Central Wake Park, przystań, plaża i molo" [ref=f9e940]'
+        - list [ref=f9e943]:
+          - listitem [ref=f9e944]:
+            - generic [ref=f9e949]:
+              - generic [ref=f9e950]:
+                - generic [ref=f9e951]: Zalew Mrożyczka
+                - generic [ref=f9e952]: przy osiedlu
+              - paragraph [ref=f9e953]: 30-hektarowy zbiornik wodny z plażą i kąpieliskiem
+          - listitem [ref=f9e954]:
+            - generic [ref=f9e959]:
+              - generic [ref=f9e960]:
+                - generic [ref=f9e961]: Central Wake Park
+                - generic [ref=f9e962]: w sąsiedztwie
+              - paragraph [ref=f9e963]: Najważniejsze miejsce na wakeboardowej mapie Polski
+          - listitem [ref=f9e964]:
+            - generic [ref=f9e969]:
+              - generic [ref=f9e970]:
+                - generic [ref=f9e971]: Ponad 100-letni las
+                - generic [ref=f9e972]: wokół osiedla
+              - paragraph [ref=f9e973]: Sosnowy drzewostan otaczający osiedle
+          - listitem [ref=f9e974]:
+            - generic [ref=f9e979]:
+              - generic [ref=f9e980]:
+                - generic [ref=f9e981]: Plaża i kąpielisko
+                - generic [ref=f9e982]: przy osiedlu
+              - paragraph [ref=f9e983]: Wypoczynek nad wodą w sezonie letnim
+          - listitem [ref=f9e984]:
+            - generic [ref=f9e989]:
+              - generic [ref=f9e990]:
+                - generic [ref=f9e991]: Ścieżki rowerowe
+                - generic [ref=f9e992]: przy osiedlu
+              - paragraph [ref=f9e993]: Trasy rekreacyjne wokół zalewu i w lesie
+          - listitem [ref=f9e994]:
+            - generic [ref=f9e999]:
+              - generic [ref=f9e1000]:
+                - generic [ref=f9e1001]: Restauracje, szkoły, przychodnie
+                - generic [ref=f9e1002]: krótki dystans
+              - paragraph [ref=f9e1003]: Codzienne usługi w Głownie
+      - generic [ref=f9e1004]:
+        - generic [ref=f9e1005]: Zdjęcia satelitarne
+        - generic [ref=f9e1008]:
+          - generic [ref=f9e1009]: Zdjęcia satelitarne Esri, Maxar. Lokalizacja poglądowa. Dokładny obrys działki potwierdza geodeta.
+          - link "Zobacz w Google Maps" [ref=f9e1010] [cursor=pointer]:
+            - /url: https://www.google.com/maps/search/?api=1&query=51.9593,19.7255
+    - generic [ref=f9e1015]:
+      - generic [ref=f9e1016]:
+        - paragraph [ref=f9e1017]: 07 - Deweloper
+        - heading "Lokalny deweloper z Głowna." [level=2] [ref=f9e1018]
+        - paragraph [ref=f9e1019]: Inwestorem i deweloperem osiedla Plażowa Park jest KS Prestige Development Sp. z o.o., lokalna spółka z Głowna. Stawiamy na kameralną, energooszczędną zabudowę w zgodzie z naturą, w wyjątkowej lokalizacji nad Zalewem Mrożyczka.
+        - generic [ref=f9e1020]:
+          - generic [ref=f9e1021]:
+            - term [ref=f9e1022]: Spółka
+            - definition [ref=f9e1023]: KS Prestige Development Sp. z o.o.
+          - generic [ref=f9e1024]:
+            - term [ref=f9e1025]: Status VAT
+            - definition [ref=f9e1026]: Czynny
+          - generic [ref=f9e1027]:
+            - term [ref=f9e1028]: KRS
+            - definition [ref=f9e1029]: "0001031916"
+          - generic [ref=f9e1030]:
+            - term [ref=f9e1031]: NIP
+            - definition [ref=f9e1032]: "7331366052"
+          - generic [ref=f9e1033]:
+            - term [ref=f9e1034]: REGON
+            - definition [ref=f9e1035]: "525091200"
+          - generic [ref=f9e1036]:
+            - term [ref=f9e1037]: Siedziba
+            - definition [ref=f9e1038]: ul. Mikołaja Kopernika 30A, 95-015 Głowno
+        - generic [ref=f9e1039]:
+          - link "515 488 951" [ref=f9e1040] [cursor=pointer]:
+            - /url: tel:+48515488951
+          - link "Umów spotkanie" [ref=f9e1043] [cursor=pointer]:
+            - /url: "#kontakt"
+      - generic [ref=f9e1044]:
+        - generic [ref=f9e1049]:
+          - heading "Umowa deweloperska u notariusza" [level=3] [ref=f9e1050]
+          - paragraph [ref=f9e1051]: Bezpieczeństwo transakcji zgodne z ustawą deweloperską.
+        - generic [ref=f9e1056]:
+          - heading "Dziennik i postęp budowy" [level=3] [ref=f9e1057]
+          - paragraph [ref=f9e1058]: Bieżąca dokumentacja etapów prac na osiedlu.
+        - generic [ref=f9e1063]:
+          - heading "Standard premium w cenie" [level=3] [ref=f9e1064]
+          - paragraph [ref=f9e1065]: Pompy ciepła, ogrzewanie podłogowe i materiały najwyższej jakości.
+    - generic [ref=f9e1068]:
+      - generic [ref=f9e1069]:
+        - paragraph [ref=f9e1070]: FAQ
+        - heading "Najczęstsze pytania." [level=2] [ref=f9e1071]
+        - paragraph [ref=f9e1072]: Nie znalazłeś odpowiedzi? Zadzwoń lub napisz - odpowiadamy zwykle w ciągu jednego dnia roboczego.
+      - generic [ref=f9e1073]:
+        - generic [ref=f9e1074]:
+          - button "Ile apartamentów liczy osiedle Plażowa Park?" [expanded] [ref=f9e1075]
+          - paragraph [ref=f9e1082]: Osiedle to 20 apartamentów w 6 budynkach, o powierzchni od 82 do 133 m². Budynki narożne mieszczą po cztery apartamenty, a środkowe po dwa większe.
+        - generic [ref=f9e1083]:
+          - button "Jakie są ceny i czy są dostępne apartamenty?" [ref=f9e1084]
+          - paragraph [ref=f9e1089]: Ceny zaczynają się od 633 000 zł. Bieżącą dostępność i cenę każdego apartamentu prezentujemy w sekcji Apartamenty; wiążące dane potwierdza biuro sprzedaży.
+        - generic [ref=f9e1090]:
+          - button "Czy poddasze jest wliczone w cenę?" [ref=f9e1091]
+          - paragraph [ref=f9e1096]: Tak. Każdy apartament ma parter, piętro oraz poddasze. Poddasze jest zawarte w cenie nieruchomości i nie jest wliczone w metraż, więc możesz je zaadaptować według własnego pomysłu.
+        - generic [ref=f9e1097]:
+          - button "Co znajduje się w okolicy osiedla?" [ref=f9e1098]
+          - paragraph [ref=f9e1103]: Osiedle leży bezpośrednio przy Zalewie Mrożyczka (30-hektarowym zbiorniku z plażą i kąpieliskiem) oraz w ponad 100-letnim lesie. W sąsiedztwie jest Central Wake Park i ścieżki rowerowe, a restauracje, szkoły i przychodnie są w krótkim dystansie.
+        - generic [ref=f9e1104]:
+          - button "Jaki jest standard wykończenia i technologia?" [ref=f9e1105]
+          - paragraph [ref=f9e1110]: Apartamenty powstają w oparciu o pompy ciepła i ogrzewanie podłogowe, z opcją rekuperacji i fotowoltaiki. Standard obejmuje panoramiczne okna, elewację z tynku najwyższej klasy i elastycznej cegły oraz dach z blachy na rąbek stojący. Możliwa jest personalizacja wykończenia pod klucz.
+        - generic [ref=f9e1111]:
+          - button "Czy do apartamentu należy ogród i miejsce postojowe?" [ref=f9e1112]
+          - paragraph [ref=f9e1117]: Tak. Każdy apartament ma prywatny ogród i taras z panoramicznymi oknami oraz dwa miejsca postojowe; cztery lokale dysponują własnym garażem.
+        - generic [ref=f9e1118]:
+          - button "Kto jest deweloperem inwestycji?" [ref=f9e1119]
+          - paragraph [ref=f9e1124]: Inwestorem i deweloperem jest KS Prestige Development Sp. z o.o. z siedzibą w Głownie (KRS 0001031916, NIP 7331366052).
+    - generic [ref=f9e1127]:
+      - generic [ref=f9e1128]:
+        - paragraph [ref=f9e1129]: Kontakt
+        - heading "Umów prezentację osiedla." [level=2] [ref=f9e1130]
+        - paragraph [ref=f9e1131]: Zostaw kontakt lub zadzwoń - pokażemy dostępne apartamenty, przekażemy cennik i harmonogram. Odpowiadamy zwykle w ciągu jednego dnia roboczego.
+        - generic [ref=f9e1132]:
+          - link "Telefon 515 488 951" [ref=f9e1133] [cursor=pointer]:
+            - /url: tel:+48515488951
+            - generic [ref=f9e1137]:
+              - generic [ref=f9e1138]: Telefon
+              - text: 515 488 951
+          - link "E-mail biuro@plazowa-park.pl" [ref=f9e1139] [cursor=pointer]:
+            - /url: mailto:biuro@plazowa-park.pl
+            - generic [ref=f9e1144]:
+              - generic [ref=f9e1145]: E-mail
+              - text: biuro@plazowa-park.pl
+          - generic [ref=f9e1151]:
+            - generic [ref=f9e1152]: Adres inwestycji
+            - generic [ref=f9e1153]: ul. Plażowa 5 i 7, 95-015 Głowno
+      - generic [ref=f9e1155]:
+        - generic [ref=f9e1156]:
+          - generic [ref=f9e1157]: Imię i nazwisko *
+          - textbox "Imię i nazwisko *" [ref=f9e1158]:
+            - /placeholder: Jan Kowalski
+        - generic [ref=f9e1159]:
+          - generic [ref=f9e1160]:
+            - generic [ref=f9e1161]: Telefon *
+            - textbox "Telefon *" [ref=f9e1162]:
+              - /placeholder: 600 000 000
+          - generic [ref=f9e1163]:
+            - generic [ref=f9e1164]: E-mail *
+            - textbox "E-mail *" [ref=f9e1165]:
+              - /placeholder: jan@example.com
+        - generic [ref=f9e1166]:
+          - generic [ref=f9e1167]: Wybrany apartament (opcjonalnie)
+          - textbox "Wybrany apartament (opcjonalnie)" [ref=f9e1168]:
+            - /placeholder: np. Apartament 3.3A
+        - generic [ref=f9e1169]:
+          - generic [ref=f9e1170]: Wiadomość (opcjonalnie)
+          - textbox "Wiadomość (opcjonalnie)" [ref=f9e1171]:
+            - /placeholder: Interesuje mnie prezentacja i cennik...
+        - generic [ref=f9e1172]:
+          - checkbox "Wyrażam zgodę na przetwarzanie moich danych osobowych w celu kontaktu handlowego zgodnie z Polityką prywatności. *" [ref=f9e1173]
+          - generic [ref=f9e1174]:
+            - text: Wyrażam zgodę na przetwarzanie moich danych osobowych w celu kontaktu handlowego zgodnie z
+            - link "Polityką prywatności" [ref=f9e1175] [cursor=pointer]:
+              - /url: /polityka-prywatnosci
+            - text: . *
+        - button "Wyślij zapytanie" [ref=f9e1176] [cursor=pointer]
+        - paragraph [ref=f9e1179]:
+          - text: Klikając "Wyślij", akceptujesz
+          - link "Regulamin serwisu" [ref=f9e1180] [cursor=pointer]:
+            - /url: /regulamin
+          - text: . Pola oznaczone * są wymagane.
+  - contentinfo [ref=f9e1181]:
+    - generic [ref=f9e1182]:
+      - generic [ref=f9e1183]:
+        - generic [ref=f9e1184]:
+          - paragraph [ref=f9e1185]: Plażowa Park
+          - paragraph [ref=f9e1191]: Głowno · Zalew Mrożyczka
+          - paragraph [ref=f9e1192]: Luksusowe osiedle 20 apartamentów w ponad 100-letnim lesie, bezpośrednio przy Zalewie Mrożyczka w Głownie.
+          - link "Wybierz apartament" [ref=f9e1193] [cursor=pointer]:
+            - /url: "#lokale"
+        - navigation [ref=f9e1196]:
+          - paragraph [ref=f9e1197]: Nawigacja
+          - list [ref=f9e1198]:
+            - listitem [ref=f9e1199]:
+              - link "Osiedle" [ref=f9e1200] [cursor=pointer]:
+                - /url: /#osiedle
+            - listitem [ref=f9e1201]:
+              - link "Apartamenty" [ref=f9e1202] [cursor=pointer]:
+                - /url: /#lokale
+            - listitem [ref=f9e1203]:
+              - link "Spacer 360" [ref=f9e1204] [cursor=pointer]:
+                - /url: /#spacer
+            - listitem [ref=f9e1205]:
+              - link "Standard" [ref=f9e1206] [cursor=pointer]:
+                - /url: /#standard
+            - listitem [ref=f9e1207]:
+              - link "Okolica" [ref=f9e1208] [cursor=pointer]:
+                - /url: /#okolica
+            - listitem [ref=f9e1209]:
+              - link "Kontakt" [ref=f9e1210] [cursor=pointer]:
+                - /url: /#kontakt
+        - generic [ref=f9e1211]:
+          - paragraph [ref=f9e1212]: Kontakt
+          - list [ref=f9e1213]:
+            - listitem [ref=f9e1214]:
+              - link "515 488 951" [ref=f9e1215] [cursor=pointer]:
+                - /url: tel:+48515488951
+            - listitem [ref=f9e1216]:
+              - link "biuro@plazowa-park.pl" [ref=f9e1217] [cursor=pointer]:
+                - /url: mailto:biuro@plazowa-park.pl
+            - listitem [ref=f9e1218]: ul. Plażowa 5 i 795-015 Głowno
+        - generic [ref=f9e1219]:
+          - paragraph [ref=f9e1220]: Deweloper
+          - list [ref=f9e1221]:
+            - listitem [ref=f9e1222]: KS Prestige Development Sp. z o.o.
+            - listitem [ref=f9e1223]: ul. Mikołaja Kopernika 30A
+            - listitem [ref=f9e1224]: 95-015 Głowno
+            - listitem [ref=f9e1225]: KRS 0001031916
+            - listitem [ref=f9e1226]: NIP 7331366052
+            - listitem [ref=f9e1227]: REGON 525091200
+      - generic [ref=f9e1228]:
+        - paragraph [ref=f9e1229]: Wizualizacje i ceny mają charakter poglądowy i nie stanowią oferty w rozumieniu art. 66 Kodeksu cywilnego. Wiążące dane, ceny i dostępność potwierdza biuro sprzedaży.
+        - generic [ref=f9e1230]:
+          - paragraph [ref=f9e1231]: © 2026 KS Prestige Development Sp. z o.o. · Wszelkie prawa zastrzeżone.
+          - generic [ref=f9e1232]:
+            - link "Polityka prywatności" [ref=f9e1233] [cursor=pointer]:
+              - /url: /polityka-prywatnosci
+            - link "Polityka cookies" [ref=f9e1234] [cursor=pointer]:
+              - /url: /polityka-cookies
+            - link "Regulamin serwisu" [ref=f9e1235] [cursor=pointer]:
+              - /url: /regulamin
+            - generic [ref=f9e1236]: ·
+            - 'link "Realizacja: Kontaktio" [ref=f9e1237] [cursor=pointer]':
+              - /url: https://kontaktio.pl
+              - text: "Realizacja:"
+              - generic [ref=f9e1238]: Kontaktio
+  - generic [ref=f9e1239]:
+    - generic [ref=f9e1240]: Głowno · Zalew Mrożyczka
+    - heading [level=1] [ref=f9e1244]:
+      - generic [ref=f9e1245]: Plażowa
+      - generic [ref=f9e1247]: Park
+    - generic [ref=f9e1249]:
+      - generic [ref=f9e1250]: Apartamenty nad Zalewem Mrożyczka w Głownie
+      - generic [ref=f9e1251]:
+        - text: "0"
+        - generic [ref=f9e1252]: "%"
