@@ -23,11 +23,13 @@ export default function SiteMotion() {
 
       if (!reduce) {
         lenis = new Lenis({
-          duration: 1.1,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          // lerp mode = continuous per-frame interpolation toward target.
+          // Stays buttery-smooth at any wheel speed (unlike duration mode,
+          // which restarts a fixed-length tween on every wheel event).
+          lerp: 0.09,
           smoothWheel: true,
           wheelMultiplier: 1,
-          touchMultiplier: 1.6,
+          syncTouch: false, // native scroll on touch = best perf + feel on mobile
         });
         // @ts-expect-error expose for anchor scrolling
         window.__lenis = lenis;
