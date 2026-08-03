@@ -112,7 +112,7 @@ export default function VirtualTour() {
             </h2>
             <p className="mt-5 text-pretty leading-relaxed text-paper/70">
               Przejdź się uliczkami osiedla Plażowa Park, zajrzyj między budynki i zobacz ogrody oraz najbliższe
-              otoczenie. Wirtualny spacer 360 stopni przygotował deweloper. To autentyczny widok inwestycji.
+              otoczenie. To autentyczny widok inwestycji.
             </p>
           </div>
         </div>
@@ -214,9 +214,6 @@ export default function VirtualTour() {
             )}
           </div>
         </div>
-        <p className="mt-5 text-xs text-paper/45">
-          Wirtualny spacer stanu dewelopera (SenseVR). Materiał poglądowy prezentujący osiedle i najbliższe otoczenie.
-        </p>
       </div>
     </section>
   );
