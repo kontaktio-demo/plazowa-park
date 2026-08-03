@@ -42,14 +42,16 @@ export default function SiteMotion() {
         items.forEach((el) => el.classList.add("is-in"));
       } else {
         ScrollTrigger.batch(items, {
-          start: "top 88%",
+          start: "top 86%",
           onEnter: (batch) =>
             gsap.to(batch, {
               opacity: 1,
+              x: 0,
               y: 0,
-              duration: 0.95,
-              ease: "power3.out",
-              stagger: 0.08,
+              scale: 1,
+              duration: 1.05,
+              ease: "power4.out",
+              stagger: 0.1,
               overwrite: true,
             }),
         });

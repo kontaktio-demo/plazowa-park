@@ -9,7 +9,7 @@ export default function Standard() {
       </div>
       <div className="container-x">
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-          <header className="lg:sticky lg:top-28 lg:self-start" data-reveal="up">
+          <header className="lg:sticky lg:top-28 lg:self-start" data-reveal="left">
             <p className="eyebrow">04 - Standard i technologia</p>
             <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
               Nowoczesny standard <span className="italic text-brass-deep">i technologie.</span>
@@ -20,7 +20,7 @@ export default function Standard() {
             </p>
           </header>
 
-          <div className="grid gap-px overflow-hidden rounded-[16px] border border-ink/10 bg-ink/10 sm:grid-cols-2" data-reveal="up">
+          <div className="grid gap-px overflow-hidden rounded-[16px] border border-ink/10 bg-ink/10 sm:grid-cols-2" data-reveal="right">
             {STANDARD.map((f) => (
               <div key={f.title} className="bg-paper p-6 transition-colors hover:bg-paper-2">
                 <span className="flex h-12 w-12 items-center justify-center rounded-full bg-pine/8 text-pine">

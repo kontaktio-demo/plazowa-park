@@ -108,7 +108,6 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                   </div>
                 ))}
               </div>
-              <p className="mt-3 text-xs text-faint">Wizualizacje osiedla poglądowe. Rzut lokalu wg konfiguratora dewelopera.</p>
             </div>
 
             {/* right: details */}

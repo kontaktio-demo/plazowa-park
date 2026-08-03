@@ -260,8 +260,11 @@
 
 /* reveal - only active once JS mounts the motion layer (no-JS shows content) */
 body.motion-ready [data-reveal] { opacity: 0; }
-body.motion-ready [data-reveal="up"] { transform: translateY(30px); }
+body.motion-ready [data-reveal="up"] { transform: translateY(42px); }
 body.motion-ready [data-reveal="fade"] { transform: none; }
+body.motion-ready [data-reveal="left"] { transform: translateX(-52px); }
+body.motion-ready [data-reveal="right"] { transform: translateX(52px); }
+body.motion-ready [data-reveal="scale"] { transform: scale(0.93); }
 body.motion-ready [data-reveal].is-in { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {

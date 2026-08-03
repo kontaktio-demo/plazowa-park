@@ -99,9 +99,6 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
             <Link href={`/lokal/${unitSlug(unit.name)}`} className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-brass-deep hover:text-pine">
               Otwórz pełną stronę lokalu <Icon.arrow width={15} height={15} />
             </Link>
-            <p className="mt-3 text-xs text-faint">
-              Dane wg konfiguratora dewelopera. Ceny i dostępność potwierdzamy w biurze sprzedaży.
-            </p>
           </div>
         </div>
       </div>

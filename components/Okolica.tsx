@@ -41,9 +41,6 @@ export default function Okolica() {
               sizes="(max-width: 1024px) 100vw, 60vw"
               className="h-auto w-full"
             />
-            <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-gradient-to-t from-black/55 to-transparent p-4 text-xs text-paper/90">
-              <span>Orientacyjny plan okolicy. Materiał dewelopera.</span>
-            </figcaption>
           </figure>
 
           <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-1">
@@ -68,8 +65,7 @@ export default function Okolica() {
           <div className="h-[340px]">
             <MapLibreMap />
           </div>
-          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-xs text-faint">
-            <span>Zdjęcia satelitarne Esri, Maxar. Lokalizacja poglądowa. Dokładny obrys działki potwierdza geodeta.</span>
+          <div className="flex flex-wrap items-center justify-end gap-x-4 gap-y-1 text-xs text-faint">
             <a href={mapsHref} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-medium text-brass-deep hover:text-pine">
               Zobacz w Google Maps <Icon.arrow width={14} height={14} />
             </a>
