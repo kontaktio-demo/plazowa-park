@@ -49,6 +49,11 @@ export const metadata: Metadata = {
     "domy Głowno",
     "nowa inwestycja Głowno",
     "apartamenty nad wodą łódzkie",
+    "apartamenty w lesie Głowno",
+    "mieszkania z ogrodem i tarasem Głowno",
+    "osiedle Głowno powiat zgierski",
+    "nieruchomości nad zalewem łódzkie",
+    "apartamenty Central Wake Park",
     "KS Prestige Development",
   ],
   alternates: { canonical: "/" },
@@ -69,6 +74,13 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
   category: "real estate",
+  // Geo-targeting signals for local search (Głowno, woj. łódzkie PL-LD)
+  other: {
+    "geo.region": "PL-LD",
+    "geo.placename": "Głowno",
+    "geo.position": `${SITE.geo.lat};${SITE.geo.lng}`,
+    ICBM: `${SITE.geo.lat}, ${SITE.geo.lng}`,
+  },
 };
 
 export const viewport: Viewport = {

@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+/* rev: fluid container for large screens */
 /* ============================================================
    Plażowa Park - design system
    Natural luxury: pine forest + lake light + limestone + brass
@@ -110,7 +111,10 @@
 @layer components {
   .container-x {
     width: 100%;
-    max-width: 1360px;
+    /* Stays 1360px through laptop/desktop widths, then grows fluidly so the
+       layout fills big monitors (QHD/4K) instead of stranding content in the
+       middle. Caps at 1800px for comfortable line-length + premium margins. */
+    max-width: min(max(1360px, 84vw), 1800px);
     margin-inline: auto;
     padding-inline: clamp(1.25rem, 4vw, 3.5rem);
   }
