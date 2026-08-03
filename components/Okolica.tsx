@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { POI } from "@/lib/data/site";
+import { POI, SITE } from "@/lib/data/site";
 import MapLibreMap from "./MapLibreMap";
 import { Icon } from "./Icons";
 
@@ -10,11 +10,7 @@ const catColor: Record<string, string> = {
   usługi: "var(--color-muted)",
 };
 
-const photos = [
-  { src: "/area/plaza.webp", label: "Plaża nad Zalewem Mrożyczka" },
-  { src: "/area/wakepark.webp", label: "Central Wake Park" },
-  { src: "/area/molo.webp", label: "Molo i pomost" },
-];
+const mapsHref = `https://www.google.com/maps/search/?api=1&query=${SITE.geo.lat},${SITE.geo.lng}`;
 
 export default function Okolica() {
   return (
@@ -26,18 +22,25 @@ export default function Okolica() {
             Nad wodą, <span className="italic text-brass-deep">w sercu lasu.</span>
           </h2>
           <p className="mt-5 text-pretty leading-relaxed text-muted">
-            Osiedle leży bezpośrednio przy Zalewie Mrożyczka i w ponad 100-letnim lesie. Poniżej rzeczywiste
-            zdjęcia satelitarne z lokalizacją inwestycji oraz najważniejsze punkty w sąsiedztwie.
+            Osiedle leży bezpośrednio przy Zalewie Mrożyczka i w ponad 100-letnim lesie. Plaża, przystań,
+            Central Wake Park i ścieżki rowerowe są w zasięgu spaceru.
           </p>
         </header>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-[1.35fr_1fr]" data-reveal="up">
-          <div className="min-h-[420px]">
-            <MapLibreMap />
-            <p className="mt-2 text-xs text-faint">
-              Zdjęcia satelitarne © Esri, Maxar. Lokalizacja poglądowa. Dokładny obrys działki potwierdza geodeta.
-            </p>
-          </div>
+        <div className="mt-10 grid items-start gap-6 lg:grid-cols-[1.5fr_1fr]" data-reveal="up">
+          <figure className="relative overflow-hidden rounded-[16px] border border-ink/10 bg-[#eef0ee]">
+            <Image
+              src="/map/mapka-3D.webp"
+              alt="Plan okolicy: Plażowa Park nad Zalewem Mrożyczka, Central Wake Park, przystań, plaża i molo"
+              width={2400}
+              height={1792}
+              sizes="(max-width: 1024px) 100vw, 60vw"
+              className="h-auto w-full"
+            />
+            <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-gradient-to-t from-black/55 to-transparent p-4 text-xs text-paper/90">
+              <span>Orientacyjny plan okolicy. Materiał dewelopera.</span>
+            </figcaption>
+          </figure>
 
           <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-1">
             {POI.map((p) => (
@@ -57,22 +60,16 @@ export default function Okolica() {
           </ul>
         </div>
 
-        {/* real photographs of the surroundings - consistent photographic style */}
-        <div className="mt-6 grid gap-4 sm:grid-cols-3" data-reveal="fade">
-          {photos.map((p) => (
-            <figure key={p.src} className="relative aspect-[4/3] overflow-hidden rounded-[14px]">
-              <Image
-                src={p.src}
-                alt={`${p.label} w Głownie`}
-                fill
-                sizes="(max-width: 640px) 100vw, 33vw"
-                className="object-cover"
-              />
-              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/55 to-transparent p-4 text-sm font-medium text-paper">
-                {p.label}
-              </figcaption>
-            </figure>
-          ))}
+        <div className="mt-6 grid gap-3" data-reveal="fade">
+          <div className="h-[340px]">
+            <MapLibreMap />
+          </div>
+          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-xs text-faint">
+            <span>Zdjęcia satelitarne Esri, Maxar. Lokalizacja poglądowa. Dokładny obrys działki potwierdza geodeta.</span>
+            <a href={mapsHref} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-medium text-brass-deep hover:text-pine">
+              Zobacz w Google Maps <Icon.arrow width={14} height={14} />
+            </a>
+          </div>
         </div>
       </div>
     </section>

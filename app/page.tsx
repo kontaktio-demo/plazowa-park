@@ -2,7 +2,7 @@ import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import EstateOrbit from "@/components/EstateOrbit";
 import EstateExplorer from "@/components/estate/EstateExplorer";
-import InteriorTour from "@/components/InteriorTour";
+import VirtualTour from "@/components/VirtualTour";
 import Standard from "@/components/Standard";
 import ScrollProgress from "@/components/ScrollProgress";
 import Okolica from "@/components/Okolica";
@@ -21,7 +21,7 @@ export default function Home() {
         <Hero />
         <EstateOrbit />
         <EstateExplorer />
-        <InteriorTour />
+        <VirtualTour />
         <Standard />
         <Okolica />
         <Developer />

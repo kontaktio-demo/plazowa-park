@@ -35,7 +35,7 @@ export type NavItem = { label: string; href: string };
 export const NAV: NavItem[] = [
   { label: "Osiedle", href: "#osiedle" },
   { label: "Apartamenty", href: "#lokale" },
-  { label: "Wnętrza", href: "#wnetrza" },
+  { label: "Spacer 360", href: "#spacer" },
   { label: "Standard", href: "#standard" },
   { label: "Okolica", href: "#okolica" },
   { label: "Kontakt", href: "#kontakt" },
@@ -101,11 +101,4 @@ export const FAQ = [
     q: "Kto jest deweloperem inwestycji?",
     a: "Inwestorem i deweloperem jest KS Prestige Development Sp. z o.o. z siedzibą w Głownie (KRS 0001031916, NIP 7331366052).",
   },
-] as const;
-
-// Interiors - only REAL developer renders (no invented rooms).
-export const INTERIORS = [
-  { label: "Strefa dzienna", src: "/renders/render-07.webp", note: "Otwarty salon z jadalnią i kuchnią oraz schodami na piętro." },
-  { label: "Sypialnia", src: "/renders/render-08.webp", note: "Cicha sypialnia z dużym oknem na las." },
-  { label: "Ogród i taras", src: "/renders/render-024.webp", note: "Prywatna zielona przestrzeń w otoczeniu lasu." },
 ] as const;

@@ -28,10 +28,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 const galleryImgs = [
-  { src: "/renders/render-07.webp", alt: "Strefa dzienna apartamentu" },
-  { src: "/renders/render-08.webp", alt: "Sypialnia apartamentu" },
-  { src: "/renders/render-024.webp", alt: "Ogrod i taras apartamentu" },
-  { src: "/renders/render-03b.webp", alt: "Elewacja budynku" },
+  { src: "/renders/tour-poster.webp", alt: "Osiedle Plażowa Park w wirtualnym spacerze 360 stopni" },
+  { src: "/map/estate-frame.webp", alt: "Plan osiedla Plażowa Park z lotu ptaka" },
+  { src: "/map/mapka-3D.webp", alt: "Plan okolicy nad Zalewem Mrożyczka" },
 ];
 
 export default async function UnitPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -102,14 +101,14 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                   <span className="status-dot" style={{ background: s.color }} /> {s.label}
                 </span>
               </div>
-              <div className="mt-3 grid grid-cols-4 gap-3">
+              <div className="mt-3 grid grid-cols-3 gap-3">
                 {galleryImgs.map((g) => (
-                  <div key={g.src} className="relative aspect-square overflow-hidden rounded-[10px]">
-                    <Image src={g.src} alt={`${g.alt} - Plażowa Park`} fill sizes="(max-width: 1024px) 25vw, 140px" className="object-cover" />
+                  <div key={g.src} className="relative aspect-[4/3] overflow-hidden rounded-[10px]">
+                    <Image src={g.src} alt={g.alt} fill sizes="(max-width: 1024px) 33vw, 180px" className="object-cover" />
                   </div>
                 ))}
               </div>
-              <p className="mt-3 text-xs text-faint">Wizualizacje wnętrz poglądowe. Rzut lokalu wg konfiguratora dewelopera.</p>
+              <p className="mt-3 text-xs text-faint">Wizualizacje osiedla poglądowe. Rzut lokalu wg konfiguratora dewelopera.</p>
             </div>
 
             {/* right: details */}
@@ -144,8 +143,8 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
 
               <p className="mt-7 text-pretty leading-relaxed text-muted">
                 Apartament {u.name} w budynku {u.buildingLabel} osiedla Plażowa Park w Głownie. Prywatny ogród i taras
-                z panoramicznymi oknami, adaptowalne poddasze w cenie, dwa miejsca postojowe. Standard: pompa ciepła,
-                ogrzewanie podłogowe i rekuperacja. Kilka kroków od Zalewu Mrożyczka i 100-letniego lasu.
+                z panoramicznymi oknami, adaptowalne poddasze w cenie, dwa miejsca postojowe. Standard: pompa ciepła
+                i ogrzewanie podłogowe (rekuperacja i fotowoltaika opcjonalnie). Kilka kroków od Zalewu Mrożyczka i 100-letniego lasu.
               </p>
 
               <div className="mt-8 flex flex-col gap-2.5 sm:flex-row">

@@ -63,30 +63,29 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-paper/12 pt-6 text-sm text-paper/55 sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 {DEVELOPER.name} · Wszelkie prawa zastrzeżone.</p>
-          <ul className="flex flex-wrap gap-x-5 gap-y-2">
-            {legal.map((l) => (
-              <li key={l.href}><a href={l.href} className="link-underline hover:text-paper">{l.label}</a></li>
-            ))}
-          </ul>
+        <div className="mt-12 border-t border-paper/12 pt-6">
+          <p className="max-w-3xl text-xs leading-relaxed text-paper/45">
+            Wizualizacje i ceny mają charakter poglądowy i nie stanowią oferty w rozumieniu art. 66 Kodeksu cywilnego.
+            Wiążące dane, ceny i dostępność potwierdza biuro sprzedaży.
+          </p>
+          <div className="mt-6 flex flex-col gap-4 text-sm text-paper/55 sm:flex-row sm:items-center sm:justify-between">
+            <p>© 2026 {DEVELOPER.name} · Wszelkie prawa zastrzeżone.</p>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+              {legal.map((l) => (
+                <a key={l.href} href={l.href} className="link-underline hover:text-paper">{l.label}</a>
+              ))}
+              <span aria-hidden className="text-paper/25">·</span>
+              <a
+                href="https://kontaktio.pl"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-paper/45 transition-colors hover:text-paper/80"
+              >
+                Realizacja:&nbsp;<span className="font-medium text-paper/70">Kontaktio</span>
+              </a>
+            </div>
+          </div>
         </div>
-
-        <div className="mt-4 flex justify-center sm:justify-end">
-          <a
-            href="https://kontaktio.pl"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs text-paper/40 transition-colors hover:text-paper/70"
-          >
-            Realizacja: <span className="font-medium text-paper/60">Kontaktio</span>
-          </a>
-        </div>
-
-        <p className="mt-6 max-w-3xl text-xs leading-relaxed text-paper/45">
-          Wizualizacje i ceny mają charakter poglądowy i nie stanowią oferty w rozumieniu art. 66 Kodeksu cywilnego.
-          Wiążące dane, ceny i dostępność potwierdza biuro sprzedaży.
-        </p>
       </div>
     </footer>
   );
