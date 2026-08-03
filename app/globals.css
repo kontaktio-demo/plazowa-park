@@ -240,6 +240,13 @@
 /* blinking caret (preloader + rail %) */
 @keyframes caretBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
 .caret-blink { animation: caretBlink 1.05s steps(1) infinite; }
+/* apartment cards staggered entrance — clean 3D stand-up */
+@keyframes cardIn {
+  from { opacity: 0; transform: perspective(1100px) rotateX(14deg) translateY(38px) scale(0.965); }
+  to { opacity: 1; transform: perspective(1100px) rotateX(0deg) translateY(0) scale(1); }
+}
+.card-in { animation: cardIn 0.8s var(--ease-out-expo) both paused; transform-origin: 50% 100%; }
+.grid-cards.in .card-in { animation-play-state: running; }
 /* continuous marquee */
 @keyframes marqueeX { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes marqueeXRev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
@@ -248,8 +255,8 @@
 .marquee-x-rev { animation: marqueeXRev linear infinite; }
 .marquee-y { animation: marqueeY linear infinite; }
 @media (prefers-reduced-motion: reduce) {
-  .marquee-x, .marquee-x-rev, .marquee-y, .caret-blink, .word-up { animation: none !important; }
-  .word-up { transform: none !important; }
+  .marquee-x, .marquee-x-rev, .marquee-y, .caret-blink, .word-up, .card-in { animation: none !important; }
+  .word-up, .card-in { transform: none !important; opacity: 1 !important; }
 }
 /* soft ambient glow (static — animating a blurred layer is costly) */
 .glow-drift { opacity: 0.9; }
