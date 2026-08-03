@@ -14,7 +14,10 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${SITE.geo.lat
 
 export default function Okolica() {
   return (
-    <section id="okolica" className="bg-paper py-20 sm:py-28">
+    <section id="okolica" className="relative isolate bg-paper py-20 sm:py-28">
+      <div className="pointer-events-none absolute left-[-6%] top-[6%] -z-10" aria-hidden>
+        <div className="glow-drift h-[38vh] w-[38vh] rounded-full blur-[90px]" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--color-brass) 12%, transparent), transparent 70%)" }} />
+      </div>
       <div className="container-x">
         <header className="max-w-2xl" data-reveal="up">
           <p className="eyebrow">05 - Okolica</p>

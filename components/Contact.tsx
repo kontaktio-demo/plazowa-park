@@ -52,7 +52,10 @@ export default function Contact() {
   };
 
   return (
-    <section id="kontakt" className="bg-paper-2 py-20 sm:py-28">
+    <section id="kontakt" className="relative isolate bg-paper-2 py-20 sm:py-28">
+      <div className="pointer-events-none absolute left-[-6%] top-[8%] -z-10" aria-hidden>
+        <div className="glow-drift h-[38vh] w-[38vh] rounded-full blur-[90px]" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--color-brass) 12%, transparent), transparent 70%)" }} />
+      </div>
       <div className="container-x">
         <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
           {/* info */}

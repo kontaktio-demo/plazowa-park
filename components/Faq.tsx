@@ -8,7 +8,10 @@ export default function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="bg-paper py-20 sm:py-28">
+    <section id="faq" className="relative isolate bg-paper py-20 sm:py-28">
+      <div className="pointer-events-none absolute right-[-5%] bottom-[6%] -z-10" aria-hidden>
+        <div className="glow-drift h-[36vh] w-[36vh] rounded-full blur-[90px]" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--color-brass) 12%, transparent), transparent 70%)" }} />
+      </div>
       <div className="container-x">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           <header data-reveal="up" className="lg:sticky lg:top-28 lg:self-start">
