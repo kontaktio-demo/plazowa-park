@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import ForestTrail from "./ForestTrail";
+import BrushTrail from "./BrushTrail";
 
 const FRAMES = 120;
 const framePath = (i: number) => `/orbit/f${String(i + 1).padStart(3, "0")}.webp`;
@@ -126,7 +126,7 @@ export default function EstateOrbit() {
           <div className="absolute left-[64%] top-1/2 -translate-x-1/2 -translate-y-1/2">
             <div className="glow-drift h-[44vh] w-[44vh] rounded-full blur-[70px]" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--color-brass) 22%, transparent), transparent 70%)" }} />
           </div>
-          <ForestTrail className="absolute inset-0 hidden h-full w-full sm:block" />
+          <BrushTrail className="absolute inset-0 hidden h-full w-full sm:block" />
         </div>
         <div className="container-x relative z-10">
           <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.5fr]">
@@ -171,7 +171,7 @@ export default function EstateOrbit() {
                 )}
               </div>
               <p className="mt-3 text-center text-xs text-faint">
-                Wizualizacja poglądowa układu osiedla. Model 3D · KS Prestige Development.
+                <span className="rounded-full bg-paper/75 px-3 py-0.5 backdrop-blur-[2px]">Wizualizacja poglądowa układu osiedla. Model 3D · KS Prestige Development.</span>
               </p>
             </div>
           </div>
