@@ -42,7 +42,6 @@ export default function JsonLd() {
       name: "Plażowa Park - apartamenty nad Zalewem Mrożyczka",
       url: `${SITE.url}/`,
       inLanguage: "pl-PL",
-      datePosted: "2026-01-01",
       about: {
         "@type": "Residence",
         name: "Plażowa Park",
@@ -113,8 +112,6 @@ export default function JsonLd() {
           name: `Apartament ${u.name}`,
           numberOfRoomsTotal: u.rooms,
           floorSize: { "@type": "QuantitativeValue", value: u.area, unitCode: "MTK" },
-          numberOfBathroomsTotal: 1,
-          petsAllowed: true,
           offers: {
             "@type": "Offer",
             priceCurrency: "PLN",

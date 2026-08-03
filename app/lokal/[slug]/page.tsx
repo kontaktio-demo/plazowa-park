@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { UNITS, BUILDINGS } from "@/lib/data/units";
@@ -27,10 +28,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 const galleryImgs = [
-  { src: "/interiors/living.webp", alt: "Salon apartamentu" },
-  { src: "/interiors/kitchen.webp", alt: "Kuchnia apartamentu" },
-  { src: "/interiors/bedroom.webp", alt: "Sypialnia apartamentu" },
-  { src: "/interiors/bathroom.webp", alt: "Łazienka apartamentu" },
+  { src: "/renders/render-07.webp", alt: "Strefa dzienna apartamentu" },
+  { src: "/renders/render-08.webp", alt: "Sypialnia apartamentu" },
+  { src: "/renders/render-024.webp", alt: "Ogrod i taras apartamentu" },
+  { src: "/renders/render-03b.webp", alt: "Elewacja budynku" },
 ];
 
 export default async function UnitPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -86,10 +87,16 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
           <div className="mt-8 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
             {/* left: visual */}
             <div>
-              <div className="relative overflow-hidden rounded-[16px] border border-ink/10 bg-sand">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[16px] border border-ink/10 bg-sand">
                 {u.viewThumb && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={`/unit-views/${u.viewThumb}`} alt={`Rzut i położenie apartamentu ${u.name} w budynku ${u.buildingLabel}`} className="aspect-[4/3] w-full object-contain p-8" />
+                  <Image
+                    src={`/unit-views/${u.viewThumb}`}
+                    alt={`Rzut i położenie apartamentu ${u.name} w budynku ${u.buildingLabel}`}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 55vw"
+                    className="object-contain p-8"
+                    priority
+                  />
                 )}
                 <span className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-paper/90 px-3 py-1 text-xs font-semibold text-ink-soft">
                   <span className="status-dot" style={{ background: s.color }} /> {s.label}
@@ -97,8 +104,9 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
               </div>
               <div className="mt-3 grid grid-cols-4 gap-3">
                 {galleryImgs.map((g) => (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img key={g.src} src={g.src} alt={`${g.alt} - Plażowa Park`} className="aspect-square w-full rounded-[10px] object-cover" loading="lazy" />
+                  <div key={g.src} className="relative aspect-square overflow-hidden rounded-[10px]">
+                    <Image src={g.src} alt={`${g.alt} - Plażowa Park`} fill sizes="(max-width: 1024px) 25vw, 140px" className="object-cover" />
+                  </div>
                 ))}
               </div>
               <p className="mt-3 text-xs text-faint">Wizualizacje wnętrz poglądowe. Rzut lokalu wg konfiguratora dewelopera.</p>

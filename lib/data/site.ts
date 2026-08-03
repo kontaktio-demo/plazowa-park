@@ -1,9 +1,10 @@
-// Single source of truth for site content. Facts verified from the developer's
-// SenseVR configurator (investment 214), plazowa-park.pl and public registries.
+// Single source of truth. Every fact below is verified against plazowa-park.pl
+// (homepage) and the developer's official SenseVR/Qupto configurator (unit data),
+// plus public registries (MF Biała Lista) for the developer. No invented figures.
 
 export const SITE = {
   name: "Plażowa Park",
-  tagline: "Apartamenty nad Zalewem Mrożyczka",
+  tagline: "Luksusowe osiedle domów blisko natury",
   url: "https://plazowa-park.pl",
   locale: "pl-PL",
   address: {
@@ -14,10 +15,9 @@ export const SITE = {
     county: "powiat zgierski",
     country: "PL",
   },
-  geo: { lat: 51.9593, lng: 19.7255 },
+  geo: { lat: 51.9593, lng: 19.7255 }, // ul. Plażowa, Głowno (ULDK parcel 102001_1.0011.209/1)
   phone: { display: "515 488 951", tel: "+48515488951" },
   email: "biuro@plazowa-park.pl",
-  handoverDate: "IV kwartał 2026",
 } as const;
 
 export const DEVELOPER = {
@@ -28,84 +28,74 @@ export const DEVELOPER = {
   krs: "0001031916",
   nip: "7331366052",
   regon: "525091200",
-  ceo: "Jakub Kwiatkowski",
+  statusVat: "Czynny", // MF Biała Lista, zweryfikowano wg NIP
 } as const;
 
 export type NavItem = { label: string; href: string };
 export const NAV: NavItem[] = [
   { label: "Osiedle", href: "#osiedle" },
-  { label: "Wybierz dom", href: "#lokale" },
+  { label: "Apartamenty", href: "#lokale" },
   { label: "Wnętrza", href: "#wnetrza" },
   { label: "Standard", href: "#standard" },
   { label: "Okolica", href: "#okolica" },
-  { label: "Finansowanie", href: "#finansowanie" },
   { label: "Kontakt", href: "#kontakt" },
 ];
 
-// Signature selling points near Zalew Mrożyczka
-// Distances kept qualitative unless independently verified (Central Wake Park ≈ 284 m,
-// Zalew ≈ 150 m, Łódź ok. 30 km) - no unverified precise figures.
+// Location selling points - only those stated on plazowa-park.pl. No invented
+// distances (the site gives none), so proximity is qualitative.
 export const POI = [
-  { name: "Zalew Mrożyczka", desc: "Piaszczysta plaża, kąpielisko i molo", dist: "przy osiedlu", cat: "natura" },
-  { name: "Central Wake Park", desc: "Wakeboard i sporty wodne nad zalewem", dist: "ok. 300 m", cat: "sport" },
-  { name: "Park linowy", desc: "Wejście od ul. Plażowej", dist: "przy osiedlu", cat: "sport" },
-  { name: "100-letni las", desc: "Sosnowy drzewostan otaczający osiedle", dist: "wokół osiedla", cat: "natura" },
-  { name: "Komunikacja miejska", desc: "Przystanek autobusowy w okolicy", dist: "w pobliżu", cat: "dojazd" },
-  { name: "Szkoły i przedszkola", desc: "Placówki edukacyjne w Głownie", dist: "w zasięgu spaceru", cat: "usługi" },
-  { name: "Sklepy i usługi", desc: "Codzienne zakupy i przychodnia", dist: "w zasięgu spaceru", cat: "usługi" },
-  { name: "Łódź", desc: "Autostradą A2 i drogą DK14 (ok. 30 km)", dist: "~30 min", cat: "dojazd" },
+  { name: "Zalew Mrożyczka", desc: "30-hektarowy zbiornik wodny z plażą i kąpieliskiem", dist: "przy osiedlu", cat: "natura" },
+  { name: "Central Wake Park", desc: "Najważniejsze miejsce na wakeboardowej mapie Polski", dist: "w sąsiedztwie", cat: "sport" },
+  { name: "Ponad 100-letni las", desc: "Sosnowy drzewostan otaczający osiedle", dist: "wokół osiedla", cat: "natura" },
+  { name: "Plaża i kąpielisko", desc: "Wypoczynek nad wodą w sezonie letnim", dist: "przy osiedlu", cat: "natura" },
+  { name: "Ścieżki rowerowe", desc: "Trasy rekreacyjne wokół zalewu i w lesie", dist: "przy osiedlu", cat: "sport" },
+  { name: "Restauracje, szkoły, przychodnie", desc: "Codzienne usługi w Głownie", dist: "krótki dystans", cat: "usługi" },
 ] as const;
 
+// Standard: heat pumps + underfloor heating are standard; recuperation and
+// photovoltaics are optional (installed on request during construction).
 export const STANDARD = [
   { title: "Pompy ciepła", desc: "Ekonomiczne, ekologiczne źródło ogrzewania dla każdego domu.", icon: "heat" },
-  { title: "Ogrzewanie podłogowe", desc: "Równomierne ciepło i pełna swoboda aranżacji - bez grzejników.", icon: "floor" },
-  { title: "Rekuperacja", desc: "Stały dopływ świeżego powietrza z odzyskiem ciepła.", icon: "air" },
+  { title: "Ogrzewanie podłogowe", desc: "Równomierne ciepło i pełna swoboda aranżacji bez grzejników.", icon: "floor" },
+  { title: "Rekuperacja (opcja)", desc: "Możliwość montażu wentylacji z odzyskiem ciepła na etapie budowy.", icon: "air" },
   { title: "Fotowoltaika (opcja)", desc: "Możliwość obniżenia rachunków dzięki własnej energii.", icon: "solar" },
   { title: "Panoramiczne okna", desc: "Przeszklenia od podłogi do sufitu z widokiem na las.", icon: "window" },
-  { title: "Materiały premium", desc: "Elastyczna cegła, tynk premium i blacha na rąbek stojący.", icon: "brick" },
+  { title: "Materiały premium", desc: "Elastyczna cegła, tynk najwyższej klasy i blacha na rąbek stojący.", icon: "brick" },
   { title: "Prywatny ogród i taras", desc: "Własna zielona przestrzeń przy każdym apartamencie.", icon: "garden" },
-  { title: "2 miejsca postojowe", desc: "Dwa miejsca na lokal; wybrane domy z garażem.", icon: "car" },
+  { title: "2 miejsca postojowe", desc: "Dwa miejsca na lokal; cztery lokale z własnym garażem.", icon: "car" },
 ] as const;
 
 export const FINANCE_STEPS = [
-  { step: "01", title: "Rezerwacja", desc: "Wybór lokalu i podpisanie umowy rezerwacyjnej." },
-  { step: "02", title: "Umowa deweloperska", desc: "Akt notarialny i wpłata zgodnie z harmonogramem." },
+  { step: "01", title: "Rezerwacja", desc: "Wybór apartamentu i podpisanie umowy rezerwacyjnej." },
+  { step: "02", title: "Umowa deweloperska", desc: "Akt notarialny i wpłaty zgodne z harmonogramem." },
   { step: "03", title: "Etapy budowy", desc: "Transze powiązane z postępem prac na osiedlu." },
-  { step: "04", title: "Odbiór i akt", desc: "Odbiór techniczny i przeniesienie własności, IV kw. 2026." },
-] as const;
-
-export const HARMONOGRAM = [
-  { period: "I kw. 2025", title: "Rozpoczęcie budowy", state: "done" },
-  { period: "III kw. 2025", title: "Stan surowy zamknięty", state: "done" },
-  { period: "I kw. 2026", title: "Instalacje i elewacje", state: "done" },
-  { period: "III kw. 2026", title: "Prace wykończeniowe", state: "current" },
-  { period: "IV kw. 2026", title: "Odbiór i oddanie", state: "upcoming" },
+  { step: "04", title: "Odbiór i akt", desc: "Odbiór techniczny i przeniesienie własności." },
 ] as const;
 
 export const FAQ = [
   {
     q: "Ile apartamentów liczy osiedle Plażowa Park?",
-    a: "Osiedle to 20 apartamentów w 6 budynkach, o powierzchni od 82,05 do 133,03 m². Budynki narożne mieszczą po cztery lokale, a środkowe po dwa większe, pięciopokojowe.",
+    a: "Osiedle to 20 apartamentów w 6 budynkach, o powierzchni od 82 do 133 m². Budynki narożne mieszczą po cztery apartamenty, a środkowe po dwa większe.",
   },
   {
-    q: "Jakie są ceny i czy są dostępne lokale?",
-    a: "Ceny zaczynają się od 633 000 zł. Aktualnie wszystkie lokale są w sprzedaży - bieżącą dostępność i ceny każdego apartamentu prezentujemy w sekcji 'Wybierz dom'. Dane potwierdzamy w biurze sprzedaży.",
+    q: "Jakie są ceny i czy są dostępne apartamenty?",
+    a: "Ceny zaczynają się od 633 000 zł. Bieżącą dostępność i cenę każdego apartamentu prezentujemy w sekcji Apartamenty; wiążące dane potwierdza biuro sprzedaży.",
   },
   {
-    q: "Kiedy planowane jest oddanie inwestycji?",
-    a: "Planowany termin oddania to IV kwartał 2026 roku.",
+    q: "Czy poddasze jest wliczone w cenę?",
+    a: "Tak. Każdy apartament ma parter, piętro oraz poddasze. Poddasze jest zawarte w cenie nieruchomości i nie jest wliczone w metraż, więc możesz je zaadaptować według własnego pomysłu.",
   },
   {
     q: "Co znajduje się w okolicy osiedla?",
-    a: "Osiedle leży bezpośrednio przy Zalewie Mrożyczka i 100-letnim lesie sosnowym. W zasięgu spaceru są plaża, molo, Central Wake Park i park linowy, a w Głownie szkoły, przychodnia i sklepy. Do Łodzi dojedziesz w około 30 minut autostradą A2 i drogą DK14.",
+    a: "Osiedle leży bezpośrednio przy Zalewie Mrożyczka (30-hektarowym zbiorniku z plażą i kąpieliskiem) oraz w ponad 100-letnim lesie. W sąsiedztwie jest Central Wake Park i ścieżki rowerowe, a restauracje, szkoły i przychodnie są w krótkim dystansie.",
   },
   {
     q: "Jaki jest standard wykończenia i technologia?",
-    a: "Domy powstają w oparciu o pompy ciepła, ogrzewanie podłogowe i rekuperację, z opcją fotowoltaiki. Standard obejmuje panoramiczne okna, elewację z tynku premium i elastycznej cegły oraz dach z blachy na rąbek stojący. Poddasze jest zawarte w cenie i można je zaadaptować.",
+    a: "Apartamenty powstają w oparciu o pompy ciepła i ogrzewanie podłogowe, z opcją rekuperacji i fotowoltaiki. Standard obejmuje panoramiczne okna, elewację z tynku najwyższej klasy i elastycznej cegły oraz dach z blachy na rąbek stojący. Możliwa jest personalizacja wykończenia pod klucz.",
   },
   {
     q: "Czy do apartamentu należy ogród i miejsce postojowe?",
-    a: "Tak. Każdy apartament ma prywatny ogród i taras z panoramicznymi oknami oraz dwa miejsca postojowe; wybrane lokale dysponują własnym garażem.",
+    a: "Tak. Każdy apartament ma prywatny ogród i taras z panoramicznymi oknami oraz dwa miejsca postojowe; cztery lokale dysponują własnym garażem.",
   },
   {
     q: "Kto jest deweloperem inwestycji?",
@@ -113,27 +103,9 @@ export const FAQ = [
   },
 ] as const;
 
-// Gallery - real developer renders first, then interior visualisations + area photos.
-export type GalleryItem = { src: string; alt: string; span?: "wide" | "tall"; tag?: string; ai?: boolean };
-export const GALLERY: GalleryItem[] = [
-  { src: "/renders/render-03b.webp", alt: "Wizualizacja budynku Plażowa Park - elewacja w sosnowym lesie" },
-  { src: "/renders/render-07.webp", alt: "Otwarta strefa dzienna z jadalnią i kuchnią - apartament Plażowa Park" },
-  { src: "/renders/render-08.webp", alt: "Sypialnia apartamentu Plażowa Park z widokiem na las" },
-  { src: "/renders/render-024.webp", alt: "Prywatny ogród i taras apartamentu - Plażowa Park" },
-  { src: "/renders/render-01b.webp", alt: "Wizualizacja budynku Plażowa Park o zachodzie słońca" },
-  { src: "/interiors/kitchen.webp", alt: "Kuchnia z wyspą i widokiem na las - apartament Plażowa Park", ai: true },
-  { src: "/interiors/bathroom.webp", alt: "Łazienka premium - apartament Plażowa Park", ai: true },
-  { src: "/interiors/office.webp", alt: "Gabinet z panoramicznym oknem na las - Plażowa Park", ai: true },
-  { src: "/area/plaza.webp", alt: "Plaża nad Zalewem Mrożyczka w Głownie" },
-  { src: "/area/wakepark.webp", alt: "Central Wake Park nad Zalewem Mrożyczka" },
-  { src: "/area/molo.webp", alt: "Molo i pomost nad Zalewem Mrożyczka" },
-];
-
-export const INTERIOR_TOUR = [
-  { key: "salon", label: "Strefa dzienna", src: "/renders/render-07.webp", note: "Otwarty salon z jadalnią i kuchnią oraz schodami na piętro." },
-  { key: "kuchnia", label: "Kuchnia", src: "/interiors/kitchen.webp", note: "Kuchnia z wyspą, płynnie połączona z salonem." },
-  { key: "sypialnia", label: "Sypialnia", src: "/renders/render-08.webp", note: "Cicha sypialnia z dużym oknem na las." },
-  { key: "gabinet", label: "Gabinet", src: "/interiors/office.webp", note: "Miejsce do pracy z widokiem na sosny." },
-  { key: "lazienka", label: "Łazienka", src: "/interiors/bathroom.webp", note: "Łazienka w standardzie premium." },
-  { key: "ogrod", label: "Ogród", src: "/renders/render-024.webp", note: "Prywatny ogród i taras w otoczeniu lasu." },
+// Interiors - only REAL developer renders (no invented rooms).
+export const INTERIORS = [
+  { label: "Strefa dzienna", src: "/renders/render-07.webp", note: "Otwarty salon z jadalnią i kuchnią oraz schodami na piętro." },
+  { label: "Sypialnia", src: "/renders/render-08.webp", note: "Cicha sypialnia z dużym oknem na las." },
+  { label: "Ogród i taras", src: "/renders/render-024.webp", note: "Prywatna zielona przestrzeń w otoczeniu lasu." },
 ] as const;

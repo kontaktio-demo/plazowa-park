@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     "Plażowa Park",
     "domy Głowno",
     "nowa inwestycja Głowno",
-    "mieszkania blisko Łodzi nad jeziorem",
+    "apartamenty nad wodą łódzkie",
     "KS Prestige Development",
   ],
   alternates: { canonical: "/" },

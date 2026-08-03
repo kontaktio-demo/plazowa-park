@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const FRAMES = 120;
@@ -55,7 +56,7 @@ export default function EstateOrbit() {
       if (preloadStarted) return;
       preloadStarted = true;
       for (let i = 0; i < FRAMES; i++) {
-        const img = new Image();
+        const img = new window.Image();
         img.decoding = "async";
         img.src = framePath(i);
         img.onload = () => {
@@ -124,7 +125,7 @@ export default function EstateOrbit() {
             <div data-reveal="up" className="max-w-md">
               <p className="eyebrow">01 - Osiedle</p>
               <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
-                Sześć budynków. <span className="italic text-brass-deep">Dwadzieścia domów.</span>
+                Sześć budynków. <span className="italic text-brass-deep">Dwadzieścia apartamentów.</span>
               </h2>
               <p className="mt-5 text-pretty leading-relaxed text-muted">
                 Kameralny układ w zaciszu lasu. Budynki narożne mieszczą po cztery apartamenty, środkowe - po dwa
@@ -140,8 +141,13 @@ export default function EstateOrbit() {
             <div className="relative">
               <div className="relative aspect-square w-full overflow-hidden rounded-[16px]">
                 {mode === "static" ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src="/map/estate-frame.webp" alt="Osiedle Plażowa Park z lotu ptaka - sześć budynków w sosnowym lesie" className="h-full w-full object-cover" />
+                  <Image
+                    src="/map/estate-frame.webp"
+                    alt="Osiedle Plażowa Park z lotu ptaka - sześć budynków w sosnowym lesie"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 60vw"
+                    className="object-cover"
+                  />
                 ) : (
                   <>
                     <canvas ref={canvasRef} className="h-full w-full" />

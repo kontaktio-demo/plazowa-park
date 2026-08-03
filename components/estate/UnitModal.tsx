@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import type { Unit } from "@/lib/data/units";
 import { plnShort, area, rooms, STATUS_META } from "@/lib/format";
@@ -40,8 +41,13 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
         <div className="grid sm:grid-cols-2">
           <div className="relative aspect-[4/3] bg-sand sm:aspect-auto">
             {unit.viewThumb && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={`/unit-views/${unit.viewThumb}`} alt={`Położenie apartamentu ${unit.name}`} className="h-full w-full object-contain p-6" />
+              <Image
+                src={`/unit-views/${unit.viewThumb}`}
+                alt={`Położenie apartamentu ${unit.name}`}
+                fill
+                sizes="(max-width: 640px) 100vw, 384px"
+                className="object-contain p-6"
+              />
             )}
             <span className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-paper/90 px-3 py-1 text-xs font-semibold text-ink-soft">
               <span className="status-dot" style={{ background: s.color }} /> {s.label}

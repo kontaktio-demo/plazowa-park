@@ -9,7 +9,6 @@ const legal = [
 ];
 
 export default function Footer() {
-  const year = 2026;
   return (
     <footer className="bg-pine-deep text-paper">
       <div className="container-x py-16">
@@ -23,10 +22,11 @@ export default function Footer() {
             </p>
             <p className="mt-2 text-sm uppercase tracking-[0.2em] text-brass-light">Głowno · Zalew Mrożyczka</p>
             <p className="mt-5 max-w-xs text-pretty text-sm leading-relaxed text-paper/65">
-              Kameralne osiedle 20 apartamentów w 100-letnim lesie, bezpośrednio przy Zalewie Mrożyczka. Oddanie {SITE.handoverDate}.
+              Luksusowe osiedle 20 apartamentów w ponad 100-letnim lesie, bezpośrednio przy Zalewie Mrożyczka
+              w Głownie.
             </p>
             <a href="#lokale" className="btn btn-brass mt-6 !py-2.5 text-sm">
-              Sprawdź dostępność <Icon.arrow width={16} height={16} />
+              Wybierz apartament <Icon.arrow width={16} height={16} />
             </a>
           </div>
 
@@ -38,9 +38,6 @@ export default function Footer() {
                   <a href={`/${n.href}`} className="link-underline text-paper/80 hover:text-paper">{n.label}</a>
                 </li>
               ))}
-              <li>
-                <a href="/blog" className="link-underline text-paper/80 hover:text-paper">Blog</a>
-              </li>
             </ul>
           </nav>
 
@@ -61,12 +58,13 @@ export default function Footer() {
               <li>{DEVELOPER.postal} {DEVELOPER.city}</li>
               <li className="num">KRS {DEVELOPER.krs}</li>
               <li className="num">NIP {DEVELOPER.nip}</li>
+              <li className="num">REGON {DEVELOPER.regon}</li>
             </ul>
           </div>
         </div>
 
         <div className="mt-14 flex flex-col gap-4 border-t border-paper/12 pt-6 text-sm text-paper/55 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {year} {DEVELOPER.name}. Wszelkie prawa zastrzeżone.</p>
+          <p>© 2026 {DEVELOPER.name} · Wszelkie prawa zastrzeżone.</p>
           <ul className="flex flex-wrap gap-x-5 gap-y-2">
             {legal.map((l) => (
               <li key={l.href}><a href={l.href} className="link-underline hover:text-paper">{l.label}</a></li>
@@ -74,9 +72,20 @@ export default function Footer() {
           </ul>
         </div>
 
+        <div className="mt-4 flex justify-center sm:justify-end">
+          <a
+            href="https://kontaktio.pl"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-xs text-paper/40 transition-colors hover:text-paper/70"
+          >
+            Realizacja: <span className="font-medium text-paper/60">Kontaktio</span>
+          </a>
+        </div>
+
         <p className="mt-6 max-w-3xl text-xs leading-relaxed text-paper/45">
-          Wizualizacje i ceny mają charakter poglądowy i nie stanowią oferty w rozumieniu art. 66 Kodeksu cywilnego;
-          część aranżacji wnętrz przygotowano z użyciem narzędzi AI. Wiążące dane potwierdza biuro sprzedaży.
+          Wizualizacje i ceny mają charakter poglądowy i nie stanowią oferty w rozumieniu art. 66 Kodeksu cywilnego.
+          Wiążące dane, ceny i dostępność potwierdza biuro sprzedaży.
         </p>
       </div>
     </footer>

@@ -1,104 +1,59 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-import { INTERIOR_TOUR } from "@/lib/data/site";
-import { Icon } from "./Icons";
-
-type Tab = "spacer" | (typeof INTERIOR_TOUR)[number]["key"];
+import Image from "next/image";
+import { INTERIORS } from "@/lib/data/site";
 
 export default function InteriorTour() {
-  const [tab, setTab] = useState<Tab>("salon");
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    if (tab === "spacer") v.play().catch(() => {});
-    else v.pause();
-  }, [tab]);
-
-  const active = INTERIOR_TOUR.find((r) => r.key === tab);
-
+  const [feature, ...rest] = INTERIORS;
   return (
     <section id="wnetrza" className="bg-pine-deep py-20 text-paper sm:py-28">
       <div className="container-x">
         <header className="max-w-2xl" data-reveal="up">
           <p className="eyebrow !text-brass-light">03 - Wnętrza</p>
           <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-paper">
-            Wejdź do środka. <span className="italic text-brass-light">Wirtualny spacer.</span>
+            Przestrzeń dla <span className="italic text-brass-light">całej rodziny.</span>
           </h2>
           <p className="mt-5 text-pretty leading-relaxed text-paper/70">
-            Otwarta strefa dzienna z kominkiem, kuchnia z wyspą i panoramiczne okna z widokiem na las. Przełączaj
-            pomieszczenia lub odtwórz płynne przejście przez apartament.
+            Otwarta strefa dzienna z kuchnią i schodami na piętro, cicha sypialnia z widokiem na las oraz
+            prywatny ogród z tarasem. Poddasze, zawarte w cenie, zaadaptujesz według własnego pomysłu.
           </p>
         </header>
 
-        <div className="mt-10" data-reveal="up">
-          {/* tabs */}
-          <div className="mb-5 flex flex-wrap gap-2">
-            <TabButton active={tab === "spacer"} onClick={() => setTab("spacer")}>
-              <Icon.arrow width={15} height={15} /> Spacer wideo
-            </TabButton>
-            {INTERIOR_TOUR.map((r) => (
-              <TabButton key={r.key} active={tab === r.key} onClick={() => setTab(r.key)}>
-                {r.label}
-              </TabButton>
+        <div className="mt-10 grid gap-4" data-reveal="up">
+          {/* feature - real developer render */}
+          <figure className="relative aspect-[16/10] overflow-hidden rounded-[16px] sm:aspect-[16/8]">
+            <Image
+              src={feature.src}
+              alt={`${feature.label}, apartament Plażowa Park`}
+              fill
+              sizes="(max-width: 1280px) 100vw, 1200px"
+              className="object-cover"
+            />
+            <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 to-transparent p-5 sm:p-7">
+              <p className="font-display text-2xl text-paper">{feature.label}</p>
+              <p className="mt-1 max-w-lg text-sm text-paper/75">{feature.note}</p>
+            </figcaption>
+          </figure>
+
+          {/* rest */}
+          <div className="grid gap-4 sm:grid-cols-2">
+            {rest.map((r) => (
+              <figure key={r.src} className="relative aspect-[16/11] overflow-hidden rounded-[16px]">
+                <Image
+                  src={r.src}
+                  alt={`${r.label}, apartament Plażowa Park`}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                  className="object-cover"
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/65 to-transparent p-5">
+                  <p className="font-display text-xl text-paper">{r.label}</p>
+                  <p className="mt-1 text-sm text-paper/75">{r.note}</p>
+                </figcaption>
+              </figure>
             ))}
-          </div>
-
-          {/* stage */}
-          <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[18px] bg-black/40 sm:aspect-[16/9]">
-            <video
-              ref={videoRef}
-              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${tab === "spacer" ? "opacity-100" : "opacity-0"}`}
-              poster="/video/poster-walkthrough.webp"
-              muted
-              loop
-              playsInline
-              preload="none"
-            >
-              <source src="/video/walkthrough.mp4" type="video/mp4" />
-            </video>
-
-            {INTERIOR_TOUR.map((r) => (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                key={r.key}
-                src={r.src}
-                alt={`${r.label} - apartament Plażowa Park`}
-                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ${tab === r.key ? "opacity-100" : "opacity-0"}`}
-                loading="lazy"
-              />
-            ))}
-
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-5 sm:p-7">
-              <p className="font-display text-2xl text-paper">
-                {tab === "spacer" ? "Przejście przez apartament" : active?.label}
-              </p>
-              <p className="mt-1 max-w-lg text-sm text-paper/75">
-                {tab === "spacer" ? "Płynne, kinowe ujęcie strefy dziennej z widokiem na las." : active?.note}
-              </p>
-            </div>
-
-            <span className="absolute right-4 top-4 rounded-full bg-black/35 px-3 py-1 text-[0.7rem] font-medium text-paper/85 backdrop-blur-sm">
-              Wizualizacja
-            </span>
           </div>
         </div>
+        <p className="mt-5 text-xs text-paper/45">Wizualizacje dewelopera. Materiały poglądowe. Rzeczywisty wygląd może się różnić.</p>
       </div>
     </section>
-  );
-}
-
-function TabButton({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-medium transition ${
-        active ? "border-brass-light bg-brass-light text-pine-deep" : "border-paper/20 text-paper/80 hover:border-paper/50"
-      }`}
-    >
-      {children}
-    </button>
   );
 }
