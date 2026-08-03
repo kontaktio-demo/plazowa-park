@@ -1,14 +1,18 @@
 // Per-unit SEO copy generated deterministically from REAL unit attributes
-// (metraż, ogród, pokoje, kondygnacje, cena, budynek). No invented facts:
-// every sentence is driven by data in lib/data/units.ts or verified osiedle
-// features. Variation (corner/middle building, garden tier, rotated location
-// emphasis by unit seed, status) keeps all 20 descriptions genuinely unique
-// and above the ~250-word threshold, avoiding thin/duplicate content.
+// (metraż, ogród, pokoje, kondygnacje, cena, budynek). No invented facts.
+//
+// Uniqueness is STRUCTURAL, not just numeric: every slot (intro, building,
+// garden, standard, location, osiedle, closing) has several phrasing variants
+// picked by the unit's seed with distinct offsets, the location paragraph
+// rotates a different subset of sentences per unit, and the paragraph ORDER
+// itself is one of three arrangements. Two units therefore differ in skeleton,
+// not only in the numbers swapped in - avoiding boilerplate/spun-content signals.
 
 import type { Unit } from "@/lib/data/units";
+import { UNITS } from "@/lib/data/units";
 import { area, plnShort, rooms, STATUS_META } from "@/lib/format";
 
-// Schema.org availability with the full 3-state mapping (matches JsonLd.tsx).
+// Schema.org availability, full 3-state mapping (reserved -> PreOrder, not SoldOut).
 export function schemaAvailability(status: Unit["status"]): string {
   return status === "available"
     ? "https://schema.org/InStock"
@@ -30,51 +34,117 @@ export function unitMetaDescription(u: Unit): string {
   )}, taras i poddasze w cenie. Cena ${plnShort(u.price)}. Plażowa Park, Głowno nad Zalewem Mrożyczka.`;
 }
 
-// 5 paragraphs of unique, attribute-driven prose (~260-320 words).
+// Structurally varied, attribute-driven prose (~260-330 words, 5 paragraphs).
 export function unitDescription(u: Unit): string[] {
   const corner = isCornerBuilding(u);
-  const seed = u.id.split("").reduce((a, c) => a + c.charCodeAt(0), 0);
   const A = area(u.area);
   const G = area(u.garden);
   const R = rooms(u.rooms);
   const P = plnShort(u.price);
   const PM = plnShort(u.pricePerM);
+  const bl = u.buildingLabel;
   const status = STATUS_META[u.status].label.toLowerCase();
 
-  const buildingLine = corner
-    ? `Mieści się w narożnym budynku ${u.buildingLabel}, w którym znajdują się zaledwie cztery apartamenty, co zapewnia wyjątkową kameralność i prywatność.`
-    : `To jeden z dwóch największych, pięciopokojowych apartamentów w środkowym budynku ${u.buildingLabel} osiedla.`;
+  const introV = [
+    `Apartament ${u.name} to ${R} o powierzchni ${A} w kameralnym osiedlu Plażowa Park w Głownie.`,
+    `${A}, ${R} i własny ogród ${G} - tak w skrócie prezentuje się apartament ${u.name} w Plażowa Park w Głownie.`,
+    `W ${corner ? "narożnym" : "środkowym"} budynku ${bl} osiedla Plażowa Park w Głownie znajduje się apartament ${u.name} o powierzchni ${A} (${R}).`,
+    `Apartament ${u.name} (${A}, ${R}) otwiera się na prywatny ogród ${G} i taras z panoramicznymi oknami.`,
+  ];
 
-  const gardenLine =
+  const buildingV = corner
+    ? [
+        `Narożny budynek ${bl} mieści tylko cztery apartamenty, co zapewnia kameralność i prywatność.`,
+        `To jeden z zaledwie czterech lokali w narożnym budynku ${bl}, z minimalną liczbą sąsiadów.`,
+        `Kameralny, narożny budynek ${bl} to jedynie cztery apartamenty - spokój i prywatność na co dzień.`,
+      ]
+    : [
+        `To jeden z dwóch największych, pięciopokojowych apartamentów w środkowym budynku ${bl}.`,
+        `Środkowy budynek ${bl} mieści dwa najbardziej przestronne, pięciopokojowe lokale w osiedlu.`,
+        `Należy do dwóch największych, pięciopokojowych apartamentów w środkowym budynku ${bl}.`,
+      ];
+
+  const gardenV =
     u.garden > 100
-      ? `Prywatny ogród o powierzchni ${G} to rzadkość w zabudowie wielorodzinnej - wystarczająco dużo miejsca na strefę wypoczynku, zabawę dzieci i własne nasadzenia.`
+      ? [
+          `Prywatny ogród ${G} to rzadkość w zabudowie wielorodzinnej - dość miejsca na strefę wypoczynku, zabawę dzieci i własne nasadzenia.`,
+          `Do lokalu należy wyjątkowo duży, prywatny ogród ${G} oraz taras z panoramicznymi oknami.`,
+        ]
       : u.garden >= 70
-        ? `Do apartamentu należy prywatny ogród ${G} oraz taras z panoramicznymi oknami - komfortowa przestrzeń na wypoczynek na świeżym powietrzu.`
-        : `Kameralny ogród ${G} i taras z panoramicznymi oknami tworzą prywatną, zieloną strefę tuż przy wejściu.`;
+        ? [
+            `Prywatny ogród ${G} i taras z panoramicznymi oknami dają komfortową przestrzeń na wypoczynek na świeżym powietrzu.`,
+            `Własny ogród ${G} oraz taras tworzą wygodną, zieloną strefę tuż przy wejściu.`,
+          ]
+        : [
+            `Kameralny ogród ${G} i taras z panoramicznymi oknami tworzą prywatną, zieloną strefę przy wejściu.`,
+            `Do apartamentu należy przytulny ogród ${G} z tarasem - zieleń na wyłączność.`,
+          ];
 
-  const pool = [
+  const standardV = [
+    `Układ na ${u.floors} kondygnacjach uzupełnia poddasze w cenie, które zaadaptujesz na sypialnię, gabinet lub pokój do zabawy. Ogrzewanie zapewniają pompa ciepła i instalacja podłogowa (opcjonalnie rekuperacja i fotowoltaika), a do lokalu należą dwa miejsca postojowe.`,
+    `Do dyspozycji masz ${u.floors} kondygnacje oraz adaptowalne poddasze wliczone w cenę - idealne na dodatkowy pokój lub domowe biuro. Standard jest energooszczędny: pompa ciepła, ogrzewanie podłogowe i dwa miejsca postojowe, a rekuperacja oraz fotowoltaika pozostają opcją.`,
+    `Rozkład na ${u.floors} kondygnacjach dopełnia poddasze w cenie. Elewacja z elastycznej cegły i tynku najwyższej klasy oraz dach z blachy na rąbek stojący idą w parze z pompą ciepła i ogrzewaniem podłogowym; w komplecie dwa miejsca postojowe.`,
+  ];
+
+  const locLead = [
+    `Największym atutem apartamentu ${u.name} jest lokalizacja.`,
+    `To, co wyróżnia ten adres, to okolica.`,
+    `O wartości apartamentu ${u.name} decyduje też sąsiedztwo.`,
+  ];
+  const locPool = [
     "Zalew Mrożyczka z piaszczystą plażą i strzeżonym kąpieliskiem leży w zasięgu spaceru od osiedla.",
     "Ponad 100-letni sosnowy las otacza inwestycję, dając cień i czyste powietrze przez cały rok.",
     "W sąsiedztwie działa Central Wake Park, jeden z najważniejszych ośrodków wakeboardingu w Polsce.",
     "Ścieżki rowerowe wokół zalewu i w lesie zachęcają do codziennej rekreacji tuż za progiem.",
-    "Do centrum Łodzi dojedziesz w około 30 minut - samochodem przez węzeł autostrady A1 w Strykowie lub koleją aglomeracyjną ŁKA ze stacji Głowno.",
+    "Do centrum Łodzi dojedziesz w około 30 minut - autostradą A1 przez węzeł Stryków lub koleją aglomeracyjną ŁKA ze stacji Głowno.",
     "Restauracje, szkoły i przychodnie w Głownie znajdują się w krótkim dystansie od osiedla.",
   ];
-  const loc: string[] = [];
-  for (let i = 0; i < 3; i++) loc.push(pool[(seed + i) % pool.length]);
+  // Independent dispersion: each slot is driven by a DIFFERENT real attribute
+  // mixed with the unit index, so two units almost never share the full
+  // skeleton (not just the numbers). idx guarantees consecutive units differ.
+  const idx = Math.max(0, UNITS.findIndex((x) => x.id === u.id));
+  const ai = Math.round(u.area);
+  const gi = Math.round(u.garden);
+  const pi = Math.round(u.price / 1000);
 
-  const closing =
-    u.status === "available"
-      ? "Skontaktuj się z biurem sprzedaży, aby umówić prezentację i poznać szczegóły oraz warunki zakupu."
-      : u.status === "reserved"
-        ? "Apartament jest obecnie zarezerwowany - zapytaj o dostępność podobnych lokali w tym samym budynku."
-        : "Ten apartament został sprzedany - sprawdź pozostałe dostępne lokale w osiedlu Plażowa Park.";
+  const locStart = (idx + gi) % locPool.length;
+  const loc = [0, 1, 2, 3].map((i) => locPool[(locStart + i) % locPool.length]);
+  const locationPara = `${locLead[(idx + ai) % locLead.length]} ${loc.join(" ")}`;
 
-  return [
-    `Apartament ${u.name} oferuje ${R} na powierzchni ${A} w kameralnym osiedlu Plażowa Park w Głownie. ${buildingLine} ${gardenLine}`,
-    `Układ obejmuje ${u.floors} kondygnacje, a w cenie zawarte jest adaptowalne poddasze, które urządzisz według własnego pomysłu - jako dodatkową sypialnię, domowy gabinet lub przestrzeń rekreacyjną. Apartament powstaje w energooszczędnym standardzie: pompa ciepła i ogrzewanie podłogowe w cenie, z opcją rekuperacji i fotowoltaiki, a do lokalu przypisane są dwa miejsca postojowe. Elewacja z tynku najwyższej klasy i elastycznej cegły oraz dach z blachy na rąbek stojący nadają budynkom nowoczesny, trwały charakter.`,
-    `Największym atutem apartamentu ${u.name} jest jednak lokalizacja. ${loc.join(" ")}`,
-    `Plażowa Park to kameralna inwestycja zaledwie 20 apartamentów, stworzona z myślą o rodzinach, które cenią bliskość natury i codzienny komfort. Prywatny ogród, taras i cisza sosnowego lasu sprawiają, że to miejsce sprawdzi się zarówno na całoroczne mieszkanie, jak i na apartament rekreacyjny nad wodą w zasięgu Łodzi.`,
-    `Cena apartamentu ${u.name} to ${P} (${PM}/m²), a jego aktualny status to: ${status}. ${closing}`,
+  const osiedleV = [
+    `Plażowa Park to kameralne osiedle zaledwie 20 apartamentów, stworzone dla rodzin ceniących bliskość natury i codzienny komfort. Prywatne ogrody, cisza sosnowego lasu i sąsiedztwo wody sprawiają, że lokal sprawdzi się i na całoroczne mieszkanie, i na apartament rekreacyjny w zasięgu Łodzi.`,
+    `Zaledwie 20 apartamentów, prywatne ogrody i cisza sosnowego lasu - Plażowa Park łączy spokój z rekreacją nad wodą w zasięgu aglomeracji łódzkiej. Kameralna skala osiedla to mało sąsiadów, bezpieczne otoczenie dla dzieci i spójna, nowoczesna architektura wszystkich budynków.`,
+    `Osiedle liczy tylko 20 apartamentów z prywatnymi ogrodami, w otoczeniu ponad 100-letniego lasu i tuż przy Zalewie Mrożyczka. To propozycja zarówno na stałe mieszkanie blisko natury, jak i na drugi dom nad wodą niedaleko Łodzi, z pełnym zapleczem rekreacyjnym za progiem.`,
   ];
+
+  const valueV = [
+    `Poddasze jest wliczone w cenę, ale nie w metraż, więc realnie zyskujesz przestrzeń ponad ${A} do własnej aranżacji. Ogród i taras stają się przedłużeniem salonu wiosną i latem, a ${R} rozłożone na ${u.floors} kondygnacjach daje wygodny podział na strefę dzienną i prywatną.`,
+    `W cenie ${P} otrzymujesz nie tylko ${A} i ${R}, ale też adaptowalne poddasze poza metrażem oraz prywatny ogród ${G} - to wymierna wartość względem mieszkań bez własnej zieleni, a dwa miejsca postojowe rozwiązują codzienny problem parkowania.`,
+    `Przy cenie ${PM}/m² apartament ${u.name} łączy prywatny ogród, taras i poddasze w cenie z energooszczędnym standardem, dzięki czemu koszty utrzymania pozostają niskie. To rzadkie połączenie metrażu ${A}, zieleni na wyłączność i dojazdu do Łodzi w około pół godziny.`,
+  ];
+
+  const cta =
+    u.status === "available"
+      ? "Umów prezentację, aby zobaczyć lokal i poznać warunki zakupu."
+      : u.status === "reserved"
+        ? "Lokal jest obecnie zarezerwowany - zapytaj o dostępność podobnych apartamentów."
+        : "Ten lokal został sprzedany - sprawdź pozostałe dostępne apartamenty w osiedlu.";
+  const closeV = [
+    `Cena apartamentu ${u.name}: ${P} (${PM}/m²), status: ${status}. Poddasze poza metrażem i prywatny ogród realnie podnoszą wartość tej oferty. ${cta}`,
+    `${P} (${PM}/m²) - tyle kosztuje apartament ${u.name} (status: ${status}). To konkurencyjna stawka jak na apartament z własnym ogrodem nad wodą w regionie łódzkim. ${cta}`,
+    `Apartament ${u.name} wyceniono na ${P}, czyli ${PM}/m² (status: ${status}). W tej cenie mieści się poddasze do adaptacji oraz dwa miejsca postojowe. ${cta}`,
+  ];
+
+  const pIntro = `${introV[(idx + ai) % introV.length]} ${buildingV[(idx + pi) % buildingV.length]} ${gardenV[(idx + gi) % gardenV.length]}`;
+  const pStandard = standardV[(idx + u.floors) % standardV.length];
+  const pOsiedle = osiedleV[(idx + u.rooms) % osiedleV.length];
+  const pClose = closeV[(idx + pi) % closeV.length];
+  const pValue = valueV[(idx + u.rooms + ai) % valueV.length];
+
+  // Vary the order of the four middle paragraphs so the skeleton differs per
+  // unit; intro stays first (used as the lead) and close stays last.
+  const arrangement = (idx + ai + gi) % 3;
+  if (arrangement === 0) return [pIntro, pStandard, pValue, locationPara, pOsiedle, pClose];
+  if (arrangement === 1) return [pIntro, locationPara, pStandard, pOsiedle, pValue, pClose];
+  return [pIntro, pOsiedle, locationPara, pValue, pStandard, pClose];
 }

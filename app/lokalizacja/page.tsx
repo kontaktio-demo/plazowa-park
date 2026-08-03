@@ -138,6 +138,31 @@ export default function LokalizacjaPage() {
             </section>
           </div>
 
+          {/* long-form local content */}
+          <section className="mt-12 max-w-3xl">
+            <h2 className="font-display text-2xl text-pine">Dlaczego warto zamieszkać nad Zalewem Mrożyczka</h2>
+            <div className="mt-5 space-y-4 text-pretty leading-relaxed text-muted">
+              <p>
+                Głowno to spokojne miasto w powiecie zgierskim, w województwie łódzkim, które łączy kameralny
+                charakter z pełnym zapleczem na co dzień: szkoły, przedszkola, przychodnie, sklepy i restauracje
+                są w codziennym zasięgu. Dla rodzin oznacza to komfort życia z dala od wielkomiejskiego zgiełku,
+                bez rezygnacji z wygód i dobrej komunikacji.
+              </p>
+              <p>
+                Zalew Mrożyczka to ponad 30 hektarów wody z piaszczystą plażą, molo i strzeżonym kąpieliskiem -
+                latem naturalne miejsce wypoczynku, a poza sezonem sceneria spacerów i joggingu wokół sosnowego
+                lasu. Działający tuż obok Central Wake Park przyciąga miłośników wakeboardingu z całego regionu,
+                a sieć ścieżek rowerowych łączy osiedle z okolicznymi atrakcjami i brzegiem zbiornika.
+              </p>
+              <p>
+                Bliskość Łodzi - około 30 minut autostradą A1 przez węzeł Stryków lub koleją aglomeracyjną ŁKA ze
+                stacji Głowno - sprawia, że Plażowa Park to atrakcyjny adres nie tylko na całoroczne mieszkanie,
+                ale też na apartament rekreacyjny czy drugi dom nad wodą w zasięgu aglomeracji łódzkiej. Do
+                Warszawy dojedziesz w około godzinę.
+              </p>
+            </div>
+          </section>
+
           {/* POI list */}
           <div className="mt-12">
             <h2 className="font-display text-2xl text-pine">Co znajdziesz w okolicy</h2>
