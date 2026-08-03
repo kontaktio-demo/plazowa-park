@@ -39,6 +39,7 @@
 
   --font-display: var(--font-inter-tight), "Inter Tight", ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), "Fraunces", ui-serif, Georgia, serif;
 
   --radius-card: 14px;
 
@@ -61,6 +62,7 @@
     -webkit-text-size-adjust: 100%;
     scroll-behavior: auto; /* Lenis handles smooth scroll */
     background: var(--color-paper);
+    overflow-x: clip;
   }
   body {
     background: var(--color-paper);
@@ -82,6 +84,13 @@
     letter-spacing: -0.022em;
     line-height: 1.04;
     text-wrap: balance;
+  }
+  /* editorial serif-italic accent inside display headlines (sans + serif contrast) */
+  :is(h1, h2) .italic {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-style: italic;
+    letter-spacing: 0;
   }
   a { color: inherit; text-decoration: none; }
   img, video { max-width: 100%; height: auto; display: block; }
@@ -150,6 +159,7 @@
   .btn-light:hover { background: var(--color-paper); transform: translateY(-2px); }
 
   .num { font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .accent-serif { font-family: var(--font-serif); font-style: italic; font-weight: 500; letter-spacing: 0; }
 
   .card {
     background: var(--color-paper);
@@ -224,6 +234,23 @@
 .hero-fade { opacity: 0; animation: heroFade 1.6s ease forwards; }
 @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
 .scroll-cue { animation: floatY 2.4s ease-in-out infinite; }
+/* kinetic word reveal (preloader + headings) */
+@keyframes wordUp { from { transform: translateY(115%); } to { transform: translateY(0); } }
+.word-up { display: inline-block; animation: wordUp 0.9s var(--ease-out-expo) both; }
+/* blinking caret (preloader + rail %) */
+@keyframes caretBlink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+.caret-blink { animation: caretBlink 1.05s steps(1) infinite; }
+/* continuous marquee */
+@keyframes marqueeX { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes marqueeXRev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+@keyframes marqueeY { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+.marquee-x { animation: marqueeX linear infinite; }
+.marquee-x-rev { animation: marqueeXRev linear infinite; }
+.marquee-y { animation: marqueeY linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .marquee-x, .marquee-x-rev, .marquee-y, .caret-blink, .word-up { animation: none !important; }
+  .word-up { transform: none !important; }
+}
 /* soft drifting ambient glow */
 @keyframes glowDrift { 0%,100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.13); opacity: 1; } }
 .glow-drift { animation: glowDrift 12s ease-in-out infinite; }
