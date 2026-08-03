@@ -25,8 +25,15 @@ export default function Hero() {
           <p className="hero-in eyebrow !text-brass-light" style={{ animationDelay: "0.08s" }}>
             Nowa inwestycja · Głowno
           </p>
-          <h1 className="hero-in mt-4 text-[clamp(2.1rem,5.4vw,4.6rem)] font-semibold leading-[1.02] text-paper" style={{ animationDelay: "0.18s" }}>
-            Apartamenty nad<br />Zalewem Mrożyczka
+          <h1 className="hero-in mt-4 text-[clamp(2.4rem,6vw,5.4rem)] font-semibold leading-[0.98] text-paper" style={{ animationDelay: "0.18s" }}>
+            <span className="block overflow-hidden pb-[0.04em]">
+              <span className="word-up block" style={{ animationDelay: "0.32s" }}>Apartamenty nad</span>
+            </span>
+            <span className="block overflow-hidden pb-[0.06em]">
+              <span className="accent-serif word-up block text-[1.08em] text-brass-light" style={{ animationDelay: "0.44s" }}>
+                Zalewem Mrożyczka
+              </span>
+            </span>
           </h1>
           <p className="hero-in mt-5 max-w-xl text-pretty text-lg leading-relaxed text-paper/85" style={{ animationDelay: "0.3s" }}>
             Plażowa Park to kameralne osiedle {INVESTMENT.totalUnits} apartamentów z prywatnym ogrodem i tarasem,
