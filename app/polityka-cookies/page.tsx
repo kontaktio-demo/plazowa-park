@@ -4,9 +4,8 @@ import { SITE } from "@/lib/data/site";
 
 export const metadata: Metadata = {
   title: "Polityka cookies",
-  description: "Informacje o plikach cookie wykorzystywanych w serwisie Plażowa Park oraz zarządzaniu zgodą.",
+  description: "Informacje o plikach cookie w serwisie Plażowa Park w Głownie: rodzaje cookies, cele, okres przechowywania oraz zarządzanie zgodą w przeglądarce.",
   alternates: { canonical: "/polityka-cookies" },
-  robots: { index: true, follow: true },
 };
 
 export default function Page() {

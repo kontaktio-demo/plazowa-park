@@ -4,9 +4,8 @@ import { DEVELOPER, SITE } from "@/lib/data/site";
 
 export const metadata: Metadata = {
   title: "Polityka prywatności",
-  description: "Zasady przetwarzania danych osobowych (RODO) użytkowników serwisu Plażowa Park.",
+  description: "Zasady przetwarzania danych osobowych (RODO) w serwisie Plażowa Park w Głownie: administrator, cele i podstawy prawne przetwarzania oraz prawa użytkownika.",
   alternates: { canonical: "/polityka-prywatnosci" },
-  robots: { index: true, follow: true },
 };
 
 export default function Page() {

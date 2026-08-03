@@ -44,13 +44,35 @@ npm run build && npm run start
 `POST /api/lead` waliduje i loguje zgłoszenia. Aby włączyć wysyłkę e-mail, ustaw zmienne środowiskowe:
 
 ```
-RESEND_API_KEY=...            # klucz Resend (wysyłka e-mail leada)
-LEAD_TO=biuro@plazowa-park.pl # adres odbiorcy leadów
-NEXT_PUBLIC_GA_ID=G-XXXXXXX   # (opcjonalnie) GA4 - bez tego analityka jest wyłączona
+RESEND_API_KEY=...              # klucz Resend (wysyłka e-mail leada)
+LEAD_TO=biuro@plazowa-park.pl   # adres odbiorcy leadów
+NEXT_PUBLIC_GA_ID=G-XXXXXXX     # (opcjonalnie) GA4 - bez tego analityka jest wyłączona
+GOOGLE_SITE_VERIFICATION=...    # (opcjonalnie) token weryfikacji Google Search Console
 ```
 
-Analityka (jeśli `NEXT_PUBLIC_GA_ID` ustawione) śledzi konwersje: `generate_lead` (wysłany formularz)
-oraz `contact_call` / `contact_click` (klik w telefon / e-mail). IP anonimizowane.
+Analityka (jeśli `NEXT_PUBLIC_GA_ID` ustawione) śledzi konwersje: `generate_lead` (wysłany formularz),
+`click_to_call` (telefon), `click_to_email` (e-mail), `click_whatsapp`, `book_viewing` (Umów prezentację /
+Sprawdź dostępność / Zapytaj o apartament), `view_360` (start spaceru) oraz `view_lokal` (wejście na
+podstronę lokalu). IP anonimizowane. W GA4 oznacz `generate_lead` i `book_viewing` jako key events.
+
+## SEO i wygaszanie
+
+- **Domena docelowa**: `https://plazowa-park.pl` (stała w `lib/data/site.ts`). Kopie `*.vercel.app`
+  (alias produkcyjny i deploye preview) są trzymane poza indeksem: `middleware.ts` dodaje nagłówek
+  `X-Robots-Tag: noindex, nofollow` dla hostów `*.vercel.app`, a deploye preview (`VERCEL_ENV=preview`)
+  dostają dodatkowo `robots: noindex` z `app/layout.tsx`. Canonical zawsze wskazuje domenę docelową.
+- **Google Search Console**: ustaw `GOOGLE_SITE_VERIFICATION` (token z GSC) w env - wstrzyknie
+  `<meta name="google-site-verification">`. Po wdrożeniu zgłoś własność domeny w GSC i wyślij
+  `https://plazowa-park.pl/sitemap.xml`.
+- **Strona lokalizacji**: `/lokalizacja` - dedykowany, indeksowalny URL pod long-tail (Zalew Mrożyczka,
+  Central Wake Park, dojazd do Łodzi / ŁKA), linkowany z sekcji Okolica i z podstron lokali.
+- **Status lokali**: zmiana pola `status` w `lib/data/units.ts` (`available` / `reserved` / `sold`)
+  automatycznie aktualizuje UI oraz `availability` w schema.org (`InStock` / `PreOrder` / `SoldOut`).
+  URL-e lokali zostają - nie usuwaj ich, aby nie tworzyć soft 404.
+- **Wygaszanie po sprzedaży** (przygotować, nie aktywować): gdy wszystkie lokale są sprzedane, albo
+  (a) zamień stronę główną na statyczną „Inwestycja sprzedana" z danymi dewelopera i CTA do przyszłych
+  projektów, albo (b) dodaj w `middleware.ts` przekierowanie 301 na stronę dewelopera. Sitemap i canonical
+  zostaw do czasu deindeksacji.
 
 ## Uwagi
 

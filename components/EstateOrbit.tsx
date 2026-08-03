@@ -157,7 +157,7 @@ export default function EstateOrbit() {
                   />
                 ) : (
                   <>
-                    <canvas ref={canvasRef} className="h-full w-full" />
+                    <canvas ref={canvasRef} role="img" aria-label="Osiedle Plażowa Park z lotu ptaka - obrót 360 stopni" className="h-full w-full" />
                     {pct < 100 && (
                       <div className="pointer-events-none absolute inset-x-0 bottom-4 mx-auto w-40">
                         <div className="h-[3px] w-full overflow-hidden rounded-full bg-ink/10">

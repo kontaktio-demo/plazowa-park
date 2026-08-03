@@ -4,9 +4,8 @@ import { DEVELOPER, SITE } from "@/lib/data/site";
 
 export const metadata: Metadata = {
   title: "Regulamin serwisu",
-  description: "Regulamin korzystania z serwisu internetowego Plażowa Park.",
+  description: "Regulamin korzystania z serwisu internetowego Plażowa Park - zasady świadczenia usług, prawa i obowiązki użytkownika oraz dane dewelopera KS Prestige Development.",
   alternates: { canonical: "/regulamin" },
-  robots: { index: true, follow: true },
 };
 
 export default function Page() {

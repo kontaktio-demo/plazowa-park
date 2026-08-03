@@ -57,7 +57,7 @@ export default function Nav() {
             <Icon.phone width={17} height={17} className={light ? "text-brass-light" : "text-brass"} />
             <span className="num whitespace-nowrap">{SITE.phone.display}</span>
           </a>
-          <a href="#lokale" className="hidden btn btn-primary !py-2.5 !px-5 text-sm sm:inline-flex">
+          <a href="#lokale" data-track="book_viewing" className="hidden btn btn-primary !py-2.5 !px-5 text-sm sm:inline-flex">
             Sprawdź dostępność
             <span className="ml-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-paper/25 px-1.5 text-[0.7rem] num">
               {INVESTMENT.available}
@@ -101,7 +101,7 @@ export default function Nav() {
             ))}
           </div>
           <div className="mt-auto flex flex-col gap-2.5 pt-8">
-            <a href="#lokale" onClick={() => setOpen(false)} className="btn btn-primary">
+            <a href="#lokale" data-track="book_viewing" onClick={() => setOpen(false)} className="btn btn-primary">
               Sprawdź dostępność ({INVESTMENT.available})
             </a>
             <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost">
