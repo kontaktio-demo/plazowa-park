@@ -30,12 +30,16 @@ const fraunces = Fraunces({
 });
 
 const description =
-  "Plażowa Park to kameralna inwestycja w Głownie - 20 apartamentów na sprzedaż z prywatnym ogrodem i tarasem, w otoczeniu ponad 100-letniego lasu, tuż przy Zalewie Mrożyczka. Zobacz dostępne metraże i ceny od 633 000 zł.";
+  "Nowe apartamenty 82-133 m² z ogrodem i tarasem nad Zalewem Mrożyczka w Głownie. Blisko lasu i Central Wake Park. Ceny od 633 000 zł. Sprawdź dostępne lokale.";
+
+// Preview/branch deploys (VERCEL_ENV=preview) stay out of the index; the
+// production alias *.vercel.app is handled by middleware (X-Robots-Tag).
+const isPreview = process.env.VERCEL_ENV === "preview";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "Plażowa Park | Apartamenty na sprzedaż w Głownie nad Zalewem Mrożyczka",
+    default: "Apartamenty nad Zalewem Mrożyczka w Głownie | Plażowa Park",
     template: "%s | Plażowa Park",
   },
   description,
@@ -72,7 +76,12 @@ export const metadata: Metadata = {
     description,
     images: ["/og.jpg"],
   },
-  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
+  robots: isPreview
+    ? { index: false, follow: false }
+    : { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
+  verification: process.env.GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+    : undefined,
   category: "real estate",
   // Geo-targeting signals for local search (Głowno, woj. łódzkie PL-LD)
   other: {

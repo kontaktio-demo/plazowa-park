@@ -11,12 +11,16 @@ const availabilityUrl = (s: string) =>
 export default function JsonLd() {
   const graph = [
     {
-      "@type": "Organization",
+      "@type": ["Organization", "RealEstateAgent"],
       "@id": `${SITE.url}/#developer`,
       name: DEVELOPER.name,
       url: SITE.url,
+      logo: `${SITE.url}/brand/logo-orig.png`,
+      image: `${SITE.url}/og.jpg`,
       telephone: SITE.phone.tel,
       email: SITE.email,
+      vatID: `PL${DEVELOPER.nip}`,
+      taxID: DEVELOPER.nip,
       address: {
         "@type": "PostalAddress",
         streetAddress: DEVELOPER.street,
@@ -36,6 +40,25 @@ export default function JsonLd() {
       name: "Plażowa Park",
       inLanguage: "pl-PL",
       publisher: { "@id": `${SITE.url}/#developer` },
+    },
+    {
+      "@type": "ApartmentComplex",
+      "@id": `${SITE.url}/#osiedle`,
+      name: "Plażowa Park",
+      description:
+        "Osiedle 20 apartamentów 82-133 m² z prywatnymi ogrodami nad Zalewem Mrożyczka w Głownie.",
+      url: SITE.url,
+      numberOfAccommodationUnits: INVESTMENT.totalUnits,
+      petsAllowed: true,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: SITE.address.street,
+        addressLocality: SITE.address.city,
+        postalCode: SITE.address.postal,
+        addressRegion: SITE.address.region,
+        addressCountry: "PL",
+      },
+      geo: { "@type": "GeoCoordinates", latitude: SITE.geo.lat, longitude: SITE.geo.lng },
     },
     {
       "@type": "RealEstateListing",

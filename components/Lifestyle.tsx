@@ -20,7 +20,7 @@ export default function Lifestyle() {
           <figure className="overflow-hidden rounded-[18px] shadow-[var(--shadow-soft)]" data-reveal="scale">
             <Image
               src="/lifestyle/rodzina.webp"
-              alt="Rodzina spacerująca po trawie przed domem w otoczeniu sosnowego lasu"
+              alt="Rodzina przed apartamentem Plażowa Park w sosnowym lesie nad Zalewem Mrożyczka w Głownie"
               width={928}
               height={1152}
               sizes="(max-width: 1024px) 100vw, 45vw"

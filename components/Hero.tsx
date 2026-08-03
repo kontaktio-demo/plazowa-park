@@ -38,7 +38,7 @@ export default function Hero() {
             <a href="#lokale" className="btn btn-brass">
               Wybierz apartament <Icon.arrow width={18} height={18} />
             </a>
-            <a href="#kontakt" className="btn btn-light">Umów prezentację</a>
+            <a href="#kontakt" data-track="book_viewing" className="btn btn-light">Umów prezentację</a>
           </div>
 
           <dl className="hero-in mt-10 flex flex-wrap gap-x-10 gap-y-4 border-t border-paper/15 pt-6" style={{ animationDelay: "0.54s" }}>

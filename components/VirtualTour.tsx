@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import tour from "@/lib/data/tour360.json";
 import { Icon } from "./Icons";
+import { track } from "@/lib/track";
 
 type SceneCfg = {
   id: string;
@@ -176,7 +177,7 @@ export default function VirtualTour() {
             ) : (
               <button
                 type="button"
-                onClick={() => setActive(true)}
+                onClick={() => { setActive(true); track("view_360"); }}
                 aria-label="Rozpocznij wirtualny spacer 360 stopni"
                 className="group/btn absolute inset-0 h-full w-full text-left"
               >

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { POI, SITE } from "@/lib/data/site";
 import MapLibreMap from "./MapLibreMap";
 import { Icon } from "./Icons";
@@ -29,6 +30,9 @@ export default function Okolica() {
             Plaża, przystań, Central Wake Park i ścieżki rowerowe są w zasięgu spaceru, a codzienne usługi
             w Głownie w kilka minut.
           </p>
+          <Link href="/lokalizacja" className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-brass-deep hover:text-pine">
+            Poznaj lokalizację i dojazd <Icon.arrow width={15} height={15} />
+          </Link>
         </header>
 
         <div className="mt-10 grid items-start gap-6 lg:grid-cols-[1.5fr_1fr]" data-reveal="up">

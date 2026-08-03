@@ -5,9 +5,11 @@ import { notFound } from "next/navigation";
 import { UNITS, BUILDINGS } from "@/lib/data/units";
 import { unitSlug, unitBySlug } from "@/lib/slug";
 import { pln, plnShort, area, rooms, STATUS_META } from "@/lib/format";
+import { schemaAvailability, unitDescription, unitMetaDescription } from "@/lib/unitCopy";
 import { SITE } from "@/lib/data/site";
 import PageHeader from "@/components/PageHeader";
 import Footer from "@/components/Footer";
+import TrackUnitView from "@/components/TrackUnitView";
 import { Icon } from "@/components/Icons";
 
 export function generateStaticParams() {
@@ -18,12 +20,22 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const u = unitBySlug(slug);
   if (!u) return { title: "Lokal nie znaleziony" };
-  const desc = `${area(u.area)}, ${rooms(u.rooms)}, prywatny ogród ${area(u.garden)} i taras. ${STATUS_META[u.status].label}. Cena ${plnShort(u.price)}. Osiedle Plażowa Park w Głownie, nad Zalewem Mrożyczka.`;
+  const desc = unitMetaDescription(u);
+  const ogTitle = `Apartament ${u.name} - Plażowa Park Głowno`;
   return {
     title: `Apartament ${u.name} - ${area(u.area)} z ogrodem`,
     description: desc,
     alternates: { canonical: `/lokal/${slug}` },
-    openGraph: { title: `Apartament ${u.name} - Plażowa Park Głowno`, description: desc, images: ["/og.jpg"] },
+    openGraph: {
+      type: "website",
+      locale: "pl_PL",
+      url: `${SITE.url}/lokal/${slug}`,
+      siteName: "Plażowa Park",
+      title: ogTitle,
+      description: desc,
+      images: [{ url: "/og.jpg", width: 1200, height: 630, alt: `Apartament ${u.name} - Plażowa Park w Głownie` }],
+    },
+    twitter: { card: "summary_large_image", title: ogTitle, description: desc, images: ["/og.jpg"] },
   };
 }
 
@@ -44,34 +56,59 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
   const others = UNITS.filter((x) => x.stageId !== u.stageId && x.id !== u.id);
   const rel = [...sameBuilding, ...others].slice(0, 3);
   const inquireHref = `/?lokal=${encodeURIComponent(`Apartament ${u.name}`)}#kontakt`;
+  const paras = unitDescription(u);
 
+  const unitUrl = `${SITE.url}/lokal/${slug}`;
+  const metaDesc = unitMetaDescription(u);
+  const address = {
+    "@type": "PostalAddress",
+    streetAddress: SITE.address.street,
+    addressLocality: SITE.address.city,
+    postalCode: SITE.address.postal,
+    addressRegion: SITE.address.region,
+    addressCountry: "PL",
+  };
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Apartment",
-    name: `Apartament ${u.name} - Plażowa Park`,
-    url: `${SITE.url}/lokal/${slug}`,
-    numberOfRoomsTotal: u.rooms,
-    floorSize: { "@type": "QuantitativeValue", value: u.area, unitCode: "MTK" },
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: SITE.address.street,
-      addressLocality: SITE.address.city,
-      postalCode: SITE.address.postal,
-      addressRegion: SITE.address.region,
-      addressCountry: "PL",
-    },
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "PLN",
-      price: u.price,
-      availability: u.status === "available" ? "https://schema.org/InStock" : "https://schema.org/SoldOut",
-      seller: { "@id": `${SITE.url}/#developer` },
-    },
+    "@graph": [
+      {
+        "@type": "RealEstateListing",
+        name: `Apartament ${u.name} - Plażowa Park Głowno`,
+        url: unitUrl,
+        description: metaDesc,
+        image: `${SITE.url}/og.jpg`,
+        datePosted: "2026-01-01",
+        mainEntity: {
+          "@type": "Apartment",
+          name: `Apartament ${u.name}`,
+          numberOfRoomsTotal: u.rooms,
+          floorSize: { "@type": "QuantitativeValue", value: u.area, unitCode: "MTK" },
+          address,
+        },
+        offers: {
+          "@type": "Offer",
+          priceCurrency: "PLN",
+          price: u.price,
+          availability: schemaAvailability(u.status),
+          url: unitUrl,
+          seller: { "@id": `${SITE.url}/#developer` },
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Strona główna", item: SITE.url },
+          { "@type": "ListItem", position: 2, name: "Apartamenty", item: `${SITE.url}/#lokale` },
+          { "@type": "ListItem", position: 3, name: `Apartament ${u.name}`, item: unitUrl },
+        ],
+      },
+    ],
   };
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <TrackUnitView unit={u.name} price={u.price} status={u.status} />
       <PageHeader />
       <main className="bg-paper">
         <div className="container-x py-8 sm:py-12">
@@ -140,14 +177,10 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                 ))}
               </dl>
 
-              <p className="mt-7 text-pretty leading-relaxed text-muted">
-                Apartament {u.name} w budynku {u.buildingLabel} osiedla Plażowa Park w Głownie. Prywatny ogród i taras
-                z panoramicznymi oknami, adaptowalne poddasze w cenie, dwa miejsca postojowe. Standard: pompa ciepła
-                i ogrzewanie podłogowe (rekuperacja i fotowoltaika opcjonalnie). Kilka kroków od Zalewu Mrożyczka i 100-letniego lasu.
-              </p>
+              <p className="mt-7 text-pretty leading-relaxed text-muted">{paras[0]}</p>
 
               <div className="mt-8 flex flex-col gap-2.5 sm:flex-row">
-                <Link href={inquireHref} className="btn btn-primary flex-1">Zapytaj o ten apartament <Icon.arrow width={18} height={18} /></Link>
+                <Link href={inquireHref} data-track="book_viewing" className="btn btn-primary flex-1">Zapytaj o ten apartament <Icon.arrow width={18} height={18} /></Link>
                 <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost"><Icon.phone width={16} height={16} /> {SITE.phone.display}</a>
               </div>
               {u.planUrl && (
@@ -162,6 +195,19 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
               )}
             </div>
           </div>
+
+          {/* full description (unique SEO content per unit) */}
+          <section className="mt-14 border-t border-ink/10 pt-10">
+            <h2 className="font-display text-2xl text-pine">O apartamencie {u.name}</h2>
+            <div className="mt-5 max-w-3xl space-y-4 text-pretty leading-relaxed text-muted">
+              {paras.slice(1).map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+            <Link href="/lokalizacja" className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brass-deep hover:text-pine">
+              Zobacz lokalizację osiedla i dojazd <Icon.arrow width={15} height={15} />
+            </Link>
+          </section>
 
           {/* related */}
           <div className="mt-16 border-t border-ink/10 pt-10">

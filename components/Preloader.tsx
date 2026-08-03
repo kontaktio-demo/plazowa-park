@@ -59,14 +59,14 @@ export default function Preloader() {
       </div>
 
       <div className="flex flex-1 items-center justify-center px-6">
-        <h1 className="text-center font-display text-[clamp(3rem,12vw,10rem)] font-semibold leading-[0.92] text-pine">
+        <div role="presentation" className="text-center font-display text-[clamp(3rem,12vw,10rem)] font-semibold leading-[0.92] text-pine">
           <span className="[display:inline-block] overflow-hidden pb-[0.08em]">
             <span className="word-up" style={{ animationDelay: "0.05s" }}>Plażowa</span>
           </span>{" "}
           <span className="[display:inline-block] overflow-hidden pb-[0.08em]">
             <span className="accent-serif word-up text-brass-deep" style={{ animationDelay: "0.16s" }}>Park</span>
           </span>
-        </h1>
+        </div>
       </div>
 
       <div className="container-x flex items-end justify-between pb-7">

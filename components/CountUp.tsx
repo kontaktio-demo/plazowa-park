@@ -35,7 +35,12 @@ export default function CountUp({ to, duration = 1400, className }: { to: number
   }, [to, duration]);
 
   return (
-    <span ref={ref} className={className}>
+    <span
+      ref={ref}
+      className={className}
+      // Reserve the final width so counting 0 -> N never shifts siblings (CLS).
+      style={{ display: "inline-block", minWidth: `${String(to).length}ch` }}
+    >
       {v}
     </span>
   );

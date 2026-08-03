@@ -11,9 +11,11 @@ export default function Analytics() {
     const onClick = (e: MouseEvent) => {
       const el = e.target as HTMLElement;
       const tel = el?.closest?.('a[href^="tel:"]') as HTMLAnchorElement | null;
-      if (tel) track("contact_call", { phone: tel.getAttribute("href")?.replace("tel:", "") || "" });
-      const wa = el?.closest?.('a[href*="wa.me"], a[href^="mailto:"]') as HTMLAnchorElement | null;
-      if (wa) track("contact_click", { href: wa.getAttribute("href") || "" });
+      if (tel) track("click_to_call", { phone: tel.getAttribute("href")?.replace("tel:", "") || "" });
+      const mail = el?.closest?.('a[href^="mailto:"]') as HTMLAnchorElement | null;
+      if (mail) track("click_to_email", { href: mail.getAttribute("href") || "" });
+      const wa = el?.closest?.('a[href*="wa.me"]') as HTMLAnchorElement | null;
+      if (wa) track("click_whatsapp", { href: wa.getAttribute("href") || "" });
       const dt = el?.closest?.("[data-track]") as HTMLElement | null;
       if (dt) track(dt.getAttribute("data-track") || "cta_click");
     };

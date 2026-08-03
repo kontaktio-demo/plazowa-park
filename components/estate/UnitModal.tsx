@@ -43,7 +43,7 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
             {unit.viewThumb && (
               <Image
                 src={`/unit-views/${unit.viewThumb}`}
-                alt={`Położenie apartamentu ${unit.name}`}
+                alt={`Położenie apartamentu ${unit.name} w budynku ${unit.buildingLabel} - Plażowa Park`}
                 fill
                 sizes="(max-width: 640px) 100vw, 384px"
                 className="object-contain p-6"
@@ -82,7 +82,7 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
             </p>
 
             <div className="mt-6 flex flex-col gap-2.5">
-              <button onClick={() => { selectUnit(`Apartament ${unit.name}`); onClose(); }} className="btn btn-primary">
+              <button data-track="book_viewing" onClick={() => { selectUnit(`Apartament ${unit.name}`); onClose(); }} className="btn btn-primary">
                 Zapytaj o ten apartament <Icon.arrow width={18} height={18} />
               </button>
               <div className="flex gap-2.5">

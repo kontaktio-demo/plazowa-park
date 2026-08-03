@@ -27,7 +27,7 @@ export default function StickyCta() {
       <a href={`tel:${SITE.phone.tel}`} className="btn btn-light flex-none !px-4 shadow-[var(--shadow-lift)]" aria-label="Zadzwoń">
         <Icon.phone width={18} height={18} />
       </a>
-      <a href="#lokale" className="btn btn-primary flex-1 shadow-[var(--shadow-lift)]">
+      <a href="#lokale" data-track="book_viewing" className="btn btn-primary flex-1 shadow-[var(--shadow-lift)]">
         Sprawdź dostępność
       </a>
     </div>
