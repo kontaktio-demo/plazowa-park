@@ -9,8 +9,13 @@ const points = [
 
 export default function Lifestyle() {
   return (
-    <section className="bg-sand py-20 sm:py-28">
-      <div className="container-x">
+    <section className="relative overflow-hidden bg-sand py-20 sm:py-28">
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <div className="absolute right-[-4%] top-[-6%]">
+          <div className="glow-drift h-[42vh] w-[42vh] rounded-full blur-[90px]" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--color-brass) 16%, transparent), transparent 72%)" }} />
+        </div>
+      </div>
+      <div className="container-x relative z-10">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <figure className="overflow-hidden rounded-[18px] shadow-[var(--shadow-soft)]" data-reveal="up">
             <Image
@@ -26,11 +31,12 @@ export default function Lifestyle() {
           <div data-reveal="up">
             <p className="eyebrow">Życie w Plażowa Park</p>
             <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
-              Dom, w którym rośnie <span className="italic text-brass-deep">rodzina.</span>
+              Twoja rodzinna przestrzeń <span className="italic text-brass-deep">blisko natury.</span>
             </h2>
             <p className="mt-5 text-pretty leading-relaxed text-muted">
-              Tu dzieci bawią się w ogrodzie, a las i woda zaczynają się tuż za progiem. Plażowa Park to spokojne,
-              kameralne osiedle, w którym codziennie jest blisko do natury i do siebie nawzajem.
+              W Plażowa Park dzieci bawią się we własnym ogrodzie, a las i Zalew Mrożyczka zaczynają się tuż za
+              progiem. To spokojne, kameralne osiedle stworzone z myślą o rodzinach, które cenią bliskość natury
+              i codzienny komfort.
             </p>
 
             <ul className="mt-8 grid gap-4">

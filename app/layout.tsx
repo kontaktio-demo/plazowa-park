@@ -20,12 +20,12 @@ const inter = Inter({
 });
 
 const description =
-  "20 apartamentów 82-133 m² w 100-letnim lesie przy Zalewie Mrożyczka w Głownie. Prywatny ogród, taras, pompy ciepła, 2 miejsca postojowe. Ceny od 633 000 zł. Sprawdź dostępność online.";
+  "Plażowa Park to kameralna inwestycja w Głownie - 20 apartamentów na sprzedaż z prywatnym ogrodem i tarasem, w otoczeniu ponad 100-letniego lasu, tuż przy Zalewie Mrożyczka. Zobacz dostępne metraże i ceny od 633 000 zł.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "Plażowa Park Głowno - nowe apartamenty nad Zalewem Mrożyczka",
+    default: "Plażowa Park | Apartamenty na sprzedaż w Głownie nad Zalewem Mrożyczka",
     template: "%s | Plażowa Park",
   },
   description,
@@ -47,13 +47,13 @@ export const metadata: Metadata = {
     locale: "pl_PL",
     url: SITE.url,
     siteName: "Plażowa Park",
-    title: "Plażowa Park Głowno - apartamenty nad Zalewem Mrożyczka",
+    title: "Plażowa Park - apartamenty na sprzedaż w Głownie nad Zalewem Mrożyczka",
     description,
     images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Plażowa Park - osiedle nad Zalewem Mrożyczka w Głownie" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Plażowa Park Głowno - apartamenty nad Zalewem Mrożyczka",
+    title: "Plażowa Park - apartamenty na sprzedaż w Głownie nad Zalewem Mrożyczka",
     description,
     images: ["/og.jpg"],
   },
