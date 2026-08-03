@@ -59,7 +59,7 @@ export default function Contact() {
       <div className="container-x">
         <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
           {/* info */}
-          <div data-reveal="up">
+          <div data-reveal="left">
             <p className="eyebrow">Kontakt</p>
             <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
               Umów prezentację <span className="italic text-brass-deep">osiedla.</span>
@@ -95,7 +95,7 @@ export default function Contact() {
           </div>
 
           {/* form */}
-          <div className="card grain relative overflow-hidden p-6 sm:p-8" data-reveal="up">
+          <div className="card grain relative overflow-hidden p-6 sm:p-8" data-reveal="right">
             {state === "ok" ? (
               <div className="flex min-h-[420px] flex-col items-center justify-center text-center">
                 <span className="flex h-16 w-16 items-center justify-center rounded-full bg-available/15 text-available">

@@ -18,7 +18,7 @@ export default function Developer() {
       </div>
       <div className="container-x relative z-10">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <div data-reveal="up">
+          <div data-reveal="left">
             <p className="eyebrow !text-brass-light">07 - Deweloper</p>
             <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-paper">
               Lokalny deweloper <span className="italic text-brass-light">z Głowna.</span>
@@ -46,7 +46,7 @@ export default function Developer() {
             </div>
           </div>
 
-          <div className="grid gap-4 self-center" data-reveal="up">
+          <div className="grid gap-4 self-center" data-reveal="right">
             {trust.map((t) => (
               <div key={t.title} className="flex items-start gap-4 rounded-[14px] border border-paper/12 bg-paper/5 p-5">
                 <span className="mt-0.5 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-brass-light text-pine-deep">

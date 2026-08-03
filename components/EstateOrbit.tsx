@@ -168,9 +168,6 @@ export default function EstateOrbit() {
                   </>
                 )}
               </div>
-              <p className="mt-3 text-center text-xs text-faint">
-                <span className="rounded-full bg-paper/75 px-3 py-0.5 backdrop-blur-[2px]">Wizualizacja poglądowa układu osiedla. Model 3D · KS Prestige Development.</span>
-              </p>
             </div>
           </div>
         </div>

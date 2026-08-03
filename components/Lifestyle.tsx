@@ -17,7 +17,7 @@ export default function Lifestyle() {
       </div>
       <div className="container-x relative z-10">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <figure className="overflow-hidden rounded-[18px] shadow-[var(--shadow-soft)]" data-reveal="up">
+          <figure className="overflow-hidden rounded-[18px] shadow-[var(--shadow-soft)]" data-reveal="scale">
             <Image
               src="/lifestyle/rodzina.webp"
               alt="Rodzina spacerująca po trawie przed domem w otoczeniu sosnowego lasu"
@@ -28,7 +28,7 @@ export default function Lifestyle() {
             />
           </figure>
 
-          <div data-reveal="up">
+          <div data-reveal="right">
             <p className="eyebrow">Życie w Plażowa Park</p>
             <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
               Twoja rodzinna przestrzeń <span className="italic text-brass-deep">blisko natury.</span>
