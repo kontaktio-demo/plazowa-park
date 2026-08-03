@@ -3,41 +3,45 @@
 import { useEffect, useRef, useState } from "react";
 
 const SECTIONS = [
-  { id: "osiedle", n: "01", label: "Osiedle" },
-  { id: "lokale", n: "02", label: "Apartamenty" },
-  { id: "spacer", n: "03", label: "Spacer 360" },
-  { id: "standard", n: "04", label: "Standard" },
-  { id: "okolica", n: "05", label: "Okolica" },
-  { id: "deweloper", n: "07", label: "Deweloper" },
-  { id: "kontakt", n: "08", label: "Kontakt" },
+  { id: "osiedle", n: "01", label: "Osiedle", dark: false },
+  { id: "lokale", n: "02", label: "Apartamenty", dark: false },
+  { id: "spacer", n: "03", label: "Spacer 360", dark: true },
+  { id: "standard", n: "04", label: "Standard", dark: false },
+  { id: "okolica", n: "05", label: "Okolica", dark: false },
+  { id: "deweloper", n: "07", label: "Deweloper", dark: true },
+  { id: "kontakt", n: "08", label: "Kontakt", dark: false },
 ];
-
-const MARQUEE = "Plażowa Park — Głowno — Zalew Mrożyczka — 20 apartamentów w sercu lasu — ";
 
 export default function SideRails() {
   const [idx, setIdx] = useState(0);
-  const pctRef = useRef<HTMLSpanElement>(null);
+  const [dark, setDark] = useState(true); // starts over the dark hero
   const clockRef = useRef<HTMLSpanElement>(null);
   const idxRef = useRef(0);
+  const darkRef = useRef(true);
   const scheduled = useRef(false);
 
   useEffect(() => {
     const root = document.documentElement;
+    const els = SECTIONS.map((s) => document.getElementById(s.id));
+
     const update = () => {
       scheduled.current = false;
-      const max = root.scrollHeight - root.clientHeight;
       const y = window.scrollY || root.scrollTop;
-      const p = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0;
-      if (pctRef.current) pctRef.current.textContent = String(Math.round(p * 100)).padStart(3, "0");
-      const mid = y + root.clientHeight * 0.45;
+      const mid = y + root.clientHeight * 0.5;
       let cur = 0;
       for (let i = 0; i < SECTIONS.length; i++) {
-        const el = document.getElementById(SECTIONS[i].id);
+        const el = els[i];
         if (el && el.offsetTop <= mid) cur = i;
       }
       if (cur !== idxRef.current) {
         idxRef.current = cur;
         setIdx(cur);
+      }
+      const osiedleTop = els[0]?.offsetTop ?? Number.POSITIVE_INFINITY;
+      const isDark = mid < osiedleTop ? true : SECTIONS[cur].dark;
+      if (isDark !== darkRef.current) {
+        darkRef.current = isDark;
+        setDark(isDark);
       }
     };
     const onScroll = () => {
@@ -77,46 +81,34 @@ export default function SideRails() {
     };
   }, []);
 
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none fixed inset-0 z-40 hidden mix-blend-difference [@media(min-width:1440px)]:block"
-    >
-      {/* LEFT — continuous vertical wordmark + live % */}
-      <div className="absolute bottom-0 left-0 top-[var(--nav-h)] flex w-[52px] flex-col items-center py-8">
-        <div className="flex flex-1 items-center overflow-hidden">
-          <div className="marquee-y flex flex-col [animation-duration:48s]">
-            <span className="whitespace-nowrap text-[0.56rem] uppercase tracking-[0.32em] text-white/70 [writing-mode:vertical-rl]">
-              {MARQUEE.repeat(3)}
-            </span>
-            <span className="whitespace-nowrap text-[0.56rem] uppercase tracking-[0.32em] text-white/70 [writing-mode:vertical-rl]">
-              {MARQUEE.repeat(3)}
-            </span>
-          </div>
-        </div>
-        <span className="mt-4 flex items-center text-[0.6rem] tracking-[0.14em] text-white/80 num">
-          <span ref={pctRef}>000</span>
-          <span className="caret-blink ml-0.5 inline-block h-[0.95em] w-[2px] bg-white/80" />
-        </span>
-      </div>
+  const cMuted = dark ? "text-white/55" : "text-ink/45";
+  const lineBg = dark ? "bg-white/20" : "bg-ink/15";
+  const lineFill = dark ? "bg-white/80" : "bg-ink/70";
+  const tick = dark ? "bg-white/40" : "bg-ink/35";
+  const tickActive = dark ? "bg-white" : "bg-ink";
 
-      {/* RIGHT — instrument: section index + drawn progress + ruler + clock */}
-      <div className="absolute bottom-0 right-0 top-[var(--nav-h)] flex w-[52px] flex-col items-center justify-center gap-4 text-white/85">
-        <span className="accent-serif text-[1.55rem] leading-none text-white/90">{SECTIONS[idx].n}</span>
-        <span className="text-[0.55rem] uppercase tracking-[0.26em] text-white/55 [writing-mode:vertical-rl]">
+  return (
+    <div aria-hidden className="pointer-events-none fixed inset-0 z-40 hidden [@media(min-width:1440px)]:block">
+      <div
+        className={`absolute bottom-0 right-0 top-[var(--nav-h)] flex w-[52px] flex-col items-center justify-center gap-4 transition-colors duration-500 ${
+          dark ? "text-white/90" : "text-ink/85"
+        }`}
+      >
+        <span className="accent-serif text-[1.55rem] leading-none">{SECTIONS[idx].n}</span>
+        <span className={`text-[0.55rem] uppercase tracking-[0.26em] [writing-mode:vertical-rl] ${cMuted}`}>
           {SECTIONS[idx].label}
         </span>
         <div className="relative my-2 flex h-[32vh] w-full justify-center">
-          <div className="relative w-px bg-white/20">
-            <div className="absolute inset-x-0 top-0 h-full origin-top bg-white/85" style={{ transform: "scaleY(var(--progress, 0))" }} />
+          <div className={`relative w-px ${lineBg}`}>
+            <div className={`absolute inset-x-0 top-0 h-full origin-top ${lineFill}`} style={{ transform: "scaleY(var(--progress, 0))" }} />
           </div>
           <div className="absolute inset-y-0 flex flex-col justify-between">
             {SECTIONS.map((s, i) => (
-              <span key={s.id} className={`h-px transition-all duration-300 ${i === idx ? "w-3.5 bg-white" : "w-1.5 bg-white/40"}`} />
+              <span key={s.id} className={`h-px transition-all duration-300 ${i === idx ? `w-3.5 ${tickActive}` : `w-1.5 ${tick}`}`} />
             ))}
           </div>
         </div>
-        <span ref={clockRef} className="num text-[0.55rem] tracking-[0.1em] text-white/65 [writing-mode:vertical-rl]">
+        <span ref={clockRef} className={`num text-[0.55rem] tracking-[0.1em] [writing-mode:vertical-rl] ${cMuted}`}>
           --:--:--
         </span>
       </div>
