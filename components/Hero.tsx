@@ -14,7 +14,7 @@ export default function Hero() {
           fill
           priority
           sizes="100vw"
-          className="kenburns object-cover object-center"
+          className="object-cover object-center"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-pine-deep/55 via-transparent to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-pine-deep/94 via-pine-deep/35 to-transparent" />

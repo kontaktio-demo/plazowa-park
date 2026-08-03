@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import tour from "@/lib/data/tour360.json";
+import { Icon } from "./Icons";
 
 type SceneCfg = {
   id: string;
@@ -177,25 +178,36 @@ export default function VirtualTour() {
                 type="button"
                 onClick={() => setActive(true)}
                 aria-label="Rozpocznij wirtualny spacer 360 stopni"
-                className="group/btn absolute inset-0 h-full w-full"
+                className="group/btn absolute inset-0 h-full w-full text-left"
               >
                 <Image
                   src="/renders/tour-poster.webp"
-                  alt="Osiedle Plażowa Park - podgląd wirtualnego spaceru 360 stopni"
+                  alt="Osiedle Plażowa Park w otoczeniu sosnowego lasu - podgląd wirtualnego spaceru 360 stopni"
                   fill
                   sizes="(max-width: 1280px) 100vw, 1200px"
-                  className="object-cover transition-transform duration-[1200ms] group-hover/btn:scale-[1.03]"
+                  className="object-cover transition-transform duration-[1600ms] ease-out group-hover/btn:scale-[1.05]"
                 />
-                <span className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/25" />
-                <span className="absolute left-5 top-5 rounded-full bg-black/45 px-3 py-1 text-xs font-semibold tracking-wide text-paper backdrop-blur-sm">
-                  360 stopni
-                </span>
-                <span className="absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-3">
-                  <span className="flex h-16 w-16 items-center justify-center rounded-full bg-paper/95 text-pine-deep shadow-lg transition-transform duration-300 group-hover/btn:scale-110">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M8 5.5v13l11-6.5z" /></svg>
+                <span className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-black/35" />
+                <span className="absolute left-5 top-5 flex items-center gap-2 rounded-full bg-black/45 px-3 py-1.5 text-xs font-semibold tracking-wide text-paper backdrop-blur-sm">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brass-light opacity-70" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-brass-light" />
                   </span>
-                  <span className="rounded-full bg-black/45 px-4 py-1.5 text-sm font-medium text-paper backdrop-blur-sm">
-                    Rozpocznij spacer
+                  Wirtualny spacer 360 stopni
+                </span>
+
+                <span className="absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2">
+                  <span className="flex h-[70px] w-[70px] items-center justify-center rounded-full bg-paper/95 text-pine-deep shadow-[0_12px_44px_-10px_rgba(0,0,0,0.65)] transition-transform duration-300 group-hover/btn:scale-110">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M8 5.5v13l11-6.5z" /></svg>
+                  </span>
+                </span>
+
+                <span className="absolute inset-x-0 bottom-0 p-6 sm:p-9">
+                  <span className="block max-w-xl font-display text-[clamp(1.5rem,3vw,2.4rem)] font-semibold leading-tight text-paper">
+                    Przejdź się osiedlem w otoczeniu lasu
+                  </span>
+                  <span className="mt-2 inline-flex items-center gap-2 text-sm font-medium text-paper/85">
+                    Rozpocznij spacer 360 stopni <Icon.arrow width={16} height={16} />
                   </span>
                 </span>
               </button>

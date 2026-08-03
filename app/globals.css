@@ -224,15 +224,12 @@
 .hero-fade { opacity: 0; animation: heroFade 1.6s ease forwards; }
 @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
 .scroll-cue { animation: floatY 2.4s ease-in-out infinite; }
-/* slow cinematic zoom on the hero image */
-@keyframes kenburns { from { transform: scale(1.02); } to { transform: scale(1.13); } }
-.kenburns { animation: kenburns 26s var(--ease-out-expo) both; transform-origin: 60% 55%; }
 /* soft drifting ambient glow */
 @keyframes glowDrift { 0%,100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.13); opacity: 1; } }
 .glow-drift { animation: glowDrift 12s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) {
   .hero-in, .hero-fade { animation: none !important; opacity: 1 !important; }
-  .scroll-cue, .kenburns, .glow-drift { animation: none !important; }
+  .scroll-cue, .glow-drift { animation: none !important; }
 }
 
 /* reveal - only active once JS mounts the motion layer (no-JS shows content) */
