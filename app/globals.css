@@ -269,8 +269,13 @@
   .scroll-cue, .glow-drift { animation: none !important; }
 }
 
-/* reveal - only active once JS mounts the motion layer (no-JS shows content) */
-body.motion-ready [data-reveal] { opacity: 0; }
+/* reveal - only active once JS mounts the motion layer (no-JS shows content).
+   Driven by IntersectionObserver adding .is-in (reliable on iOS); the animation
+   itself is this CSS transition, so it never depends on scroll events firing. */
+body.motion-ready [data-reveal] {
+  opacity: 0;
+  transition: opacity 0.85s var(--ease-out-expo), transform 0.85s var(--ease-out-expo);
+}
 body.motion-ready [data-reveal="up"] { transform: translateY(42px); }
 body.motion-ready [data-reveal="fade"] { transform: none; }
 body.motion-ready [data-reveal="left"] { transform: translateX(-52px); }

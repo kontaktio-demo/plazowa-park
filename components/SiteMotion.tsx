@@ -38,27 +38,32 @@ export default function SiteMotion() {
         gsap.ticker.lagSmoothing(0);
       }
 
-      // scroll reveals
-      const items = gsap.utils.toArray<HTMLElement>("[data-reveal]");
-      if (reduce) {
-        items.forEach((el) => el.classList.add("is-in"));
+      // Scroll reveals via IntersectionObserver. This is reliable on iOS Safari,
+      // where scroll-event / ScrollTrigger driven reveals could fail to fire
+      // during native touch scrolling and leave every below-fold section stuck
+      // at opacity:0 (blank sections). CSS handles the transition (see
+      // [data-reveal] in globals.css).
+      const items = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+      const revealAll = () => items.forEach((el) => el.classList.add("is-in"));
+      let io: IntersectionObserver | undefined;
+      let revealTimer = 0;
+      if (reduce || typeof IntersectionObserver === "undefined") {
+        revealAll();
       } else {
-        ScrollTrigger.batch(items, {
-          start: "top 86%",
-          onEnter: (batch) =>
-            gsap.to(batch, {
-              opacity: 1,
-              x: 0,
-              y: 0,
-              scale: 1,
-              duration: 1.05,
-              ease: "power4.out",
-              stagger: 0.1,
-              overwrite: true,
-            }),
-        });
-        // ensure any already-visible items reveal on load
-        ScrollTrigger.refresh();
+        io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add("is-in");
+                io!.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: "0px 0px -8% 0px", threshold: 0.01 }
+        );
+        items.forEach((el) => io!.observe(el));
+        // Safety net: content must never stay hidden if the observer misbehaves.
+        revealTimer = window.setTimeout(revealAll, 3500);
       }
 
       // smooth anchor scrolling
@@ -78,6 +83,8 @@ export default function SiteMotion() {
 
       cleanup = () => {
         document.removeEventListener("click", onClick);
+        io?.disconnect();
+        clearTimeout(revealTimer);
         ScrollTrigger.getAll().forEach((t) => t.kill());
         lenis?.destroy();
       };
