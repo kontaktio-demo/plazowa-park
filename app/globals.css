@@ -40,7 +40,6 @@
 
   --font-display: var(--font-inter-tight), "Inter Tight", ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), "Fraunces", ui-serif, Georgia, serif;
 
   --radius-card: 14px;
 
@@ -86,12 +85,9 @@
     line-height: 1.04;
     text-wrap: balance;
   }
-  /* editorial serif-italic accent inside display headlines (sans + serif contrast) */
+  /* accent word inside display headlines: same sans face, italic + brass color */
   :is(h1, h2) .italic {
-    font-family: var(--font-serif);
-    font-weight: 500;
     font-style: italic;
-    letter-spacing: 0;
   }
   a { color: inherit; text-decoration: none; }
   img, video { max-width: 100%; height: auto; display: block; }
@@ -163,7 +159,7 @@
   .btn-light:hover { background: var(--color-paper); transform: translateY(-2px); }
 
   .num { font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
-  .accent-serif { font-family: var(--font-serif); font-style: italic; font-weight: 500; letter-spacing: 0; }
+  .accent-serif { font-style: italic; letter-spacing: -0.01em; }
 
   .card {
     background: var(--color-paper);
