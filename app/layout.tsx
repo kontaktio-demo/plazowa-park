@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Inter_Tight, Fraunces } from "next/font/google";
+import { Inter, Inter_Tight } from "next/font/google";
 import "./globals.css";
 import { SITE } from "@/lib/data/site";
 import SiteMotion from "@/components/SiteMotion";
@@ -17,15 +17,6 @@ const interTight = Inter_Tight({
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin", "latin-ext"],
-  display: "swap",
-});
-
-// Editorial serif-italic accent face (the sans + serif-italic contrast, award-site style)
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin", "latin-ext"],
-  weight: ["400", "500"],
-  style: ["italic", "normal"],
   display: "swap",
 });
 
@@ -101,7 +92,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pl" className={`${interTight.variable} ${inter.variable} ${fraunces.variable}`}>
+    <html lang="pl" className={`${interTight.variable} ${inter.variable}`}>
       <body>
         <JsonLd />
         <Analytics />

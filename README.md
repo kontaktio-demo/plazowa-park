@@ -8,7 +8,7 @@ lokalnego SEO.
 ## Stack
 
 - **Next.js 16 (App Router) + TypeScript**
-- **Tailwind CSS v4** - design system (pine / limestone / brass, Fraunces + Inter)
+- **Tailwind CSS v4** - design system (pine / limestone / brass, Inter Tight + Inter)
 - **GSAP + ScrollTrigger + Lenis** - scroll-driven storytelling, scrubowany obrót osiedla, reveals (z pełnym `prefers-reduced-motion`)
 - **MapLibre GL** - interaktywna mapa okolicy (zdjęcia satelitarne + POI)
 - **Higgsfield** (Veo 3.1 / Kling 3.0 / Nano Banana Pro) - filmowe wideo i wizualizacje wnętrz na bazie realnych renderów inwestycji
