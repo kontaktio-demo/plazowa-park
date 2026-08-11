@@ -21,7 +21,49 @@ function valid(l: Lead) {
   return true;
 }
 
+/**
+ * Limit na adres IP. Endpoint wysyla maila przy kazdym wywolaniu, wiec bez tego
+ * jeden skrypt zasypuje skrzynke i nabija koszty u dostawcy. Licznik jest w pamieci
+ * procesu - na serwerless resetuje sie przy zimnym starcie, wiec to prog zwalniajacy,
+ * nie twarda gwarancja. Razem z honeypotem wystarcza dla formularza strony wizytowki.
+ */
+const LIMIT = 5;
+const OKNO_MS = 10 * 60 * 1000;
+const licznik = new Map<string, number[]>();
+
+function limitOk(ip: string): boolean {
+  const teraz = Date.now();
+  const ostatnie = (licznik.get(ip) ?? []).filter((t) => teraz - t < OKNO_MS);
+  if (ostatnie.length >= LIMIT) {
+    licznik.set(ip, ostatnie);
+    return false;
+  }
+  ostatnie.push(teraz);
+  licznik.set(ip, ostatnie);
+  if (licznik.size > 2000) {
+    for (const [k, t] of licznik) if (t.every((x) => teraz - x >= OKNO_MS)) licznik.delete(k);
+  }
+  return true;
+}
+
+/**
+ * Pierwsze wpisy `x-forwarded-for` dokleja klient i sa do podrobienia. Wiarygodny jest
+ * dopiero ostatni, dolozony przez wlasne proxy - inaczej limit omija sie losujac naglowek.
+ */
+function adresIp(req: Request): string {
+  const fwd = req.headers.get("x-forwarded-for");
+  if (fwd) {
+    const czesci = fwd.split(",").map((c) => c.trim()).filter(Boolean);
+    if (czesci.length) return czesci[czesci.length - 1]!;
+  }
+  return req.headers.get("x-real-ip") ?? "nieznany";
+}
+
 export async function POST(req: Request) {
+  if (!limitOk(adresIp(req))) {
+    return NextResponse.json({ error: "Zbyt wiele zapytań. Spróbuj za chwilę." }, { status: 429 });
+  }
+
   let body: Lead;
   try {
     body = await req.json();
