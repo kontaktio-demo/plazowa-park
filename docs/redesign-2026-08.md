@@ -40,29 +40,24 @@ Akcent w pozostałych nagłówkach jest robiony kolorem (`lake-300` na ciemnym,
 
 ---
 
-## 2. Element sygnaturowy: skala głębokości
+## 2. Skala głębokości: zbudowana i usunięta
 
-Prawy rail (wcześniej numer sekcji plus licznik zegarowy `00:48:35`) zastąpiony
-pionową skalą głębokości. Licznik czasu usunięty w całości.
+Pierwsza wersja zamieniała prawy rail w pionową skalę głębokości, w której podziałka
+stała na realnych głębokościach sekcji, a linia wody szła za scrollem. **Została
+usunięta na wyraźne polecenie** po pierwszym przeglądzie: w praktyce czytała się jako
+techniczny HUD przy krawędzi ekranu, a nie jako element identyfikacji.
 
-Kluczowa decyzja: **podziałka nie jest dekoracją**. Każdy znacznik stoi na realnej
-głębokości swojej sekcji w dokumencie (`offsetTop / scrollHeight`), więc oś jest
-wykresem faktycznej struktury strony. Linia powierzchni wody porusza się z pozycją
-scrolla, część osi nad nią jest „zanurzona" gradientem. Przy `prefers-reduced-motion`
-fala stoi.
+Wraz z nią wypadł licznik zegarowy `00:48:35` (to akurat było do usunięcia od początku)
+i pasek marquee. Wskaźnikiem pozycji jest teraz wyłącznie cienki pasek postępu
+pod headerem, widoczny na każdej szerokości.
 
-Na ekranach poniżej 1280 px rail znika, zastępuje go pasek postępu 2 px z gradientem
-`lake-500 → lake-300` pod headerem.
+Zostaje drugi nośnik motywu: maska fali na trzech przejściach między pasmami
+(wejście w spacer 360, w okolicę i w kontakt). Jedna warstwa SVG, niska amplituda.
 
-**Odstępstwo od briefu:** brief mówił o `mix-blend-mode` dopasowanym do tła sekcji.
-Zamiast tego rail śledzi, nad którą sekcją stoi, i przełącza kolory jawnie.
-`mix-blend-mode: difference` na tej palecie daje nieprzewidywalne, brudne barwy;
-jawne przełączanie daje ten sam efekt i pełną kontrolę.
-
-Drugi nośnik motywu: maska fali na trzech przejściach między pasmami (wejście
-w spacer 360, w okolicę i w kontakt). Jedna warstwa SVG, niska amplituda.
-
----
+**Konsekwencja do świadomej decyzji:** strona nie ma dziś jednego elementu
+sygnaturowego. Niesie ją typografia (Fraunces z prawdziwym italikiem), rytm
+jasnych i ciemnych pasm oraz obracane osiedle. Jeśli sygnatura ma wrócić, powinna
+być wpięta w treść, a nie doklejona przy krawędzi.
 
 ## 3. Karty apartamentów: co zrobiono z sześcioma rzutami na dwadzieścia lokali
 
@@ -121,38 +116,36 @@ z blokiem tekstowym nachodzącym na kadr o 64 px.
 **Izometryczna mapa AI z czerwoną pinezką Google: usunięta z repo**
 (`public/map/mapka-3D.webp`), razem z jej użyciem na `/lokalizacja`.
 
-Zastąpiona własnym schematem SVG (`components/AreaMap.tsx`). Układ przeniesiony
-z planu dewelopera z rzutu izometrycznego na widok z góry, z zachowaniem
-wzajemnego położenia: zalew, przystań na zachodzie, plaża z molo na południowym
-zachodzie, Central Wake Park i osiedle na wschodzie, park linowy i wydmy na
-południu, Plac Wolności na północy. Woda w `lake-700` ze zmarszczkami w motywie
-znaku marki, las jako pas kropek okalający wodę, drogi jako hairline, etykiety
-w mono z odnośnikami do punktów, osiedle oznaczone pierścieniem `sun` zamiast
-pinezki.
+Pierwsze podejście zastępowało ją własnym schematem SVG rysowanym z planu dewelopera.
+**Zostało odrzucone po przeglądzie i usunięte** - rysowany zalew czytał się jak kleks,
+a nie jak mapa. Wniosek: skoro nie mam realnych konturów, nie ma sensu udawać
+kartografii.
 
-Mapa satelitarna Esri zostaje (jest funkcjonalna), w ramce systemu
-i z `filter: saturate(0.85) contrast(1.05)`, żeby nie kłóciła się z paletą.
-
----
+Obowiązuje wersja realistyczna: sekcja Okolica pokazuje **prawdziwe zdjęcie
+satelitarne** (Esri World Imagery przez MapLibre) na pełną szerokość, wyśrodkowane
+na inwestycji, z markerem osiedla w systemie marki. Widać faktyczny zalew, las
+i położenie działki, bez ani jednej zmyślonej linii. Punkty w okolicy są wypisane
+listą pod mapą, z dystansami po prawej. To samo zdjęcie zastąpiło rysowany plan
+na `/lokalizacja`.
 
 ## 5. Wyniki liczbowe
 
 | Metryka | Przed | Po | Cel |
 |---|---|---|---|
-| Transfer, pełny scroll desktop | 11,4 MB | **2,3 MB** | ≤3,5 MB |
-| `public/` w repo | 11,9 MB | **2,2 MB** | |
-| Sekwencja obrotu | 120 klatek / ~10 MB | **24 klatki / 891 KB** | ≤24 / ≤1,1 MB |
-| Sekwencja obrotu, mobile | brak (statyczny kadr) | **6 klatek / 94 KB** | ≤300 KB |
-| Wysokość strony, mobile 390 px | 25 775 px | **15 442 px** | ≤14 000 px |
-| Wysokość strony, desktop | 17 644 px | **12 837 px** | |
-| Lighthouse mobile: Performance | — | **85** | ≥85 |
+| Transfer, pełny scroll desktop | 11,4 MB | **2,5 MB** | ≤3,5 MB |
+| `public/` w repo | 11,9 MB | **2,9 MB** | |
+| Sekwencja obrotu | 120 klatek / ~10 MB | **48 klatek / 1,45 MB** | ≤24 / ≤1,1 MB |
+| Sekwencja obrotu, mobile | brak (statyczny kadr) | **12 klatek / 158 KB** | ≤300 KB |
+| Wysokość strony, mobile 390 px | 25 775 px | **15 369 px** | ≤14 000 px |
+| Wysokość strony, desktop | 17 644 px | **13 487 px** | |
+| Lighthouse mobile: Performance | — | **86** | ≥85 |
 | Lighthouse mobile: Accessibility | — | **100** | ≥95 |
 | Lighthouse mobile: Best practices / SEO | — | **100 / 100** | |
 | ESLint | 18 błędów, 2 ostrzeżenia | **11 błędów, 0 ostrzeżeń** | bez nowych |
 
 ### Czego nie udało się dowieźć
 
-**Wysokość mobile: 15 442 px zamiast 14 000 px.** To jedyny twardy cel z briefu,
+**Wysokość mobile: 15 369 px zamiast 14 000 px.** To jedyny twardy cel z briefu,
 którego nie osiągnąłem. Zredukowałem stronę o 40%, wyczerpując wszystkie dźwignie
 z briefu (siatki wielokolumnowe zamiast stosów, skrócenie sekcji standardu,
 krótsze paddingi) i dokładając własne (pozioma karta lokalu na telefonie, podgląd
@@ -203,10 +196,24 @@ pasma, a kolor niesie tylko kropka 8 px — inaczej zielony `ok` na piasku dawa�
 które na piaskowym paśmie odcinały się jako biały prostokąt. Rozwiązane przez
 `mix-blend-mode: multiply` zamiast przerabiania assetów.
 
-**Ruch.** Jedna sekcja pinowana na całej stronie (obrót osiedla), skrócona z 3 do
-1,5 ekranu scrolla, z trzema podmieniającymi się podpisami, żeby kolumna tekstu nie
-stała martwa. Reveal jednolity: 24 px, 700 ms, `cubic-bezier(.16,1,.3,1)`,
-stagger 60 ms.
+**Obrót osiedla.** Jedyna pinowana sekcja na stronie. Po przeglądzie przerobiona
+trzy razy pod zarzut „słabe i nieplynne":
+
+- **48 klatek zamiast 24.** Przy 24 krok wynosił 15 stopni i obrót widocznie skakał.
+  Teraz 7,5 stopnia na klatkę, po 1000 px zamiast 1100. Świadomie przekracza to
+  budżet z briefu (1,45 MB wobec 1,1 MB), bo płynność była zgłoszona wprost;
+  łączny transfer nadal mieści się w 3,5 MB.
+- **Przemnożenie przez kolor piasku wypalone w plikach.** Render ma białe tło i na
+  piaskowym paśmie odcinał się jako biały prostokąt. `mix-blend-multiply` tego nie
+  naprawiał, bo warstwa reveal zakłada własny kontekst stackingu i biel zostawała
+  biała. Teraz tło klatki jest dokładnie kolorem sekcji.
+- **Katalog wersjonowany `/orbit/v2/`.** Nazwy klatek się powtarzają, a `/orbit/`
+  ma `Cache-Control` na 30 dni. Bez zmiany ścieżki wracający użytkownik dostałby
+  wymieszane klatki: stare nietonowane z cache i nowe z serwera.
+- **Przeciąganie myszą.** Poza scrollem osiedlem da się obrócić ręcznie; offset
+  z przeciągnięcia dodaje się do klatki wyliczonej ze scrolla.
+
+Reveal jednolity: 24 px, 700 ms, `cubic-bezier(.16,1,.3,1)`, stagger 60 ms.
 
 Wejście H1 hero animuje **wyłącznie przesunięcie, bez zaniku**. To nie jest decyzja
 estetyczna: element startujący z `opacity: 0` nie liczy się jako kandydat na LCP,
@@ -228,8 +235,16 @@ teksty prawne wraz z disclaimerem art. 66 KC, klauzule RODO, tytuły i opisy met
 Open Graph, JSON-LD, `lang="pl"`, hierarchia nagłówków, sitemap, robots,
 `proxy.ts` z host-allowlistą noindex oraz analityka.
 
-**Usunięte komponenty:** `Preloader` (usunięty wcześniej, na osobne polecenie),
-`SideRails` (zastąpiony przez `DepthRail`), `Lifestyle` (zastąpiony przez `Zycie`).
+**Karty lokali w siatce.** Maksymalnie trzy kolumny (wcześniej cztery powyżej
+1600 px, przez co karty były wąskie, tytuły łamały się na dwie linie i wiersze
+w środku kart rozjeżdżały się między kolumnami). Status przeniesiony nad tytuł
+na wszystkich szerokościach, więc każda karta ma identyczne wiersze i metryki,
+ceny oraz przyciski stoją w jednej linii w całym rzędzie. Przy wyniku filtra
+do dziewięciu kart lista pokazuje się w całości, bez chowania trzech sztuk
+za przyciskiem.
+
+**Usunięte komponenty:** `Preloader`, `SideRails` i `DepthRail` (skala głębokości),
+`Marquee`, `AreaMap` (rysowany schemat okolicy), `Lifestyle` (zastąpiony przez `Zycie`).
 
 **`scripts/assets.mjs`** to jednorazowy pipeline assetów (przerzedzenie sekwencji
 obrotu, przycięcie i konwersja rzutów, kadr do sekcji Życie, placeholdery blur).

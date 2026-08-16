@@ -6,7 +6,7 @@ import { SITE } from "@/lib/data/site";
 
 const SAT = "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}";
 
-export default function MapLibreMap() {
+export default function MapLibreMap({ zoom = 15 }: { zoom?: number }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function MapLibreMap() {
           layers: [{ id: "sat", type: "raster", source: "sat" }],
         },
         center: [SITE.geo.lng, SITE.geo.lat],
-        zoom: 15,
+        zoom,
         attributionControl: { compact: true },
         cooperativeGestures: true,
       });
@@ -63,7 +63,7 @@ export default function MapLibreMap() {
       io.disconnect();
       map?.remove();
     };
-  }, []);
+  }, [zoom]);
 
   return (
     <div className="relative h-full w-full">

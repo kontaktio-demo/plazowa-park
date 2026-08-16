@@ -5,7 +5,6 @@ import { INVESTMENT } from "@/lib/data/units";
 import PageHeader from "@/components/PageHeader";
 import Footer from "@/components/Footer";
 import MapLibreMap from "@/components/MapLibreMap";
-import AreaMap from "@/components/AreaMap";
 import { Icon } from "@/components/Icons";
 
 const description =
@@ -114,7 +113,9 @@ export default function LokalizacjaPage() {
           </header>
         </div>
 
-        <AreaMap className="mt-4" />
+        <div className="bd mt-4 h-[320px] overflow-hidden border sm:h-[520px]">
+          <MapLibreMap zoom={14} />
+        </div>
 
         <div className="wrap py-14">
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
@@ -168,7 +169,7 @@ export default function LokalizacjaPage() {
 
             <div className="lg:pt-20">
               <div className="bd h-[380px] overflow-hidden border sm:h-[460px]">
-                <MapLibreMap />
+                <MapLibreMap zoom={16} />
               </div>
               <div className="t-meta-sm fg-muted mt-4 flex flex-wrap items-center justify-between gap-3">
                 <span>

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-/** Odpowiednik skali głębokości na wąskich ekranach, gdzie rail się nie mieści. */
+/** Cienki pasek postępu pod headerem - jedyny wskaźnik pozycji na stronie. */
 export default function ScrollProgress() {
   const barRef = useRef<HTMLDivElement>(null);
 
@@ -46,7 +46,7 @@ export default function ScrollProgress() {
 
   return (
     <div
-      className="fixed inset-x-0 z-65 h-0.5 [@media(min-width:1280px)]:hidden"
+      className="fixed inset-x-0 z-65 h-0.5"
       style={{ top: "var(--nav-h)" }}
       aria-hidden
     >

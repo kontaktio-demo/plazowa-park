@@ -435,21 +435,8 @@ body.motion-ready [data-reveal="stagger"] > * {
 }
 body.motion-ready [data-reveal="stagger"].is-in > * { opacity: 1; transform: none; }
 
-/* delikatny ruch powierzchni wody na skali głębokości */
-@keyframes waterDrift {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.water-drift { animation: waterDrift 9s linear infinite; }
-
-@keyframes marqueeX { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@keyframes marqueeXRev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-.marquee-x { animation: marqueeX linear infinite; }
-.marquee-x-rev { animation: marqueeXRev linear infinite; }
-
 @media (prefers-reduced-motion: reduce) {
   .rise, .rise-y { animation: none !important; opacity: 1 !important; transform: none !important; }
-  .marquee-x, .marquee-x-rev, .water-drift { animation: none !important; }
   body.motion-ready [data-reveal],
   body.motion-ready [data-reveal="stagger"] > * { opacity: 1 !important; transform: none !important; }
   * { scroll-behavior: auto !important; }
