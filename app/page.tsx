@@ -1,6 +1,6 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
-import EstateOrbit from "@/components/EstateOrbit";
+import Osiedle from "@/components/Osiedle";
 import EstateExplorer from "@/components/estate/EstateExplorer";
 import VirtualTour from "@/components/VirtualTour";
 import Standard from "@/components/Standard";
@@ -20,7 +20,7 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <EstateOrbit />
+        <Osiedle />
         <EstateExplorer />
         <VirtualTour />
         <Standard />

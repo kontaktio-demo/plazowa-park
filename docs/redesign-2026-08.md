@@ -132,20 +132,19 @@ na `/lokalizacja`.
 
 | Metryka | Przed | Po | Cel |
 |---|---|---|---|
-| Transfer, pełny scroll desktop | 11,4 MB | **2,5 MB** | ≤3,5 MB |
-| `public/` w repo | 11,9 MB | **2,9 MB** | |
-| Sekwencja obrotu | 120 klatek / ~10 MB | **48 klatek / 1,45 MB** | ≤24 / ≤1,1 MB |
-| Sekwencja obrotu, mobile | brak (statyczny kadr) | **12 klatek / 158 KB** | ≤300 KB |
-| Wysokość strony, mobile 390 px | 25 775 px | **15 369 px** | ≤14 000 px |
-| Wysokość strony, desktop | 17 644 px | **13 487 px** | |
-| Lighthouse mobile: Performance | — | **86** | ≥85 |
+| Transfer, pełny scroll desktop | 11,4 MB | **~1,0 MB** | ≤3,5 MB |
+| `public/` w repo | 11,9 MB | **1,1 MB** | |
+| Sekwencja obrotu | 120 klatek / ~10 MB | **usunięta w całości** | ≤24 / ≤1,1 MB |
+| Wysokość strony, mobile 390 px | 25 775 px | **15 755 px** | ≤14 000 px |
+| Wysokość strony, desktop | 17 644 px | **11 934 px** | |
+| Lighthouse mobile: Performance | — | **85** | ≥85 |
 | Lighthouse mobile: Accessibility | — | **100** | ≥95 |
 | Lighthouse mobile: Best practices / SEO | — | **100 / 100** | |
-| ESLint | 18 błędów, 2 ostrzeżenia | **11 błędów, 0 ostrzeżeń** | bez nowych |
+| ESLint | 18 błędów, 2 ostrzeżenia | **10 błędów, 0 ostrzeżeń** | bez nowych |
 
 ### Czego nie udało się dowieźć
 
-**Wysokość mobile: 15 369 px zamiast 14 000 px.** To jedyny twardy cel z briefu,
+**Wysokość mobile: 15 755 px zamiast 14 000 px.** To jedyny twardy cel z briefu,
 którego nie osiągnąłem. Zredukowałem stronę o 40%, wyczerpując wszystkie dźwignie
 z briefu (siatki wielokolumnowe zamiast stosów, skrócenie sekcji standardu,
 krótsze paddingi) i dokładając własne (pozioma karta lokalu na telefonie, podgląd
@@ -196,24 +195,31 @@ pasma, a kolor niesie tylko kropka 8 px — inaczej zielony `ok` na piasku dawa�
 które na piaskowym paśmie odcinały się jako biały prostokąt. Rozwiązane przez
 `mix-blend-mode: multiply` zamiast przerabiania assetów.
 
-**Obrót osiedla.** Jedyna pinowana sekcja na stronie. Po przeglądzie przerobiona
-trzy razy pod zarzut „słabe i nieplynne":
+**Obrót osiedla: zbudowany, dopracowany i usunięty.** Sekcja 01 przez trzy rundy
+pokazywała render osiedla obracany scrollem. Po kolejnych uwagach („słabe", „nie
+płynne", „nie siedzi mi to 360") makieta wypadła w całości razem z 48 klatkami
+sekwencji. Po drodze zdiagnozowane rzeczy, które warto pamiętać przy podobnych
+sekwencjach: 24 klatki to 15 stopni na klatkę i widoczne skakanie; `mix-blend-multiply`
+nie posadzi renderu z białym tłem na kolorowym paśmie, bo warstwa reveal zakłada
+własny kontekst stackingu (trzeba wypalić przemnożenie w plikach); a katalog z
+klatkami musi być wersjonowany, bo `/orbit/` ma `Cache-Control` na 30 dni i przy
+powtarzalnych nazwach wracający użytkownik dostaje wymieszane klatki.
 
-- **48 klatek zamiast 24.** Przy 24 krok wynosił 15 stopni i obrót widocznie skakał.
-  Teraz 7,5 stopnia na klatkę, po 1000 px zamiast 1100. Świadomie przekracza to
-  budżet z briefu (1,45 MB wobec 1,1 MB), bo płynność była zgłoszona wprost;
-  łączny transfer nadal mieści się w 3,5 MB.
-- **Przemnożenie przez kolor piasku wypalone w plikach.** Render ma białe tło i na
-  piaskowym paśmie odcinał się jako biały prostokąt. `mix-blend-multiply` tego nie
-  naprawiał, bo warstwa reveal zakłada własny kontekst stackingu i biel zostawała
-  biała. Teraz tło klatki jest dokładnie kolorem sekcji.
-- **Katalog wersjonowany `/orbit/v2/`.** Nazwy klatek się powtarzają, a `/orbit/`
-  ma `Cache-Control` na 30 dni. Bez zmiany ścieżki wracający użytkownik dostałby
-  wymieszane klatki: stare nietonowane z cache i nowe z serwera.
-- **Przeciąganie myszą.** Poza scrollem osiedlem da się obrócić ręcznie; offset
-  z przeciągnięcia dodaje się do klatki wyliczonej ze scrolla.
+**W miejsce obrotu: elewacje sześciu budynków.** Sekcja 01 jest teraz wycentrowana
+typograficznie, a pod nagłówkiem stoi rząd sześciu sylwetek. Liczba segmentów w
+bryle to realna liczba lokali w budynku, więc od razu widać różnicę między
+narożnym (cztery apartamenty) a środkowym (dwa większe). Pod każdą bryłą numer
+budynku, liczba lokali i cena od, wszystko z `BUILDINGS`. Kliknięcie budynku
+przewija do listy lokali i ustawia na niej filtr (zdarzenie `pp:select-building`),
+więc element nie jest dekoracją tylko skrótem nawigacyjnym. Żółty prostokąt na
+połaci to okno dachowe, oznaczające poddasze zawarte w cenie i nieliczone do
+metrażu - jedyny naprawdę wyróżniający fakt handlowy tej inwestycji, wcześniej
+schowany w FAQ.
 
-Reveal jednolity: 24 px, 700 ms, `cubic-bezier(.16,1,.3,1)`, stagger 60 ms.
+Skutek uboczny: sekcja zajmuje jeden ekran zamiast 2,6 ekranu pinowania, a `public/`
+spadło z 2,9 MB do 1,1 MB.
+
+Reveal jednolity:Reveal jednolity: 24 px, 700 ms, `cubic-bezier(.16,1,.3,1)`, stagger 60 ms.
 
 Wejście H1 hero animuje **wyłącznie przesunięcie, bez zaniku**. To nie jest decyzja
 estetyczna: element startujący z `opacity: 0` nie liczy się jako kandydat na LCP,
@@ -244,7 +250,8 @@ do dziewięciu kart lista pokazuje się w całości, bez chowania trzech sztuk
 za przyciskiem.
 
 **Usunięte komponenty:** `Preloader`, `SideRails` i `DepthRail` (skala głębokości),
-`Marquee`, `AreaMap` (rysowany schemat okolicy), `Lifestyle` (zastąpiony przez `Zycie`).
+`Marquee`, `AreaMap` (rysowany schemat okolicy), `EstateOrbit` (makieta 360, zastąpiona
+przez `Osiedle`), `Lifestyle` (zastąpiony przez `Zycie`).
 
 **`scripts/assets.mjs`** to jednorazowy pipeline assetów (przerzedzenie sekwencji
 obrotu, przycięcie i konwersja rzutów, kadr do sekcji Życie, placeholdery blur).

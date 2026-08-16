@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { UNITS, BUILDINGS, INVESTMENT, type Unit } from "@/lib/data/units";
 import { plnShort } from "@/lib/format";
 import { sectionEyebrow } from "@/lib/sections";
@@ -9,6 +9,7 @@ import EstateMap from "./EstateMap";
 import UnitCard from "./UnitCard";
 import UnitModal from "./UnitModal";
 import SortMenu, { type SortKey } from "./SortMenu";
+import { SELECT_BUILDING_EVENT } from "@/lib/selectUnit";
 
 const PREVIEW = 6;
 
@@ -19,6 +20,16 @@ export default function EstateExplorer() {
   const [sort, setSort] = useState<SortKey>("price-asc");
   const [modal, setModal] = useState<Unit | null>(null);
   const [expanded, setExpanded] = useState(false);
+
+  // klik w budynek w sekcji Osiedle ustawia filtr tutaj
+  useEffect(() => {
+    const onPick = (e: Event) => {
+      setBuilding((e as CustomEvent<number>).detail);
+      setExpanded(true);
+    };
+    window.addEventListener(SELECT_BUILDING_EVENT, onPick);
+    return () => window.removeEventListener(SELECT_BUILDING_EVENT, onPick);
+  }, []);
 
   const filtered = useMemo(() => {
     let list = UNITS.slice();
