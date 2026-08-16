@@ -39,14 +39,13 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
       </Link>
 
       <div className="flex min-w-0 flex-1 flex-col p-3.5 sm:p-5">
-        {/* na wąskim ekranie status idzie nad tytuł, żeby etykieta tekstowa nigdy nie znikała */}
-        <div className="flex flex-col-reverse items-start gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-2">
-          <h3 className="t-title text-[1.15rem] sm:text-[1.375rem]">Apartament {unit.name}</h3>
-          <span className="t-meta-sm fg-muted flex flex-none items-center gap-1.5 sm:pt-1">
-            <span className="status-dot" style={{ background: s.color }} />
-            {s.label}
-          </span>
-        </div>
+        {/* status zawsze nad tytułem: każda karta ma identyczne wiersze, więc
+            metryki i ceny stoją w jednej linii w całym rzędzie */}
+        <span className="t-meta-sm fg-muted flex items-center gap-1.5">
+          <span className="status-dot" style={{ background: s.color }} />
+          {s.label}
+        </span>
+        <h3 className="t-title mt-1.5 text-[1.15rem] sm:text-[1.375rem]">Apartament {unit.name}</h3>
 
         <UnitPosition unit={unit} className="mt-3 max-w-40 sm:mt-4 sm:max-w-none" />
 

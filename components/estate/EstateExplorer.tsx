@@ -31,7 +31,9 @@ export default function EstateExplorer() {
     return list;
   }, [building, status, roomsF, sort]);
 
-  const visible = expanded ? filtered : filtered.slice(0, PREVIEW);
+  // przy krotkiej liscie nie ma sensu chowac trzech kart za przyciskiem
+  const preview = filtered.length <= PREVIEW + 3 ? filtered.length : PREVIEW;
+  const visible = expanded ? filtered : filtered.slice(0, preview);
   const hidden = filtered.length - visible.length;
   const clear = () => {
     setBuilding(null);
@@ -141,11 +143,11 @@ export default function EstateExplorer() {
         {filtered.length > 0 ? (
           <>
             <div
-              className="mt-8 grid gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 [@media(min-width:1600px)]:grid-cols-4"
+              className="mt-8 grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
               data-reveal="stagger"
             >
               {visible.map((u, i) => (
-                <div key={u.id} style={{ transitionDelay: `${Math.min(i, 9) * 60}ms` }}>
+                <div key={u.id} className="h-full" style={{ transitionDelay: `${Math.min(i, 9) * 60}ms` }}>
                   <UnitCard unit={u} onOpen={setModal} />
                 </div>
               ))}

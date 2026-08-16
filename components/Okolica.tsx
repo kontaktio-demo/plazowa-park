@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { POI, SITE } from "@/lib/data/site";
 import SectionHeader from "./SectionHeader";
-import AreaMap from "./AreaMap";
 import MapLibreMap from "./MapLibreMap";
 import WaveEdge from "./WaveEdge";
 import { Icon } from "./Icons";
@@ -28,14 +27,27 @@ export default function Okolica() {
             Lokalizacja i dojazd <Icon.arrow width={15} height={15} />
           </Link>
         </SectionHeader>
-      </div>
 
-      <div className="mt-10 sm:mt-14" data-reveal>
-        <AreaMap />
-      </div>
+        {/* prawdziwe zdjęcie satelitarne zamiast rysowanego planu: zalew, las
+            i położenie osiedla widać takie, jakie są */}
+        <div className="bd mt-10 h-[340px] overflow-hidden border sm:mt-14 sm:h-[520px]" data-reveal>
+          <MapLibreMap zoom={14} />
+        </div>
+        <div className="t-meta-sm fg-muted mt-4 flex flex-wrap items-center justify-between gap-3">
+          <span>
+            {SITE.address.street}, {SITE.address.postal} {SITE.address.city}
+          </span>
+          <a
+            href={mapsHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-underline fg-accent inline-flex items-center gap-1.5"
+          >
+            Otwórz w Google Maps <Icon.arrow width={13} height={13} />
+          </a>
+        </div>
 
-      <div className="wrap mt-12 grid gap-10 sm:mt-16 lg:grid-cols-[1fr_1fr] lg:gap-16">
-        <ul className="bd border-t" data-reveal>
+        <ul className="bd mt-12 grid border-t sm:mt-16 lg:grid-cols-2 lg:gap-x-16" data-reveal>
           {POI.map((p) => (
             <li key={p.name} className="bd flex items-baseline justify-between gap-5 border-b py-4 sm:py-5">
               <div className="min-w-0">
@@ -46,25 +58,6 @@ export default function Okolica() {
             </li>
           ))}
         </ul>
-
-        <div data-reveal>
-          <div className="bd h-[240px] overflow-hidden border sm:h-[420px]">
-            <MapLibreMap />
-          </div>
-          <div className="t-meta-sm fg-muted mt-4 flex flex-wrap items-center justify-between gap-3">
-            <span>
-              {SITE.address.street}, {SITE.address.postal} {SITE.address.city}
-            </span>
-            <a
-              href={mapsHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-underline fg-accent inline-flex items-center gap-1.5"
-            >
-              Google Maps <Icon.arrow width={13} height={13} />
-            </a>
-          </div>
-        </div>
       </div>
     </section>
   );
