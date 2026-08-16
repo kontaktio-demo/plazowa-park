@@ -8,80 +8,104 @@ const legal = [
   { label: "Regulamin serwisu", href: "/regulamin" },
 ];
 
+const registry = [
+  { l: "KRS", v: DEVELOPER.krs },
+  { l: "NIP", v: DEVELOPER.nip },
+  { l: "REGON", v: DEVELOPER.regon },
+];
+
 export default function Footer() {
   return (
-    <footer className="bg-pine-deep text-paper">
-      <div className="container-x py-16">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
+    <footer className="band band-abyss">
+      <div className="wrap py-14 sm:py-20">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr] lg:gap-12">
           <div>
-            <p className="flex items-center gap-2.5 font-display text-3xl font-semibold text-paper">
-              <span className="flex h-9 w-9 items-center justify-center rounded-[10px] bg-paper/10 text-paper">
-                <LogoMark width={20} height={20} />
-              </span>
-              Plażowa Park
+            <p className="flex items-center gap-3">
+              <LogoMark width={26} height={26} className="text-lake-300" />
+              <span className="font-display text-2xl font-semibold">Plażowa Park</span>
             </p>
-            <p className="mt-2 text-sm uppercase tracking-[0.2em] text-brass-light">Głowno · Zalew Mrożyczka</p>
-            <p className="mt-5 max-w-xs text-pretty text-sm leading-relaxed text-paper/65">
-              Luksusowe osiedle 20 apartamentów w ponad 100-letnim lesie, bezpośrednio przy Zalewie Mrożyczka
-              w Głownie.
+            <p className="t-meta-sm mt-3 text-lake-300/80">Głowno · Zalew Mrożyczka</p>
+            <p className="t-body fg-muted mt-6 max-w-xs text-pretty">
+              Kameralne osiedle 20 apartamentów w lesie, bezpośrednio przy Zalewie Mrożyczka w Głownie.
             </p>
-            <a href="#lokale" className="btn btn-brass mt-6 !py-2.5 text-sm">
+            <a href="#lokale" className="btn btn-ghost btn-sm mt-6">
               Wybierz apartament <Icon.arrow width={16} height={16} />
             </a>
           </div>
 
           <nav>
-            <p className="text-xs uppercase tracking-[0.16em] text-paper/45">Nawigacja</p>
-            <ul className="mt-4 space-y-2.5 text-sm">
+            <p className="t-meta-sm fg-muted">Nawigacja</p>
+            <ul className="mt-5 flex flex-col gap-3">
               {NAV.map((n) => (
                 <li key={n.href}>
-                  <a href={`/${n.href}`} className="link-underline text-paper/80 hover:text-paper">{n.label}</a>
+                  <a href={`/${n.href}`} className="link-underline text-sm hover:text-lake-300">
+                    {n.label}
+                  </a>
                 </li>
               ))}
             </ul>
           </nav>
 
           <div>
-            <p className="text-xs uppercase tracking-[0.16em] text-paper/45">Kontakt</p>
-            <ul className="mt-4 space-y-2.5 text-sm text-paper/80">
-              <li><a href={`tel:${SITE.phone.tel}`} className="link-underline num">{SITE.phone.display}</a></li>
-              <li><a href={`mailto:${SITE.email}`} className="link-underline">{SITE.email}</a></li>
-              <li className="text-paper/65">{SITE.address.street}<br />{SITE.address.postal} {SITE.address.city}</li>
+            <p className="t-meta-sm fg-muted">Kontakt</p>
+            <ul className="mt-5 flex flex-col gap-3 text-sm">
+              <li>
+                <a href={`tel:${SITE.phone.tel}`} className="link-underline num hover:text-lake-300">
+                  {SITE.phone.display}
+                </a>
+              </li>
+              <li className="wrap-break-word">
+                <a href={`mailto:${SITE.email}`} className="link-underline hover:text-lake-300">
+                  {SITE.email}
+                </a>
+              </li>
+              <li className="fg-muted">
+                {SITE.address.street}
+                <br />
+                {SITE.address.postal} {SITE.address.city}
+              </li>
             </ul>
           </div>
 
           <div>
-            <p className="text-xs uppercase tracking-[0.16em] text-paper/45">Deweloper</p>
-            <ul className="mt-4 space-y-1.5 text-sm text-paper/65">
-              <li className="text-paper/85">{DEVELOPER.name}</li>
-              <li>{DEVELOPER.street}</li>
-              <li>{DEVELOPER.postal} {DEVELOPER.city}</li>
-              <li className="num">KRS {DEVELOPER.krs}</li>
-              <li className="num">NIP {DEVELOPER.nip}</li>
-              <li className="num">REGON {DEVELOPER.regon}</li>
-            </ul>
+            <p className="t-meta-sm fg-muted">Deweloper</p>
+            <p className="mt-5 text-sm">{DEVELOPER.name}</p>
+            <p className="t-body fg-muted mt-1 text-sm">
+              {DEVELOPER.street}
+              <br />
+              {DEVELOPER.postal} {DEVELOPER.city}
+            </p>
+            <dl className="mt-4 flex flex-col gap-1.5">
+              {registry.map((r) => (
+                <div key={r.l} className="t-meta-sm fg-muted flex gap-2">
+                  <dt>{r.l}</dt>
+                  <dd className="num">{r.v}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
 
-        <div className="mt-12 border-t border-paper/12 pt-6">
-          <p className="max-w-3xl text-xs leading-relaxed text-paper/45">
-            Wizualizacje i ceny mają charakter poglądowy i nie stanowią oferty w rozumieniu art. 66 Kodeksu cywilnego.
-            Wiążące dane, ceny i dostępność potwierdza biuro sprzedaży.
+        <div className="bd mt-10 border-t pt-6 sm:mt-14 sm:pt-7">
+          <p className="t-body fg-muted max-w-3xl text-sm text-pretty">
+            Wizualizacje i ceny mają charakter poglądowy i nie stanowią oferty w rozumieniu art. 66 Kodeksu
+            cywilnego. Wiążące dane, ceny i dostępność potwierdza biuro sprzedaży.
           </p>
-          <div className="mt-6 flex flex-col gap-4 text-sm text-paper/55 sm:flex-row sm:items-center sm:justify-between">
-            <p>© 2026 {DEVELOPER.name} · Wszelkie prawa zastrzeżone.</p>
+          <div className="t-meta-sm fg-muted mt-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <p>© 2026 {DEVELOPER.name}</p>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
               {legal.map((l) => (
-                <a key={l.href} href={l.href} className="link-underline hover:text-paper">{l.label}</a>
+                <a key={l.href} href={l.href} className="link-underline hover:text-lake-300">
+                  {l.label}
+                </a>
               ))}
-              <span aria-hidden className="text-paper/25">·</span>
               <a
                 href="https://kontaktio.pl"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-paper/45 transition-colors hover:text-paper/80"
+                className="link-underline hover:text-lake-300"
               >
-                Realizacja:&nbsp;<span className="font-medium text-paper/70">Kontaktio</span>
+                Realizacja: Kontaktio
               </a>
             </div>
           </div>

@@ -3,8 +3,10 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import tour from "@/lib/data/tour360.json";
-import { Icon } from "./Icons";
+import { sectionEyebrow } from "@/lib/sections";
+import { BLUR } from "@/lib/blur";
 import { track } from "@/lib/track";
+import WaveEdge from "./WaveEdge";
 
 type SceneCfg = {
   id: string;
@@ -20,7 +22,6 @@ export default function VirtualTour() {
   const [active, setActive] = useState(false);
   const [ready, setReady] = useState(false);
   const [index, setIndex] = useState(0);
-  const [hint, setHint] = useState(true);
   const stageRef = useRef<HTMLDivElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -71,22 +72,14 @@ export default function VirtualTour() {
     };
   }, [active]);
 
-  useEffect(() => {
-    if (!ready) return;
-    const t = setTimeout(() => setHint(false), 4500);
-    return () => clearTimeout(t);
-  }, [ready]);
-
   const goTo = useCallback((delta: number) => {
     const n = (indexRef.current + delta + SCENES.length) % SCENES.length;
     const obj = sceneObjsRef.current[n];
     if (!obj) return;
     indexRef.current = n;
-    // always present each scene at its intended framing
     obj.view.setParameters(SCENES[n].initialViewParameters);
     obj.scene.switchTo({ transitionDuration: 900 });
     setIndex(n);
-    setHint(false);
   }, []);
 
   const fullscreen = useCallback(() => {
@@ -97,125 +90,95 @@ export default function VirtualTour() {
   }, []);
 
   return (
-    <section id="spacer" className="relative overflow-hidden bg-pine-deep py-20 text-paper sm:py-28">
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
-        <div className="deco-grid-dark absolute inset-0" />
-        <div className="absolute left-[-6%] top-[18%]">
-          <div className="glow-drift h-[36vh] w-[36vh] rounded-full blur-[90px]" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--color-brass) 15%, transparent), transparent 70%)" }} />
-        </div>
-      </div>
-      <div className="container-x relative z-10">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between" data-reveal="up">
-          <div className="max-w-2xl">
-            <p className="eyebrow !text-brass-light">03 - Spacer 360</p>
-            <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-paper">
-              Zwiedź osiedle <span className="italic text-brass-light">w 360 stopni.</span>
-            </h2>
-            <p className="mt-5 text-pretty leading-relaxed text-paper/70">
-              Przejdź się uliczkami osiedla Plażowa Park, zajrzyj między budynki i zobacz ogrody oraz najbliższe
-              otoczenie. To autentyczny widok inwestycji.
-            </p>
-          </div>
-        </div>
+    <section id="spacer" ref={wrapRef} className="band band-abyss relative min-h-[78svh] w-full overflow-hidden sm:min-h-[88svh]">
+      <WaveEdge from="var(--color-sand-200)" />
 
-        <div
-          ref={wrapRef}
-          className="group relative mt-10 overflow-hidden rounded-[18px] border border-paper/12 bg-black shadow-[0_30px_80px_-40px_rgba(0,0,0,0.85)]"
-          data-reveal="up"
-        >
-          <div className="relative aspect-[16/10] w-full sm:aspect-[16/9]">
-            {active ? (
-              <>
-                <div ref={stageRef} onPointerDown={() => setHint(false)} className="absolute inset-0 h-full w-full cursor-grab [&_canvas]:outline-none active:cursor-grabbing" />
+      {active ? (
+        <>
+          <div
+            ref={stageRef}
+            className="absolute inset-0 h-full w-full cursor-grab [&_canvas]:outline-none active:cursor-grabbing"
+          />
+          {!ready && (
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+              <span className="h-8 w-8 animate-spin rounded-full border-2 border-sand-50/25 border-t-sand-50/80" />
+            </div>
+          )}
+          <div className={`pointer-events-none absolute inset-0 transition-opacity duration-500 ${ready ? "opacity-100" : "opacity-0"}`}>
+            <button
+              type="button"
+              onClick={fullscreen}
+              aria-label="Pełny ekran"
+              className="pointer-events-auto absolute right-5 top-[calc(var(--nav-h)+16px)] flex h-11 w-11 items-center justify-center border border-sand-50/25 bg-abyss/40 backdrop-blur-md transition-colors hover:border-lake-300"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3" />
+              </svg>
+            </button>
 
-                {!ready && (
-                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black">
-                    <span className="h-8 w-8 animate-spin rounded-full border-2 border-paper/25 border-t-paper/80" />
-                  </div>
-                )}
-
-                {/* minimalist controls */}
-                <div className={`pointer-events-none absolute inset-0 transition-opacity duration-500 ${ready ? "opacity-100" : "opacity-0"}`}>
-                  <span className={`absolute left-1/2 top-6 -translate-x-1/2 rounded-full bg-black/40 px-4 py-1.5 text-xs font-medium text-paper backdrop-blur-md transition-opacity duration-700 ${hint ? "opacity-100" : "opacity-0"}`}>
-                    Przeciągnij, aby się rozejrzeć
-                  </span>
-                  <button
-                    type="button"
-                    onClick={fullscreen}
-                    aria-label="Pełny ekran"
-                    className="pointer-events-auto absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-black/35 text-paper backdrop-blur-md transition hover:bg-black/55"
-                  >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3" />
-                    </svg>
-                  </button>
-
-                  <div className="pointer-events-auto absolute bottom-4 left-1/2 flex -translate-x-1/2 items-center gap-1 rounded-full bg-black/40 p-1 pr-1.5 text-paper backdrop-blur-md">
-                    <button
-                      type="button"
-                      onClick={() => goTo(-1)}
-                      aria-label="Poprzednie ujęcie"
-                      className="flex h-9 w-9 items-center justify-center rounded-full transition hover:bg-paper/15"
-                    >
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
-                    </button>
-                    <div className="min-w-[9.5rem] px-2 text-center sm:min-w-[12rem]">
-                      <div className="truncate text-sm font-medium leading-tight">{SCENES[index].name}</div>
-                      <div className="text-[0.65rem] uppercase tracking-[0.16em] text-paper/55 num">{index + 1} / {SCENES.length}</div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => goTo(1)}
-                      aria-label="Następne ujęcie"
-                      className="flex h-9 w-9 items-center justify-center rounded-full transition hover:bg-paper/15"
-                    >
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
-                    </button>
+            <div className="pointer-events-auto absolute inset-x-0 bottom-6 flex justify-center px-5">
+              <div className="flex items-center gap-1 border border-sand-50/20 bg-abyss/55 p-1 backdrop-blur-md">
+                <button
+                  type="button"
+                  onClick={() => goTo(-1)}
+                  aria-label="Poprzednie ujęcie"
+                  className="flex h-11 w-11 items-center justify-center transition-colors hover:text-lake-300"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+                </button>
+                <div className="min-w-[10rem] px-3 text-center sm:min-w-[14rem]">
+                  <div className="truncate text-sm font-medium">{SCENES[index].name}</div>
+                  <div className="t-meta-sm fg-muted num mt-1">
+                    {index + 1} / {SCENES.length}
                   </div>
                 </div>
-              </>
-            ) : (
-              <button
-                type="button"
-                onClick={() => { setActive(true); track("view_360"); }}
-                aria-label="Rozpocznij wirtualny spacer 360 stopni"
-                className="group/btn absolute inset-0 h-full w-full text-left"
-              >
-                <Image
-                  src="/renders/tour-poster.webp"
-                  alt="Osiedle Plażowa Park w otoczeniu sosnowego lasu - podgląd wirtualnego spaceru 360 stopni"
-                  fill
-                  sizes="(max-width: 1280px) 100vw, 1200px"
-                  className="object-cover transition-transform duration-[1600ms] ease-out group-hover/btn:scale-[1.05]"
-                />
-                <span className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-black/35" />
-                <span className="absolute left-5 top-5 flex items-center gap-2 rounded-full bg-black/45 px-3 py-1.5 text-xs font-semibold tracking-wide text-paper backdrop-blur-sm">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brass-light opacity-70" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-brass-light" />
-                  </span>
-                  Wirtualny spacer 360 stopni
-                </span>
-
-                <span className="absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2">
-                  <span className="flex h-[70px] w-[70px] items-center justify-center rounded-full bg-paper/95 text-pine-deep shadow-[0_12px_44px_-10px_rgba(0,0,0,0.65)] transition-transform duration-300 group-hover/btn:scale-110">
-                    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M8 5.5v13l11-6.5z" /></svg>
-                  </span>
-                </span>
-
-                <span className="absolute inset-x-0 bottom-0 p-6 sm:p-9">
-                  <span className="block max-w-xl font-display text-[clamp(1.5rem,3vw,2.4rem)] font-semibold leading-tight text-paper">
-                    Przejdź się osiedlem w otoczeniu lasu
-                  </span>
-                  <span className="mt-2 inline-flex items-center gap-2 text-sm font-medium text-paper/85">
-                    Rozpocznij spacer 360 stopni <Icon.arrow width={16} height={16} />
-                  </span>
-                </span>
-              </button>
-            )}
+                <button
+                  type="button"
+                  onClick={() => goTo(1)}
+                  aria-label="Następne ujęcie"
+                  className="flex h-11 w-11 items-center justify-center transition-colors hover:text-lake-300"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      ) : (
+        <>
+          <Image
+            src="/renders/tour-poster.webp"
+            alt="Osiedle Plażowa Park w otoczeniu sosnowego lasu"
+            fill
+            sizes="100vw"
+            quality={68}
+            placeholder="blur"
+            blurDataURL={BLUR.tour}
+            className="object-cover"
+          />
+          <div aria-hidden className="absolute inset-0 bg-abyss/55" />
+          <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-abyss via-transparent to-abyss/40" />
+
+          <div className="wrap relative flex min-h-[78svh] flex-col items-center justify-center py-20 text-center sm:min-h-[88svh] sm:py-24">
+            <p className="eyebrow">{sectionEyebrow("spacer")}</p>
+            <h2 className="t-display-l mt-6 max-w-3xl text-balance">
+              Przejdź się osiedlem <span className="fg-accent">zanim powstanie</span>
+            </h2>
+            <button
+              type="button"
+              onClick={() => {
+                setActive(true);
+                track("view_360");
+              }}
+              className="btn btn-sun mt-10 px-8 py-5 text-base"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M8 5.5v13l11-6.5z" /></svg>
+              Rozpocznij spacer 360
+            </button>
+            <p className="t-meta-sm fg-muted mt-6">{SCENES.length} ujęć · uliczki, bramy i etapy osiedla</p>
+          </div>
+        </>
+      )}
     </section>
   );
 }

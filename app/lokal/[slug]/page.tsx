@@ -6,10 +6,12 @@ import { UNITS, BUILDINGS } from "@/lib/data/units";
 import { unitSlug, unitBySlug } from "@/lib/slug";
 import { pln, plnShort, area, rooms, STATUS_META } from "@/lib/format";
 import { schemaAvailability, unitDescription, unitMetaDescription } from "@/lib/unitCopy";
+import { planImage, unitPlace } from "@/lib/unitType";
 import { SITE } from "@/lib/data/site";
 import PageHeader from "@/components/PageHeader";
 import Footer from "@/components/Footer";
 import TrackUnitView from "@/components/TrackUnitView";
+import UnitPosition from "@/components/estate/UnitPosition";
 import { Icon } from "@/components/Icons";
 
 export function generateStaticParams() {
@@ -40,9 +42,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 const galleryImgs = [
-  { src: "/renders/tour-poster.webp", alt: "Osiedle Plażowa Park w wirtualnym spacerze 360 stopni" },
+  { src: "/renders/tour-poster.webp", alt: "Uliczka osiedla Plażowa Park w sosnowym lesie" },
+  { src: "/renders/zycie.webp", alt: "Taras i prywatny ogród apartamentu Plażowa Park" },
   { src: "/map/estate-frame.webp", alt: "Plan osiedla Plażowa Park z lotu ptaka" },
-  { src: "/map/mapka-3D.webp", alt: "Plan okolicy nad Zalewem Mrożyczka" },
 ];
 
 export default async function UnitPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -51,6 +53,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
   if (!u) notFound();
 
   const s = STATUS_META[u.status];
+  const place = unitPlace(u);
   const building = BUILDINGS.find((b) => b.stageId === u.stageId);
   const sameBuilding = UNITS.filter((x) => x.stageId === u.stageId && x.id !== u.id);
   const others = UNITS.filter((x) => x.stageId !== u.stageId && x.id !== u.id);
@@ -110,122 +113,125 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <TrackUnitView unit={u.name} price={u.price} status={u.status} />
       <PageHeader />
-      <main className="bg-paper">
-        <div className="container-x py-8 sm:py-12">
-          <nav className="flex items-center gap-2 text-sm text-muted" aria-label="breadcrumb">
-            <Link href="/" className="hover:text-pine">Strona główna</Link>
-            <span>/</span>
-            <Link href="/#lokale" className="hover:text-pine">Wybierz dom</Link>
-            <span>/</span>
-            <span className="text-ink">Apartament {u.name}</span>
+      <main className="band band-sand">
+        <div className="wrap py-10 sm:py-14">
+          <nav className="t-meta-sm fg-muted flex flex-wrap items-center gap-2" aria-label="breadcrumb">
+            <Link href="/" className="hover:text-lake-700">
+              Strona główna
+            </Link>
+            <span aria-hidden>/</span>
+            <Link href="/#lokale" className="hover:text-lake-700">
+              Apartamenty
+            </Link>
+            <span aria-hidden>/</span>
+            <span className="fg">Apartament {u.name}</span>
           </nav>
 
-          <div className="mt-8 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-            {/* left: visual */}
+          <div className="mt-10 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
             <div>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[16px] border border-ink/10 bg-sand">
-                {u.viewThumb && (
-                  <Image
-                    src={`/unit-views/${u.viewThumb}`}
-                    alt={`Rzut i położenie apartamentu ${u.name} w budynku ${u.buildingLabel}`}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 55vw"
-                    className="object-contain p-8"
-                    priority
-                  />
-                )}
-                <span className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full bg-paper/90 px-3 py-1 text-xs font-semibold text-ink-soft">
-                  <span className="status-dot" style={{ background: s.color }} /> {s.label}
+              <div className="relative aspect-4/3 overflow-hidden bg-lake-900">
+                <Image
+                  src={planImage(u)}
+                  alt={`Rzut poglądowy apartamentu ${u.name}, typ ${place.type}`}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 55vw"
+                  className="object-contain p-8"
+                  priority
+                />
+                <span className="t-meta-sm absolute bottom-4 left-4 text-sand-50/60">
+                  Rzut poglądowy · typ {place.type}
                 </span>
               </div>
               <div className="mt-3 grid grid-cols-3 gap-3">
                 {galleryImgs.map((g) => (
-                  <div key={g.src} className="relative aspect-[4/3] overflow-hidden rounded-[10px]">
-                    <Image src={g.src} alt={g.alt} fill sizes="(max-width: 1024px) 33vw, 180px" className="object-cover" />
+                  <div key={g.src} className="relative aspect-4/3 overflow-hidden">
+                    <Image src={g.src} alt={g.alt} fill sizes="(max-width: 1024px) 33vw, 200px" className="object-cover" />
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* right: details */}
             <div>
-              <p className="eyebrow">Budynek {u.buildingLabel}</p>
-              <h1 className="mt-4 font-display text-[clamp(2.4rem,5vw,3.6rem)] leading-none text-pine">Apartament {u.name}</h1>
-              <div className="mt-5 font-display text-4xl text-ink num">{pln(u.price)}</div>
-              <div className="mt-1 text-sm text-muted num">{plnShort(u.pricePerM)}/m²</div>
+              <p className="t-meta-sm fg-muted flex items-center gap-2">
+                <span className="status-dot" style={{ background: s.color }} />
+                {s.label} · budynek {u.buildingLabel}
+              </p>
+              <h1 className="t-display-l mt-5">Apartament {u.name}</h1>
+              <div className="t-display-m num mt-6">{pln(u.price)}</div>
+              <div className="t-meta-sm fg-muted num mt-2">{plnShort(u.pricePerM)}/m²</div>
 
-              <dl className="mt-7 grid grid-cols-2 gap-x-6 gap-y-4">
+              <UnitPosition unit={u} className="mt-8 max-w-52" />
+
+              <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5">
                 {[
-                  { l: "Powierzchnia", v: area(u.area), icon: "ruler" },
-                  { l: "Ogród prywatny", v: area(u.garden), icon: "garden" },
-                  { l: "Liczba pokoi", v: rooms(u.rooms), icon: "bed" },
-                  { l: "Kondygnacje", v: `${u.floors}`, icon: "window" },
+                  { l: "Powierzchnia", v: area(u.area) },
+                  { l: "Ogród prywatny", v: area(u.garden) },
+                  { l: "Liczba pokoi", v: rooms(u.rooms) },
+                  { l: "Kondygnacje", v: String(u.floors) },
                 ].map((sp) => (
-                  <div key={sp.l} className="flex items-center gap-3 border-t border-ink/8 pt-3">
-                    <span className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-pine/8 text-pine">
-                      <Icon.check width={0} height={0} className="hidden" />
-                      {sp.icon === "ruler" && <Icon.ruler width={18} height={18} />}
-                      {sp.icon === "garden" && <Icon.garden width={18} height={18} />}
-                      {sp.icon === "bed" && <Icon.bed width={18} height={18} />}
-                      {sp.icon === "window" && <Icon.window width={18} height={18} />}
-                    </span>
-                    <span>
-                      <span className="block text-[0.7rem] uppercase tracking-[0.1em] text-faint">{sp.l}</span>
-                      <span className="font-medium text-ink num">{sp.v}</span>
-                    </span>
+                  <div key={sp.l} className="bd min-w-0 border-t pt-3">
+                    <dt className="t-meta-sm fg-muted">{sp.l}</dt>
+                    <dd className="mt-1.5 font-medium">{sp.v}</dd>
                   </div>
                 ))}
               </dl>
 
-              <p className="mt-7 text-pretty leading-relaxed text-muted">{paras[0]}</p>
+              <p className="t-body fg-muted mt-8 text-pretty">{paras[0]}</p>
 
               <div className="mt-8 flex flex-col gap-2.5 sm:flex-row">
-                <Link href={inquireHref} data-track="book_viewing" className="btn btn-primary flex-1">Zapytaj o ten apartament <Icon.arrow width={18} height={18} /></Link>
-                <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost"><Icon.phone width={16} height={16} /> {SITE.phone.display}</a>
+                <Link href={inquireHref} data-track="book_viewing" className="btn btn-sun flex-1">
+                  Zapytaj o ten apartament <Icon.arrow width={18} height={18} />
+                </Link>
+                <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost">
+                  <Icon.phone width={16} height={16} /> {SITE.phone.display}
+                </a>
               </div>
               {u.planUrl && (
-                <a href={u.planUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex items-center gap-2 text-sm text-brass-deep hover:text-pine">
-                  <Icon.arrow width={15} height={15} /> Pobierz rzut lokalu (PDF)
+                <a
+                  href={u.planUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-underline t-meta fg-accent mt-5 inline-flex items-center gap-2"
+                >
+                  Pobierz rzut lokalu (PDF) <Icon.arrow width={15} height={15} />
                 </a>
               )}
               {building && (
-                <p className="mt-6 rounded-[12px] border border-ink/10 bg-paper-2 p-4 text-sm text-muted">
-                  W budynku <strong className="text-ink">{u.buildingLabel}</strong>: {building.count} lokali, dostępnych {building.available}, od {plnShort(building.priceFrom)}.
+                <p className="card t-body fg-muted mt-7 p-4 text-sm">
+                  W budynku <strong className="fg font-medium">{u.buildingLabel}</strong>: {building.count} lokali,
+                  dostępnych {building.available}, od {plnShort(building.priceFrom)}.
                 </p>
               )}
             </div>
           </div>
 
-          {/* full description (unique SEO content per unit) */}
-          <section className="mt-14 border-t border-ink/10 pt-10">
-            <h2 className="font-display text-2xl text-pine">O apartamencie {u.name}</h2>
-            <div className="mt-5 max-w-3xl space-y-4 text-pretty leading-relaxed text-muted">
+          <section className="bd mt-16 border-t pt-12">
+            <h2 className="t-display-m">O apartamencie {u.name}</h2>
+            <div className="t-body fg-muted mt-6 max-w-3xl space-y-4 text-pretty">
               {paras.slice(1).map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
             </div>
-            <Link href="/lokalizacja" className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brass-deep hover:text-pine">
-              Zobacz lokalizację osiedla i dojazd <Icon.arrow width={15} height={15} />
+            <Link href="/lokalizacja" className="link-underline t-meta fg-accent mt-7 inline-flex items-center gap-2">
+              Lokalizacja osiedla i dojazd <Icon.arrow width={15} height={15} />
             </Link>
           </section>
 
-          {/* related */}
-          <div className="mt-16 border-t border-ink/10 pt-10">
-            <h2 className="font-display text-2xl text-pine">Zobacz też</h2>
-            <div className="mt-6 grid gap-5 sm:grid-cols-3">
+          <div className="bd mt-16 border-t pt-12">
+            <h2 className="t-display-m">Zobacz też</h2>
+            <div className="mt-8 grid gap-5 sm:grid-cols-3">
               {rel.map((r) => (
-                <Link key={r.id} href={`/lokal/${unitSlug(r.name)}`} className="card group p-5 transition-[transform,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
-                  <div className="flex items-baseline justify-between">
-                    <span className="font-display text-xl text-pine">Apartament {r.name}</span>
-                    <span className="chip">{rooms(r.rooms)}</span>
-                  </div>
-                  <div className="mt-3 text-sm text-muted num">{area(r.area)} · ogród {area(r.garden)}</div>
-                  <div className="mt-2 font-display text-xl text-ink num">{plnShort(r.price)}</div>
+                <Link key={r.id} href={`/lokal/${unitSlug(r.name)}`} className="card card-hover p-5">
+                  <span className="t-title block">Apartament {r.name}</span>
+                  <span className="t-meta-sm fg-muted num mt-3 block">
+                    {area(r.area)} · ogród {area(r.garden)}
+                  </span>
+                  <span className="t-display-m num mt-3 block">{plnShort(r.price)}</span>
                 </Link>
               ))}
             </div>
-            <Link href="/#lokale" className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-brass-deep hover:text-pine">
-              <Icon.arrow width={16} height={16} className="rotate-180" /> Wróć do wszystkich lokali
+            <Link href="/#lokale" className="link-underline t-meta fg-accent mt-8 inline-flex items-center gap-2">
+              <Icon.arrow width={16} height={16} className="rotate-180" /> Wszystkie apartamenty
             </Link>
           </div>
         </div>

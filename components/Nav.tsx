@@ -19,105 +19,120 @@ export default function Nav() {
 
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
   }, [open]);
-
-  const solid = scrolled || open;
-  const light = !solid;
 
   return (
     <>
-    <header
-      className={`fixed inset-x-0 top-0 z-[60] transition-[background,box-shadow,backdrop-filter] duration-500 ${
-        solid
-          ? "bg-paper/85 shadow-[0_1px_0_rgba(23,23,15,0.08)] backdrop-blur-md"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="container-x flex h-[var(--nav-h)] items-center gap-4">
-        <a href="#top" aria-label="Plażowa Park - strona główna" className="group flex flex-none items-center gap-2.5">
-          <Logo light={light} />
-          <span className="flex flex-col leading-none">
-            <span className={`font-display text-[1.3rem] font-semibold tracking-tight ${light ? "text-paper" : "text-pine"}`}>Plażowa Park</span>
-            <span className={`mt-1 text-[0.62rem] font-medium uppercase tracking-[0.22em] ${light ? "text-brass-light" : "text-brass-deep"}`}>
-              Głowno · Zalew Mrożyczka
+      <header
+        className={`band band-abyss fixed inset-x-0 top-0 z-60 transition-[background-color,backdrop-filter,box-shadow] duration-200 ${
+          scrolled || open
+            ? "bg-abyss/85 shadow-[0_1px_0_var(--color-lake-700)] backdrop-blur-md"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="wrap flex h-(--nav-h) items-center gap-5">
+          <a href="#top" aria-label="Plażowa Park - strona główna" className="flex flex-none items-center gap-3">
+            <LogoMark width={26} height={26} className="text-lake-300" />
+            <span className="flex flex-col leading-none">
+              <span className="font-display text-[1.2rem] font-semibold tracking-tight">
+                Plażowa Park
+              </span>
+              <span className="t-meta-sm mt-1.5 hidden text-lake-300/80 sm:block">Głowno · Zalew Mrożyczka</span>
             </span>
-          </span>
-        </a>
+          </a>
 
-        <nav className="hidden flex-1 items-center justify-center gap-x-8 xl:flex">
-          {NAV.map((n) => (
-            <a key={n.href} href={n.href} className={`link-underline whitespace-nowrap text-[0.9rem] font-medium ${light ? "text-paper/85 hover:text-paper" : "text-ink-soft hover:text-pine"}`}>
-              {n.label}
+          <nav className="hidden flex-1 items-center justify-center gap-x-7 xl:flex">
+            {NAV.map((n) => (
+              <a key={n.href} href={n.href} className="link-underline t-meta whitespace-nowrap hover:text-lake-300">
+                {n.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="ml-auto flex flex-none items-center gap-3">
+            <a
+              href={`tel:${SITE.phone.tel}`}
+              className="hidden items-center gap-2 text-sm font-medium hover:text-lake-300 xl:flex"
+            >
+              <Icon.phone width={17} height={17} className="text-lake-300" />
+              <span className="num">{SITE.phone.display}</span>
             </a>
-          ))}
-        </nav>
-
-        <div className="ml-auto flex flex-none items-center gap-2.5 sm:gap-3">
-          <a href={`tel:${SITE.phone.tel}`} className={`hidden items-center gap-2 whitespace-nowrap text-sm font-medium xl:flex ${light ? "text-paper/85 hover:text-paper" : "text-ink-soft hover:text-pine"}`}>
-            <Icon.phone width={17} height={17} className={light ? "text-brass-light" : "text-brass"} />
-            <span className="num whitespace-nowrap">{SITE.phone.display}</span>
-          </a>
-          <a href="#lokale" data-track="book_viewing" className="hidden btn btn-primary !py-2.5 !px-5 text-sm sm:inline-flex">
-            Sprawdź dostępność
-            <span className="ml-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-paper/25 px-1.5 text-[0.7rem] num">
-              {INVESTMENT.available}
-            </span>
-          </a>
-          <button
-            onClick={() => setOpen((v) => !v)}
-            aria-label={open ? "Zamknij menu" : "Otwórz menu"}
-            aria-expanded={open}
-            className={`flex h-11 w-11 flex-none items-center justify-center rounded-full border xl:hidden ${light ? "border-paper/30 text-paper" : "border-ink/15 text-pine"}`}
-          >
-            {open ? <Icon.close width={20} height={20} /> : (
-              <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round">
-                <path d="M3 7h18M3 12h18M3 17h18" />
-              </svg>
-            )}
-          </button>
+            <a href="#lokale" data-track="book_viewing" className="btn btn-sun btn-sm hidden sm:inline-flex">
+              Sprawdź dostępność
+              <span className="num ml-0.5 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-ink/15 px-1.5 text-[0.75rem] font-semibold">
+                {INVESTMENT.available}
+              </span>
+            </a>
+            <button
+              onClick={() => setOpen((v) => !v)}
+              aria-label={open ? "Zamknij menu" : "Otwórz menu"}
+              aria-expanded={open}
+              className="bd-strong flex h-11 w-11 flex-none items-center justify-center border xl:hidden"
+            >
+              {open ? (
+                <Icon.close width={20} height={20} />
+              ) : (
+                <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.25} strokeLinecap="round">
+                  <path d="M3 7h18M3 12h18M3 17h18" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
 
-      {/* mobile / tablet menu - full-screen overlay (outside header so `fixed` is not trapped by its backdrop-filter) */}
+      {/* pełnoekranowe menu - poza headerem, żeby backdrop-filter nie uwięził pozycji fixed */}
       <div
-        className={`fixed inset-x-0 bottom-0 top-[var(--nav-h)] z-[55] bg-paper transition-[opacity,transform] duration-300 xl:hidden ${
-          open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"
+        className={`band band-abyss fixed inset-0 z-55 transition-opacity duration-300 xl:hidden ${
+          open ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
         aria-hidden={!open}
       >
-        <nav className="container-x flex h-full flex-col overflow-y-auto py-6">
-          <div className="flex flex-col">
-            {NAV.map((n) => (
-              <a
+        <button
+          type="button"
+          tabIndex={open ? 0 : -1}
+          aria-label="Zamknij menu"
+          onClick={() => setOpen(false)}
+          className="absolute inset-0 h-full w-full cursor-default"
+        />
+        <nav className="wrap relative flex h-full flex-col pt-[calc(var(--nav-h)+24px)] pb-8">
+          <ul className="flex flex-col">
+            {NAV.map((n, i) => (
+              <li
                 key={n.href}
-                href={n.href}
-                onClick={() => setOpen(false)}
-                className="flex items-center justify-between border-b border-ink/8 py-4 font-display text-[1.7rem] font-semibold text-pine"
+                className="bd border-b transition-[opacity,transform] duration-300"
+                style={{
+                  transitionDelay: open ? `${80 + i * 40}ms` : "0ms",
+                  opacity: open ? 1 : 0,
+                  transform: open ? "none" : "translateY(10px)",
+                }}
               >
-                {n.label}
-                <Icon.arrow width={20} height={20} className="text-brass" />
-              </a>
+                <a
+                  href={n.href}
+                  onClick={() => setOpen(false)}
+                  tabIndex={open ? 0 : -1}
+                  className="t-display-m flex items-center justify-between py-4"
+                >
+                  {n.label}
+                  <Icon.arrow width={20} height={20} className="text-lake-300" />
+                </a>
+              </li>
             ))}
-          </div>
-          <div className="mt-auto flex flex-col gap-2.5 pt-8">
-            <a href="#lokale" data-track="book_viewing" onClick={() => setOpen(false)} className="btn btn-primary">
+          </ul>
+          <div className="mt-auto flex flex-col gap-3 pt-8">
+            <a href="#lokale" data-track="book_viewing" onClick={() => setOpen(false)} tabIndex={open ? 0 : -1} className="btn btn-sun">
               Sprawdź dostępność ({INVESTMENT.available})
             </a>
-            <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost">
+            <a href={`tel:${SITE.phone.tel}`} tabIndex={open ? 0 : -1} className="btn btn-ghost">
               <Icon.phone width={17} height={17} /> {SITE.phone.display}
             </a>
           </div>
         </nav>
       </div>
     </>
-  );
-}
-
-function Logo({ light }: { light: boolean }) {
-  return (
-    <span className={`flex h-10 w-10 items-center justify-center rounded-[11px] ${light ? "bg-paper/15 text-paper backdrop-blur-sm" : "bg-pine text-paper"}`}>
-      <LogoMark width={22} height={22} />
-    </span>
   );
 }

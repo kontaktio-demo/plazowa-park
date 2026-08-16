@@ -9,36 +9,34 @@ const DEFAULT = [
 export default function Marquee({
   items = DEFAULT,
   reverse = false,
-  duration = 34,
-  dark = false,
+  duration = 56,
 }: {
   items?: string[];
   reverse?: boolean;
   duration?: number;
-  dark?: boolean;
 }) {
-  const Row = () => (
-    <div className="flex shrink-0 items-center" aria-hidden>
-      {items.map((t, i) => (
-        <span key={i} className="flex items-center">
-          <span className="whitespace-nowrap px-6 font-display text-[clamp(1.15rem,2.4vw,2rem)] font-medium uppercase tracking-[0.02em]">
-            {t}
-          </span>
-          <span className={`text-[clamp(0.8rem,1.6vw,1.2rem)] ${dark ? "text-brass-light" : "text-brass"}`}>✦</span>
-        </span>
-      ))}
+  return (
+    <div className="bd overflow-hidden border-y py-3.5" aria-hidden>
+      <div
+        className={`flex w-max will-change-transform ${reverse ? "marquee-x-rev" : "marquee-x"}`}
+        style={{ animationDuration: `${duration}s` }}
+      >
+        <Row items={items} />
+        <Row items={items} />
+      </div>
     </div>
   );
+}
 
+function Row({ items }: { items: string[] }) {
   return (
-    <div
-      className={`overflow-hidden border-y py-4 sm:py-5 ${dark ? "border-paper/12 bg-pine-deep text-paper" : "border-ink/10 bg-paper text-pine"}`}
-      aria-hidden
-    >
-      <div className={`flex w-max ${reverse ? "marquee-x-rev" : "marquee-x"}`} style={{ animationDuration: `${duration}s` }}>
-        <Row />
-        <Row />
-      </div>
+    <div className="flex shrink-0 items-center" aria-hidden>
+      {items.map((t, i) => (
+        <span key={i} className="flex items-center gap-6 pl-6">
+          <span className="t-meta whitespace-nowrap text-[clamp(0.6875rem,1.4vw,0.8125rem)]">{t}</span>
+          <span className="h-1 w-1 flex-none rounded-full bg-lake-300" />
+        </span>
+      ))}
     </div>
   );
 }

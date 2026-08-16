@@ -1,30 +1,37 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import SectionHeader from "./SectionHeader";
 
-const FRAMES = 120;
-const framePath = (i: number) => `/orbit/f${String(i + 1).padStart(3, "0")}.webp`;
+const DESKTOP = { count: 24, path: (i: number) => `/orbit/d${String(i + 1).padStart(2, "0")}.webp` };
+const MOBILE = { count: 6, path: (i: number) => `/orbit/m${String(i + 1).padStart(2, "0")}.webp` };
+
+/** Podpisy podmieniają się w trakcie obrotu, więc kolumna tekstu nie stoi martwa. */
+const CAPTIONS = [
+  "Sześć budynków w zaciszu lasu",
+  "Dwadzieścia apartamentów, nie więcej",
+  "Prywatny ogród i taras przy każdym",
+];
+
+type Mode = "pinned" | "flow" | "still";
 
 export default function EstateOrbit() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imgs = useRef<HTMLImageElement[]>([]);
-  const current = useRef(0);
-  const [ready, setReady] = useState(0);
-  const [mode, setMode] = useState<"seq" | "static" | null>(null);
+  const frame = useRef(0);
+  const [mode, setMode] = useState<Mode | null>(null);
+  const [caption, setCaption] = useState(0);
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const small = window.matchMedia("(max-width: 900px)").matches;
-    if (reduce || small) {
-      setMode("static");
-      return;
-    }
-    setMode("seq");
+    const set = small ? MOBILE : DESKTOP;
+    const next: Mode = reduce ? "still" : small ? "flow" : "pinned";
+    setMode(next);
 
     let killed = false;
-    let st: { kill: () => void } | undefined;
+    let cleanup: (() => void) | undefined;
 
     const draw = (index: number) => {
       const canvas = canvasRef.current;
@@ -35,139 +42,137 @@ export default function EstateOrbit() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const w = canvas.clientWidth;
       const h = canvas.clientHeight;
-      if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
-        canvas.width = w * dpr;
-        canvas.height = h * dpr;
+      if (!w || !h) return;
+      if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
       }
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
-      // cover fit (square source)
       const s = img.naturalWidth;
       const scale = Math.max(w / s, h / s);
-      const dw = s * scale;
-      const dh = s * scale;
-      ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2 - h * 0.02, dw, dh);
+      const d = s * scale;
+      ctx.drawImage(img, (w - d) / 2, (h - d) / 2, d, d);
     };
 
-    // preload frames - deferred until the section is near the viewport (perf)
-    let loaded = 0;
-    let preloadStarted = false;
-    const startPreload = () => {
-      if (preloadStarted) return;
-      preloadStarted = true;
-      for (let i = 0; i < FRAMES; i++) {
+    // pierwsze trzy klatki od razu, reszta po nich - sekwencja nie blokuje LCP
+    const loadFrame = (i: number) =>
+      new Promise<void>((res) => {
         const img = new window.Image();
         img.decoding = "async";
-        img.src = framePath(i);
-        img.onload = () => {
-          loaded++;
-          setReady(loaded);
-          if (i === 0) draw(0);
-        };
+        img.src = set.path(i);
         imgs.current[i] = img;
-      }
-    };
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          startPreload();
-          io.disconnect();
-        }
-      },
-      { rootMargin: "200% 0px 200% 0px" }
-    );
-    if (sectionRef.current) io.observe(sectionRef.current);
-    else startPreload();
+        const done = () => {
+          img.decode?.().catch(() => {});
+          res();
+        };
+        if (img.complete) done();
+        else img.onload = done;
+        img.onerror = () => res();
+      });
+
+    // sekwencja rusza dopiero, gdy sekcja zbliża się do ekranu - inaczej
+    // konkuruje o pasmo z obrazem hero i psuje LCP
+    const nearViewport = () =>
+      new Promise<void>((res) => {
+        const el = sectionRef.current;
+        if (!el || typeof IntersectionObserver === "undefined") return res();
+        const io = new IntersectionObserver(
+          (entries) => {
+            if (entries.some((e) => e.isIntersecting)) {
+              io.disconnect();
+              res();
+            }
+          },
+          { rootMargin: "120% 0px" }
+        );
+        io.observe(el);
+      });
 
     (async () => {
+      await nearViewport();
+      if (killed) return;
+      await Promise.all([0, 1, 2].slice(0, set.count).map(loadFrame));
+      if (killed) return;
+      draw(0);
+      if (next === "still") return;
+      for (let i = 3; i < set.count; i++) {
+        if (killed) return;
+        await loadFrame(i);
+      }
+      if (killed) return;
+
       const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
         import("gsap"),
         import("gsap/ScrollTrigger"),
       ]);
-      if (killed) return;
+      if (killed || !sectionRef.current) return;
       gsap.registerPlugin(ScrollTrigger);
-      const state = { f: 0 };
-      const trigger = ScrollTrigger.create({
-        trigger: sectionRef.current!,
-        start: "top top",
-        end: "bottom bottom",
+
+      const st = ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: next === "pinned" ? "top top" : "top bottom",
+        end: next === "pinned" ? "bottom bottom" : "bottom top",
         scrub: 0.6,
         onUpdate: (self) => {
-          const idx = Math.min(FRAMES - 1, Math.round(self.progress * (FRAMES - 1)));
-          if (idx !== state.f) {
-            state.f = idx;
-            current.current = idx;
+          const idx = Math.min(set.count - 1, Math.round(self.progress * (set.count - 1)));
+          if (idx !== frame.current) {
+            frame.current = idx;
             draw(idx);
           }
+          const c = Math.min(CAPTIONS.length - 1, Math.floor(self.progress * CAPTIONS.length));
+          setCaption(c);
         },
       });
-      st = trigger;
-      const onResize = () => draw(current.current);
-      window.addEventListener("resize", onResize);
-      draw(0);
-      st = { kill: () => { trigger.kill(); window.removeEventListener("resize", onResize); } };
+      const onResize = () => draw(frame.current);
+      window.addEventListener("resize", onResize, { passive: true });
+      cleanup = () => {
+        st.kill();
+        window.removeEventListener("resize", onResize);
+      };
     })();
 
     return () => {
       killed = true;
-      st?.kill();
-      io.disconnect();
+      cleanup?.();
     };
   }, []);
 
-  const pct = Math.round((ready / FRAMES) * 100);
+  const pinned = mode === "pinned";
 
   return (
-    <section id="osiedle" ref={sectionRef} className="relative bg-paper" style={{ height: mode === "seq" ? "360vh" : "auto" }}>
-      <div className={`${mode === "seq" ? "sticky top-0 h-[100svh]" : "py-20 sm:py-28"} flex flex-col justify-center overflow-hidden`}>
-        <div className="pointer-events-none absolute inset-0" aria-hidden>
-          <div className="deco-grid absolute inset-0" />
-          <div className="absolute left-[64%] top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <div className="glow-drift h-[44vh] w-[44vh] rounded-full blur-[70px]" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--color-brass) 22%, transparent), transparent 70%)" }} />
-          </div>
-        </div>
-        <div className="container-x relative z-10">
-          <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.5fr]">
-            <div data-reveal="up" className="max-w-md">
-              <p className="eyebrow">01 - Osiedle</p>
-              <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
-                Kameralne osiedle <span className="italic text-brass-deep">nowoczesnych apartamentów.</span>
-              </h2>
-              <p className="mt-5 text-pretty leading-relaxed text-muted">
-                Plażowa Park to sześć budynków i zaledwie 20 apartamentów, ukrytych w zaciszu ponad 100-letniego
-                lasu. Budynki narożne mieszczą po cztery apartamenty, a środkowe po dwa większe. Do każdego
-                apartamentu należy prywatny ogród, taras i dwa miejsca postojowe.
+    <section
+      ref={sectionRef}
+      id="osiedle"
+      className="band band-sand relative"
+      style={pinned ? { height: "250vh" } : undefined}
+    >
+      <div className={pinned ? "sticky top-0 flex h-[100svh] items-center overflow-hidden" : "sec"}>
+        <div className="wrap grid w-full items-center gap-10 lg:grid-cols-[0.4fr_0.6fr] lg:gap-16">
+          <SectionHeader
+            id="osiedle"
+            title={
+              <>
+                Osiedle ukryte <span className="fg-accent">w lesie</span>
+              </>
+            }
+            lead="Sześć budynków i zaledwie 20 apartamentów. Budynki narożne mieszczą po cztery apartamenty, środkowe po dwa większe. Do każdego należy prywatny ogród, taras i dwa miejsca postojowe."
+          >
+            <div className="bd mt-8 h-12 border-t pt-5">
+              <p key={caption} className="t-meta fg-accent animate-[riseIn_300ms_ease-out]">
+                {CAPTIONS[caption]}
               </p>
-              {mode === "seq" && (
-                <p className="mt-7 inline-flex items-center gap-2 text-sm text-brass-deep">
-                  <span className="scroll-cue">↓</span> Przewiń, aby obrócić osiedle
-                </p>
-              )}
             </div>
+          </SectionHeader>
 
-            <div className="relative">
-              <div className="relative aspect-square w-full overflow-hidden rounded-[16px]">
-                {mode === "static" ? (
-                  <Image
-                    src="/map/estate-frame.webp"
-                    alt="Osiedle Plażowa Park z lotu ptaka - sześć budynków w sosnowym lesie"
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 60vw"
-                    className="object-cover"
-                  />
-                ) : (
-                  <>
-                    <canvas ref={canvasRef} role="img" aria-label="Osiedle Plażowa Park z lotu ptaka - obrót 360 stopni" className="h-full w-full" />
-                    {pct < 100 && (
-                      <div className="pointer-events-none absolute inset-x-0 bottom-4 mx-auto w-40">
-                        <div className="h-[3px] w-full overflow-hidden rounded-full bg-ink/10">
-                          <div className="h-full bg-brass transition-[width] duration-300" style={{ width: `${pct}%` }} />
-                        </div>
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
+          <div className="relative" data-reveal>
+            <div className="relative aspect-square w-full">
+              <canvas
+                ref={canvasRef}
+                role="img"
+                aria-label="Osiedle Plażowa Park z lotu ptaka, widok obracany przewijaniem"
+                className="h-full w-full mix-blend-multiply"
+              />
             </div>
           </div>
         </div>
@@ -175,4 +180,3 @@ export default function EstateOrbit() {
     </section>
   );
 }
-

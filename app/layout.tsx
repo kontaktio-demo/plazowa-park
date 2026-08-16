@@ -1,23 +1,33 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Inter_Tight } from "next/font/google";
+import { Fraunces, Schibsted_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { SITE } from "@/lib/data/site";
 import SiteMotion from "@/components/SiteMotion";
-import Preloader from "@/components/Preloader";
 import CookieConsent from "@/components/CookieConsent";
 import JsonLd from "@/components/JsonLd";
 import Analytics from "@/components/Analytics";
 
-const interTight = Inter_Tight({
-  variable: "--font-inter-tight",
+// bez osi SOFT/WONK/opsz - nigdzie ich nie ustawiamy, a same osie kosztują setki KB
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin", "latin-ext"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const schibsted = Schibsted_Grotesk({
+  variable: "--font-schibsted",
   subsets: ["latin", "latin-ext"],
   display: "swap",
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+// mono obsługuje wyłącznie drobne etykiety, więc nie wchodzi na ścieżkę krytyczną
+const jetbrains = JetBrains_Mono({
+  variable: "--font-jetbrains",
   subsets: ["latin", "latin-ext"],
+  weight: ["400", "500"],
   display: "swap",
+  preload: false,
 });
 
 const description =
@@ -84,21 +94,20 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f4f4f3",
-  colorScheme: "light",
+  themeColor: "#06171b",
+  colorScheme: "dark light",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pl" className={`${interTight.variable} ${inter.variable}`}>
+    <html lang="pl" className={`${fraunces.variable} ${schibsted.variable} ${jetbrains.variable}`}>
       <body>
         <JsonLd />
         <Analytics />
         <SiteMotion />
         {children}
-        <Preloader />
         <CookieConsent />
       </body>
     </html>

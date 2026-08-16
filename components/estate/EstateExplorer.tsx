@@ -1,54 +1,24 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { UNITS, BUILDINGS, INVESTMENT, type Unit } from "@/lib/data/units";
-import { plnShort, area } from "@/lib/format";
+import { plnShort } from "@/lib/format";
+import { sectionEyebrow } from "@/lib/sections";
+import CountUp from "../CountUp";
 import EstateMap from "./EstateMap";
 import UnitCard from "./UnitCard";
 import UnitModal from "./UnitModal";
-import CountUp from "../CountUp";
+import SortMenu, { type SortKey } from "./SortMenu";
 
-type Sort = "price-asc" | "price-desc" | "area-desc";
+const PREVIEW = 6;
 
 export default function EstateExplorer() {
   const [building, setBuilding] = useState<number | null>(null);
   const [status, setStatus] = useState<"all" | "available">("all");
   const [roomsF, setRoomsF] = useState<"all" | 4 | 5>("all");
-  const [sort, setSort] = useState<Sort>("price-asc");
+  const [sort, setSort] = useState<SortKey>("price-asc");
   const [modal, setModal] = useState<Unit | null>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  const [gen, setGen] = useState(0);
-  const firstRun = useRef(true);
-
-  useEffect(() => {
-    if (firstRun.current) {
-      firstRun.current = false;
-      return;
-    }
-    setGen((g) => g + 1);
-  }, [building, status, roomsF, sort]);
-
-  useEffect(() => {
-    const el = cardsRef.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setInView(true);
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setInView(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin: "0px 0px -8% 0px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  const [expanded, setExpanded] = useState(false);
 
   const filtered = useMemo(() => {
     let list = UNITS.slice();
@@ -61,117 +31,141 @@ export default function EstateExplorer() {
     return list;
   }, [building, status, roomsF, sort]);
 
+  const visible = expanded ? filtered : filtered.slice(0, PREVIEW);
+  const hidden = filtered.length - visible.length;
+  const clear = () => {
+    setBuilding(null);
+    setStatus("all");
+    setRoomsF("all");
+  };
+
   const onMapSelect = (id: number | null) => {
     setBuilding(id);
-    if (id) setTimeout(() => gridRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+    if (id) {
+      setExpanded(true);
+      setTimeout(() => document.getElementById("lista-lokali")?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+    }
   };
 
   const buildingLabel = building ? BUILDINGS.find((b) => b.stageId === building)?.label : null;
 
   return (
-    <section id="lokale" className="bg-paper-2 py-20 sm:py-28">
-      <div className="container-x">
-        <header className="max-w-2xl" data-reveal="up">
-          <p className="eyebrow">02 - Wybierz dom</p>
-          <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
-            Apartamenty z ogrodem <span className="italic text-brass-deep">i tarasem.</span>
+    <section id="lokale" className="band band-sand-2 sec">
+      <div className="wrap">
+        <header className="max-w-4xl" data-reveal>
+          <p className="eyebrow">{sectionEyebrow("lokale")}</p>
+          <h2 className="t-display-l mt-6 text-balance">
+            Dwadzieścia apartamentów, <span className="fg-accent">sześć rzutów</span>
           </h2>
-          <p className="mt-5 text-pretty leading-relaxed text-muted">
-            Kliknij budynek na planie osiedla lub filtruj apartamenty według metrażu i liczby pokoi. Ceny i
-            dostępność pochodzą z bieżącego konfiguratora dewelopera.
-          </p>
         </header>
 
-        {/* map + summary */}
-        <div className="mt-12 grid gap-8 lg:grid-cols-[1.15fr_1fr]" data-reveal="up">
+        <div className="mt-12 grid gap-10 lg:grid-cols-[55fr_45fr] lg:gap-14 [&>*]:min-w-0" data-reveal>
           <EstateMap selected={building} onSelect={onMapSelect} />
 
-          <div className="flex flex-col justify-center">
-            <div className="grid grid-cols-3 gap-4">
-              <Kpi n={INVESTMENT.available} l="dostępnych" />
-              <Kpi n={INVESTMENT.buildingsCount} l="budynków" />
-              <Kpi n={`od ${plnShort(INVESTMENT.priceMin)}`} l="cena" small />
+          <div className="flex min-w-0 flex-col justify-between gap-9">
+            <p className="t-body-l fg-muted max-w-xl text-pretty">
+              Kliknij budynek na planie osiedla albo filtruj po metrażu i liczbie pokoi. Ceny i dostępność
+              pochodzą z bieżącego konfiguratora dewelopera.
+            </p>
+
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+              <Kpi value={<CountUp to={INVESTMENT.available} />} label="dostępnych" />
+              <Kpi value={<CountUp to={INVESTMENT.buildingsCount} />} label="budynków" />
+              <Kpi value={plnShort(INVESTMENT.priceMin)} label="cena od" small />
             </div>
 
-            <p className="mt-7 text-sm font-medium uppercase tracking-[0.14em] text-faint">Budynki</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              <BuildingChip active={building === null} onClick={() => setBuilding(null)}>
-                Wszystkie
-              </BuildingChip>
-              {BUILDINGS.map((b) => (
-                <BuildingChip key={b.stageId} active={building === b.stageId} onClick={() => onMapSelect(b.stageId)}>
-                  {b.label}
-                  <span className="ml-1.5 text-brass-deep num">{b.available}</span>
-                </BuildingChip>
-              ))}
+            <div className="min-w-0">
+              <p className="t-meta-sm fg-muted">Budynki</p>
+              <div className="no-scrollbar edge-fade -mx-1 mt-3 flex min-w-0 snap-x snap-mandatory gap-2 overflow-x-auto px-1 pb-1 sm:flex-wrap sm:overflow-visible">
+                <button type="button" aria-pressed={building === null} onClick={() => setBuilding(null)} className="chip flex-none snap-start">
+                  Wszystkie
+                </button>
+                {BUILDINGS.map((b) => (
+                  <button
+                    key={b.stageId}
+                    type="button"
+                    aria-pressed={building === b.stageId}
+                    onClick={() => onMapSelect(building === b.stageId ? null : b.stageId)}
+                    className="chip flex-none snap-start normal-case"
+                    aria-label={`Budynek ${b.label}, ${b.available} dostępnych`}
+                  >
+                    Budynek {b.label}
+                    <span className="num opacity-60">· {b.available}</span>
+                  </button>
+                ))}
+              </div>
             </div>
 
-            <p className="mt-7 max-w-md text-sm leading-relaxed text-muted">
-              Budynki narożne (1 i 2, 4 i 5, 6 i 7, 9 i 10) mieszczą po cztery
-              apartamenty 82-94 m². Budynki środkowe (3, 8) to dwa największe lokale pięciopokojowe do 133 m².
+            <p className="t-body fg-muted max-w-md text-pretty">
+              Budynki narożne (1 i 2, 4 i 5, 6 i 7, 9 i 10) mieszczą po cztery apartamenty 82-94 m² na dwóch
+              kondygnacjach. Budynki środkowe (3, 8) to dwa największe lokale pięciopokojowe do 133 m².
+              Poddasze jest w cenie i nie wlicza się do metrażu.
             </p>
           </div>
         </div>
 
-        {/* filter bar */}
-        <div ref={gridRef} className="mt-14 flex scroll-mt-24 flex-wrap items-center justify-between gap-4 border-y border-ink/10 py-4" data-reveal="fade">
-          <div className="flex flex-wrap items-center gap-2">
-            <Toggle active={status === "all"} onClick={() => setStatus("all")}>Wszystkie</Toggle>
-            <Toggle active={status === "available"} onClick={() => setStatus("available")}>Dostępne</Toggle>
-            <span className="mx-1 h-5 w-px bg-ink/10" />
-            <Toggle active={roomsF === "all"} onClick={() => setRoomsF("all")}>Pokoje: wszystkie</Toggle>
-            <Toggle active={roomsF === 4} onClick={() => setRoomsF(4)}>4 pok.</Toggle>
-            <Toggle active={roomsF === 5} onClick={() => setRoomsF(5)}>5 pok.</Toggle>
+        <div
+          id="lista-lokali"
+          className="bd mt-14 flex scroll-mt-28 flex-wrap items-center justify-between gap-4 border-y py-4"
+          data-reveal
+        >
+          <div className="no-scrollbar edge-fade -mx-1 flex w-full min-w-0 snap-x gap-2 overflow-x-auto px-1 sm:mx-0 sm:w-auto sm:flex-wrap sm:overflow-visible">
+            <button type="button" aria-pressed={status === "all"} onClick={() => setStatus("all")} className="chip flex-none snap-start">
+              Wszystkie
+            </button>
+            <button type="button" aria-pressed={status === "available"} onClick={() => setStatus("available")} className="chip flex-none snap-start">
+              Dostępne
+            </button>
+            <button type="button" aria-pressed={roomsF === 4} onClick={() => setRoomsF(roomsF === 4 ? "all" : 4)} className="chip flex-none snap-start">
+              4 pokoje
+            </button>
+            <button type="button" aria-pressed={roomsF === 5} onClick={() => setRoomsF(roomsF === 5 ? "all" : 5)} className="chip flex-none snap-start">
+              5 pokoi
+            </button>
             {(building || status !== "all" || roomsF !== "all") && (
-              <button
-                onClick={() => { setBuilding(null); setStatus("all"); setRoomsF("all"); }}
-                className="ml-1 text-sm text-brass-deep underline underline-offset-2 hover:text-pine"
-              >
+              <button type="button" onClick={clear} className="chip fg-accent flex-none snap-start border-transparent">
                 Wyczyść
               </button>
             )}
           </div>
 
-          <div className="flex items-center gap-3">
-            <span className="text-sm text-muted">
+          <div className="flex w-full items-center justify-between gap-4 sm:w-auto">
+            <span className="t-meta-sm fg-muted">
               {buildingLabel ? `Budynek ${buildingLabel} · ` : ""}
-              <span className="num font-medium text-ink">{filtered.length}</span> z {INVESTMENT.totalUnits}
+              <span className="num fg">{filtered.length}</span> z {INVESTMENT.totalUnits}
             </span>
-            <select
-              value={sort}
-              onChange={(e) => setSort(e.target.value as Sort)}
-              className="rounded-full border border-ink/15 bg-paper px-4 py-2 text-sm text-ink-soft focus:border-pine focus:outline-none"
-              aria-label="Sortowanie"
-            >
-              <option value="price-asc">Cena: rosnąco</option>
-              <option value="price-desc">Cena: malejąco</option>
-              <option value="area-desc">Metraż: największe</option>
-            </select>
+            <SortMenu value={sort} onChange={setSort} />
           </div>
         </div>
 
-        {/* grid */}
         {filtered.length > 0 ? (
-          <div ref={cardsRef} className={`grid-cards mt-8 flex flex-wrap justify-center gap-5 ${inView ? "in" : ""}`}>
-            {filtered.map((u, i) => (
-              <div
-                key={`${gen}-${u.id}`}
-                className="card-in w-full sm:w-[calc(50%-0.625rem)] xl:w-[calc(33.333%-0.834rem)]"
-                style={{ animationDelay: `${Math.min(i, 14) * 0.05}s` }}
-              >
-                <UnitCard unit={u} onOpen={setModal} />
+          <>
+            <div
+              className="mt-8 grid gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 [@media(min-width:1600px)]:grid-cols-4"
+              data-reveal="stagger"
+            >
+              {visible.map((u, i) => (
+                <div key={u.id} style={{ transitionDelay: `${Math.min(i, 9) * 60}ms` }}>
+                  <UnitCard unit={u} onOpen={setModal} />
+                </div>
+              ))}
+            </div>
+            {hidden > 0 && (
+              <div className="mt-9 flex justify-center">
+                <button type="button" onClick={() => setExpanded(true)} className="btn btn-ghost">
+                  Pokaż wszystkie {filtered.length} apartamentów
+                </button>
               </div>
-            ))}
-          </div>
+            )}
+          </>
         ) : (
-          <div className="mt-8 rounded-[16px] border border-dashed border-ink/15 p-14 text-center text-muted">
-            Brak lokali dla wybranych filtrów.{" "}
-            <button onClick={() => { setBuilding(null); setStatus("all"); setRoomsF("all"); }} className="text-brass-deep underline">
+          <div className="bd mt-8 border border-dashed p-12 text-center">
+            <p className="fg-muted">Brak lokali dla wybranych filtrów.</p>
+            <button type="button" onClick={clear} className="btn btn-ghost btn-sm mt-5">
               Wyczyść filtry
             </button>
           </div>
         )}
-
       </div>
 
       <UnitModal unit={modal} onClose={() => setModal(null)} />
@@ -179,39 +173,11 @@ export default function EstateExplorer() {
   );
 }
 
-function Kpi({ n, l, small }: { n: number | string; l: string; small?: boolean }) {
+function Kpi({ value, label, small }: { value: React.ReactNode; label: string; small?: boolean }) {
   return (
-    <div className="rounded-[14px] border border-ink/10 bg-paper p-4">
-      <div className={`font-display text-pine num ${small ? "text-lg" : "text-3xl"}`}>
-        {typeof n === "number" ? <CountUp to={n} /> : n}
-      </div>
-      <div className="mt-1 text-xs uppercase tracking-[0.12em] text-muted">{l}</div>
+    <div className="card min-w-0 p-4">
+      <div className={`num leading-none ${small ? "font-display text-lg font-semibold" : "t-display-m"}`}>{value}</div>
+      <div className="t-meta-sm fg-muted mt-2.5">{label}</div>
     </div>
-  );
-}
-
-function BuildingChip({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`rounded-full border px-3.5 py-1.5 text-sm font-medium transition ${
-        active ? "border-pine bg-pine text-paper" : "border-ink/15 bg-paper text-ink-soft hover:border-pine"
-      }`}
-    >
-      {children}
-    </button>
-  );
-}
-
-function Toggle({ active, onClick, children }: { active: boolean; onClick: () => void; children: React.ReactNode }) {
-  return (
-    <button
-      onClick={onClick}
-      className={`rounded-full px-3.5 py-1.5 text-sm font-medium transition ${
-        active ? "bg-pine text-paper" : "text-ink-soft hover:bg-sand"
-      }`}
-    >
-      {children}
-    </button>
   );
 }

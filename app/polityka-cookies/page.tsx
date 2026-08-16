@@ -49,7 +49,7 @@ export default function Page() {
         Zasady przetwarzania danych osobowych opisuje <a href="/polityka-prywatnosci">Polityka prywatności</a>.
       </p>
 
-      <p className="text-sm text-faint">
+      <p className="t-meta-sm fg-muted">
         Dokument ma charakter informacyjny. Przed wdrożeniem produkcyjnym zalecana jest konfiguracja rzeczywistych
         narzędzi analitycznych oraz weryfikacja zgodności z aktualnymi wymogami prawnymi.
       </p>
