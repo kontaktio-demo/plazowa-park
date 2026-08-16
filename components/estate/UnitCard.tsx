@@ -3,66 +3,77 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Unit } from "@/lib/data/units";
-import { plnShort, area, rooms, STATUS_META } from "@/lib/format";
+import { plnShort, area, STATUS_META } from "@/lib/format";
 import { unitSlug } from "@/lib/slug";
 import { selectUnit } from "@/lib/selectUnit";
+import { planImage, unitPlace } from "@/lib/unitType";
+import UnitPosition from "./UnitPosition";
 import { Icon } from "../Icons";
 
+/**
+ * Na telefonie karta jest poziomym wierszem katalogu - dwadzieścia lokali da się
+ * wtedy przejrzeć kciukiem zamiast przewijać dziewięć ekranów. Od `sm` w górę
+ * wraca układ pionowy z dużym rzutem.
+ */
 export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Unit) => void }) {
   const s = STATUS_META[unit.status];
+  const place = unitPlace(unit);
+
   return (
-    <article className="card group flex flex-col overflow-hidden transition-[transform,box-shadow] duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
+    <article className="card card-hover flex h-full flex-row overflow-hidden sm:flex-col">
       <Link
         href={`/lokal/${unitSlug(unit.name)}`}
-        className="relative block aspect-[5/4] w-full overflow-hidden bg-sand text-left"
+        className="relative block w-[38%] flex-none self-stretch overflow-hidden bg-lake-900 sm:aspect-4/3 sm:w-full"
         aria-label={`Zobacz apartament ${unit.name}`}
       >
-        {unit.viewThumb ? (
-          <Image
-            src={`/unit-views/${unit.viewThumb}`}
-            alt={`Położenie apartamentu ${unit.name} w budynku ${unit.buildingLabel}`}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-contain p-4 transition-transform duration-700 group-hover:scale-[1.04]"
-          />
-        ) : null}
-        <span className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full bg-paper/90 px-2.5 py-1 text-[0.72rem] font-semibold text-ink-soft backdrop-blur-sm">
-          <span className="status-dot" style={{ background: s.color }} />
-          {s.label}
-        </span>
-        <span className="absolute right-3 top-3 rounded-full bg-pine px-2.5 py-1 text-[0.72rem] font-medium text-paper">
-          Budynek {unit.buildingLabel}
+        <Image
+          src={planImage(unit)}
+          alt={`Rzut poglądowy apartamentu ${unit.name}, typ ${place.type}`}
+          fill
+          sizes="(max-width: 640px) 40vw, (max-width: 1280px) 50vw, 30vw"
+          className="object-contain p-3 sm:p-5"
+        />
+        <span className="t-meta-sm absolute bottom-2 left-2 hidden text-sand-50/60 sm:left-3 sm:bottom-3 sm:block">
+          Rzut poglądowy · typ {place.type}
         </span>
       </Link>
 
-      <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-baseline justify-between gap-3">
-          <h3 className="font-display text-2xl text-pine">Apartament {unit.name}</h3>
-          <span className="chip">{rooms(unit.rooms)}</span>
+      <div className="flex min-w-0 flex-1 flex-col p-3.5 sm:p-5">
+        {/* na wąskim ekranie status idzie nad tytuł, żeby etykieta tekstowa nigdy nie znikała */}
+        <div className="flex flex-col-reverse items-start gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-2">
+          <h3 className="t-title text-[1.15rem] sm:text-[1.375rem]">Apartament {unit.name}</h3>
+          <span className="t-meta-sm fg-muted flex flex-none items-center gap-1.5 sm:pt-1">
+            <span className="status-dot" style={{ background: s.color }} />
+            {s.label}
+          </span>
         </div>
 
-        <dl className="mt-4 grid grid-cols-3 gap-2 text-sm">
+        <UnitPosition unit={unit} className="mt-3 max-w-40 sm:mt-4 sm:max-w-none" />
+
+        {/* hairline między kolumnami, żeby etykiety nie czytały się jako jeden ciąg */}
+        <dl className="mt-3 grid grid-cols-2 gap-x-5 gap-y-3 sm:mt-5 sm:gap-y-4 [&>*:nth-child(even)]:border-l [&>*:nth-child(even)]:border-(--band-line) [&>*:nth-child(even)]:pl-5">
           <Spec label="Powierzchnia" value={area(unit.area)} />
           <Spec label="Ogród" value={area(unit.garden)} />
-          <Spec label="Kondygnacje" value={`${unit.floors}`} />
+          {/* na telefonie liczba pokoi i budynek są już w modalu i na stronie lokalu */}
+          <Spec label="Pokoje" value={String(unit.rooms)} className="hidden sm:block" />
+          <Spec label="Budynek" value={unit.buildingLabel} className="hidden sm:block" />
         </dl>
 
-        <div className="mt-5 flex items-end justify-between border-t border-ink/8 pt-4">
-          <div>
-            <div className="font-display text-2xl text-ink num">{plnShort(unit.price)}</div>
-            <div className="mt-0.5 text-xs text-muted num">{plnShort(unit.pricePerM)}/m²</div>
+        <div className="bd mt-auto flex items-end justify-between gap-3 border-t pt-3 sm:pt-4">
+          <div className="min-w-0">
+            <div className="t-display-m num text-[1.4rem] leading-none sm:text-[clamp(1.75rem,2.5vw,2.5rem)]">
+              {plnShort(unit.price)}
+            </div>
+            <div className="t-meta-sm fg-muted num mt-1.5 sm:mt-2">{plnShort(unit.pricePerM)}/m²</div>
           </div>
         </div>
 
-        <div className="mt-4 flex gap-2">
-          <button onClick={() => onOpen(unit)} className="btn btn-ghost flex-1 !py-2.5 text-sm">
+        <div className="mt-3 flex gap-2.5 sm:mt-4">
+          <button onClick={() => onOpen(unit)} className="btn btn-ghost btn-sm flex-1">
             Szczegóły
           </button>
-          <button
-            onClick={() => selectUnit(`Apartament ${unit.name}`)}
-            className="btn btn-primary flex-1 !py-2.5 text-sm"
-          >
-            Zapytaj <Icon.arrow width={16} height={16} />
+          <button onClick={() => selectUnit(`Apartament ${unit.name}`)} className="btn btn-solid btn-sm flex-1">
+            Zapytaj <Icon.arrow width={16} height={16} className="hidden sm:block" />
           </button>
         </div>
       </div>
@@ -70,11 +81,11 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
   );
 }
 
-function Spec({ label, value }: { label: string; value: string }) {
+function Spec({ label, value, className = "" }: { label: string; value: string; className?: string }) {
   return (
-    <div>
-      <dt className="text-[0.7rem] uppercase tracking-[0.1em] text-faint">{label}</dt>
-      <dd className="mt-0.5 font-medium text-ink num">{value}</dd>
+    <div className={`min-w-0 ${className}`}>
+      <dt className="t-meta-sm fg-muted">{label}</dt>
+      <dd className="mt-1 font-medium wrap-break-word">{value}</dd>
     </div>
   );
 }

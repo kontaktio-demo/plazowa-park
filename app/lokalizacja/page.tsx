@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { POI, SITE } from "@/lib/data/site";
 import { INVESTMENT } from "@/lib/data/units";
 import PageHeader from "@/components/PageHeader";
 import Footer from "@/components/Footer";
 import MapLibreMap from "@/components/MapLibreMap";
+import AreaMap from "@/components/AreaMap";
 import { Icon } from "@/components/Icons";
 
 const description =
@@ -25,12 +25,6 @@ export const metadata: Metadata = {
     images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Lokalizacja Plażowa Park nad Zalewem Mrożyczka w Głownie" }],
   },
   twitter: { card: "summary_large_image", title: "Lokalizacja Plażowa Park - Głowno", description, images: ["/og.jpg"] },
-};
-
-const catColor: Record<string, string> = {
-  natura: "var(--color-available)",
-  sport: "var(--color-lake)",
-  usługi: "var(--color-muted)",
 };
 
 const mapsHref = `https://www.google.com/maps/search/?api=1&query=${SITE.geo.lat},${SITE.geo.lng}`;
@@ -64,34 +58,51 @@ const jsonLd = {
   ],
 };
 
+const topics = [
+  {
+    h: "Nad Zalewem Mrożyczka",
+    p: "Piaszczysta plaża, strzeżone kąpielisko i przystań są w zasięgu spaceru od osiedla. Latem to miejsce wypoczynku nad wodą, a przez cały rok spacerów i sportów wodnych.",
+  },
+  {
+    h: "Las i rekreacja",
+    p: "Ponad 100-letni sosnowy las otacza inwestycję, dając cień, ciszę i czyste powietrze. Ścieżki rowerowe wokół zalewu i w lesie zachęcają do aktywności tuż za progiem.",
+  },
+  {
+    h: "Dojazd do Łodzi i Warszawy",
+    p: "Około 30 minut do centrum Łodzi, autostradą A1 przez węzeł Stryków lub koleją aglomeracyjną ŁKA ze stacji Głowno. Do Warszawy dojedziesz w około godzinę.",
+  },
+];
+
 export default function LokalizacjaPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <PageHeader />
-      <main className="bg-paper">
-        <div className="container-x py-8 sm:py-12">
-          <nav className="flex items-center gap-2 text-sm text-muted" aria-label="breadcrumb">
-            <Link href="/" className="hover:text-pine">Strona główna</Link>
-            <span>/</span>
-            <span className="text-ink">Lokalizacja</span>
+      <main className="band band-sand">
+        <div className="wrap py-10 sm:py-14">
+          <nav className="t-meta-sm fg-muted flex items-center gap-2" aria-label="breadcrumb">
+            <Link href="/" className="hover:text-lake-700">
+              Strona główna
+            </Link>
+            <span aria-hidden>/</span>
+            <span className="fg">Lokalizacja</span>
           </nav>
 
-          <header className="mt-8 max-w-3xl">
+          <header className="mt-10 max-w-3xl">
             <p className="eyebrow">Lokalizacja</p>
-            <h1 className="mt-4 font-display text-[clamp(2.2rem,5vw,3.6rem)] leading-tight text-pine">
-              Lokalizacja Plażowa Park - nad Zalewem Mrożyczka w Głownie
+            <h1 className="t-display-l mt-6 text-balance">
+              Lokalizacja Plażowa Park nad <span className="fg-accent">Zalewem Mrożyczka</span> w Głownie
             </h1>
-            <div className="mt-6 space-y-4 text-pretty leading-relaxed text-muted">
+            <div className="t-body-l fg-muted mt-7 space-y-4 text-pretty">
               <p>
-                Plażowa Park powstaje w Głownie, bezpośrednio w sąsiedztwie Zalewu Mrożyczka - ponad
+                Plażowa Park powstaje w Głownie, bezpośrednio w sąsiedztwie Zalewu Mrożyczka, ponad
                 30-hektarowego zbiornika z piaszczystą plażą, molo i strzeżonym kąpieliskiem. Tuż obok działa
                 Central Wake Park, jeden z największych wyciągów do wakeboardingu w Polsce. Osiedle otacza
                 sosnowy las, a woda i zieleń są na wyciągnięcie ręki przez cały rok.
               </p>
               <p>
                 To lokalizacja, która łączy spokój i rekreację z wygodnym dojazdem do aglomeracji łódzkiej.
-                Do centrum Łodzi dojedziesz w około 30 minut - samochodem przez węzeł autostrady A1 w Strykowie
+                Do centrum Łodzi dojedziesz w około 30 minut, samochodem przez węzeł autostrady A1 w Strykowie
                 lub pociągiem Łódzkiej Kolei Aglomeracyjnej ze stacji Głowno. Do Warszawy trasa zajmuje około
                 godziny.
               </p>
@@ -101,47 +112,23 @@ export default function LokalizacjaPage() {
               </p>
             </div>
           </header>
+        </div>
 
-          <figure className="mt-10 overflow-hidden rounded-[16px] border border-ink/10 bg-[#eef0ee]">
-            <Image
-              src="/map/mapka-3D.webp"
-              alt="Plan okolicy Plażowa Park w Głownie: Zalew Mrożyczka, Central Wake Park, przystań, plaża i molo"
-              width={2400}
-              height={1792}
-              sizes="(max-width: 1024px) 100vw, 1200px"
-              className="h-auto w-full"
-            />
-          </figure>
+        <AreaMap className="mt-4" />
 
-          {/* thematic subsections (local long-tail) */}
-          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            <section>
-              <h2 className="font-display text-xl text-pine">Nad Zalewem Mrożyczka</h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                Piaszczysta plaża, strzeżone kąpielisko i przystań są w zasięgu spaceru od osiedla. Latem to
-                miejsce wypoczynku nad wodą, a przez cały rok - spacerów i sportów wodnych.
-              </p>
-            </section>
-            <section>
-              <h2 className="font-display text-xl text-pine">Las i rekreacja</h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                Ponad 100-letni sosnowy las otacza inwestycję, dając cień, ciszę i czyste powietrze. Ścieżki
-                rowerowe wokół zalewu i w lesie zachęcają do aktywności tuż za progiem.
-              </p>
-            </section>
-            <section>
-              <h2 className="font-display text-xl text-pine">Dojazd do Łodzi i Warszawy</h2>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                Około 30 minut do centrum Łodzi - autostradą A1 przez węzeł Stryków lub koleją aglomeracyjną
-                ŁKA ze stacji Głowno. Do Warszawy dojedziesz w około godzinę.
-              </p>
-            </section>
+        <div className="wrap py-14">
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            {topics.map((t) => (
+              <section key={t.h}>
+                <h2 className="t-title">{t.h}</h2>
+                <p className="t-body fg-muted mt-3 text-pretty">{t.p}</p>
+              </section>
+            ))}
           </div>
 
-          {/* long-form local content */}
-          <section className="mt-12 max-w-3xl">
-            <h2 className="font-display text-2xl text-pine">Dlaczego warto zamieszkać nad Zalewem Mrożyczka</h2>
-            <div className="mt-5 space-y-4 text-pretty leading-relaxed text-muted">
+          <section className="mt-16 max-w-3xl">
+            <h2 className="t-display-m">Dlaczego warto zamieszkać nad Zalewem Mrożyczka</h2>
+            <div className="t-body fg-muted mt-6 space-y-4 text-pretty">
               <p>
                 Głowno to spokojne miasto w powiecie zgierskim, w województwie łódzkim, które łączy kameralny
                 charakter z pełnym zapleczem na co dzień: szkoły, przedszkola, przychodnie, sklepy i restauracje
@@ -149,68 +136,68 @@ export default function LokalizacjaPage() {
                 bez rezygnacji z wygód i dobrej komunikacji.
               </p>
               <p>
-                Zalew Mrożyczka to ponad 30 hektarów wody z piaszczystą plażą, molo i strzeżonym kąpieliskiem -
+                Zalew Mrożyczka to ponad 30 hektarów wody z piaszczystą plażą, molo i strzeżonym kąpieliskiem,
                 latem naturalne miejsce wypoczynku, a poza sezonem sceneria spacerów i joggingu wokół sosnowego
                 lasu. Działający tuż obok Central Wake Park przyciąga miłośników wakeboardingu z całego regionu,
                 a sieć ścieżek rowerowych łączy osiedle z okolicznymi atrakcjami i brzegiem zbiornika.
               </p>
               <p>
-                Bliskość Łodzi - około 30 minut autostradą A1 przez węzeł Stryków lub koleją aglomeracyjną ŁKA ze
-                stacji Głowno - sprawia, że Plażowa Park to atrakcyjny adres nie tylko na całoroczne mieszkanie,
+                Bliskość Łodzi, około 30 minut autostradą A1 przez węzeł Stryków lub koleją aglomeracyjną ŁKA ze
+                stacji Głowno, sprawia, że Plażowa Park to atrakcyjny adres nie tylko na całoroczne mieszkanie,
                 ale też na apartament rekreacyjny czy drugi dom nad wodą w zasięgu aglomeracji łódzkiej. Do
                 Warszawy dojedziesz w około godzinę.
               </p>
             </div>
           </section>
 
-          {/* POI list */}
-          <div className="mt-12">
-            <h2 className="font-display text-2xl text-pine">Co znajdziesz w okolicy</h2>
-            <ul className="mt-6 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
-              {POI.map((p) => (
-                <li key={p.name} className="flex items-start gap-3 rounded-[12px] border border-ink/8 bg-paper-2 p-3.5">
-                  <span
-                    className="mt-0.5 flex h-9 w-9 flex-none items-center justify-center rounded-full"
-                    style={{ background: `color-mix(in srgb, ${catColor[p.cat] || "var(--color-muted)"} 15%, transparent)`, color: catColor[p.cat] || "var(--color-muted)" }}
-                  >
-                    <Icon.pin width={17} height={17} />
-                  </span>
-                  <div className="min-w-0">
-                    <div className="flex items-baseline justify-between gap-2">
-                      <span className="font-medium text-ink">{p.name}</span>
-                      <span className="whitespace-nowrap text-xs font-semibold text-brass-deep">{p.dist}</span>
+          <div className="mt-16 grid gap-12 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <h2 className="t-display-m">Co znajdziesz w okolicy</h2>
+              <ul className="bd mt-8 border-t">
+                {POI.map((p) => (
+                  <li key={p.name} className="bd flex items-baseline justify-between gap-6 border-b py-5">
+                    <div className="min-w-0">
+                      <h3 className="font-medium">{p.name}</h3>
+                      <p className="t-body fg-muted mt-1 text-pretty">{p.desc}</p>
                     </div>
-                    <p className="mt-0.5 text-sm leading-snug text-muted">{p.desc}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                    <span className="t-meta-sm fg-accent flex-none">{p.dist}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="lg:pt-20">
+              <div className="bd h-[380px] overflow-hidden border sm:h-[460px]">
+                <MapLibreMap />
+              </div>
+              <div className="t-meta-sm fg-muted mt-4 flex flex-wrap items-center justify-between gap-3">
+                <span>
+                  {SITE.address.street}, {SITE.address.postal} {SITE.address.city}
+                </span>
+                <a
+                  href={mapsHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-underline fg-accent inline-flex items-center gap-1.5"
+                >
+                  Google Maps <Icon.arrow width={13} height={13} />
+                </a>
+              </div>
+            </div>
           </div>
 
-          {/* interactive map */}
-          <div className="mt-10 grid gap-3">
-            <div className="h-[380px]">
-              <MapLibreMap />
-            </div>
-            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-xs text-faint">
-              <span>{SITE.address.street}, {SITE.address.postal} {SITE.address.city} ({SITE.address.region})</span>
-              <a href={mapsHref} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-medium text-brass-deep hover:text-pine">
-                Zobacz w Google Maps <Icon.arrow width={14} height={14} />
-              </a>
-            </div>
-          </div>
-
-          {/* CTA */}
-          <div className="mt-14 flex flex-col gap-3 rounded-[16px] border border-ink/10 bg-paper-2 p-6 sm:flex-row sm:items-center sm:justify-between">
-            <p className="max-w-md text-pretty leading-relaxed text-ink-soft">
-              W tej lokalizacji powstaje {INVESTMENT.totalUnits} apartamentów z prywatnym ogrodem, od {" "}
-              <span className="num">{INVESTMENT.priceMin.toLocaleString("pl-PL")}</span> zł.
+          <div className="card mt-16 flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+            <p className="t-body-l fg-muted max-w-md text-pretty">
+              W tej lokalizacji powstaje {INVESTMENT.totalUnits} apartamentów z prywatnym ogrodem, od{" "}
+              <span className="num fg font-medium">{INVESTMENT.priceMin.toLocaleString("pl-PL")} zł</span>.
             </p>
             <div className="flex flex-none flex-col gap-2.5 sm:flex-row">
-              <Link href="/#lokale" data-track="book_viewing" className="btn btn-primary">
+              <Link href="/#lokale" data-track="book_viewing" className="btn btn-sun">
                 Zobacz apartamenty <Icon.arrow width={18} height={18} />
               </Link>
-              <Link href="/#kontakt" data-track="book_viewing" className="btn btn-ghost">Umów prezentację</Link>
+              <Link href="/#kontakt" data-track="book_viewing" className="btn btn-ghost">
+                Umów prezentację
+              </Link>
             </div>
           </div>
         </div>

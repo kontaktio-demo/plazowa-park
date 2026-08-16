@@ -54,11 +54,13 @@ export const POI = [
 
 // Standard: heat pumps + underfloor heating are standard; recuperation and
 // photovoltaics are optional (installed on request during construction).
+// `optional: true` znaczy montaż na życzenie na etapie budowy. Wcześniej ta sama
+// informacja siedziała w nawiasie w tytule; teraz jest osobnym polem i tagiem w UI.
 export const STANDARD = [
   { title: "Pompy ciepła", desc: "Ekonomiczne, ekologiczne źródło ogrzewania dla każdego domu.", icon: "heat" },
   { title: "Ogrzewanie podłogowe", desc: "Równomierne ciepło i pełna swoboda aranżacji bez grzejników.", icon: "floor" },
-  { title: "Rekuperacja (opcja)", desc: "Możliwość montażu wentylacji z odzyskiem ciepła na etapie budowy.", icon: "air" },
-  { title: "Fotowoltaika (opcja)", desc: "Możliwość obniżenia rachunków dzięki własnej energii.", icon: "solar" },
+  { title: "Rekuperacja", desc: "Wentylacja z odzyskiem ciepła, montaż na etapie budowy.", icon: "air", optional: true },
+  { title: "Fotowoltaika", desc: "Własna energia i niższe rachunki, montaż na życzenie.", icon: "solar", optional: true },
   { title: "Panoramiczne okna", desc: "Przeszklenia od podłogi do sufitu z widokiem na las.", icon: "window" },
   { title: "Materiały premium", desc: "Elastyczna cegła, tynk najwyższej klasy i blacha na rąbek stojący.", icon: "brick" },
   { title: "Prywatny ogród i taras", desc: "Własna zielona przestrzeń przy każdym apartamencie.", icon: "garden" },

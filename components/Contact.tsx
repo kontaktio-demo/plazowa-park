@@ -2,22 +2,35 @@
 
 import { useEffect, useState } from "react";
 import { SITE } from "@/lib/data/site";
-import { INVESTMENT } from "@/lib/data/units";
 import { SELECT_UNIT_EVENT } from "@/lib/selectUnit";
 import { track } from "@/lib/track";
+import SectionHeader from "./SectionHeader";
+import WaveEdge from "./WaveEdge";
 import { Icon } from "./Icons";
 
 type State = "idle" | "sending" | "ok" | "error";
+type Errors = Partial<Record<"name" | "phone" | "email" | "rodo", string>>;
+
+const RE_MAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function validate(d: Record<string, string>): Errors {
+  const e: Errors = {};
+  if (!d.name || d.name.trim().length < 2) e.name = "Podaj imię i nazwisko, żebyśmy wiedzieli, z kim rozmawiamy";
+  if (!d.phone || d.phone.replace(/\D/g, "").length < 9) e.phone = "Podaj numer telefonu, żebyśmy mogli oddzwonić";
+  if (!d.email || !RE_MAIL.test(d.email)) e.email = "Podaj adres e-mail w formacie jan@example.com";
+  if (!d.rodo) e.rodo = "Zaznacz zgodę, bez niej nie możemy się odezwać";
+  return e;
+}
 
 export default function Contact() {
   const [unit, setUnit] = useState("");
   const [state, setState] = useState<State>("idle");
-  const [err, setErr] = useState("");
+  const [errors, setErrors] = useState<Errors>({});
+  const [failed, setFailed] = useState("");
 
   useEffect(() => {
     const onSelect = (e: Event) => setUnit((e as CustomEvent<string>).detail || "");
     window.addEventListener(SELECT_UNIT_EVENT, onSelect);
-    // prefill from ?lokal= (e.g. arriving from a unit subpage)
     try {
       const q = new URLSearchParams(window.location.search).get("lokal");
       if (q) setUnit(q);
@@ -29,120 +42,161 @@ export default function Contact() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setState("sending");
-    setErr("");
     const form = e.currentTarget;
-    const data = Object.fromEntries(new FormData(form).entries());
+    const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
     if (data.company) return; // honeypot
+
+    const found = validate(data);
+    setErrors(found);
+    if (Object.keys(found).length) {
+      form.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+      return;
+    }
+
+    setState("sending");
+    setFailed("");
     try {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || "Błąd wysyłki");
+      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || "Nie udało się wysłać zgłoszenia");
       track("generate_lead", { unit: String(data.unit || "") });
       setState("ok");
       form.reset();
       setUnit("");
-    } catch (e2) {
-      setErr(e2 instanceof Error ? e2.message : "Spróbuj ponownie");
+    } catch (err) {
+      setFailed(err instanceof Error ? err.message : "Spróbuj ponownie za chwilę");
       setState("error");
     }
   };
 
   return (
-    <section id="kontakt" className="relative isolate bg-paper-2 py-20 sm:py-28">
-      <div className="pointer-events-none absolute left-[-6%] top-[8%] -z-10" aria-hidden>
-        <div className="glow-drift h-[38vh] w-[38vh] rounded-full blur-[90px]" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--color-brass) 12%, transparent), transparent 70%)" }} />
-      </div>
-      <div className="container-x">
-        <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
-          {/* info */}
-          <div data-reveal="left">
-            <p className="eyebrow">Kontakt</p>
-            <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-pine">
-              Umów prezentację <span className="italic text-brass-deep">osiedla.</span>
-            </h2>
-            <p className="mt-5 max-w-md text-pretty leading-relaxed text-muted">
-              Zostaw kontakt lub zadzwoń - pokażemy dostępne apartamenty, przekażemy cennik i harmonogram.
-              Odpowiadamy zwykle w ciągu jednego dnia roboczego.
-            </p>
+    <section id="kontakt" className="band band-abyss sec relative">
+      <WaveEdge from="var(--color-sand-200)" />
 
-            <div className="mt-9 space-y-3">
-              <a href={`tel:${SITE.phone.tel}`} className="flex items-center gap-4 rounded-[14px] border border-ink/10 bg-paper p-4 transition-colors hover:border-pine/30">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-pine/8 text-pine"><Icon.phone width={20} height={20} /></span>
-                <span>
-                  <span className="block text-xs uppercase tracking-[0.12em] text-faint">Telefon</span>
-                  <span className="font-display text-xl text-pine num">{SITE.phone.display}</span>
+      <div className="wrap grid gap-12 lg:grid-cols-[45fr_55fr] lg:gap-16">
+        <div>
+          <SectionHeader
+            id="kontakt"
+            title={
+              <>
+                Umów prezentację <span className="accent-italic fg-accent">osiedla</span>
+              </>
+            }
+            lead="Zostaw kontakt albo zadzwoń. Pokażemy dostępne apartamenty, przekażemy cennik i harmonogram."
+          />
+
+          <div className="mt-8 flex flex-col sm:mt-10">
+            <a href={`tel:${SITE.phone.tel}`} className="bd flex items-center gap-5 border-t py-5 transition-colors hover:text-lake-300">
+              <span className="glyph-box">
+                <Icon.phone width={20} height={20} />
+              </span>
+              <span>
+                <span className="t-meta-sm fg-muted block">Telefon</span>
+                <span className="num font-display mt-1 block text-xl font-semibold">{SITE.phone.display}</span>
+              </span>
+            </a>
+            <a href={`mailto:${SITE.email}`} className="bd flex items-center gap-5 border-t py-5 transition-colors hover:text-lake-300">
+              <span className="glyph-box">
+                <Icon.mail width={20} height={20} />
+              </span>
+              <span className="min-w-0">
+                <span className="t-meta-sm fg-muted block">E-mail</span>
+                <span className="mt-1 block font-medium wrap-break-word">{SITE.email}</span>
+              </span>
+            </a>
+            <div className="bd flex items-center gap-5 border-y py-5">
+              <span className="glyph-box">
+                <Icon.pin width={20} height={20} />
+              </span>
+              <span>
+                <span className="t-meta-sm fg-muted block">Adres inwestycji</span>
+                <span className="mt-1 block font-medium">
+                  {SITE.address.street}, {SITE.address.postal} {SITE.address.city}
                 </span>
-              </a>
-              <a href={`mailto:${SITE.email}`} className="flex items-center gap-4 rounded-[14px] border border-ink/10 bg-paper p-4 transition-colors hover:border-pine/30">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-pine/8 text-pine"><Icon.mail width={20} height={20} /></span>
-                <span>
-                  <span className="block text-xs uppercase tracking-[0.12em] text-faint">E-mail</span>
-                  <span className="font-medium text-ink">{SITE.email}</span>
-                </span>
-              </a>
-              <div className="flex items-center gap-4 rounded-[14px] border border-ink/10 bg-paper p-4">
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-pine/8 text-pine"><Icon.pin width={20} height={20} /></span>
-                <span>
-                  <span className="block text-xs uppercase tracking-[0.12em] text-faint">Adres inwestycji</span>
-                  <span className="font-medium text-ink">{SITE.address.street}, {SITE.address.postal} {SITE.address.city}</span>
-                </span>
-              </div>
+              </span>
             </div>
           </div>
+        </div>
 
-          {/* form */}
-          <div className="card grain relative overflow-hidden p-6 sm:p-8" data-reveal="right">
-            {state === "ok" ? (
-              <div className="flex min-h-[420px] flex-col items-center justify-center text-center">
-                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-available/15 text-available">
-                  <Icon.check width={32} height={32} />
-                </span>
-                <h3 className="mt-5 font-display text-3xl text-pine">Dziękujemy!</h3>
-                <p className="mt-2 max-w-sm text-muted">
-                  Twoja wiadomość została wysłana. Skontaktujemy się z Tobą wkrótce, zwykle w ciągu jednego dnia roboczego.
-                </p>
-                <button onClick={() => setState("idle")} className="btn btn-ghost mt-6 !py-2.5 text-sm">
-                  Wyślij kolejne zapytanie
-                </button>
+        {/* formularz - najjaśniejszy punkt najciemniejszej sekcji */}
+        <div
+          className="border border-lake-700 bg-lake-900 p-6 shadow-[0_0_80px_-20px_var(--color-lake-500)] sm:p-9"
+          data-reveal
+        >
+          {state === "ok" ? (
+            <div className="flex min-h-[420px] flex-col items-center justify-center text-center">
+              <span className="glyph-box border-ok text-ok">
+                <Icon.check width={22} height={22} />
+              </span>
+              <h3 className="t-display-m mt-6">Zgłoszenie przyjęte</h3>
+              <p className="t-body fg-muted mt-3 max-w-sm text-pretty">
+                Odezwiemy się w ciągu jednego dnia roboczego, na podany numer telefonu.
+              </p>
+              <button onClick={() => setState("idle")} className="btn btn-ghost btn-sm mt-7">
+                Wyślij kolejne zapytanie
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={onSubmit} noValidate className="flex flex-col gap-4 sm:gap-5">
+              <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
+
+              <Field label="Imię i nazwisko" name="name" placeholder="Jan Kowalski" error={errors.name} autoComplete="name" />
+              <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
+                <Field label="Telefon" name="phone" type="tel" placeholder="600 000 000" error={errors.phone} autoComplete="tel" />
+                <Field label="E-mail" name="email" type="email" placeholder="jan@example.com" error={errors.email} autoComplete="email" />
               </div>
-            ) : (
-              <form onSubmit={onSubmit} className="space-y-4">
-                <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
-                <Field label="Imię i nazwisko" name="name" required placeholder="Jan Kowalski" />
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Field label="Telefon" name="phone" type="tel" required placeholder="600 000 000" />
-                  <Field label="E-mail" name="email" type="email" required placeholder="jan@example.com" />
-                </div>
-                <Field label="Wybrany apartament (opcjonalnie)" name="unit" value={unit} onChange={setUnit} placeholder="np. Apartament 3.3A" />
-                <label className="block">
-                  <span className="mb-1.5 block text-sm font-medium text-ink-soft">Wiadomość (opcjonalnie)</span>
-                  <textarea name="message" rows={3} placeholder="Interesuje mnie prezentacja i cennik..." className="w-full resize-none rounded-[12px] border border-ink/15 bg-paper px-4 py-3 text-ink placeholder:text-faint focus:border-pine focus:outline-none" />
-                </label>
-                <label className="flex items-start gap-3 text-sm text-muted">
-                  <input type="checkbox" name="rodo" required className="mt-1 h-4 w-4 flex-none accent-[var(--color-pine)]" />
-                  <span>
+              <Field
+                label="Wybrany apartament"
+                name="unit"
+                placeholder="np. Apartament 3.3A"
+                optional
+                value={unit}
+                onChange={setUnit}
+              />
+
+              <label className="block">
+                <span className="t-meta-sm fg-muted mb-2 block">
+                  Wiadomość <span className="opacity-60">opcjonalnie</span>
+                </span>
+                <textarea name="message" rows={3} placeholder="Interesuje mnie prezentacja i cennik" className="field resize-none" />
+              </label>
+
+              <div>
+                <label className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    name="rodo"
+                    aria-invalid={Boolean(errors.rodo)}
+                    className="mt-1 h-5 w-5 flex-none accent-[var(--color-sun)]"
+                  />
+                  <span className="t-body fg-muted">
                     Wyrażam zgodę na przetwarzanie moich danych osobowych w celu kontaktu handlowego zgodnie z{" "}
-                    <a href="/polityka-prywatnosci" className="link-underline text-ink-soft">Polityką prywatności</a>. *
+                    <a href="/polityka-prywatnosci" className="link-underline fg-accent">
+                      Polityką prywatności
+                    </a>
+                    .
                   </span>
                 </label>
+                {errors.rodo && <p className="t-meta-sm mt-2 text-gone">{errors.rodo}</p>}
+              </div>
 
-                {state === "error" && <p className="text-sm text-sold">{err || "Wystąpił błąd. Spróbuj ponownie."}</p>}
+              {state === "error" && <p className="t-meta-sm text-gone">{failed}</p>}
 
-                <button type="submit" disabled={state === "sending"} className="btn btn-primary w-full disabled:opacity-60">
-                  {state === "sending" ? "Wysyłanie..." : "Wyślij zapytanie"}
-                  {state !== "sending" && <Icon.arrow width={18} height={18} />}
-                </button>
-                <p className="text-center text-xs text-faint">
-                  Klikając "Wyślij", akceptujesz{" "}
-                  <a href="/regulamin" className="link-underline">Regulamin serwisu</a>. Pola oznaczone * są wymagane.
-                </p>
-              </form>
-            )}
-          </div>
+              <button type="submit" disabled={state === "sending"} className="btn btn-sun w-full disabled:opacity-60">
+                {state === "sending" ? "Wysyłanie" : "Wyślij zapytanie"}
+                {state !== "sending" && <Icon.arrow width={18} height={18} />}
+              </button>
+              <p className="t-meta-sm fg-muted text-center">
+                Wysyłając, akceptujesz{" "}
+                <a href="/regulamin" className="link-underline">
+                  Regulamin serwisu
+                </a>
+              </p>
+            </form>
+          )}
         </div>
       </div>
     </section>
@@ -150,24 +204,46 @@ export default function Contact() {
 }
 
 function Field({
-  label, name, type = "text", required, placeholder, value, onChange,
+  label,
+  name,
+  type = "text",
+  placeholder,
+  error,
+  optional,
+  value,
+  onChange,
+  autoComplete,
 }: {
-  label: string; name: string; type?: string; required?: boolean; placeholder?: string;
-  value?: string; onChange?: (v: string) => void;
+  label: string;
+  name: string;
+  type?: string;
+  placeholder?: string;
+  error?: string;
+  optional?: boolean;
+  value?: string;
+  onChange?: (v: string) => void;
+  autoComplete?: string;
 }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-sm font-medium text-ink-soft">
-        {label} {required && <span className="text-brass-deep">*</span>}
+      <span className="t-meta-sm fg-muted mb-2 block">
+        {label} {optional && <span className="opacity-60">opcjonalnie</span>}
       </span>
       <input
         type={type}
         name={name}
-        required={required}
         placeholder={placeholder}
+        autoComplete={autoComplete}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? `${name}-err` : undefined}
         {...(onChange ? { value, onChange: (e) => onChange(e.target.value) } : {})}
-        className="w-full rounded-[12px] border border-ink/15 bg-paper px-4 py-3 text-ink placeholder:text-faint focus:border-pine focus:outline-none"
+        className="field"
       />
+      {error && (
+        <span id={`${name}-err`} className="t-meta-sm mt-2 block text-gone">
+          {error}
+        </span>
+      )}
     </label>
   );
 }

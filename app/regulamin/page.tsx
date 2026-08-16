@@ -68,7 +68,7 @@ export default function Page() {
         prawa polskiego, w szczególności Kodeksu cywilnego.
       </p>
 
-      <p className="text-sm text-faint">
+      <p className="t-meta-sm fg-muted">
         Dokument ma charakter informacyjny i przed wdrożeniem produkcyjnym powinien zostać zweryfikowany przez doradcę
         prawnego Usługodawcy.
       </p>

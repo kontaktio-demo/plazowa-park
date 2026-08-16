@@ -87,7 +87,7 @@ export default function Page() {
         aktualizacji.
       </p>
 
-      <p className="text-sm text-faint">
+      <p className="t-meta-sm fg-muted">
         Powyższy dokument ma charakter informacyjny. Ostateczna treść klauzul powinna zostać zweryfikowana przez
         Administratora i jego doradcę prawnego przed publikacją produkcyjną.
       </p>

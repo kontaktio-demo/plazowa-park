@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
+/** Odpowiednik skali głębokości na wąskich ekranach, gdzie rail się nie mieści. */
 export default function ScrollProgress() {
   const barRef = useRef<HTMLDivElement>(null);
 
@@ -16,8 +17,7 @@ export default function ScrollProgress() {
     const write = () => {
       scheduled = false;
       const y = window.scrollY || root.scrollTop;
-      const p = Math.min(1, Math.max(0, y / max));
-      if (barRef.current) barRef.current.style.transform = `scaleX(${p})`;
+      if (barRef.current) barRef.current.style.transform = `scaleX(${Math.min(1, Math.max(0, y / max))})`;
     };
     const onScroll = () => {
       if (!scheduled) {
@@ -45,8 +45,16 @@ export default function ScrollProgress() {
   }, []);
 
   return (
-    <div className="fixed inset-x-0 top-0 z-[65] h-[3px]" aria-hidden>
-      <div ref={barRef} className="h-full origin-left bg-gradient-to-r from-brass to-brass-light" style={{ transform: "scaleX(0)" }} />
+    <div
+      className="fixed inset-x-0 z-65 h-0.5 [@media(min-width:1280px)]:hidden"
+      style={{ top: "var(--nav-h)" }}
+      aria-hidden
+    >
+      <div
+        ref={barRef}
+        className="h-full origin-left bg-gradient-to-r from-lake-500 to-lake-300"
+        style={{ transform: "scaleX(0)" }}
+      />
     </div>
   );
 }

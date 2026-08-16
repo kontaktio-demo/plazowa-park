@@ -1,75 +1,71 @@
 import { DEVELOPER, SITE } from "@/lib/data/site";
+import { sectionEyebrow } from "@/lib/sections";
 import { Icon } from "./Icons";
 
 const trust = [
-  { title: "Umowa deweloperska u notariusza", desc: "Bezpieczeństwo transakcji zgodne z ustawą deweloperską." },
-  { title: "Dziennik i postęp budowy", desc: "Bieżąca dokumentacja etapów prac na osiedlu." },
+  { title: "Umowa u notariusza", desc: "Bezpieczeństwo transakcji zgodne z ustawą deweloperską." },
+  { title: "Dziennik budowy", desc: "Bieżąca dokumentacja postępu prac na osiedlu." },
   { title: "Standard premium w cenie", desc: "Pompy ciepła, ogrzewanie podłogowe i materiały najwyższej jakości." },
+];
+
+const registry = [
+  { label: "KRS", value: DEVELOPER.krs },
+  { label: "NIP", value: DEVELOPER.nip },
+  { label: "REGON", value: DEVELOPER.regon },
+  { label: "Status VAT", value: DEVELOPER.statusVat },
 ];
 
 export default function Developer() {
   return (
-    <section id="deweloper" className="relative overflow-hidden bg-pine py-20 text-paper sm:py-28">
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
-        <div className="deco-grid-dark absolute inset-0" />
-        <div className="absolute right-[-8%] top-[6%]">
-          <div className="glow-drift h-[40vh] w-[40vh] rounded-full blur-[90px]" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--color-brass) 18%, transparent), transparent 70%)" }} />
-        </div>
-      </div>
-      <div className="container-x relative z-10">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <div data-reveal="left">
-            <p className="eyebrow !text-brass-light">07 - Deweloper</p>
-            <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.4rem)] text-paper">
-              Lokalny deweloper <span className="italic text-brass-light">z Głowna.</span>
-            </h2>
-            <p className="mt-6 max-w-xl text-pretty leading-relaxed text-paper/75">
-              Inwestorem i deweloperem osiedla Plażowa Park jest {DEVELOPER.name}, lokalna spółka z Głowna.
-              Stawiamy na kameralną, energooszczędną zabudowę w zgodzie z naturą, w wyjątkowej lokalizacji nad
-              Zalewem Mrożyczka.
-            </p>
+    <section id="deweloper" className="band band-lake sec">
+      <div className="wrap">
+        <header className="mx-auto max-w-[720px] text-center" data-reveal>
+          <p className="eyebrow">{sectionEyebrow("deweloper")}</p>
+          <h2 className="t-display-l mt-6 text-balance">
+            Lokalny deweloper <span className="fg-accent">z Głowna</span>
+          </h2>
+          <p className="t-body-l fg-muted mt-6 text-pretty">
+            Inwestorem i deweloperem osiedla Plażowa Park jest {DEVELOPER.name} z Głowna. Stawiamy na kameralną,
+            energooszczędną zabudowę w zgodzie z naturą, w wyjątkowej lokalizacji nad Zalewem Mrożyczka.
+          </p>
+        </header>
 
-            <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-paper/15 pt-6 text-sm">
-              <Info label="Spółka" value={DEVELOPER.name} />
-              <Info label="Status VAT" value={DEVELOPER.statusVat} />
-              <Info label="KRS" value={DEVELOPER.krs} />
-              <Info label="NIP" value={DEVELOPER.nip} />
-              <Info label="REGON" value={DEVELOPER.regon} />
-              <Info label="Siedziba" value={`${DEVELOPER.street}, ${DEVELOPER.postal} ${DEVELOPER.city}`} wide />
-            </dl>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href={`tel:${SITE.phone.tel}`} className="btn btn-brass !py-2.5 text-sm">
-                <Icon.phone width={16} height={16} /> {SITE.phone.display}
-              </a>
-              <a href="#kontakt" className="btn btn-light !py-2.5 text-sm">Umów spotkanie</a>
+        <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-3 sm:gap-6" data-reveal="stagger">
+          {trust.map((t, i) => (
+            <div key={t.title} className="card p-5 sm:p-6" style={{ transitionDelay: `${i * 60}ms` }}>
+              <span className="glyph-box">
+                <Icon.check width={20} height={20} />
+              </span>
+              <h3 className="t-title mt-5">{t.title}</h3>
+              <p className="t-body fg-muted mt-2 text-pretty">{t.desc}</p>
             </div>
-          </div>
+          ))}
+        </div>
 
-          <div className="grid gap-4 self-center" data-reveal="right">
-            {trust.map((t) => (
-              <div key={t.title} className="flex items-start gap-4 rounded-[14px] border border-paper/12 bg-paper/5 p-5">
-                <span className="mt-0.5 flex h-10 w-10 flex-none items-center justify-center rounded-full bg-brass-light text-pine-deep">
-                  <Icon.check width={20} height={20} />
-                </span>
-                <div>
-                  <h3 className="font-display text-xl text-paper">{t.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-paper/70">{t.desc}</p>
-                </div>
+        <div className="bd mx-auto mt-10 max-w-[720px] border-t pt-8 sm:mt-14" data-reveal>
+          <p className="t-meta-sm fg-muted">Dane rejestrowe</p>
+          <dl className="mt-5 grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-4">
+            {registry.map((r) => (
+              <div key={r.label} className="min-w-0">
+                <dt className="t-meta-sm fg-muted">{r.label}</dt>
+                <dd className="num mt-1.5 font-medium wrap-break-word">{r.value}</dd>
               </div>
             ))}
+          </dl>
+          <p className="t-body fg-muted mt-6">
+            {DEVELOPER.name}, {DEVELOPER.street}, {DEVELOPER.postal} {DEVELOPER.city}
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost btn-sm">
+              <Icon.phone width={16} height={16} /> {SITE.phone.display}
+            </a>
+            <a href="#kontakt" data-track="book_viewing" className="btn btn-sun btn-sm">
+              Umów spotkanie
+            </a>
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function Info({ label, value, wide }: { label: string; value: string; wide?: boolean }) {
-  return (
-    <div className={wide ? "col-span-2" : ""}>
-      <dt className="text-[0.7rem] uppercase tracking-[0.14em] text-paper/50">{label}</dt>
-      <dd className="mt-1 font-medium text-paper num">{value}</dd>
-    </div>
   );
 }

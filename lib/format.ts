@@ -24,7 +24,7 @@ export function rooms(n: number): string {
 }
 
 export const STATUS_META = {
-  available: { label: "Dostępny", color: "var(--color-available)" },
-  reserved: { label: "Rezerwacja", color: "var(--color-reserved)" },
-  sold: { label: "Sprzedany", color: "var(--color-sold)" },
+  available: { label: "Dostępny", color: "var(--color-ok)" },
+  reserved: { label: "Rezerwacja", color: "var(--color-hold)" },
+  sold: { label: "Sprzedany", color: "var(--color-gone)" },
 } as const;

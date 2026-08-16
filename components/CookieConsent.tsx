@@ -9,11 +9,13 @@ export default function CookieConsent() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
+    let t = 0;
     try {
-      if (!localStorage.getItem(KEY)) setShow(true);
+      if (!localStorage.getItem(KEY)) t = window.setTimeout(() => setShow(true), 800);
     } catch {
       /* ignore */
     }
+    return () => window.clearTimeout(t);
   }, []);
 
   const decide = (value: "all" | "essential") => {
@@ -28,21 +30,19 @@ export default function CookieConsent() {
   if (!show) return null;
 
   return (
-    <div className="fixed inset-x-3 bottom-3 z-[70] sm:inset-x-auto sm:right-5 sm:bottom-5 sm:max-w-[26rem]">
-      <div className="card grain relative overflow-hidden p-5 shadow-[var(--shadow-lift)]">
-        <p className="font-display text-lg text-pine">Szanujemy Twoją prywatność</p>
-        <p className="mt-1.5 text-sm leading-relaxed text-muted">
-          Używamy plików cookie, aby strona działała poprawnie i aby analizować ruch. Szczegóły znajdziesz w{" "}
-          <Link href="/polityka-cookies" className="link-underline text-ink-soft">
-            Polityce cookies
+    <div className="fixed inset-x-0 bottom-0 z-70 p-3 sm:inset-x-auto sm:bottom-5 sm:left-5 sm:max-w-xl sm:p-0">
+      <div className="band band-abyss flex flex-col gap-4 border border-lake-700 p-4 sm:flex-row sm:items-center sm:gap-6 sm:py-3.5 sm:pl-5 sm:pr-4">
+        <p className="t-body fg-muted text-sm text-pretty">
+          Używamy cookies, aby strona działała i abyśmy mogli analizować ruch.{" "}
+          <Link href="/polityka-cookies" className="link-underline fg-accent">
+            Polityka cookies
           </Link>
-          .
         </p>
-        <div className="mt-4 flex flex-wrap gap-2.5">
-          <button onClick={() => decide("all")} className="btn btn-primary !px-5 !py-2.5 text-sm">
-            Akceptuję wszystkie
+        <div className="flex flex-none gap-2.5">
+          <button onClick={() => decide("all")} className="btn btn-sun btn-sm flex-1 sm:flex-none">
+            Akceptuję
           </button>
-          <button onClick={() => decide("essential")} className="btn btn-ghost !px-5 !py-2.5 text-sm">
+          <button onClick={() => decide("essential")} className="btn btn-ghost btn-sm flex-1 sm:flex-none">
             Tylko niezbędne
           </button>
         </div>

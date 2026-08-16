@@ -81,6 +81,8 @@ export async function POST(req: Request) {
     email: String(body.email || "").slice(0, 200),
     unit: String(body.unit || "").slice(0, 120),
     message: String(body.message || "").slice(0, 2000),
+    // dowod zgody marketingowej musi zostac razem z leadem, nie tylko po stronie formularza
+    rodo: Boolean(body.rodo),
     receivedAt: new Date().toISOString(),
   };
 
