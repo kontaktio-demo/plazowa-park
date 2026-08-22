@@ -105,7 +105,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="link-underline hover:text-lake-300"
               >
-                Realizacja: Kontaktio
+                Projekt i realizacja: Kontaktio
               </a>
             </div>
           </div>

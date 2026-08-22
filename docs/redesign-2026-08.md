@@ -372,3 +372,45 @@ Podbity Higgsfieldem z 1376×768 do 2400×1344. Sekcja jest pełnoekranowa, wię
 poprzedni plik był rozciągany. Porównanie wycinków przed i po: ta sama scena, te
 same drzewa i ten sam szczyt budynku, doszła realna faktura cegły i kory - żaden
 element nie został dorysowany.
+
+---
+
+## 9. Formularz: Web3Forms (2026-08-22)
+
+Poprzednia wersja endpointu `/api/lead` wysyłała leada przez Resend, ale
+`RESEND_API_KEY` nigdy nie był ustawiony, więc zgłoszenia lądowały wyłącznie
+w `console.log` na Vercelu. Klient przekazał skonfigurowany formularz Web3Forms.
+
+**Kluczowe ustalenie: Web3Forms na darmowym planie odrzuca wywołania serwerowe.**
+Pierwsza implementacja przekazywała zgłoszenie z naszego endpointu i dostawała:
+
+```
+403  "This method is not allowed. Use our API in client side or
+      contact support with server IP address (Pro plan is required)"
+```
+
+Czyli pośrednik po stronie serwera zwracałby błąd przy **każdym** leadzie.
+Wysyłka idzie więc bezpośrednio z przeglądarki, zgodnie z tym, jak Web3Forms
+jest zaprojektowany. Endpoint `/api/lead` został usunięty - nie mógł działać,
+a utrzymywanie martwej trasy tylko myliłoby przy diagnostyce.
+
+Zweryfikowane realnym zgłoszeniem, nie założeniem:
+
+- wywołanie z nagłówkiem `Origin: https://plazowa-park.vercel.app` przechodzi
+  (`success: true`), więc klucz **nie jest** zawężony wyłącznie do domeny
+  docelowej i formularz działa już teraz, nie dopiero po przepięciu,
+- pełny test w przeglądarce: walidacja blokuje puste pola komunikatami po polsku,
+  komplet danych przechodzi i pokazuje ekran „Zgłoszenie przyjęte".
+
+W panelu Web3Forms są **dwa zgłoszenia oznaczone „TEST TECHNICZNY"** z tej
+weryfikacji - do skasowania.
+
+Klucz dostępu siedzi w kodzie klienta, bo z założenia jest publiczny (Web3Forms
+podaje go we własnych przykładach). Dzięki temu przepięcie domeny nie wymaga
+żadnej zmiennej środowiskowej. Odbiorcę, ochronę antyspamową i autorespondera
+ustawia się w panelu Web3Forms, nie w kodzie.
+
+Co przy tym zniknęło i trzeba mieć świadomość: limit pięciu zgłoszeń na IP oraz
+druga kopia leada w logach serwera działały tylko w endpoincie. Ochronę
+antyspamową przejmuje teraz Web3Forms (honeypot `botcheck` jest wysyłany),
+a rejestrem zgłoszeń jest panel Web3Forms.

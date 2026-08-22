@@ -43,12 +43,27 @@ npm run build && npm run start
 
 `POST /api/lead` waliduje i loguje zgłoszenia. Aby włączyć wysyłkę e-mail, ustaw zmienne środowiskowe:
 
+Zgłoszenia z `POST /api/lead` idą do **Web3Forms**, który przekazuje je na skrzynkę
+biura sprzedaży. Klucz dostępu jest z założenia publiczny (Web3Forms podaje go we
+własnych przykładach po stronie klienta), więc siedzi w kodzie i **przepięcie domeny
+nie wymaga żadnej zmiennej środowiskowej**. Odbiorcę, ochronę antyspamową
+i autorespondera ustawia się w panelu Web3Forms.
+
+Endpoint zachowuje własną warstwę zabezpieczeń przed przekazaniem dalej: limit pięciu
+zgłoszeń na adres IP w oknie dziesięciu minut, honeypot, walidację pól i zapis zgody
+RODO. Każdy lead trafia dodatkowo do logów serwera, więc nie ginie nawet gdy dostawca
+odmówi.
+
+Opcjonalne zmienne:
+
 ```
-RESEND_API_KEY=...              # klucz Resend (wysyłka e-mail leada)
-LEAD_TO=biuro@plazowa-park.pl   # adres odbiorcy leadów
-NEXT_PUBLIC_GA_ID=G-XXXXXXX     # (opcjonalnie) GA4 - bez tego analityka jest wyłączona
-GOOGLE_SITE_VERIFICATION=...    # (opcjonalnie) token weryfikacji Google Search Console
+WEB3FORMS_KEY=...               # nadpisuje klucz w kodzie (rotacja)
+NEXT_PUBLIC_GA_ID=G-XXXXXXX     # GA4 - bez tego analityka jest wyłączona
+GOOGLE_SITE_VERIFICATION=...    # token weryfikacji Google Search Console
 ```
+
+**Uwaga:** klucz Web3Forms jest ograniczony do domeny docelowej, więc pełny test
+formularza ma sens dopiero po przepięciu `plazowa-park.pl`.
 
 Analityka (jeśli `NEXT_PUBLIC_GA_ID` ustawione) śledzi konwersje: `generate_lead` (wysłany formularz),
 `click_to_call` (telefon), `click_to_email` (e-mail), `click_whatsapp`, `book_viewing` (Umów prezentację /

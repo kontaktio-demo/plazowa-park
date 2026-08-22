@@ -56,7 +56,7 @@ export default function Nav() {
           <div className="ml-auto flex flex-none items-center gap-3">
             <a
               href={`tel:${SITE.phone.tel}`}
-              className="hidden items-center gap-2 text-sm font-medium hover:text-lake-300 xl:flex"
+              className="hidden items-center gap-2 text-sm font-medium hover:text-lake-300 xl:mr-4 xl:flex"
             >
               <Icon.phone width={17} height={17} className="text-lake-300" />
               <span className="num">{SITE.phone.display}</span>
