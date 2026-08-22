@@ -8,7 +8,7 @@ import MapLibreMap from "@/components/MapLibreMap";
 import { Icon } from "@/components/Icons";
 
 const description =
-  "Plażowa Park leży nad Zalewem Mrożyczka w Głownie: plaża, sosnowy las i Central Wake Park. Do Łodzi 30 minut autostradą A1 i koleją ŁKA. Zobacz okolicę i mapę.";
+  "Plażowa Park leży nad Zalewem Mrożyczka w Głownie: plaża, sosnowy las i Central Wake Park. Do centrum Łodzi około 32 km autostradą A1. Zobacz okolicę i mapę.";
 
 export const metadata: Metadata = {
   title: "Lokalizacja nad Zalewem Mrożyczka w Głownie",
@@ -68,7 +68,7 @@ const topics = [
   },
   {
     h: "Dojazd do Łodzi i Warszawy",
-    p: "Około 30 minut do centrum Łodzi, autostradą A1 przez węzeł Stryków lub koleją aglomeracyjną ŁKA ze stacji Głowno. Do Warszawy dojedziesz w około godzinę.",
+    p: "Do centrum Łodzi około 32 km, autostradą A1 przez węzeł Stryków oddalony o 11 km. Stacja kolejowa Głowno jest 3 km od osiedla. Do Warszawy około 104 km.",
   },
 ];
 
@@ -101,9 +101,8 @@ export default function LokalizacjaPage() {
               </p>
               <p>
                 To lokalizacja, która łączy spokój i rekreację z wygodnym dojazdem do aglomeracji łódzkiej.
-                Do centrum Łodzi dojedziesz w około 30 minut, samochodem przez węzeł autostrady A1 w Strykowie
-                lub pociągiem Łódzkiej Kolei Aglomeracyjnej ze stacji Głowno. Do Warszawy trasa zajmuje około
-                godziny.
+                Do centrum Łodzi jest około 32 km, a węzeł autostrady A1 w Strykowie leży 11 km od osiedla.
+                Stacja kolejowa Głowno znajduje się 3 km dalej. Do Warszawy około 104 km.
               </p>
               <p>
                 Plażowa Park to propozycja zarówno na całoroczne mieszkanie blisko natury, jak i na apartament
@@ -143,10 +142,9 @@ export default function LokalizacjaPage() {
                 a sieć ścieżek rowerowych łączy osiedle z okolicznymi atrakcjami i brzegiem zbiornika.
               </p>
               <p>
-                Bliskość Łodzi, około 30 minut autostradą A1 przez węzeł Stryków lub koleją aglomeracyjną ŁKA ze
-                stacji Głowno, sprawia, że Plażowa Park to atrakcyjny adres nie tylko na całoroczne mieszkanie,
-                ale też na apartament rekreacyjny czy drugi dom nad wodą w zasięgu aglomeracji łódzkiej. Do
-                Warszawy dojedziesz w około godzinę.
+                Bliskość Łodzi, około 32 km autostradą A1 przez oddalony o 11 km węzeł Stryków, sprawia, że
+                Plażowa Park to atrakcyjny adres nie tylko na całoroczne mieszkanie, ale też na apartament
+                rekreacyjny czy drugi dom nad wodą w zasięgu aglomeracji łódzkiej. Do Warszawy około 104 km.
               </p>
             </div>
           </section>

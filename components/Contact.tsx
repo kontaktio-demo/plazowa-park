@@ -107,7 +107,7 @@ export default function Contact() {
             id="kontakt"
             title={
               <>
-                Umów prezentację <span className="accent-italic fg-accent">osiedla</span>
+                Umów prezentację <span className="fg-accent">osiedla</span>
               </>
             }
             lead="Zostaw kontakt albo zadzwoń. Pokażemy dostępne apartamenty, przekażemy cennik i harmonogram."

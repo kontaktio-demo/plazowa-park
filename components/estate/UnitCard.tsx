@@ -33,9 +33,6 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
           sizes="(max-width: 640px) 40vw, (max-width: 1280px) 50vw, 30vw"
           className="object-contain p-3 sm:p-5"
         />
-        <span className="t-meta-sm absolute bottom-2 left-2 hidden text-sand-50/60 sm:left-3 sm:bottom-3 sm:block">
-          Rzut poglądowy · typ {place.type}
-        </span>
       </Link>
 
       <div className="flex min-w-0 flex-1 flex-col p-3.5 sm:p-5">

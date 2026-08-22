@@ -63,7 +63,7 @@ export default function Nav() {
             </a>
             <a href="#lokale" data-track="book_viewing" className="btn btn-sun btn-sm hidden sm:inline-flex">
               Sprawdź dostępność
-              <span className="num ml-0.5 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-ink/15 px-1.5 text-[0.75rem] font-semibold">
+              <span className="num ml-0.5 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-ink/15 px-1.5 text-[0.75rem] font-medium">
                 {INVESTMENT.available}
               </span>
             </a>

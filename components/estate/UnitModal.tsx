@@ -55,7 +55,6 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
               sizes="(max-width: 640px) 100vw, 384px"
               className="object-contain p-6"
             />
-            <span className="t-meta-sm absolute bottom-3 left-4 text-sand-50/60">Rzut poglądowy · typ {place.type}</span>
           </div>
 
           <div className="p-6 sm:p-8">
