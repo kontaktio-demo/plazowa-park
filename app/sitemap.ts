@@ -5,7 +5,8 @@ import { unitSlug } from "@/lib/slug";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = SITE.url;
-  const now = new Date("2026-08-03");
+  // data budowania: sitemapa odswieza sie z kazdym deployem zamiast zastygac w przeszlosci
+  const now = new Date();
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: `${base}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },

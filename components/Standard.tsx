@@ -17,7 +17,7 @@ export default function Standard() {
           className="max-w-3xl"
         />
 
-        <div className="mt-12 grid grid-cols-2 gap-x-5 gap-y-7 sm:gap-x-6 sm:gap-y-10 lg:mt-14 lg:grid-cols-4 lg:gap-x-10" data-reveal="stagger">
+        <div className="mt-12 grid grid-cols-2 gap-x-5 gap-y-7 sm:gap-x-6 sm:gap-y-10 lg:mt-14 lg:grid-cols-5 lg:gap-x-8" data-reveal="stagger">
           {STANDARD.map((f, i) => (
             <div key={f.title} style={{ transitionDelay: `${Math.min(i, 8) * 60}ms` }}>
               <div className="flex items-center gap-3">
