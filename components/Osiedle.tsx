@@ -98,11 +98,6 @@ export default function Osiedle() {
             );
           })}
         </div>
-
-        <p className="t-meta-sm fg-muted mt-12 text-center">
-          <span className="mr-2 inline-block h-2 w-2 translate-y-px bg-sun" aria-hidden />
-          Okno połaciowe oznacza poddasze zawarte w cenie, nieliczone do metrażu
-        </p>
       </div>
     </section>
   );

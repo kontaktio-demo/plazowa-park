@@ -13,6 +13,16 @@ type Errors = Partial<Record<"name" | "phone" | "email" | "rodo", string>>;
 
 const RE_MAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+/**
+ * Web3Forms odbiera zgłoszenie i przekazuje je na skrzynkę biura sprzedaży.
+ * Wysyłka musi iść z przeglądarki: na darmowym planie usługa odrzuca wywołania
+ * serwerowe ("Use our API in client side"), więc pośrednik po naszej stronie
+ * zwracałby 403 przy każdym leadzie. Klucz jest z założenia publiczny -
+ * Web3Forms podaje go we własnych przykładach w kodzie klienta.
+ */
+const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
+const WEB3FORMS_KEY = "8b25ae77-e757-42ae-9666-cb2f6d7ce657";
+
 function validate(d: Record<string, string>): Errors {
   const e: Errors = {};
   if (!d.name || d.name.trim().length < 2) e.name = "Podaj imię i nazwisko, żebyśmy wiedzieli, z kim rozmawiamy";
@@ -56,18 +66,33 @@ export default function Contact() {
     setState("sending");
     setFailed("");
     try {
-      const res = await fetch("/api/lead", {
+      const res = await fetch(WEB3FORMS_ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: data.unit
+            ? `Zapytanie o ${data.unit} - ${data.name}`
+            : `Zapytanie ze strony Plażowa Park - ${data.name}`,
+          from_name: "Plażowa Park",
+          replyto: data.email,
+          botcheck: "",
+          "Imię i nazwisko": data.name,
+          Telefon: data.phone,
+          "E-mail": data.email,
+          Apartament: data.unit || "nie wskazano",
+          Wiadomość: data.message || "brak",
+          "Zgoda RODO": data.rodo ? "tak" : "nie",
+        }),
       });
-      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || "Nie udało się wysłać zgłoszenia");
+      const out = (await res.json().catch(() => ({}))) as { success?: boolean };
+      if (!res.ok || !out.success) throw new Error("provider");
       track("generate_lead", { unit: String(data.unit || "") });
       setState("ok");
       form.reset();
       setUnit("");
-    } catch (err) {
-      setFailed(err instanceof Error ? err.message : "Spróbuj ponownie za chwilę");
+    } catch {
+      setFailed("Nie udało się wysłać zgłoszenia. Zadzwoń do nas albo spróbuj ponownie za chwilę.");
       setState("error");
     }
   };
