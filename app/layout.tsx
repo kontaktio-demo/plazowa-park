@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Schibsted_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { SITE } from "@/lib/data/site";
 import SiteMotion from "@/components/SiteMotion";
@@ -7,21 +7,21 @@ import CookieConsent from "@/components/CookieConsent";
 import JsonLd from "@/components/JsonLd";
 import Analytics from "@/components/Analytics";
 
-// bez osi SOFT/WONK/opsz - nigdzie ich nie ustawiamy, a same osie kosztują setki KB
-// tylko waga 600 - zmienny Fraunces ciagnie caly zakres 100-900, a nigdzie indziej
-// go nie uzywamy; statyczna instancja jest kilka razy lzejsza na sciezce krytycznej
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+// Inter Tight w nagłówkach - twardy, wąski grotesk z pierwszej wersji strony.
+// Pinujemy wagi: zmienny krój ciągnąłby cały zakres 100-900, a używamy 600.
+const interTight = Inter_Tight({
+  variable: "--font-inter-tight",
   subsets: ["latin", "latin-ext"],
-  style: ["normal", "italic"],
   weight: ["600"],
   display: "swap",
 });
 
-const schibsted = Schibsted_Grotesk({
-  variable: "--font-schibsted",
+// 400 i 500 wystarczaja: waga 600 wystepuje wylacznie na nagłówkach, a te sa
+// skladane Inter Tight, nie Interem
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -106,7 +106,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pl" className={`${fraunces.variable} ${schibsted.variable} ${jetbrains.variable}`}>
+    <html lang="pl" className={`${interTight.variable} ${inter.variable} ${jetbrains.variable}`}>
       <body>
         <JsonLd />
         <Analytics />

@@ -96,7 +96,7 @@ export function unitDescription(u: Unit): string[] {
     "Ponad 100-letni sosnowy las otacza inwestycję, dając cień i czyste powietrze przez cały rok.",
     "W sąsiedztwie działa Central Wake Park, jeden z najważniejszych ośrodków wakeboardingu w Polsce.",
     "Ścieżki rowerowe wokół zalewu i w lesie zachęcają do codziennej rekreacji tuż za progiem.",
-    "Do centrum Łodzi dojedziesz w około 30 minut - autostradą A1 przez węzeł Stryków lub koleją aglomeracyjną ŁKA ze stacji Głowno.",
+    "Do centrum Łodzi jest około 32 km autostradą A1 przez węzeł Stryków, oddalony o 11 km od osiedla.",
     "Restauracje, szkoły i przychodnie w Głownie znajdują się w krótkim dystansie od osiedla.",
   ];
   // Independent dispersion: each slot is driven by a DIFFERENT real attribute

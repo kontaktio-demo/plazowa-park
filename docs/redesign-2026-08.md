@@ -414,3 +414,94 @@ Co przy tym zniknęło i trzeba mieć świadomość: limit pięciu zgłoszeń na
 druga kopia leada w logach serwera działały tylko w endpoincie. Ochronę
 antyspamową przejmuje teraz Web3Forms (honeypot `botcheck` jest wysyłany),
 a rejestrem zgłoszeń jest panel Web3Forms.
+
+---
+
+## 10. Powrót do Inter Tight i pełna weryfikacja faktów (2026-08-23)
+
+### Typografia
+
+Na polecenie wróciliśmy do kroju z pierwszej wersji strony: **Inter Tight**
+w nagłówkach i **Inter** w tekście. JetBrains Mono w warstwie danych zostaje.
+
+Konsekwencja, o której trzeba wiedzieć: **Inter Tight nie ma prawdziwej kursywy**.
+Akcenty w H1 hero i w nagłówku kontaktu były wcześniej złożone kursywą Fraunces;
+teraz niosą je wyłącznie kolorem (`lake-300` na ciemnym, `lake-700` na jasnym).
+Klasa `.accent-italic` została usunięta, żeby nikt jej przypadkiem nie użył
+i nie wrócił do syntetycznej kursywy.
+
+Metryki przestrojone pod nowy krój: Inter Tight ma większą wysokość x i jest
+gęstszy, więc leading poszedł w górę (1,02 zamiast 0,95 w display-xl), a tracking
+w dół (-0,035em). Rozmiary lekko zmniejszone, bo przy tej samej wartości Inter
+Tight wygląda okazalej niż serif.
+
+Koszt wydajnościowy: **Lighthouse mobile 90 → 88**. Inter to cięższa rodzina niż
+statyczny Fraunces 600, fontów ładuje się 234 KB zamiast ~150 KB. Próg z briefu
+(≥85) nadal z zapasem. Waga 600 Intera została wycięta, bo występowała w jednym
+miejscu i dało się ją zastąpić 500; nagłówki i tak składa Inter Tight.
+
+### Weryfikacja każdej informacji na stronie
+
+Przegląd zrobiony pod kątem „klient nie może znaleźć ani jednej nieścisłości".
+
+**Dane lokali - 20 lokali × 8 pól porównane z API konfiguratora:** cena, cena za
+m², metraż, ogród, pokoje, kondygnacje, status, przypisanie do budynku. Zero
+rozbieżności. Agregaty (liczba lokali, dostępność, liczba budynków, min/max ceny,
+metraży i pokoi) przeliczone niezależnie z danych i zgodne. To samo dla sześciu
+budynków: liczebność, dostępność, cena od, zakres metraży.
+
+**Skąd „18":** w konfiguratorze dewelopera **5.2A i 5.2B mają status `reserved`**.
+20 lokali, 18 wolnych. Licznik zmieniony na „18 z 20", bo samo „18" dawało się
+odczytać jako liczbę apartamentów w inwestycji.
+
+**Typologia:** twierdzenie „budynki narożne (1 i 2, 4 i 5, 6 i 7, 9 i 10) po cztery
+apartamenty 82-94 m² na dwóch kondygnacjach, środkowe (3, 8) po dwa
+pięciopokojowe do 133 m²" sprawdzone lokal po lokalu. Zgadza się: 16 lokali
+w narożnych po 4 na budynek (82,05-94,42 m², 4 pokoje, 2 kondygnacje),
+4 w środkowych po 2 na budynek (127,28-133,03 m², 5 pokoi).
+
+**Dane rejestrowe dewelopera** sprawdzone w oficjalnych źródłach, nie przepisane:
+
+| | nasza strona | KRS / Biała lista MF |
+|---|---|---|
+| nazwa | KS Prestige Development Sp. z o.o. | KS PRESTIGE DEVELOPMENT SPÓŁKA Z O.O. |
+| KRS | 0001031916 | 0001031916 |
+| NIP | 7331366052 | 7331366052 |
+| REGON | 525091200 | 525091200 |
+| adres | ul. Mikołaja Kopernika 30A, 95-015 Głowno | MIKOŁAJA KOPERNIKA 30A, 95-015 GŁOWNO |
+| status VAT | Czynny | Czynny (stan na 2026-08-23) |
+
+**Współrzędne** `51.9593, 19.7255` sprawdzone odwrotnym geokodowaniem: ul. Plażowa,
+Głowno, 95-015, powiat zgierski, województwo łódzkie. Zgadza się z adresem
+w danych, w schema.org i w metatagach geo.
+
+**Twierdzenia jakościowe** (poddasze w cenie i poza metrażem, dwa miejsca
+postojowe, cztery lokale z garażem, prywatne wejście, pompy ciepła, ogrzewanie
+podłogowe, rekuperacja i fotowoltaika jako opcja, panoramiczne okna, elastyczna
+cegła, blacha na rąbek, 30-hektarowy zbiornik, ponad 100-letni las, Central Wake
+Park, wydmy śródlądowe) - każde odnalezione dosłownie na stronie dewelopera.
+
+### Co było nieprawdą i zostało poprawione
+
+Strona twierdziła: „do centrum Łodzi około **30 minut**", „do Warszawy około
+**godzinę**", „koleją aglomeracyjną **ŁKA** ze stacji Głowno". Żadnego z tych
+zdań nie ma na stronie dewelopera - powstały wcześniej bez źródła.
+
+Sprawdzenie routingiem (OSRM, czas bez korków, czyli wariant optymistyczny):
+
+| twierdzenie | stan faktyczny |
+|---|---|
+| ~30 minut do centrum Łodzi | **41 min, 32,4 km** |
+| ~godzina do Warszawy | **79 min, 103,9 km** |
+| węzeł A1 Stryków | 13 min, 11,3 km |
+
+Czasy były zaniżone o jedną trzecią. Zastąpione **odległościami**, które nie
+zależą od korków i dają się zweryfikować: około 32 km do centrum Łodzi, węzeł A1
+Stryków 11 km, około 104 km do Warszawy.
+
+Nazwa przewoźnika **ŁKA usunięta** - nie udało się jej potwierdzić u źródła.
+Zostało zweryfikowane: stacja kolejowa Głowno istnieje (OpenStreetMap, operator
+PKP PLK) i leży **3 km od osiedla**; jest też przystanek Głowno Północne.
+
+Poprawki objęły `/lokalizacja` (meta description, kafle tematyczne, dwa akapity)
+oraz generator opisów lokali `lib/unitCopy.ts`, czyli wszystkie 20 podstron.

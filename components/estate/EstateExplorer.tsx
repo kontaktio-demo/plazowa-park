@@ -82,7 +82,15 @@ export default function EstateExplorer() {
             </p>
 
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              <Kpi value={<CountUp to={INVESTMENT.available} />} label="dostępnych" />
+              <Kpi
+                value={
+                  <>
+                    <CountUp to={INVESTMENT.available} />
+                    <span className="fg-muted"> z {INVESTMENT.totalUnits}</span>
+                  </>
+                }
+                label="dostępnych"
+              />
               <Kpi value={<CountUp to={INVESTMENT.buildingsCount} />} label="budynków" />
               <Kpi value={plnShort(INVESTMENT.priceMin)} label="cena od" small />
             </div>

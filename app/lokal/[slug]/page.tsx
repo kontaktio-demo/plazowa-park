@@ -138,9 +138,6 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                   className="object-contain p-8"
                   priority
                 />
-                <span className="t-meta-sm absolute bottom-4 left-4 text-sand-50/60">
-                  Rzut poglądowy · typ {place.type}
-                </span>
               </div>
               <div className="mt-3 grid grid-cols-3 gap-3">
                 {galleryImgs.map((g) => (

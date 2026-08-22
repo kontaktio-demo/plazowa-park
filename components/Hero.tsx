@@ -37,7 +37,7 @@ export default function Hero() {
             <span className="rise-y block" style={{ animationDelay: "0ms" }}>
               Apartamenty nad
             </span>
-            <span className="rise-y accent-italic block text-lake-300" style={{ animationDelay: "90ms" }}>
+            <span className="rise-y block text-lake-300" style={{ animationDelay: "90ms" }}>
               Zalewem Mrożyczka
             </span>
           </h1>
