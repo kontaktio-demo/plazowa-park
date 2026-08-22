@@ -49,6 +49,7 @@ export const POI = [
   { name: "Ponad 100-letni las", desc: "Sosnowy drzewostan otaczający osiedle", dist: "wokół osiedla", cat: "natura" },
   { name: "Plaża i kąpielisko", desc: "Wypoczynek nad wodą w sezonie letnim", dist: "przy osiedlu", cat: "natura" },
   { name: "Ścieżki rowerowe", desc: "Trasy rekreacyjne wokół zalewu i w lesie", dist: "przy osiedlu", cat: "sport" },
+  { name: "Wydmy śródlądowe", desc: "Unikalny w skali kraju zespół wydm śródlądowych", dist: "w okolicy", cat: "natura" },
   { name: "Restauracje, szkoły, przychodnie", desc: "Codzienne usługi w Głownie", dist: "krótki dystans", cat: "usługi" },
 ] as const;
 
@@ -65,6 +66,8 @@ export const STANDARD = [
   { title: "Materiały premium", desc: "Elastyczna cegła, tynk najwyższej klasy i blacha na rąbek stojący.", icon: "brick" },
   { title: "Prywatny ogród i taras", desc: "Własna zielona przestrzeń przy każdym apartamencie.", icon: "garden" },
   { title: "2 miejsca postojowe", desc: "Dwa miejsca na lokal; cztery lokale z własnym garażem.", icon: "car" },
+  { title: "Prywatne wejście", desc: "Każde mieszkanie ma własne, niezależne wejście.", icon: "door" },
+  { title: "Wykończenie pod klucz", desc: "Personalizacja projektu i wykończenia na etapie budowy.", icon: "pencil", optional: true },
 ] as const;
 
 export const FINANCE_STEPS = [

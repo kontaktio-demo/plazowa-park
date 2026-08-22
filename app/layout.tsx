@@ -8,16 +8,20 @@ import JsonLd from "@/components/JsonLd";
 import Analytics from "@/components/Analytics";
 
 // bez osi SOFT/WONK/opsz - nigdzie ich nie ustawiamy, a same osie kosztują setki KB
+// tylko waga 600 - zmienny Fraunces ciagnie caly zakres 100-900, a nigdzie indziej
+// go nie uzywamy; statyczna instancja jest kilka razy lzejsza na sciezce krytycznej
 const fraunces = Fraunces({
   variable: "--font-fraunces",
   subsets: ["latin", "latin-ext"],
   style: ["normal", "italic"],
+  weight: ["600"],
   display: "swap",
 });
 
 const schibsted = Schibsted_Grotesk({
   variable: "--font-schibsted",
   subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 

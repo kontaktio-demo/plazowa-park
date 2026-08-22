@@ -274,3 +274,101 @@ wymianie materiałów źródłowych — skrypt kasuje pliki wejściowe.
 5. **README** opisuje stan sprzed redesignu (wideo w hero, galeria z lightboxem,
    sekcja finansowania, `middleware.ts`). Nie aktualizowałem go, bo brief dotyczył
    warstwy wizualnej — do zrobienia przy okazji.
+
+---
+
+## 8. Audyt przed przepięciem domeny (2026-08-22)
+
+Porównanie z żywą stroną dewelopera `plazowa-park.pl` i z jego konfiguratorem
+(SenseVR / Qupto, API `backend.quptos.sensevr.pl/api/0/investment/214`).
+
+### Dane lokali
+
+Ceny, metraże, ogrody, liczby pokoi, rzuty i miniatury: **zgodne co do złotówki
+i co do metra** z konfiguratorem. Rozjechał się jeden wymiar - statusy sprzedaży:
+**5.2A i 5.2B są zarezerwowane**, a strona pokazywała wszystkie 20 lokali jako
+dostępne. Licznik w headerze to teraz 18.
+
+Powstał `scripts/sync-units.mjs`, który zaciąga API i przepisuje `lib/data/units.ts`
+razem z agregatami (dostępność budynków, licznik inwestycji). Statusy zmieniają się
+najczęściej ze wszystkich danych, więc to jedyne miejsce, w którym strona realnie
+może się rozjechać z rzeczywistością. Uruchamiać przed każdą większą kampanią.
+
+Skrypt sprawdza też, czy plik rzutu faktycznie istnieje na CDN dewelopera:
+**dla 3.3A, 5.2A i 7.2A go nie ma** (API podaje adres, serwer zwraca 404). Bez tej
+weryfikacji przycisk „Rzut PDF" prowadziłby w pustkę; teraz dla tych trzech lokali
+po prostu się nie pokazuje. Do zgłoszenia deweloperowi.
+
+### Spacer 360
+
+Klient miał rację, że jest nowa wersja. Stan faktyczny na CDN:
+
+| wersja | zawartość |
+|---|---|
+| v1 | pełny spacer, tej używaliśmy |
+| v2, v3 | nie istnieją |
+| v4 | pełny spacer, przerenderowane panoramy, inne kadry startowe i hotspoty |
+| v5 | **pusty manifest** (`viewer-manifest.json` to dosłownie `{}`), brak kafli |
+
+API konfiguratora wskazuje jako bieżący **v5**, czyli wersję bez zawartości. Oznacza
+to, że spacer jest po stronie dewelopera w trakcie publikacji albo zepsuty.
+Przepięliśmy się na **v4** - najnowszą, która faktycznie ma panoramy; wszystkie
+14 scen i kafle zweryfikowane. Gdy v5 zostanie opublikowany, wystarczy podmienić
+`base` w `lib/data/tour360.json`.
+
+### Treści, których nie mieliśmy
+
+Ze strony dewelopera doszły dwa realne fakty: **prywatne wejście do każdego
+mieszkania** i **personalizacja wykończenia pod klucz** (u nas była tylko w opisie
+lokalu, nie w standardzie). Siatka standardu ma teraz 10 kafli w dwóch rzędach po
+pięć. Do punktów w okolicy doszły **wydmy śródlądowe**, które deweloper eksponuje
+jako unikalne w skali kraju.
+
+**Nie przenieśliśmy** promocji „10% rabatu na zakupy w CBG" z paska na ich stronie -
+skrót CBG nie jest nigdzie rozwinięty i nie zgaduję, co znaczy. Do decyzji klienta.
+
+### SEO i gotowość na domenę
+
+Naprawione w tej rundzie:
+
+- **OG image** był jeszcze ze starej identyfikacji (Inter, złoty akcent). Nowy jest
+  renderowany realnymi krojami strony, więc zgadza się z nią co do piksela.
+- **Manifest PWA** miał kolory starej palety (`#f4f4f2` / `#2b2e33`). Teraz `abyss`.
+- **Favicon** też był w starej palecie (grafit i mosiądz) - teraz abyss i `lake-300`.
+- **Sitemap** miała `lastModified` zamrożone na 2026-08-03; teraz data builda.
+- **Dane strukturalne**: `FAQPage` i `ItemList` całej inwestycji leciały na *każdej*
+  podstronie, także tam, gdzie tej treści nie ma. To naruszenie wytycznych Google dla
+  danych strukturalnych. Graf jest rozdzielony: tożsamość firmy globalnie, FAQ,
+  lista lokali i oferta zbiorcza wyłącznie na stronie głównej.
+
+Zweryfikowane jako gotowe: canonical na `plazowa-park.pl`, OG i Twitter komplet,
+sitemap 25 adresów, robots, manifest, favicon, 404 z `noindex`, wszystkie 35
+wewnętrznych adresów zwracają 200, kafle Esri odpowiadają.
+
+Host-allowlista w `proxy.ts` jest przygotowana pod przepięcie: `plazowa-park.pl`
+i `www` będą indeksowalne, a każdy inny host (w tym `*.vercel.app`) dostaje
+`X-Robots-Tag: noindex, nofollow` - zweryfikowane nagłówkami.
+
+### Wydajność
+
+Fraunces ładował się jako font zmienny z pełnym zakresem wag 100-900, choć używamy
+wyłącznie 600. Po przypięciu wag payload fontów spadł do 252 KB, a **Lighthouse
+mobile wzrósł z 85 na 90**.
+
+| | wynik |
+|---|---|
+| Lighthouse mobile | **90 / 100 / 100 / 100** |
+| Lighthouse desktop | **74 / 100 / 100 / 100** |
+
+Desktop jest niżej niż mobile, bo Lighthouse ocenia tam LCP dużo ostrzej (próg
+„dobry" to ok. 1,2 s zamiast 2,5 s). Elementem LCP jest kursywa w H1, która lokalnie
+maluje się w 136 ms, a w symulacji czeka na plik fontu. To nieodłączna cena serifu
+display w nagłówku; na CDN z HTTP/2 i cache fontów będzie wyraźnie lepiej.
+Warto zweryfikować na produkcji po przepięciu.
+
+### Poster spaceru
+
+Podbity Higgsfieldem z 1376×768 do 2400×1344. Sekcja jest pełnoekranowa, więc
+poprzedni plik był rozciągany. Porównanie wycinków przed i po: ta sama scena, te
+same drzewa i ten sam szczyt budynku, doszła realna faktura cegły i kory - żaden
+element nie został dorysowany.

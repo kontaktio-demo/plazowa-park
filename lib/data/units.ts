@@ -95,7 +95,7 @@ export const UNITS: Unit[] = [
     "price": 925000,
     "pricePerM": 6953,
     "status": "available",
-    "planUrl": "https://quptos-web-data.sensevr.pl/ver_2_3/C1/I214/units/units_unitplan/v1/3.3A.pdf",
+    "planUrl": null,
     "viewThumb": "L_0005_B5.jpg"
   },
   {
@@ -162,8 +162,8 @@ export const UNITS: Unit[] = [
     "floors": 2,
     "price": 751000,
     "pricePerM": 8098,
-    "status": "available",
-    "planUrl": "https://quptos-web-data.sensevr.pl/ver_2_3/C1/I214/units/units_unitplan/v1/5.2A.pdf",
+    "status": "reserved",
+    "planUrl": null,
     "viewThumb": "L_0003_B3.jpg"
   },
   {
@@ -179,7 +179,7 @@ export const UNITS: Unit[] = [
     "floors": 2,
     "price": 666000,
     "pricePerM": 8117,
-    "status": "available",
+    "status": "reserved",
     "planUrl": "https://quptos-web-data.sensevr.pl/ver_2_3/C1/I214/units/units_unitplan/v1/5.2B.pdf",
     "viewThumb": "L_0004_B4.jpg"
   },
@@ -231,7 +231,7 @@ export const UNITS: Unit[] = [
     "price": 725000,
     "pricePerM": 7818,
     "status": "available",
-    "planUrl": "https://quptos-web-data.sensevr.pl/ver_2_3/C1/I214/units/units_unitplan/v1/7.2A.pdf",
+    "planUrl": null,
     "viewThumb": "L_0003_B3.jpg"
   },
   {
@@ -354,6 +354,7 @@ export const UNITS: Unit[] = [
     "viewThumb": "L_0004_B4.jpg"
   }
 ];
+
 export const BUILDINGS: Building[] = [
   {
     "stageId": 529,
@@ -394,7 +395,7 @@ export const BUILDINGS: Building[] = [
     "letter": "E",
     "label": "4 i 5",
     "count": 4,
-    "available": 4,
+    "available": 2,
     "priceFrom": 664000,
     "areaFrom": 82.05,
     "areaTo": 94.42,
@@ -460,9 +461,10 @@ export const BUILDINGS: Building[] = [
     ]
   }
 ];
+
 export const INVESTMENT = {
   "totalUnits": 20,
-  "available": 20,
+  "available": 18,
   "buildingsCount": 6,
   "priceMin": 633000,
   "priceMax": 926000,
