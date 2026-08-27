@@ -505,3 +505,83 @@ PKP PLK) i leży **3 km od osiedla**; jest też przystanek Głowno Północne.
 
 Poprawki objęły `/lokalizacja` (meta description, kafle tematyczne, dwa akapity)
 oraz generator opisów lokali `lib/unitCopy.ts`, czyli wszystkie 20 podstron.
+
+## 11. Kategoria „mieszkania i domy" i poster spaceru (2026-08-27)
+
+### Dlaczego zmiana nazewnictwa
+
+Inwestycja będzie reklamowana jako **mieszkania i domy**, nie jako
+„apartamenty". Copywriting zostaje bez zmian (nadal „apartament X" w nagłówkach
+i opisach - to termin sprzedażowy), zmienia się natomiast wszystko, co widzi
+robot i co trafia do reklam: tytuły stron, adresy, kotwice, etykiety linków,
+manifest i dane strukturalne.
+
+| co | przed | po |
+|---|---|---|
+| trasa podstron lokali | `/lokal/[slug]` | `/mieszkania-i-domy/[slug]` |
+| kotwica sekcji | `#lokale` | `#mieszkania-i-domy` |
+| link w menu | Apartamenty | Mieszkania i domy |
+| `<title>` strony głównej | Apartamenty nad Zalewem... | Mieszkania i domy nad Zalewem... |
+| `<title>` podstrony lokalu | Apartament 1.1A - 94,42 m² z ogrodem | Mieszkanie 1.1A - 94,42 m² z ogrodem i tarasem |
+| `og:title` | ...apartamenty na sprzedaż... | ...mieszkania i domy na sprzedaż... |
+| manifest `name` | ...apartamenty nad Zalewem... | ...mieszkania i domy nad Zalewem... |
+| `ItemList`, `RealEstateListing`, `BreadcrumbList` | Apartamenty / Wybierz dom | Mieszkania i domy |
+
+Słowa kluczowe przestawione: prowadzą teraz „mieszkania i domy Głowno",
+„mieszkania na sprzedaż Głowno", „domy na sprzedaż Głowno".
+
+`robots.txt` i `proxy.ts` bez zmian - reguła indeksowania jest oparta o host,
+nie o ścieżki. Sitemapa generuje się z `UNITS`, więc dwadzieścia nowych adresów
+weszło do niej automatycznie (zweryfikowane: 20 wpisów `/mieszkania-i-domy/`).
+
+Stare adresy `/lokal/...` zwracają 404 i **nie potrzebują przekierowania**:
+nigdy nie były publiczne. Domena wciąż serwuje starego WordPressa, a alias
+`*.vercel.app` chodzi z `X-Robots-Tag: noindex`, więc Google ich nie zna.
+
+Nagłówek przy 1280 px wychodził 6 px poza kontener po wydłużeniu etykiety menu.
+Ściągnięte odstępy między pozycjami (`gap-x-5`, pełne `gap-x-7` dopiero od
+`2xl`); odstęp telefon - żółty przycisk został zachowany (`xl:mr-5`).
+
+### Poster sekcji „Spacer 360"
+
+Wcześniej stał tam render wygenerowany przez nas - ładny, ale pokazujący
+architekturę, której w Plażowej nie ma. Zastąpiony **prawdziwym renderem
+dewelopera** z plazowa-park.pl (`/wp-content/uploads/2026/04/01b.webp`, materiał
+inwestora - nie zdjęcie osoby trzeciej, więc bez podpisu autorskiego).
+
+Wybór z sześciu kandydatów, oceniany już pod nakładką sekcji
+(`bg-abyss/55` + gradient), bo jasny render dzienny robi się pod nią szary.
+Wygrał kadr wieczorny z podświetlonymi oknami i sosnowym lasem w tle.
+
+Proporcja **1:1 zamiast 16:9**. Sekcja ma `min-h: 78-88svh`, więc przy szerokim
+posterze `object-cover` skalował go na telefonie ponad dwukrotnie w górę -
+next/image dobierał wariant 480 px na kadr wymagający ~990 px. Kwadrat
+ogranicza to przycięcie. Dodatkowo `sizes="(max-width: 767px) 200vw, 100vw"`,
+bo przy `100vw` przeglądarka liczy zapotrzebowanie z szerokości viewportu i
+ignoruje pionowe skalowanie `object-cover`. Efekt: wariant 1024 px zamiast
+480 px, poster 217 KB (poprzednio 384 KB).
+
+### Znaleziona przy okazji nieprawda
+
+W `lib/unitCopy.ts` została jedna deklaracja czasu dojazdu, której nie złapała
+weryfikacja z 2026-08-23: „dojazdu do Łodzi w około **pół godziny**". Poprzedni
+przegląd szukał wzorca „30 min", a nie zapisu słownego. Zastąpione odległością
+(„w granicach 32 km"), zgodnie z ustaleniem z sekcji 10.
+
+### Pomiary
+
+Lighthouse, ten sam build, przed i po zmianach:
+
+| | perf | a11y | best practices | SEO | LCP |
+|---|---|---|---|---|---|
+| mobile przed | 86 | 100 | 100 | 100 | 4,1 s |
+| mobile po | **87** | 100 | 100 | 100 | 4,1 s |
+| desktop przed | 99 | 100 | 100 | 100 | 0,9 s |
+| desktop po | **99** | 100 | 100 | 100 | 0,9 s |
+
+Uwaga do sekcji 5: podane tam „mobile 90" pochodziło z wersji na Fraunces.
+Po powrocie do Inter Tight punktem odniesienia jest 86.
+
+`gitleaks` zgłasza jedno trafienie - publiczny klucz Web3Forms w
+`components/Contact.tsx`. To fałszywy alarm: na darmowym planie klucz musi
+siedzieć w kodzie klienta, a Web3Forms sam opisuje go jako publiczny.

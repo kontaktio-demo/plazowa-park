@@ -23,26 +23,26 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const u = unitBySlug(slug);
   if (!u) return { title: "Lokal nie znaleziony" };
   const desc = unitMetaDescription(u);
-  const ogTitle = `Apartament ${u.name} - Plażowa Park Głowno`;
+  const ogTitle = `Mieszkanie ${u.name} - Plażowa Park Głowno`;
   return {
-    title: `Apartament ${u.name} - ${area(u.area)} z ogrodem`,
+    title: `Mieszkanie ${u.name} - ${area(u.area)} z ogrodem i tarasem`,
     description: desc,
-    alternates: { canonical: `/lokal/${slug}` },
+    alternates: { canonical: `/mieszkania-i-domy/${slug}` },
     openGraph: {
       type: "website",
       locale: "pl_PL",
-      url: `${SITE.url}/lokal/${slug}`,
+      url: `${SITE.url}/mieszkania-i-domy/${slug}`,
       siteName: "Plażowa Park",
       title: ogTitle,
       description: desc,
-      images: [{ url: "/og.jpg", width: 1200, height: 630, alt: `Apartament ${u.name} - Plażowa Park w Głownie` }],
+      images: [{ url: "/og.jpg", width: 1200, height: 630, alt: `Mieszkanie ${u.name} - Plażowa Park w Głownie` }],
     },
     twitter: { card: "summary_large_image", title: ogTitle, description: desc, images: ["/og.jpg"] },
   };
 }
 
 const galleryImgs = [
-  { src: "/renders/tour-poster.webp", alt: "Uliczka osiedla Plażowa Park w sosnowym lesie" },
+  { src: "/renders/tour-poster.webp", alt: "Budynek osiedla Plażowa Park o zmierzchu w sosnowym lesie" },
   { src: "/renders/zycie.webp", alt: "Taras i prywatny ogród apartamentu Plażowa Park" },
   { src: "/map/estate-frame.webp", alt: "Plan osiedla Plażowa Park z lotu ptaka" },
 ];
@@ -61,7 +61,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
   const inquireHref = `/?lokal=${encodeURIComponent(`Apartament ${u.name}`)}#kontakt`;
   const paras = unitDescription(u);
 
-  const unitUrl = `${SITE.url}/lokal/${slug}`;
+  const unitUrl = `${SITE.url}/mieszkania-i-domy/${slug}`;
   const metaDesc = unitMetaDescription(u);
   const address = {
     "@type": "PostalAddress",
@@ -101,7 +101,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Strona główna", item: SITE.url },
-          { "@type": "ListItem", position: 2, name: "Apartamenty", item: `${SITE.url}/#lokale` },
+          { "@type": "ListItem", position: 2, name: "Mieszkania i domy", item: `${SITE.url}/#mieszkania-i-domy` },
           { "@type": "ListItem", position: 3, name: `Apartament ${u.name}`, item: unitUrl },
         ],
       },
@@ -120,8 +120,8 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
               Strona główna
             </Link>
             <span aria-hidden>/</span>
-            <Link href="/#lokale" className="hover:text-lake-700">
-              Apartamenty
+            <Link href="/#mieszkania-i-domy" className="hover:text-lake-700">
+              Mieszkania i domy
             </Link>
             <span aria-hidden>/</span>
             <span className="fg">Apartament {u.name}</span>
@@ -218,7 +218,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
             <h2 className="t-display-m">Zobacz też</h2>
             <div className="mt-8 grid gap-5 sm:grid-cols-3">
               {rel.map((r) => (
-                <Link key={r.id} href={`/lokal/${unitSlug(r.name)}`} className="card card-hover p-5">
+                <Link key={r.id} href={`/mieszkania-i-domy/${unitSlug(r.name)}`} className="card card-hover p-5">
                   <span className="t-title block">Apartament {r.name}</span>
                   <span className="t-meta-sm fg-muted num mt-3 block">
                     {area(r.area)} · ogród {area(r.garden)}
@@ -227,8 +227,8 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                 </Link>
               ))}
             </div>
-            <Link href="/#lokale" className="link-underline t-meta fg-accent mt-8 inline-flex items-center gap-2">
-              <Icon.arrow width={16} height={16} className="rotate-180" /> Wszystkie apartamenty
+            <Link href="/#mieszkania-i-domy" className="link-underline t-meta fg-accent mt-8 inline-flex items-center gap-2">
+              <Icon.arrow width={16} height={16} className="rotate-180" /> Wszystkie mieszkania i domy
             </Link>
           </div>
         </div>

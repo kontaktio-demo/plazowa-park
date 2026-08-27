@@ -35,7 +35,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 const description =
-  "Nowe apartamenty 82-133 m² z ogrodem i tarasem nad Zalewem Mrożyczka w Głownie. Blisko lasu i Central Wake Park. Ceny od 633 000 zł. Sprawdź dostępne lokale.";
+  "Nowe mieszkania i domy 82-133 m² z ogrodem i tarasem nad Zalewem Mrożyczka w Głownie. Blisko lasu i Central Wake Park. Ceny od 633 000 zł. Sprawdź dostępne lokale.";
 
 // Preview/branch deploys (VERCEL_ENV=preview) stay out of the index; the
 // production alias *.vercel.app is handled by middleware (X-Robots-Tag).
@@ -44,25 +44,25 @@ const isPreview = process.env.VERCEL_ENV === "preview";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "Apartamenty nad Zalewem Mrożyczka w Głownie | Plażowa Park",
+    default: "Mieszkania i domy nad Zalewem Mrożyczka w Głownie | Plażowa Park",
     template: "%s | Plażowa Park",
   },
   description,
   applicationName: "Plażowa Park",
   authors: [{ name: "KS Prestige Development" }],
   keywords: [
-    "apartamenty Głowno",
+    "mieszkania i domy Głowno",
     "mieszkania na sprzedaż Głowno",
+    "domy na sprzedaż Głowno",
     "nowe mieszkania nad Zalewem Mrożyczka",
+    "domy nad wodą łódzkie",
     "Plażowa Park",
-    "domy Głowno",
     "nowa inwestycja Głowno",
-    "apartamenty nad wodą łódzkie",
-    "apartamenty w lesie Głowno",
     "mieszkania z ogrodem i tarasem Głowno",
+    "domy w lesie Głowno",
     "osiedle Głowno powiat zgierski",
     "nieruchomości nad zalewem łódzkie",
-    "apartamenty Central Wake Park",
+    "apartamenty Głowno",
     "KS Prestige Development",
   ],
   alternates: { canonical: "/" },
@@ -71,13 +71,13 @@ export const metadata: Metadata = {
     locale: "pl_PL",
     url: SITE.url,
     siteName: "Plażowa Park",
-    title: "Plażowa Park - apartamenty na sprzedaż w Głownie nad Zalewem Mrożyczka",
+    title: "Plażowa Park - mieszkania i domy na sprzedaż w Głownie nad Zalewem Mrożyczka",
     description,
     images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Plażowa Park - osiedle nad Zalewem Mrożyczka w Głownie" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Plażowa Park - apartamenty na sprzedaż w Głownie nad Zalewem Mrożyczka",
+    title: "Plażowa Park - mieszkania i domy na sprzedaż w Głownie nad Zalewem Mrożyczka",
     description,
     images: ["/og.jpg"],
   },

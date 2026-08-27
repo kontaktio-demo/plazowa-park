@@ -98,7 +98,7 @@ export function HomeJsonLd() {
           "@id": `${SITE.url}/#osiedle`,
           name: "Plażowa Park",
           description:
-            "Osiedle 20 apartamentów 82-133 m² z prywatnymi ogrodami nad Zalewem Mrożyczka w Głownie.",
+            "Osiedle 20 mieszkań i domów 82-133 m² z prywatnymi ogrodami nad Zalewem Mrożyczka w Głownie.",
           url: SITE.url,
           numberOfAccommodationUnits: INVESTMENT.totalUnits,
           petsAllowed: true,
@@ -107,7 +107,7 @@ export function HomeJsonLd() {
         },
         {
           "@type": "RealEstateListing",
-          name: "Plażowa Park - apartamenty nad Zalewem Mrożyczka",
+          name: "Plażowa Park - mieszkania i domy nad Zalewem Mrożyczka",
           url: `${SITE.url}/`,
           inLanguage: "pl-PL",
           about: { "@type": "Residence", name: "Plażowa Park", address, geo },
@@ -133,13 +133,13 @@ export function HomeJsonLd() {
           "@type": "BreadcrumbList",
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Strona główna", item: SITE.url },
-            { "@type": "ListItem", position: 2, name: "Wybierz dom", item: `${SITE.url}/#lokale` },
+            { "@type": "ListItem", position: 2, name: "Mieszkania i domy", item: `${SITE.url}/#mieszkania-i-domy` },
             { "@type": "ListItem", position: 3, name: "Kontakt", item: `${SITE.url}/#kontakt` },
           ],
         },
         {
           "@type": "ItemList",
-          name: "Apartamenty - Plażowa Park",
+          name: "Mieszkania i domy - Plażowa Park",
           numberOfItems: UNITS.length,
           itemListElement: UNITS.map((u, i) => ({
             "@type": "ListItem",

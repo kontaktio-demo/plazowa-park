@@ -52,7 +52,7 @@ export default function Zycie() {
               ))}
             </ul>
 
-            <a href="#lokale" className="btn btn-ghost mt-8">
+            <a href="#mieszkania-i-domy" className="btn btn-ghost mt-8">
               Wybierz apartament <Icon.arrow width={18} height={18} />
             </a>
           </div>

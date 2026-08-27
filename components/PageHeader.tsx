@@ -28,7 +28,7 @@ export default function PageHeader() {
             <Icon.phone width={17} height={17} className="text-lake-300" />
             <span className="num">{SITE.phone.display}</span>
           </a>
-          <Link href="/#lokale" className="btn btn-sun btn-sm">
+          <Link href="/#mieszkania-i-domy" className="btn btn-sun btn-sm">
             Sprawdź dostępność
           </Link>
         </div>

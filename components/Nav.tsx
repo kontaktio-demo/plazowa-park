@@ -34,7 +34,7 @@ export default function Nav() {
             : "bg-transparent"
         }`}
       >
-        <div className="wrap flex h-(--nav-h) items-center gap-5">
+        <div className="wrap flex h-(--nav-h) items-center gap-4 2xl:gap-5">
           <a href="#top" aria-label="Plażowa Park - strona główna" className="flex flex-none items-center gap-3">
             <LogoMark width={26} height={26} className="text-lake-300" />
             <span className="flex flex-col leading-none">
@@ -45,7 +45,7 @@ export default function Nav() {
             </span>
           </a>
 
-          <nav className="hidden flex-1 items-center justify-center gap-x-7 xl:flex">
+          <nav className="hidden flex-1 items-center justify-center gap-x-5 xl:flex 2xl:gap-x-7">
             {NAV.map((n) => (
               <a key={n.href} href={n.href} className="link-underline t-meta whitespace-nowrap hover:text-lake-300">
                 {n.label}
@@ -56,12 +56,12 @@ export default function Nav() {
           <div className="ml-auto flex flex-none items-center gap-3">
             <a
               href={`tel:${SITE.phone.tel}`}
-              className="hidden items-center gap-2 text-sm font-medium hover:text-lake-300 xl:mr-4 xl:flex"
+              className="hidden items-center gap-2 text-sm font-medium hover:text-lake-300 xl:mr-5 xl:flex"
             >
               <Icon.phone width={17} height={17} className="text-lake-300" />
               <span className="num">{SITE.phone.display}</span>
             </a>
-            <a href="#lokale" data-track="book_viewing" className="btn btn-sun btn-sm hidden sm:inline-flex">
+            <a href="#mieszkania-i-domy" data-track="book_viewing" className="btn btn-sun btn-sm hidden sm:inline-flex">
               Sprawdź dostępność
               <span className="num ml-0.5 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-ink/15 px-1.5 text-[0.75rem] font-medium">
                 {INVESTMENT.available}
@@ -124,7 +124,7 @@ export default function Nav() {
             ))}
           </ul>
           <div className="mt-auto flex flex-col gap-3 pt-8">
-            <a href="#lokale" data-track="book_viewing" onClick={() => setOpen(false)} tabIndex={open ? 0 : -1} className="btn btn-sun">
+            <a href="#mieszkania-i-domy" data-track="book_viewing" onClick={() => setOpen(false)} tabIndex={open ? 0 : -1} className="btn btn-sun">
               Sprawdź dostępność ({INVESTMENT.available})
             </a>
             <a href={`tel:${SITE.phone.tel}`} tabIndex={open ? 0 : -1} className="btn btn-ghost">
