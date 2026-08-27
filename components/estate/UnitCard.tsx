@@ -22,7 +22,7 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
   return (
     <article className="card card-hover flex h-full flex-row overflow-hidden sm:flex-col">
       <Link
-        href={`/lokal/${unitSlug(unit.name)}`}
+        href={`/mieszkania-i-domy/${unitSlug(unit.name)}`}
         className="relative block w-[38%] flex-none self-stretch overflow-hidden bg-lake-900 sm:aspect-4/3 sm:w-full"
         aria-label={`Zobacz apartament ${unit.name}`}
       >

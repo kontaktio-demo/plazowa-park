@@ -10,7 +10,7 @@ export type Section = {
 
 export const SECTIONS: Section[] = [
   { n: "01", id: "osiedle", label: "Osiedle", dark: false },
-  { n: "02", id: "lokale", label: "Apartamenty", dark: false },
+  { n: "02", id: "mieszkania-i-domy", label: "Mieszkania i domy", dark: false },
   { n: "03", id: "spacer", label: "Spacer 360", dark: true },
   { n: "04", id: "standard", label: "Standard", dark: false },
   { n: "05", id: "zycie", label: "Życie", dark: true },

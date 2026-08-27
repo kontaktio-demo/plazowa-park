@@ -148,9 +148,9 @@ export default function VirtualTour() {
         <>
           <Image
             src="/renders/tour-poster.webp"
-            alt="Osiedle Plażowa Park w otoczeniu sosnowego lasu"
+            alt="Budynek osiedla Plażowa Park o zmierzchu w sosnowym lesie"
             fill
-            sizes="100vw"
+            sizes="(max-width: 767px) 200vw, 100vw"
             quality={68}
             placeholder="blur"
             blurDataURL={BLUR.tour}

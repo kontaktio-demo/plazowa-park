@@ -48,7 +48,7 @@ export default function Hero() {
           </p>
 
           <div className="rise mt-6 flex flex-wrap items-center gap-3 sm:mt-9" style={{ animationDelay: "300ms" }}>
-            <a href="#lokale" className="btn btn-sun">
+            <a href="#mieszkania-i-domy" className="btn btn-sun">
               Wybierz apartament <Icon.arrow width={18} height={18} />
             </a>
             <a href="#kontakt" data-track="book_viewing" className="btn btn-ghost border-sand-50/40">

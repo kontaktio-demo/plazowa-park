@@ -34,7 +34,7 @@ export const DEVELOPER = {
 export type NavItem = { label: string; href: string };
 export const NAV: NavItem[] = [
   { label: "Osiedle", href: "#osiedle" },
-  { label: "Apartamenty", href: "#lokale" },
+  { label: "Mieszkania i domy", href: "#mieszkania-i-domy" },
   { label: "Spacer 360", href: "#spacer" },
   { label: "Standard", href: "#standard" },
   { label: "Okolica", href: "#okolica" },

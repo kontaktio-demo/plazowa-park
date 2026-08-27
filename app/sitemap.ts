@@ -17,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const unitPages: MetadataRoute.Sitemap = UNITS.map((u) => ({
-    url: `${base}/lokal/${unitSlug(u.name)}`,
+    url: `${base}/mieszkania-i-domy/${unitSlug(u.name)}`,
     lastModified: now,
     changeFrequency: "weekly",
     priority: 0.8,

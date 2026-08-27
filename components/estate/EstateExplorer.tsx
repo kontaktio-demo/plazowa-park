@@ -63,10 +63,10 @@ export default function EstateExplorer() {
   const buildingLabel = building ? BUILDINGS.find((b) => b.stageId === building)?.label : null;
 
   return (
-    <section id="lokale" className="band band-sand-2 sec">
+    <section id="mieszkania-i-domy" className="band band-sand-2 sec">
       <div className="wrap">
         <header className="max-w-4xl" data-reveal>
-          <p className="eyebrow">{sectionEyebrow("lokale")}</p>
+          <p className="eyebrow">{sectionEyebrow("mieszkania-i-domy")}</p>
           <h2 className="t-display-l mt-6 text-balance">
             Dwadzieścia apartamentów, <span className="fg-accent">sześć rzutów</span>
           </h2>
