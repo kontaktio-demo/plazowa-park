@@ -166,8 +166,8 @@ export default function VirtualTour() {
           <div aria-hidden className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-abyss/75 to-transparent" />
 
           <div className="wrap relative flex min-h-[100svh] flex-col items-center justify-center py-20 text-center sm:py-24">
-            <p className="eyebrow">{sectionEyebrow("spacer")}</p>
-            <h2 className="t-display-l mt-6 max-w-3xl text-balance">
+            <p className="eyebrow [text-shadow:0_1px_14px_var(--color-abyss)]">{sectionEyebrow("spacer")}</p>
+            <h2 className="t-display-l mt-6 max-w-3xl text-balance [text-shadow:0_2px_26px_var(--color-abyss)]">
               Przejdź się osiedlem <span className="fg-accent">zanim powstanie</span>
             </h2>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
@@ -186,7 +186,7 @@ export default function VirtualTour() {
                 Zobacz wnętrze
               </a>
             </div>
-            <p className="t-meta-sm fg-muted mt-6">
+            <p className="t-meta-sm fg-muted mt-6 [text-shadow:0_1px_14px_var(--color-abyss)]">
               {SCENES.length} ujęć · przejdź uliczką osiedla i wejdź do własnego ogrodu
             </p>
           </div>
