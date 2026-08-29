@@ -24,11 +24,11 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
       <Link
         href={`/mieszkania-i-domy/${unitSlug(unit.name)}`}
         className="relative block w-[38%] flex-none self-stretch overflow-hidden bg-sand-50 sm:aspect-4/3 sm:w-full"
-        aria-label={`Zobacz apartament ${unit.name}`}
+        aria-label={`Zobacz mieszkanie ${unit.name}`}
       >
         <Image
           src={planImage(unit)}
-          alt={`Rzut poglądowy apartamentu ${unit.name}, typ ${place.type}`}
+          alt={`Rzut mieszkania ${unit.name}, typ ${place.type}`}
           fill
           sizes="(max-width: 640px) 40vw, (max-width: 1280px) 50vw, 30vw"
           className="object-contain p-3 sm:p-5"
@@ -42,7 +42,7 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
           <span className="status-dot" style={{ background: s.color }} />
           {s.label}
         </span>
-        <h3 className="t-title mt-1.5 text-[1.15rem] sm:text-[1.375rem]">Apartament {unit.name}</h3>
+        <h3 className="t-title mt-1.5 text-[1.15rem] sm:text-[1.375rem]">Mieszkanie {unit.name}</h3>
 
         <UnitPosition unit={unit} className="mt-3 max-w-40 sm:mt-4 sm:max-w-none" />
 
@@ -68,7 +68,7 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
           <button onClick={() => onOpen(unit)} className="btn btn-ghost btn-sm flex-1">
             Szczegóły
           </button>
-          <button onClick={() => selectUnit(`Apartament ${unit.name}`)} className="btn btn-solid btn-sm flex-1">
+          <button onClick={() => selectUnit(`Mieszkanie ${unit.name}`)} className="btn btn-solid btn-sm flex-1">
             Zapytaj <Icon.arrow width={16} height={16} className="hidden sm:block" />
           </button>
         </div>

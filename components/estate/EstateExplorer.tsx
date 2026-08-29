@@ -68,7 +68,7 @@ export default function EstateExplorer() {
         <header className="max-w-4xl" data-reveal>
           <p className="eyebrow">{sectionEyebrow("mieszkania-i-domy")}</p>
           <h2 className="t-display-l mt-6 text-balance">
-            Dwadzieścia apartamentów, <span className="fg-accent">sześć rzutów</span>
+            Dwadzieścia domów, <span className="fg-accent">każdy z ogrodem</span>
           </h2>
         </header>
 
@@ -118,7 +118,7 @@ export default function EstateExplorer() {
             </div>
 
             <p className="t-body fg-muted max-w-md text-pretty">
-              Budynki narożne (1 i 2, 4 i 5, 6 i 7, 9 i 10) mieszczą po cztery apartamenty 82-94 m² na dwóch
+              Budynki narożne (1 i 2, 4 i 5, 6 i 7, 9 i 10) mieszczą po cztery mieszkania 82-94 m² na dwóch
               kondygnacjach. Budynki środkowe (3, 8) to dwa największe lokale pięciopokojowe do 133 m².
               Poddasze jest w cenie i nie wlicza się do metrażu.
             </p>
@@ -174,7 +174,7 @@ export default function EstateExplorer() {
             {hidden > 0 && (
               <div className="mt-9 flex justify-center">
                 <button type="button" onClick={() => setExpanded(true)} className="btn btn-ghost">
-                  Pokaż wszystkie {filtered.length} apartamentów
+                  Pokaż wszystkie {filtered.length} mieszkań
                 </button>
               </div>
             )}

@@ -42,7 +42,7 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
       className="fixed inset-0 z-80 flex items-end justify-center sm:items-center"
       role="dialog"
       aria-modal="true"
-      aria-label={`Apartament ${unit.name}`}
+      aria-label={`Mieszkanie ${unit.name}`}
     >
       <button type="button" aria-label="Zamknij" onClick={onClose} className="absolute inset-0 bg-abyss/70 backdrop-blur-sm" />
       <div className="band band-sand relative z-10 max-h-[92svh] w-full max-w-3xl overflow-y-auto rounded-t-[12px] sm:rounded-[12px]">
@@ -50,7 +50,7 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
           <div className="relative aspect-4/3 bg-sand-50 sm:aspect-auto sm:min-h-[420px]">
             <Image
               src={planImage(unit)}
-              alt={`Rzut poglądowy apartamentu ${unit.name}, typ ${place.type}`}
+              alt={`Rzut mieszkania ${unit.name}, typ ${place.type}`}
               fill
               sizes="(max-width: 640px) 100vw, 384px"
               className="object-contain p-6"
@@ -64,7 +64,7 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
                   <span className="status-dot" style={{ background: s.color }} />
                   {s.label} · budynek {unit.buildingLabel}
                 </p>
-                <h3 className="t-display-m mt-3">Apartament {unit.name}</h3>
+                <h3 className="t-display-m mt-3">Mieszkanie {unit.name}</h3>
               </div>
               <button
                 onClick={onClose}
@@ -89,7 +89,7 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
             </dl>
 
             <p className="t-body fg-muted mt-6 text-pretty">
-              Apartament z prywatnym ogrodem i tarasem, panoramicznymi oknami i adaptowalnym poddaszem w cenie.
+              Mieszkanie z prywatnym ogrodem i tarasem, panoramicznymi oknami i adaptowalnym poddaszem w cenie.
               Standard: pompa ciepła, ogrzewanie podłogowe, dwa miejsca postojowe.
             </p>
 
@@ -97,12 +97,12 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
               <button
                 data-track="book_viewing"
                 onClick={() => {
-                  selectUnit(`Apartament ${unit.name}`);
+                  selectUnit(`Mieszkanie ${unit.name}`);
                   onClose();
                 }}
                 className="btn btn-sun"
               >
-                Zapytaj o ten apartament <Icon.arrow width={18} height={18} />
+                Zapytaj o to mieszkanie <Icon.arrow width={18} height={18} />
               </button>
               <div className="flex gap-2.5">
                 <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost btn-sm flex-1">

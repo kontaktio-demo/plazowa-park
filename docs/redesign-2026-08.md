@@ -713,3 +713,53 @@ teraz zamykają sekcję o deweloperze.
 - **Ludzi w kadrach zewnętrznych nie ma.** U Camara w każdej scenie jest rodzina,
   dziecko, para na huśtawce. Nasze rendery są puste; sylwetki są tylko w kadrach
   z dollhouse'u.
+
+### Nazewnictwo: koniec z "apartamentem" (decyzja z 2026-08-29)
+
+Biuro nieruchomości promuje inwestycję jako **mieszkania i domy** i tak zostaje.
+Przy okazji sprawdziłem, jakim słowem posługuje się sam klient na plazowa-park.pl:
+**"mieszkanie" 12 razy, "dom" 9 razy, "apartament" 2 razy**. Tytuł jego strony to
+"Luksusowe osiedle domów", pozycja w menu "Wybierz Dom", nagłówek "Wybierz swój
+dom", a opisy cech konsekwentnie mówią "każde mieszkanie ma prywatne wejście".
+"Apartament" był więc naszym słowem, nie jego - i do tego rozjeżdżał się
+z tytułami stron, które od poprzedniej rundy mówią "Mieszkanie 3.3A".
+
+Przyjęty rejestr, zgodny z tym, co klient robi u siebie:
+
+| gdzie | słowo |
+|---|---|
+| kategoria, menu, adresy, tytuły stron | mieszkania i domy |
+| nagłówki emocjonalne i CTA | dom ("Domy nad Zalewem Mrożyczka", "Wybierz swój dom") |
+| pojedynczy lokal na kartach i podstronach | mieszkanie ("Mieszkanie 3.3A") |
+| opisy cech i technologii | mieszkanie |
+| teksty prawne | lokal (bez zmian, termin ustawowy) |
+
+Podmiana objęła 78 wystąpień w 18 plikach, jawnymi parami zamiast regexem -
+polska odmiana wymaga zgody przymiotników ("ten apartament" to "to mieszkanie",
+"Wybrany apartament" to "Wybrane mieszkanie", "jeden z największych apartamentów"
+to "jedno z największych mieszkań"). Uwaga na przyszłość: `grep apartament` nie
+znajduje formy "apartamencie" - rdzeń to `apartamen`.
+
+Przy okazji naprawione dwie rzeczy, które wychodziły z tej samej niespójności:
+FAQ odsyłało do "sekcji Apartamenty", której na stronie nie ma (teraz "Mieszkania
+i domy"), a polityka prywatności i regulamin opisywały pole formularza pod starą
+nazwą. Nagłówek sekcji lokali przestał reklamować ograniczenie ("Dwadzieścia
+apartamentów, sześć rzutów") i mówi teraz "Dwadzieścia domów, każdy z ogrodem".
+
+### Ogród dostał wreszcie zdjęcie
+
+Prywatny ogród 31-143 m² to argument, który uzasadnia różnicę ceny wobec zwykłego
+mieszkania, powtarza się w tekście kilkanaście razy i nie miał ani jednego
+obrazu - sekcja "Życie" pokazywała kadr budynku z opisem alternatywnym mówiącym
+o tarasie i ogrodzie, czyli o czymś, czego na zdjęciu nie było. Zastąpiony
+renderem ogrodu od dewelopera (trawnik, żywopłot, strefa wypoczynku
+z paleniskiem, las w tle), podbitym do 4K.
+
+### Pomiar końcowy
+
+| | przed | po |
+|---|---|---|
+| średnia luminancja strony | 140 | **176** |
+| wiersze L<90 | 41,6% | **18,9%** |
+| piksele zielone | 3,8% | 6,0% |
+| Lighthouse mobile / dostępność / SEO | 86 / 100 / 100 | 85 / 100 / 100 |

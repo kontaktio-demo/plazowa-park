@@ -22,7 +22,7 @@ export default function Page() {
       <h2>§2. Zakres usług</h2>
       <ul>
         <li>Serwis ma charakter informacyjno-marketingowy i prezentuje inwestycję Plażowa Park w Głownie.</li>
-        <li>Serwis umożliwia zapoznanie się z ofertą, przeglądanie dostępnych apartamentów oraz kontakt z biurem sprzedaży za pośrednictwem formularza.</li>
+        <li>Serwis umożliwia zapoznanie się z ofertą, przeglądanie dostępnych mieszkań i domów oraz kontakt z biurem sprzedaży za pośrednictwem formularza.</li>
         <li>Korzystanie z Serwisu jest nieodpłatne.</li>
       </ul>
 

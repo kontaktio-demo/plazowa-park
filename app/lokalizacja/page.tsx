@@ -105,7 +105,7 @@ export default function LokalizacjaPage() {
                 Stacja kolejowa Głowno znajduje się 3 km dalej. Do Warszawy około 104 km.
               </p>
               <p>
-                Plażowa Park to propozycja zarówno na całoroczne mieszkanie blisko natury, jak i na apartament
+                Plażowa Park to propozycja zarówno na całoroczne mieszkanie blisko natury, jak i na dom
                 rekreacyjny nad wodą w zasięgu Łodzi.
               </p>
             </div>
@@ -143,7 +143,7 @@ export default function LokalizacjaPage() {
               </p>
               <p>
                 Bliskość Łodzi, około 32 km autostradą A1 przez oddalony o 11 km węzeł Stryków, sprawia, że
-                Plażowa Park to atrakcyjny adres nie tylko na całoroczne mieszkanie, ale też na apartament
+                Plażowa Park to atrakcyjny adres nie tylko na całoroczne mieszkanie, ale też na dom
                 rekreacyjny czy drugi dom nad wodą w zasięgu aglomeracji łódzkiej. Do Warszawy około 104 km.
               </p>
             </div>
@@ -187,7 +187,7 @@ export default function LokalizacjaPage() {
 
           <div className="card mt-16 flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
             <p className="t-body-l fg-muted max-w-md text-pretty">
-              W tej lokalizacji powstaje {INVESTMENT.totalUnits} apartamentów z prywatnym ogrodem, od{" "}
+              W tej lokalizacji powstaje {INVESTMENT.totalUnits} domów z prywatnym ogrodem, od{" "}
               <span className="num fg font-medium">{INVESTMENT.priceMin.toLocaleString("pl-PL")} zł</span>.
             </p>
             <div className="flex flex-none flex-col gap-2.5 sm:flex-row">

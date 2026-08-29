@@ -4,9 +4,9 @@ import { BLUR } from "@/lib/blur";
 import { Icon } from "./Icons";
 
 const points = [
-  { t: "Kameralne osiedle", d: "Zaledwie 20 apartamentów w cichym, zielonym otoczeniu." },
+  { t: "Kameralne osiedle", d: "Zaledwie 20 domów w cichym, zielonym otoczeniu." },
   { t: "Las i woda za progiem", d: "Ponad 100-letni las i Zalew Mrożyczka w zasięgu spaceru." },
-  { t: "Przestrzeń dla dzieci", d: "Prywatny ogród i taras przy każdym apartamencie." },
+  { t: "Przestrzeń dla dzieci", d: "Prywatny ogród i taras przy każdym mieszkaniu." },
 ];
 
 export default function Zycie() {
@@ -17,7 +17,7 @@ export default function Zycie() {
           <figure className="relative aspect-16/10 w-full sm:aspect-7/5 lg:aspect-3/2" data-reveal>
             <Image
               src="/renders/zycie.webp"
-              alt="Taras i prywatny ogród apartamentu Plażowa Park w porannym świetle"
+              alt="Strefa wypoczynku w ogrodzie: trawnik, żywopłot i palenisko na tle sosnowego lasu"
               fill
               sizes="(max-width: 1024px) 100vw, 60vw"
               placeholder="blur"
@@ -53,7 +53,7 @@ export default function Zycie() {
             </ul>
 
             <a href="#mieszkania-i-domy" className="btn btn-ghost mt-8">
-              Wybierz apartament <Icon.arrow width={18} height={18} />
+              Wybierz swój dom <Icon.arrow width={18} height={18} />
             </a>
           </div>
         </div>

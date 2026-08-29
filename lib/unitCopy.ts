@@ -29,7 +29,7 @@ export function isCornerBuilding(u: Unit): boolean {
 
 // ~150-char meta/OG description, enriched with the unit's real numbers.
 export function unitMetaDescription(u: Unit): string {
-  return `Apartament ${u.name}: ${area(u.area)}, ${rooms(u.rooms)}, ogród ${area(
+  return `Mieszkanie ${u.name}: ${area(u.area)}, ${rooms(u.rooms)}, ogród ${area(
     u.garden
   )}, taras i poddasze w cenie. Cena ${plnShort(u.price)}. Plażowa Park, Głowno nad Zalewem Mrożyczka.`;
 }
@@ -46,22 +46,22 @@ export function unitDescription(u: Unit): string[] {
   const status = STATUS_META[u.status].label.toLowerCase();
 
   const introV = [
-    `Apartament ${u.name} to ${R} o powierzchni ${A} w kameralnym osiedlu Plażowa Park w Głownie.`,
-    `${A}, ${R} i własny ogród ${G} - tak w skrócie prezentuje się apartament ${u.name} w Plażowa Park w Głownie.`,
-    `W ${corner ? "narożnym" : "środkowym"} budynku ${bl} osiedla Plażowa Park w Głownie znajduje się apartament ${u.name} o powierzchni ${A} (${R}).`,
-    `Apartament ${u.name} (${A}, ${R}) otwiera się na prywatny ogród ${G} i taras z panoramicznymi oknami.`,
+    `Mieszkanie ${u.name} to ${R} o powierzchni ${A} w kameralnym osiedlu Plażowa Park w Głownie.`,
+    `${A}, ${R} i własny ogród ${G} - tak w skrócie prezentuje się mieszkanie ${u.name} w Plażowa Park w Głownie.`,
+    `W ${corner ? "narożnym" : "środkowym"} budynku ${bl} osiedla Plażowa Park w Głownie znajduje się mieszkanie ${u.name} o powierzchni ${A} (${R}).`,
+    `Mieszkanie ${u.name} (${A}, ${R}) otwiera się na prywatny ogród ${G} i taras z panoramicznymi oknami.`,
   ];
 
   const buildingV = corner
     ? [
-        `Narożny budynek ${bl} mieści tylko cztery apartamenty, co zapewnia kameralność i prywatność.`,
+        `Narożny budynek ${bl} mieści tylko cztery mieszkania, co zapewnia kameralność i prywatność.`,
         `To jeden z zaledwie czterech lokali w narożnym budynku ${bl}, z minimalną liczbą sąsiadów.`,
-        `Kameralny, narożny budynek ${bl} to jedynie cztery apartamenty - spokój i prywatność na co dzień.`,
+        `Kameralny, narożny budynek ${bl} to jedynie cztery mieszkania - spokój i prywatność na co dzień.`,
       ]
     : [
-        `To jeden z dwóch największych, pięciopokojowych apartamentów w środkowym budynku ${bl}.`,
+        `To jedno z dwóch największych, pięciopokojowych mieszkań w środkowym budynku ${bl}.`,
         `Środkowy budynek ${bl} mieści dwa najbardziej przestronne, pięciopokojowe lokale w osiedlu.`,
-        `Należy do dwóch największych, pięciopokojowych apartamentów w środkowym budynku ${bl}.`,
+        `Należy do dwóch największych, pięciopokojowych mieszkań w środkowym budynku ${bl}.`,
       ];
 
   const gardenV =
@@ -77,7 +77,7 @@ export function unitDescription(u: Unit): string[] {
           ]
         : [
             `Kameralny ogród ${G} i taras z panoramicznymi oknami tworzą prywatną, zieloną strefę przy wejściu.`,
-            `Do apartamentu należy przytulny ogród ${G} z tarasem - zieleń na wyłączność.`,
+            `Do mieszkania należy przytulny ogród ${G} z tarasem - zieleń na wyłączność.`,
           ];
 
   const standardV = [
@@ -87,9 +87,9 @@ export function unitDescription(u: Unit): string[] {
   ];
 
   const locLead = [
-    `Największym atutem apartamentu ${u.name} jest lokalizacja.`,
+    `Największym atutem mieszkania ${u.name} jest lokalizacja.`,
     `To, co wyróżnia ten adres, to okolica.`,
-    `O wartości apartamentu ${u.name} decyduje też sąsiedztwo.`,
+    `O wartości mieszkania ${u.name} decyduje też sąsiedztwo.`,
   ];
   const locPool = [
     "Zalew Mrożyczka z piaszczystą plażą i strzeżonym kąpieliskiem leży w zasięgu spaceru od osiedla.",
@@ -112,27 +112,27 @@ export function unitDescription(u: Unit): string[] {
   const locationPara = `${locLead[(idx + ai) % locLead.length]} ${loc.join(" ")}`;
 
   const osiedleV = [
-    `Plażowa Park to kameralne osiedle zaledwie 20 apartamentów, stworzone dla rodzin ceniących bliskość natury i codzienny komfort. Prywatne ogrody, cisza sosnowego lasu i sąsiedztwo wody sprawiają, że lokal sprawdzi się i na całoroczne mieszkanie, i na apartament rekreacyjny w zasięgu Łodzi.`,
-    `Zaledwie 20 apartamentów, prywatne ogrody i cisza sosnowego lasu - Plażowa Park łączy spokój z rekreacją nad wodą w zasięgu aglomeracji łódzkiej. Kameralna skala osiedla to mało sąsiadów, bezpieczne otoczenie dla dzieci i spójna, nowoczesna architektura wszystkich budynków.`,
-    `Osiedle liczy tylko 20 apartamentów z prywatnymi ogrodami, w otoczeniu ponad 100-letniego lasu i tuż przy Zalewie Mrożyczka. To propozycja zarówno na stałe mieszkanie blisko natury, jak i na drugi dom nad wodą niedaleko Łodzi, z pełnym zapleczem rekreacyjnym za progiem.`,
+    `Plażowa Park to kameralne osiedle zaledwie 20 domów, stworzone dla rodzin ceniących bliskość natury i codzienny komfort. Prywatne ogrody, cisza sosnowego lasu i sąsiedztwo wody sprawiają, że lokal sprawdzi się i na całoroczne mieszkanie, i na dom rekreacyjny w zasięgu Łodzi.`,
+    `Zaledwie 20 domów, prywatne ogrody i cisza sosnowego lasu - Plażowa Park łączy spokój z rekreacją nad wodą w zasięgu aglomeracji łódzkiej. Kameralna skala osiedla to mało sąsiadów, bezpieczne otoczenie dla dzieci i spójna, nowoczesna architektura wszystkich budynków.`,
+    `Osiedle liczy tylko 20 domów z prywatnymi ogrodami, w otoczeniu ponad 100-letniego lasu i tuż przy Zalewie Mrożyczka. To propozycja zarówno na stałe mieszkanie blisko natury, jak i na drugi dom nad wodą niedaleko Łodzi, z pełnym zapleczem rekreacyjnym za progiem.`,
   ];
 
   const valueV = [
     `Poddasze jest wliczone w cenę, ale nie w metraż, więc realnie zyskujesz przestrzeń ponad ${A} do własnej aranżacji. Ogród i taras stają się przedłużeniem salonu wiosną i latem, a ${R} rozłożone na ${u.floors} kondygnacjach daje wygodny podział na strefę dzienną i prywatną.`,
     `W cenie ${P} otrzymujesz nie tylko ${A} i ${R}, ale też adaptowalne poddasze poza metrażem oraz prywatny ogród ${G} - to wymierna wartość względem mieszkań bez własnej zieleni, a dwa miejsca postojowe rozwiązują codzienny problem parkowania.`,
-    `Przy cenie ${PM}/m² apartament ${u.name} łączy prywatny ogród, taras i poddasze w cenie z energooszczędnym standardem, dzięki czemu koszty utrzymania pozostają niskie. To rzadkie połączenie metrażu ${A}, zieleni na wyłączność i dojazdu do centrum Łodzi w granicach 32 km.`,
+    `Przy cenie ${PM}/m² mieszkanie ${u.name} łączy prywatny ogród, taras i poddasze w cenie z energooszczędnym standardem, dzięki czemu koszty utrzymania pozostają niskie. To rzadkie połączenie metrażu ${A}, zieleni na wyłączność i dojazdu do centrum Łodzi w granicach 32 km.`,
   ];
 
   const cta =
     u.status === "available"
       ? "Umów prezentację, aby zobaczyć lokal i poznać warunki zakupu."
       : u.status === "reserved"
-        ? "Lokal jest obecnie zarezerwowany - zapytaj o dostępność podobnych apartamentów."
-        : "Ten lokal został sprzedany - sprawdź pozostałe dostępne apartamenty w osiedlu.";
+        ? "Lokal jest obecnie zarezerwowany - zapytaj o dostępność podobnych mieszkań."
+        : "Ten lokal został sprzedany - sprawdź pozostałe dostępne mieszkania w osiedlu.";
   const closeV = [
-    `Cena apartamentu ${u.name}: ${P} (${PM}/m²), status: ${status}. Poddasze poza metrażem i prywatny ogród realnie podnoszą wartość tej oferty. ${cta}`,
-    `${P} (${PM}/m²) - tyle kosztuje apartament ${u.name} (status: ${status}). To konkurencyjna stawka jak na apartament z własnym ogrodem nad wodą w regionie łódzkim. ${cta}`,
-    `Apartament ${u.name} wyceniono na ${P}, czyli ${PM}/m² (status: ${status}). W tej cenie mieści się poddasze do adaptacji oraz dwa miejsca postojowe. ${cta}`,
+    `Cena mieszkania ${u.name}: ${P} (${PM}/m²), status: ${status}. Poddasze poza metrażem i prywatny ogród realnie podnoszą wartość tej oferty. ${cta}`,
+    `${P} (${PM}/m²) - tyle kosztuje mieszkanie ${u.name} (status: ${status}). To konkurencyjna stawka jak na mieszkanie z własnym ogrodem nad wodą w regionie łódzkim. ${cta}`,
+    `Mieszkanie ${u.name} wyceniono na ${P}, czyli ${PM}/m² (status: ${status}). W tej cenie mieści się poddasze do adaptacji oraz dwa miejsca postojowe. ${cta}`,
   ];
 
   const pIntro = `${introV[(idx + ai) % introV.length]} ${buildingV[(idx + pi) % buildingV.length]} ${gardenV[(idx + gi) % gardenV.length]}`;

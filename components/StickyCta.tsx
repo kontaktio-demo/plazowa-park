@@ -42,7 +42,7 @@ export default function StickyCta() {
         <Icon.phone width={18} height={18} />
       </a>
       <a href="#kontakt" data-track="book_viewing" className="btn btn-sun flex-1">
-        Zapytaj o apartament
+        Zapytaj o mieszkanie
       </a>
     </div>
   );

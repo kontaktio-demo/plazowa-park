@@ -104,14 +104,14 @@ export const STANDARD = [
   { title: "Fotowoltaika", desc: "Własna energia i niższe rachunki, montaż na życzenie.", icon: "solar", optional: true },
   { title: "Panoramiczne okna", desc: "Przeszklenia od podłogi do sufitu z widokiem na las.", icon: "window" },
   { title: "Materiały premium", desc: "Elastyczna cegła, tynk najwyższej klasy i blacha na rąbek stojący.", icon: "brick" },
-  { title: "Prywatny ogród i taras", desc: "Własna zielona przestrzeń przy każdym apartamencie.", icon: "garden" },
+  { title: "Prywatny ogród i taras", desc: "Własna zielona przestrzeń przy każdym mieszkaniu.", icon: "garden" },
   { title: "2 miejsca postojowe", desc: "Dwa miejsca na lokal; cztery lokale z własnym garażem.", icon: "car" },
   { title: "Prywatne wejście", desc: "Każde mieszkanie ma własne, niezależne wejście.", icon: "door" },
   { title: "Wykończenie pod klucz", desc: "Personalizacja projektu i wykończenia na etapie budowy.", icon: "pencil", optional: true },
 ] as const;
 
 export const FINANCE_STEPS = [
-  { step: "01", title: "Rezerwacja", desc: "Wybór apartamentu i podpisanie umowy rezerwacyjnej." },
+  { step: "01", title: "Rezerwacja", desc: "Wybór mieszkania i podpisanie umowy rezerwacyjnej." },
   { step: "02", title: "Umowa deweloperska", desc: "Akt notarialny i wpłaty zgodne z harmonogramem." },
   { step: "03", title: "Etapy budowy", desc: "Transze powiązane z postępem prac na osiedlu." },
   { step: "04", title: "Odbiór i akt", desc: "Odbiór techniczny i przeniesienie własności." },
@@ -119,16 +119,16 @@ export const FINANCE_STEPS = [
 
 export const FAQ = [
   {
-    q: "Ile apartamentów liczy osiedle Plażowa Park?",
-    a: "Osiedle to 20 apartamentów w 6 budynkach, o powierzchni od 82 do 133 m². Budynki narożne mieszczą po cztery apartamenty, a środkowe po dwa większe.",
+    q: "Ile mieszkań liczy osiedle Plażowa Park?",
+    a: "Osiedle to 20 domów w 6 budynkach, o powierzchni od 82 do 133 m². Budynki narożne mieszczą po cztery mieszkania, a środkowe po dwa większe.",
   },
   {
-    q: "Jakie są ceny i czy są dostępne apartamenty?",
-    a: "Ceny zaczynają się od 633 000 zł. Bieżącą dostępność i cenę każdego apartamentu prezentujemy w sekcji Apartamenty; wiążące dane potwierdza biuro sprzedaży.",
+    q: "Jakie są ceny i czy są dostępne mieszkania?",
+    a: "Ceny zaczynają się od 633 000 zł. Bieżącą dostępność i cenę każdego mieszkania prezentujemy w sekcji Mieszkania i domy; wiążące dane potwierdza biuro sprzedaży.",
   },
   {
     q: "Czy poddasze jest wliczone w cenę?",
-    a: "Tak. Każdy apartament ma parter, piętro oraz poddasze. Poddasze jest zawarte w cenie nieruchomości i nie jest wliczone w metraż, więc możesz je zaadaptować według własnego pomysłu.",
+    a: "Tak. Każde mieszkanie ma parter, piętro oraz poddasze. Poddasze jest zawarte w cenie nieruchomości i nie jest wliczone w metraż, więc możesz je zaadaptować według własnego pomysłu.",
   },
   {
     q: "Co znajduje się w okolicy osiedla?",
@@ -136,11 +136,11 @@ export const FAQ = [
   },
   {
     q: "Jaki jest standard wykończenia i technologia?",
-    a: "Apartamenty powstają w oparciu o pompy ciepła i ogrzewanie podłogowe, z opcją rekuperacji i fotowoltaiki. Standard obejmuje panoramiczne okna, elewację z tynku najwyższej klasy i elastycznej cegły oraz dach z blachy na rąbek stojący. Możliwa jest personalizacja wykończenia pod klucz.",
+    a: "Mieszkania powstają w oparciu o pompy ciepła i ogrzewanie podłogowe, z opcją rekuperacji i fotowoltaiki. Standard obejmuje panoramiczne okna, elewację z tynku najwyższej klasy i elastycznej cegły oraz dach z blachy na rąbek stojący. Możliwa jest personalizacja wykończenia pod klucz.",
   },
   {
-    q: "Czy do apartamentu należy ogród i miejsce postojowe?",
-    a: "Tak. Każdy apartament ma prywatny ogród i taras z panoramicznymi oknami oraz dwa miejsca postojowe; cztery lokale dysponują własnym garażem.",
+    q: "Czy do mieszkania należy ogród i miejsce postojowe?",
+    a: "Tak. Każde mieszkanie ma prywatny ogród i taras z panoramicznymi oknami oraz dwa miejsca postojowe; cztery lokale dysponują własnym garażem.",
   },
   {
     q: "Kto jest deweloperem inwestycji?",

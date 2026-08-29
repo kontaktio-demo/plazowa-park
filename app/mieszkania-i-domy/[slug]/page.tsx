@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 const galleryImgs = [
   { src: "/renders/tour-poster.webp", alt: "Budynek osiedla Plażowa Park o zmierzchu w sosnowym lesie", caption: "Budynek o zmierzchu" },
-  { src: "/renders/zycie.webp", alt: "Taras i prywatny ogród apartamentu Plażowa Park", caption: "Taras i ogród" },
+  { src: "/renders/zycie.webp", alt: "Strefa wypoczynku w ogrodzie z paleniskiem", caption: "Ogród i strefa wypoczynku" },
   { src: "/dollhouse/f00.webp", alt: "Plan osiedla Plażowa Park z lotu ptaka", caption: "Plan osiedla" },
 ];
 
@@ -59,7 +59,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
   const sameBuilding = UNITS.filter((x) => x.stageId === u.stageId && x.id !== u.id);
   const others = UNITS.filter((x) => x.stageId !== u.stageId && x.id !== u.id);
   const rel = [...sameBuilding, ...others].slice(0, 3);
-  const inquireHref = `/?lokal=${encodeURIComponent(`Apartament ${u.name}`)}#kontakt`;
+  const inquireHref = `/?lokal=${encodeURIComponent(`Mieszkanie ${u.name}`)}#kontakt`;
   const paras = unitDescription(u);
 
   const unitUrl = `${SITE.url}/mieszkania-i-domy/${slug}`;
@@ -77,14 +77,14 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
     "@graph": [
       {
         "@type": "RealEstateListing",
-        name: `Apartament ${u.name} - Plażowa Park Głowno`,
+        name: `Mieszkanie ${u.name} - Plażowa Park Głowno`,
         url: unitUrl,
         description: metaDesc,
         image: `${SITE.url}/og.jpg`,
         datePosted: "2026-01-01",
         mainEntity: {
           "@type": "Apartment",
-          name: `Apartament ${u.name}`,
+          name: `Mieszkanie ${u.name}`,
           numberOfRoomsTotal: u.rooms,
           floorSize: { "@type": "QuantitativeValue", value: u.area, unitCode: "MTK" },
           address,
@@ -103,7 +103,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Strona główna", item: SITE.url },
           { "@type": "ListItem", position: 2, name: "Mieszkania i domy", item: `${SITE.url}/#mieszkania-i-domy` },
-          { "@type": "ListItem", position: 3, name: `Apartament ${u.name}`, item: unitUrl },
+          { "@type": "ListItem", position: 3, name: `Mieszkanie ${u.name}`, item: unitUrl },
         ],
       },
     ],
@@ -125,7 +125,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
               Mieszkania i domy
             </Link>
             <span aria-hidden>/</span>
-            <span className="fg">Apartament {u.name}</span>
+            <span className="fg">Mieszkanie {u.name}</span>
           </nav>
 
           <div className="mt-10 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
@@ -135,8 +135,8 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                 shots={[
                   {
                     src: planImage(u),
-                    alt: `Rzut apartamentu ${u.name}, typ ${place.type}`,
-                    caption: `Rzut apartamentu ${u.name}`,
+                    alt: `Rzut mieszkania ${u.name}, typ ${place.type}`,
+                    caption: `Rzut mieszkania ${u.name}`,
                   },
                   ...galleryImgs,
                 ]}
@@ -148,7 +148,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                 <span className="status-dot" style={{ background: s.color }} />
                 {s.label} · budynek {u.buildingLabel}
               </p>
-              <h1 className="t-display-l mt-5">Apartament {u.name}</h1>
+              <h1 className="t-display-l mt-5">Mieszkanie {u.name}</h1>
               <div className="t-display-m num mt-6">{pln(u.price)}</div>
               <div className="t-meta-sm fg-muted num mt-2">{plnShort(u.pricePerM)}/m²</div>
 
@@ -172,7 +172,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
 
               <div className="mt-8 flex flex-col gap-2.5 sm:flex-row">
                 <Link href={inquireHref} data-track="book_viewing" className="btn btn-sun flex-1">
-                  Zapytaj o ten apartament <Icon.arrow width={18} height={18} />
+                  Zapytaj o to mieszkanie <Icon.arrow width={18} height={18} />
                 </Link>
                 <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost">
                   <Icon.phone width={16} height={16} /> {SITE.phone.display}
@@ -198,7 +198,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
           </div>
 
           <section className="bd mt-16 border-t pt-12">
-            <h2 className="t-display-m">O apartamencie {u.name}</h2>
+            <h2 className="t-display-m">O mieszkaniu {u.name}</h2>
             <div className="t-body fg-muted mt-6 max-w-3xl space-y-4 text-pretty">
               {paras.slice(1).map((p, i) => (
                 <p key={i}>{p}</p>
@@ -214,7 +214,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
             <div className="mt-8 grid gap-5 sm:grid-cols-3">
               {rel.map((r) => (
                 <Link key={r.id} href={`/mieszkania-i-domy/${unitSlug(r.name)}`} className="card card-hover p-5">
-                  <span className="t-title block">Apartament {r.name}</span>
+                  <span className="t-title block">Mieszkanie {r.name}</span>
                   <span className="t-meta-sm fg-muted num mt-3 block">
                     {area(r.area)} · ogród {area(r.garden)}
                   </span>
