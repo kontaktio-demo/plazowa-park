@@ -35,7 +35,7 @@ export const GALLERY: Shot[] = [
   },
   {
     file: "elewacja-ogrodowa",
-    alt: "Elewacja ogrodowa z tarasami i dachem z blachy na rąbek stojący",
+    alt: "Elewacja ogrodowa z tarasami i blachą na rąbek",
     caption: "Elewacja ogrodowa z tarasami",
   },
 ];

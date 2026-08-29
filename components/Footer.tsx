@@ -28,7 +28,7 @@ export default function Footer() {
             <p className="t-body fg-muted mt-6 max-w-xs text-pretty">
               Kameralne osiedle 20 domów w lesie, bezpośrednio przy Zalewie Mrożyczka w Głownie.
             </p>
-            <a href="#mieszkania-i-domy" className="btn btn-ghost btn-sm mt-6">
+            <a href="/#mieszkania-i-domy" className="btn btn-ghost btn-sm mt-6">
               Wybierz swój dom <Icon.arrow width={16} height={16} />
             </a>
           </div>

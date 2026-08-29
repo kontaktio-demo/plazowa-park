@@ -28,14 +28,14 @@ export default function Okolica() {
         <div className="mt-8 grid gap-8 lg:mt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14" data-reveal>
           <div className="t-body fg-muted space-y-4 text-pretty">
             <p>
-              Zalew Mrożyczka to ponad trzydzieści hektarów wody z piaszczystą plażą, molo i strzeżonym
+              Zalew Mrożyczka to trzydzieści hektarów wody z piaszczystą plażą, molo i strzeżonym
               kąpieliskiem. Latem to naturalne miejsce wypoczynku dla całego Głowna, a poza sezonem sceneria
               spacerów i biegania wokół zbiornika. Tuż obok działa Central Wake Park, jedno z najważniejszych
               miejsc na wakeboardowej mapie Polski.
             </p>
             <p>
               Osiedle otacza ponad 100-letni sosnowy las, a sieć ścieżek rowerowych łączy je z brzegiem zalewu
-              i okolicznymi atrakcjami. W pobliżu leży też unikalny w skali kraju zespół wydm śródlądowych.
+              i okolicznymi atrakcjami. W pobliżu leży też unikalny w województwie łódzkim zespół wydm śródlądowych.
               Codzienne zaplecze - szkoły, przedszkola, przychodnie, sklepy i restauracje - zostaje w Głownie,
               w krótkim dystansie od osiedla.
             </p>
