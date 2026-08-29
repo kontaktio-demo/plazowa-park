@@ -90,8 +90,8 @@ export default function VirtualTour() {
   }, []);
 
   return (
-    <section id="spacer" ref={wrapRef} className="band band-abyss relative min-h-[78svh] w-full overflow-hidden sm:min-h-[88svh]">
-      <WaveEdge from="var(--color-sand-200)" />
+    <section id="spacer" ref={wrapRef} className="band band-abyss relative min-h-[100svh] w-full overflow-hidden">
+      <WaveEdge from="var(--color-sand-50)" />
 
       {active ? (
         <>
@@ -154,28 +154,41 @@ export default function VirtualTour() {
             quality={68}
             placeholder="blur"
             blurDataURL={BLUR.tour}
-            className="object-cover"
+            className="object-cover object-[center_38%]"
           />
-          <div aria-hidden className="absolute inset-0 bg-abyss/55" />
-          <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-abyss via-transparent to-abyss/40" />
+          {/* Płaska warstwa bg-abyss/55 na całym kadrze schodziła renderowi
+              ze średniej luminancji 75 do 38. Zamiast niej scrim wyłącznie pod
+              kolumną tekstu plus wąski pas przy dolnej krawędzi. */}
+          <div
+            aria-hidden
+            className="absolute inset-0 bg-[radial-gradient(62%_46%_at_50%_50%,color-mix(in_srgb,var(--color-abyss)_74%,transparent)_0%,transparent_100%)]"
+          />
+          <div aria-hidden className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-abyss/75 to-transparent" />
 
-          <div className="wrap relative flex min-h-[78svh] flex-col items-center justify-center py-20 text-center sm:min-h-[88svh] sm:py-24">
+          <div className="wrap relative flex min-h-[100svh] flex-col items-center justify-center py-20 text-center sm:py-24">
             <p className="eyebrow">{sectionEyebrow("spacer")}</p>
             <h2 className="t-display-l mt-6 max-w-3xl text-balance">
               Przejdź się osiedlem <span className="fg-accent">zanim powstanie</span>
             </h2>
-            <button
-              type="button"
-              onClick={() => {
-                setActive(true);
-                track("view_360");
-              }}
-              className="btn btn-sun mt-10 px-8 py-5 text-base"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M8 5.5v13l11-6.5z" /></svg>
-              Rozpocznij spacer 360
-            </button>
-            <p className="t-meta-sm fg-muted mt-6">{SCENES.length} ujęć · uliczki, bramy i etapy osiedla</p>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setActive(true);
+                  track("view_360");
+                }}
+                className="btn btn-sun px-8 py-5 text-base"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M8 5.5v13l11-6.5z" /></svg>
+                Rozpocznij spacer 360
+              </button>
+              <a href="#galeria" className="btn btn-ghost border-sand-50/40 px-8 py-5 text-base">
+                Zobacz wnętrze
+              </a>
+            </div>
+            <p className="t-meta-sm fg-muted mt-6">
+              {SCENES.length} ujęć · przejdź uliczką osiedla i wejdź do własnego ogrodu
+            </p>
           </div>
         </>
       )}

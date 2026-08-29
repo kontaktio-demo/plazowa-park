@@ -1,0 +1,70 @@
+"use client";
+
+import Image from "next/image";
+import { useState } from "react";
+import { GALLERY, shotSrc } from "@/lib/data/gallery";
+import { BLUR } from "@/lib/blur";
+import SectionHeader from "./SectionHeader";
+import Lightbox from "./Lightbox";
+
+const shots = GALLERY.map((g) => ({ src: shotSrc(g.file), alt: g.alt, caption: g.caption }));
+
+export default function Galeria() {
+  const [open, setOpen] = useState<number | null>(null);
+
+  return (
+    <section id="galeria" className="band band-sand sec">
+      <div className="wrap">
+        <SectionHeader
+          id="galeria"
+          title={
+            <>
+              Tak będzie wyglądać <span className="fg-accent">Plażowa Park</span>
+            </>
+          }
+          lead="Wizualizacje projektu: elewacje, tarasy, wejścia i wnętrze. Kliknij dowolne zdjęcie, żeby powiększyć i obejrzeć szczegóły."
+          className="max-w-2xl"
+        />
+
+        <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-14 sm:gap-4 lg:grid-cols-4" data-reveal="stagger">
+          {GALLERY.map((g, i) => (
+            <button
+              key={g.file}
+              type="button"
+              onClick={() => setOpen(i)}
+              style={{ transitionDelay: `${Math.min(i, 8) * 60}ms` }}
+              className={`bd group relative overflow-hidden border ${
+                i === 0 ? "col-span-2 row-span-2 aspect-square" : "aspect-4/3"
+              }`}
+              aria-label={`Powiększ: ${g.caption}`}
+            >
+              <Image
+                src={shotSrc(g.file)}
+                alt={g.alt}
+                fill
+                sizes={i === 0 ? "(max-width: 1024px) 100vw, 50vw" : "(max-width: 640px) 50vw, 25vw"}
+                placeholder="blur"
+                blurDataURL={BLUR[`gal-${g.file}` as keyof typeof BLUR] ?? BLUR.zycie}
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+              <span className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-gradient-to-t from-abyss/85 to-transparent p-3 pt-10 text-left sm:p-4 sm:pt-14">
+                <span className="t-meta-sm text-sand-50 normal-case">{g.caption}</span>
+                <span className="flex h-7 w-7 flex-none items-center justify-center border border-sand-50/35 text-sand-50 opacity-0 transition-opacity group-hover:opacity-100">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+                    <path d="M11 8v6M8 11h6" />
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="M20 20l-4-4" />
+                  </svg>
+                </span>
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {open !== null && (
+        <Lightbox shots={shots} index={open} onIndex={setOpen} onClose={() => setOpen(null)} />
+      )}
+    </section>
+  );
+}

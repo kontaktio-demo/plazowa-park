@@ -42,3 +42,7 @@ next-env.d.ts
 
 # Playwright MCP scratch
 .playwright-mcp/
+
+# paczki zrodlowe dollhouse dewelopera (odtwarzalne skryptami w scripts/)
+.dollhouse-src/
+.osiedle-src/

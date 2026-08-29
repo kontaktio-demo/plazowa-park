@@ -2,6 +2,7 @@ import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import Osiedle from "@/components/Osiedle";
 import EstateExplorer from "@/components/estate/EstateExplorer";
+import Galeria from "@/components/Galeria";
 import VirtualTour from "@/components/VirtualTour";
 import Standard from "@/components/Standard";
 import Zycie from "@/components/Zycie";
@@ -24,6 +25,7 @@ export default function Home() {
         <Hero />
         <Osiedle />
         <EstateExplorer />
+        <Galeria />
         <VirtualTour />
         <Standard />
         <Zycie />

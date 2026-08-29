@@ -47,7 +47,7 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
       <button type="button" aria-label="Zamknij" onClick={onClose} className="absolute inset-0 bg-abyss/70 backdrop-blur-sm" />
       <div className="band band-sand relative z-10 max-h-[92svh] w-full max-w-3xl overflow-y-auto rounded-t-[12px] sm:rounded-[12px]">
         <div className="grid sm:grid-cols-2">
-          <div className="relative aspect-4/3 bg-lake-900 sm:aspect-auto sm:min-h-[420px]">
+          <div className="relative aspect-4/3 bg-sand-50 sm:aspect-auto sm:min-h-[420px]">
             <Image
               src={planImage(unit)}
               alt={`Rzut poglądowy apartamentu ${unit.name}, typ ${place.type}`}

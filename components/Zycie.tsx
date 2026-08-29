@@ -11,9 +11,9 @@ const points = [
 
 export default function Zycie() {
   return (
-    <section id="zycie" className="band band-deep sec overflow-hidden">
+    <section id="zycie" className="band band-sand-2 sec overflow-hidden">
       <div className="wrap">
-        <div className="grid items-center gap-8 lg:grid-cols-[60fr_40fr] lg:gap-0">
+        <div className="grid items-center gap-8 lg:grid-cols-[66fr_34fr] lg:gap-0">
           <figure className="relative aspect-16/10 w-full sm:aspect-7/5 lg:aspect-3/2" data-reveal>
             <Image
               src="/renders/zycie.webp"
@@ -26,7 +26,7 @@ export default function Zycie() {
             />
           </figure>
 
-          <div className="bd relative z-10 border bg-deep p-6 sm:p-9 lg:-ml-16" data-reveal>
+          <div className="bd relative z-10 border bg-[color-mix(in_srgb,var(--color-sand-50)_92%,transparent)] p-6 backdrop-blur-md sm:p-9 lg:-ml-8" data-reveal>
             <SectionHeader
               id="zycie"
               title={
@@ -43,7 +43,7 @@ export default function Zycie() {
             <ul className="mt-8 flex flex-col">
               {points.map((p) => (
                 <li key={p.t} className="bd flex items-start gap-4 border-t py-4">
-                  <Icon.check width={18} height={18} className="mt-1 flex-none text-lake-300" />
+                  <Icon.check width={18} height={18} className="mt-1 flex-none text-pine-500" />
                   <div>
                     <h3 className="font-medium">{p.t}</h3>
                     <p className="t-body fg-muted mt-0.5">{p.d}</p>

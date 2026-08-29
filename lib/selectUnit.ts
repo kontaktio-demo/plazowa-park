@@ -19,5 +19,5 @@ export function selectUnit(unitName: string) {
 export function selectBuilding(stageId: number) {
   if (typeof window === "undefined") return;
   window.dispatchEvent(new CustomEvent(SELECT_BUILDING_EVENT, { detail: stageId }));
-  goTo("lokale");
+  goTo("lista-lokali");
 }

@@ -147,8 +147,14 @@ async function blur() {
     hero: join(PUB, "renders", "hero.webp"),
     zycie: join(PUB, "renders", "zycie.webp"),
     tour: join(PUB, "renders", "tour-poster.webp"),
-    estate: join(PUB, "map", "estate-frame.webp"),
+    estate: join(PUB, "dollhouse", "f00.webp"),
   };
+  // każdy render z galerii dostaje własny placeholder - inaczej siatka mruga
+  // jednym kolorem dla siedmiu różnych zdjęć
+  for (const g of await readdir(join(PUB, "galeria"))) {
+    targets[`gal-${g.replace(/.webp$/, "")}`] = join(PUB, "galeria", g);
+  }
+
   const out = {};
   for (const [key, file] of Object.entries(targets)) {
     const buf = await (await load(file)).resize(14).webp({ quality: 28 }).toBuffer();

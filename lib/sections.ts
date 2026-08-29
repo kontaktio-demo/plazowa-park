@@ -11,13 +11,14 @@ export type Section = {
 export const SECTIONS: Section[] = [
   { n: "01", id: "osiedle", label: "Osiedle", dark: false },
   { n: "02", id: "mieszkania-i-domy", label: "Mieszkania i domy", dark: false },
-  { n: "03", id: "spacer", label: "Spacer 360", dark: true },
-  { n: "04", id: "standard", label: "Standard", dark: false },
-  { n: "05", id: "zycie", label: "Życie", dark: true },
-  { n: "06", id: "okolica", label: "Okolica", dark: false },
-  { n: "07", id: "deweloper", label: "Deweloper", dark: true },
-  { n: "08", id: "faq", label: "Pytania", dark: false },
-  { n: "09", id: "kontakt", label: "Kontakt", dark: true },
+  { n: "03", id: "galeria", label: "Galeria", dark: false },
+  { n: "04", id: "spacer", label: "Spacer 360", dark: true },
+  { n: "05", id: "standard", label: "Standard", dark: false },
+  { n: "06", id: "zycie", label: "Życie", dark: false },
+  { n: "07", id: "okolica", label: "Okolica", dark: false },
+  { n: "08", id: "deweloper", label: "Deweloper", dark: false },
+  { n: "09", id: "faq", label: "Pytania", dark: false },
+  { n: "10", id: "kontakt", label: "Kontakt", dark: true },
 ];
 
 export function sectionEyebrow(id: string): string {

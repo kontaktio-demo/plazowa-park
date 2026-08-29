@@ -24,25 +24,32 @@ export default function Hero() {
           sizes="100vw"
           placeholder="blur"
           blurDataURL={BLUR.hero}
-          className="scale-[1.08] object-cover object-[62%_center] sm:object-[70%_center]"
+          className="ken-burns object-cover object-[68%_42%] sm:object-[70%_center]"
         />
       </div>
-      {/* woda zbiera się od dołu i od lewej, żeby tekst siedział na spokojnym tle */}
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-abyss via-abyss/55 to-transparent" />
-      <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-abyss via-abyss/30 to-transparent" />
+      {/* Scrim tylko pod kolumną tekstu. Wcześniej dwie pełnoekranowe nakładki
+          dawały w strefie H1 ok. 90% krycia granatu i kasowały całe złote światło
+          renderu - to było dosłownie to, co klient nazwał "za czarna i nie żyje".
+          Czytelność bierzemy z cienia tekstu, nie z przyciemniania zdjęcia. */}
+      {/* na wąskim ekranie skos zjadałby cały kadr, więc tam scrim jest pionowy */}
+      <div
+        aria-hidden
+        className="absolute inset-0 hidden bg-[linear-gradient(100deg,var(--color-abyss)_0%,color-mix(in_srgb,var(--color-abyss)_42%,transparent)_32%,transparent_64%)] sm:block"
+      />
+      <div aria-hidden className="absolute inset-x-0 bottom-0 h-[82%] bg-gradient-to-t from-abyss/96 via-abyss/50 to-transparent sm:h-[36%] sm:via-transparent sm:from-abyss/72" />
 
       <div className="wrap relative flex min-h-[100svh] flex-col justify-end pb-[clamp(150px,18vh,176px)] pt-(--nav-h)">
         <div className="max-w-5xl">
-          <h1 className="t-display-xl">
+          <h1 className="t-display-xl [text-shadow:0_2px_28px_var(--color-abyss)]">
             <span className="rise-y block" style={{ animationDelay: "0ms" }}>
               Apartamenty nad
             </span>
-            <span className="rise-y block text-lake-300" style={{ animationDelay: "90ms" }}>
+            <span className="rise-y block text-sun" style={{ animationDelay: "90ms" }}>
               Zalewem Mrożyczka
             </span>
           </h1>
 
-          <p className="rise t-body-l fg-muted mt-5 max-w-xl text-pretty sm:mt-7" style={{ animationDelay: "200ms" }}>
+          <p className="rise t-body-l fg-muted mt-5 max-w-xl text-pretty [text-shadow:0_1px_18px_var(--color-abyss)] sm:mt-7" style={{ animationDelay: "200ms" }}>
             Kameralne osiedle {INVESTMENT.totalUnits} apartamentów z prywatnym ogrodem i tarasem, w ponad
             100-letnim lesie przy plaży i Central Wake Park.
           </p>
@@ -62,7 +69,7 @@ export default function Hero() {
           >
             {stats.map((s, i) => (
               <li key={s.l} className={i > 0 ? "sm:border-l sm:border-lake-700 sm:pl-8 sm:ml-8" : ""}>
-                <span className="t-display-m num block leading-none">{s.v}</span>
+                <span className="t-display-m num block leading-none whitespace-nowrap text-[1.55rem] sm:text-[unset]">{s.v}</span>
                 <span className="t-meta-sm fg-muted mt-2.5 block">{s.l}</span>
               </li>
             ))}

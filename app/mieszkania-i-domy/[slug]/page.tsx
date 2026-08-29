@@ -12,6 +12,7 @@ import PageHeader from "@/components/PageHeader";
 import Footer from "@/components/Footer";
 import TrackUnitView from "@/components/TrackUnitView";
 import UnitPosition from "@/components/estate/UnitPosition";
+import ZoomShots from "@/components/ZoomShots";
 import { Icon } from "@/components/Icons";
 
 export function generateStaticParams() {
@@ -42,9 +43,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 const galleryImgs = [
-  { src: "/renders/tour-poster.webp", alt: "Budynek osiedla Plażowa Park o zmierzchu w sosnowym lesie" },
-  { src: "/renders/zycie.webp", alt: "Taras i prywatny ogród apartamentu Plażowa Park" },
-  { src: "/map/estate-frame.webp", alt: "Plan osiedla Plażowa Park z lotu ptaka" },
+  { src: "/renders/tour-poster.webp", alt: "Budynek osiedla Plażowa Park o zmierzchu w sosnowym lesie", caption: "Budynek o zmierzchu" },
+  { src: "/renders/zycie.webp", alt: "Taras i prywatny ogród apartamentu Plażowa Park", caption: "Taras i ogród" },
+  { src: "/dollhouse/f00.webp", alt: "Plan osiedla Plażowa Park z lotu ptaka", caption: "Plan osiedla" },
 ];
 
 export default async function UnitPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -129,23 +130,17 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
 
           <div className="mt-10 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
             <div>
-              <div className="relative aspect-4/3 overflow-hidden bg-lake-900">
-                <Image
-                  src={planImage(u)}
-                  alt={`Rzut poglądowy apartamentu ${u.name}, typ ${place.type}`}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 55vw"
-                  className="object-contain p-8"
-                  priority
-                />
-              </div>
-              <div className="mt-3 grid grid-cols-3 gap-3">
-                {galleryImgs.map((g) => (
-                  <div key={g.src} className="relative aspect-4/3 overflow-hidden">
-                    <Image src={g.src} alt={g.alt} fill sizes="(max-width: 1024px) 33vw, 200px" className="object-cover" />
-                  </div>
-                ))}
-              </div>
+              <ZoomShots
+                plan
+                shots={[
+                  {
+                    src: planImage(u),
+                    alt: `Rzut apartamentu ${u.name}, typ ${place.type}`,
+                    caption: `Rzut apartamentu ${u.name}`,
+                  },
+                  ...galleryImgs,
+                ]}
+              />
             </div>
 
             <div>

@@ -28,38 +28,43 @@ export default function Nav() {
   return (
     <>
       <header
-        className={`band band-abyss fixed inset-x-0 top-0 z-60 transition-[background-color,backdrop-filter,box-shadow] duration-200 ${
-          scrolled || open
-            ? "bg-abyss/85 shadow-[0_1px_0_var(--color-lake-700)] backdrop-blur-md"
-            : "bg-transparent"
+        className={`fixed inset-x-0 top-0 z-60 transition-[background-color,backdrop-filter,box-shadow] duration-200 ${
+          open
+            ? "band band-abyss bg-abyss/95 backdrop-blur-md"
+            : scrolled
+              ? "band band-sand bg-sand-50/94 shadow-[0_1px_0_color-mix(in_srgb,var(--color-ink)_12%,transparent)] backdrop-blur-md"
+              : "band band-abyss bg-transparent"
         }`}
       >
         <div className="wrap flex h-(--nav-h) items-center gap-4 2xl:gap-5">
           <a href="#top" aria-label="Plażowa Park - strona główna" className="flex flex-none items-center gap-3">
-            <LogoMark width={26} height={26} className="text-lake-300" />
+            <LogoMark width={26} height={26} className="fg-accent" />
             <span className="flex flex-col leading-none">
               <span className="font-display text-[1.2rem] font-semibold tracking-tight">
                 Plażowa Park
               </span>
-              <span className="t-meta-sm mt-1.5 hidden text-lake-300/80 sm:block">Głowno · Zalew Mrożyczka</span>
+              <span className="t-meta-sm fg-muted mt-1.5 hidden sm:block">Głowno · Zalew Mrożyczka</span>
             </span>
           </a>
 
           <nav className="hidden flex-1 items-center justify-center gap-x-5 xl:flex 2xl:gap-x-7">
             {NAV.map((n) => (
-              <a key={n.href} href={n.href} className="link-underline t-meta whitespace-nowrap hover:text-lake-300">
+              <a key={n.href} href={n.href} className="link-underline t-meta whitespace-nowrap hover:text-(--band-accent)">
                 {n.label}
               </a>
             ))}
           </nav>
 
           <div className="ml-auto flex flex-none items-center gap-3">
+            {/* poniżej 2xl zostaje sama słuchawka: pełny numer nie mieści się
+                obok siedmiu pozycji menu, a na telefonie i tak go nie było */}
             <a
               href={`tel:${SITE.phone.tel}`}
-              className="hidden items-center gap-2 text-sm font-medium hover:text-lake-300 xl:mr-5 xl:flex"
+              aria-label={`Zadzwoń: ${SITE.phone.display}`}
+              className="flex h-11 items-center gap-2 px-1 text-sm font-medium hover:text-(--band-accent) 2xl:mr-4 2xl:px-0"
             >
-              <Icon.phone width={17} height={17} className="text-lake-300" />
-              <span className="num">{SITE.phone.display}</span>
+              <Icon.phone width={18} height={18} className="fg-accent" />
+              <span className="num hidden 2xl:inline">{SITE.phone.display}</span>
             </a>
             <a href="#mieszkania-i-domy" data-track="book_viewing" className="btn btn-sun btn-sm hidden sm:inline-flex">
               Sprawdź dostępność
