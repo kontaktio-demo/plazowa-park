@@ -81,7 +81,6 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
         url: unitUrl,
         description: metaDesc,
         image: `${SITE.url}/og.jpg`,
-        datePosted: "2026-01-01",
         mainEntity: {
           "@type": "Apartment",
           name: `Mieszkanie ${u.name}`,
@@ -157,7 +156,6 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
               <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5">
                 {[
                   { l: "Powierzchnia", v: area(u.area) },
-                  { l: "Ogród prywatny", v: area(u.garden) },
                   { l: "Liczba pokoi", v: rooms(u.rooms) },
                   { l: "Kondygnacje", v: String(u.floors) },
                 ].map((sp) => (
@@ -216,7 +214,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                 <Link key={r.id} href={`/mieszkania-i-domy/${unitSlug(r.name)}`} className="card card-hover p-5">
                   <span className="t-title block">Mieszkanie {r.name}</span>
                   <span className="t-meta-sm fg-muted num mt-3 block">
-                    {area(r.area)} · ogród {area(r.garden)}
+                    {area(r.area)} · {rooms(r.rooms)}
                   </span>
                   <span className="t-display-m num mt-3 block">{plnShort(r.price)}</span>
                 </Link>

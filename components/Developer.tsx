@@ -13,6 +13,7 @@ const registry = [
   { label: "NIP", value: DEVELOPER.nip },
   { label: "REGON", value: DEVELOPER.regon },
   { label: "Status VAT", value: DEVELOPER.statusVat },
+  { label: "Kapitał zakładowy", value: DEVELOPER.kapital },
 ];
 
 export default function Developer() {

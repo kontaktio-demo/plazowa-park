@@ -49,9 +49,8 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
         {/* hairline między kolumnami, żeby etykiety nie czytały się jako jeden ciąg */}
         <dl className="mt-3 grid grid-cols-2 gap-x-5 gap-y-3 sm:mt-5 sm:gap-y-4 [&>*:nth-child(even)]:border-l [&>*:nth-child(even)]:border-(--band-line) [&>*:nth-child(even)]:pl-5">
           <Spec label="Powierzchnia" value={area(unit.area)} />
-          <Spec label="Ogród" value={area(unit.garden)} />
           {/* na telefonie liczba pokoi i budynek są już w modalu i na stronie lokalu */}
-          <Spec label="Pokoje" value={String(unit.rooms)} className="hidden sm:block" />
+          <Spec label="Pokoje" value={String(unit.rooms)} />
           <Spec label="Budynek" value={unit.buildingLabel} className="hidden sm:block" />
         </dl>
 

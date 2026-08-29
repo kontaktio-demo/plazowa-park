@@ -15,39 +15,38 @@ export default function Standard() {
               Energooszczędna technologia <span className="fg-accent">w standardzie</span>
             </>
           }
-          lead="Mieszkania powstają z materiałów wysokiej jakości, z pompą ciepła i ogrzewaniem podłogowym w cenie. Poddasze jest zawarte w cenie i gotowe do adaptacji według własnego pomysłu."
+          lead="Mieszkania powstają z materiałów wysokiej jakości, z pompą ciepła i ogrzewaniem podłogowym w standardzie. Poddasze jest zawarte w cenie i gotowe do adaptacji według własnego pomysłu."
           className="max-w-3xl"
         />
 
         <div className="mt-10 grid items-start gap-8 lg:mt-14 lg:grid-cols-[minmax(0,52fr)_minmax(0,48fr)] lg:gap-14" data-reveal>
           <div className="t-body fg-muted space-y-4 text-pretty">
             <p>
-              Wszystkie budynki powstają w tej samej technologii. Ogrzewa je pompa ciepła współpracująca
-              z ogrzewaniem podłogowym rozprowadzonym po całym lokalu - bez grzejników, więc ściany zostają
-              wolne pod aranżację. Rekuperację i fotowoltaikę montujemy na życzenie, na etapie budowy,
-              kiedy instalacje da się poprowadzić bez kucia.
+              Osiedle powstaje w technologii energooszczędnej. Źródłem ciepła jest pompa ciepła, a ciepło
+              rozprowadza ogrzewanie podłogowe - bez widocznych grzejników, więc ściany zostają wolne pod
+              aranżację. Rekuperację i fotowoltaikę montujemy na życzenie, na etapie budowy.
             </p>
             <p>
-              Elewacje łączą tynk najwyższej klasy z elastyczną cegłą, a dach wykonany jest z blachy na rąbek
-              stojący. Przeszklenia sięgają od podłogi do sufitu i otwierają salon na prywatny ogród
-              i taras. Każde mieszkanie ma własne, niezależne wejście, dwa miejsca postojowe, a cztery
-              lokale w osiedlu - własny garaż.
+              Elewacje łączą tynk najwyższej klasy z elastyczną cegłą i blachą na rąbek. Panoramiczne okna
+              sięgają od podłogi po sam sufit i otwierają wnętrze na prywatny ogród i taras. Każde
+              mieszkanie ma własne, niezależne wejście i dwa miejsca postojowe, a cztery lokale
+              w osiedlu - własny garaż.
             </p>
             <p>
-              Poddasze jest zawarte w cenie nieruchomości i nie wlicza się do metrażu, więc powierzchnia
-              użytkowa lokalu jest w praktyce większa niż liczba w cenniku. Wykończenie pod klucz i zmiany
-              w projekcie ustalamy indywidualnie, zanim ruszą prace wykończeniowe.
+              Poddasze jest zawarte w cenie nieruchomości i nie wlicza się do metrażu - możesz je
+              zaadaptować według własnego pomysłu. Wykończenie pod klucz i zmiany w projekcie ustalamy
+              indywidualnie z nabywcami, którzy kupują lokal na etapie budowy.
             </p>
             <p className="t-meta-sm">
-              Pełne parametry techniczne - moce urządzeń, współczynniki przenikania i przekroje przegród -
-              zawiera prospekt informacyjny inwestycji, który udostępnia biuro sprzedaży.
+              Szczegółowe parametry techniczne zawiera prospekt informacyjny inwestycji, który udostępnia
+              biuro sprzedaży.
             </p>
           </div>
 
           <figure className="bd relative aspect-4/3 overflow-hidden border lg:aspect-3/4">
             <Image
               src="/galeria/elewacja-ogrodowa.webp"
-              alt="Elewacja ogrodowa z tarasami, elastyczną cegłą i dachem z blachy na rąbek stojący"
+              alt="Elewacja ogrodowa z tarasami, elastyczną cegłą i blachą na rąbek"
               fill
               sizes="(max-width: 1024px) 100vw, 46vw"
               placeholder="blur"

@@ -49,7 +49,6 @@ export default function SiteJsonLd() {
           image: `${SITE.url}/og.jpg`,
           telephone: SITE.phone.tel,
           email: SITE.email,
-          vatID: `PL${DEVELOPER.nip}`,
           taxID: DEVELOPER.nip,
           address: {
             "@type": "PostalAddress",
@@ -101,7 +100,6 @@ export function HomeJsonLd() {
             "Osiedle 20 mieszkań i domów 82-133 m² z prywatnymi ogrodami nad Zalewem Mrożyczka w Głownie.",
           url: SITE.url,
           numberOfAccommodationUnits: INVESTMENT.totalUnits,
-          petsAllowed: true,
           address,
           geo,
         },
@@ -128,14 +126,6 @@ export function HomeJsonLd() {
             name: f.q,
             acceptedAnswer: { "@type": "Answer", text: f.a },
           })),
-        },
-        {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Strona główna", item: SITE.url },
-            { "@type": "ListItem", position: 2, name: "Mieszkania i domy", item: `${SITE.url}/#mieszkania-i-domy` },
-            { "@type": "ListItem", position: 3, name: "Kontakt", item: `${SITE.url}/#kontakt` },
-          ],
         },
         {
           "@type": "ItemList",

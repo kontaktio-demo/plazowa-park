@@ -763,3 +763,118 @@ z paleniskiem, las w tle), podbitym do 4K.
 | wiersze L<90 | 41,6% | **18,9%** |
 | piksele zielone | 3,8% | 6,0% |
 | Lighthouse mobile / dostępność / SEO | 86 / 100 / 100 | 85 / 100 / 100 |
+
+## 13. Audyt faktograficzny przed wysyłką do klienta (2026-08-29)
+
+Weryfikacja każdego twierdzenia na wyrenderowanej stronie wobec źródeł: API
+konfiguratora dewelopera, strona plazowa-park.pl, KRS, Biała Lista MF, VIES,
+OSRM, OpenStreetMap, Overpass, uodo.gov.pl i portale nieruchomości.
+Sprawdzono 141 twierdzeń w siedmiu obszarach.
+
+### Co się potwierdziło
+
+**Wszystkie 20 lokali co do znaku.** Cena, powierzchnia, liczba pokoi,
+kondygnacje, cena za m², status sprzedaży i przypisanie do budynku zgadzają się
+z API dewelopera dla każdego z dwudziestu lokali. Agregaty też: 20 lokali,
+18 wolnych, 6 budynków, ceny 633 000-926 000 zł, metraże 82,05-133,03 m².
+Cena za m² zgadza się również rachunkowo (cost / area).
+
+**Dane rejestrowe.** KRS 0001031916, NIP 7331366052, REGON 525091200, nazwa,
+forma prawna, adres siedziby i status VAT "Czynny" - potwierdzone w odpisie KRS
+i w Białej Liście MF. Że deweloperem tej konkretnej inwestycji jest KS Prestige
+Development, potwierdzają niezależnie rynekpierwotny.pl, noweinwestycje.pl
+i tabelaofert.pl.
+
+**Odległości.** 32 km do centrum Łodzi (OSRM: 32,4 km), 11 km do Strykowa
+(11,4 km), 104 km do Warszawy (103,9 km) - wszystkie w normie zaokrąglenia.
+
+### Co było nieprawdą i zostało poprawione
+
+**Metraż ogrodu przy każdym z 20 lokali.** Liczby brały się z pola API
+`total_area`, które w słowniku konfiguratora dewelopera znaczy **"Powierzchnia
+całkowita"**, a nie powierzchnia ogrodu. Pole opisujące działkę (`land_area`,
+"Powierzchnia działki") jest **puste dla wszystkich 20 lokali**, a sam deweloper
+ma `total_area` wyłączone w swoim konfiguratorze (`total_area: {enabled: false}`).
+Rozstrzygające: lokale o **identycznej** powierzchni mają `total_area` od 31
+do 145 m² - powierzchnia całkowita identycznego układu nie może się różnić
+4,7 raza, więc pole opisuje coś działkowego, ale pod nazwą, która tego nie mówi.
+Metraż zdjęty z kart, modala, podstron, opisów i danych strukturalnych; zostało
+jakościowe "prywatny ogród i taras", czyli dokładnie to, co pisze deweloper.
+Do przywrócenia po jednym zdaniu potwierdzenia z biura sprzedaży.
+
+**Stacja kolejowa Głowno: 3 km.** OSRM: 4,1 km drogą. Wszystkie pozostałe
+odległości na stronie są drogowe, więc ta też musi być. Poprawione na 4 km.
+
+**"Ponad 30 hektarów" zalewu.** Deweloper pisze "30-hektarowy zbiornik", a OSM
+mierzy dla samego akwenu 28,1 ha. Słowo "ponad" usunięte w trzech miejscach.
+
+**"32 km autostradą A1".** Sam dystans jest dobry, ale trasa go nie potwierdza:
+OSRM prowadzi 28 z 32 km drogą krajową 14, autostrady nie dotyka. Rozdzielone
+na dwa fakty: 32 km drogą krajową 14 do Łodzi, 11 km do Strykowa z węzłem A1/A2.
+
+**Adres UODO.** Strona podawała ul. Stawki 2 - urząd od dawna urzęduje przy
+ul. Stanisława Moniuszki 1A. Poprawione w polityce prywatności.
+
+**Wewnętrzna notatka na trzech stronach prawnych.** Na końcu polityki cookies,
+polityki prywatności i regulaminu wisiał akapit "Dokument ma charakter
+informacyjny. Przed wdrożeniem produkcyjnym...". Usunięty ze wszystkich trzech.
+
+**Martwa kotwica w stopce.** Przycisk "Wybierz swój dom" miał `href="#mieszkania-i-domy"`,
+a ten element istnieje tylko na stronie głównej - na 24 podstronach klik nie robił nic.
+
+**Polityka cookies opisywała mechanizmy, których nie ma.** Serwis nie ustawia
+ani jednego cookie (zero nagłówków `Set-Cookie`), zgodę trzyma w pamięci lokalnej,
+a analityka nie jest skonfigurowana. Dokument obiecywał cookies funkcjonalne
+"zapamiętujące wybory w interaktywnej mapie" (nie istnieją) i instruował, jak
+cofnąć zgodę przez czyszczenie cookies (nie zadziała - to localStorage).
+Przepisany na stan faktyczny.
+
+**Polityka nie wymieniała realnego procesora.** Formularz wysyła dane wprost
+z przeglądarki do Web3Forms, poza EOG, wraz z adresem IP na potrzeby ochrony
+antyspamowej. Dopisane, razem z dostawcą kafli satelitarnych (Esri).
+
+**Twierdzenia bez pokrycia w danych strukturalnych.** `petsAllowed: true`
+(nigdzie nie ma informacji o zwierzętach) i `datePosted: "2026-01-01"`
+(zahardkodowane, identyczne dla 20 lokali) - usunięte. `vatID: "PL7331366052"`
+usunięte, bo VIES zwraca dla tego numeru `isValid: false` - spółka jest czynnym
+podatnikiem VAT krajowo, ale nie jest zarejestrowana do VAT-UE.
+
+**Nadinterpretacje w opisach.** Sekcja Standard twierdziła m.in., że
+"powierzchnia użytkowa jest w praktyce większa niż liczba w cenniku" (deweloper
+mówi tylko, że poddasze nie wlicza się do metrażu), "bez grzejników" zamiast
+źródłowego "bez widocznych grzejników", "blacha na rąbek stojący" zamiast
+"blacha na rąbek", oraz przypisywała blachę do dachu, czego źródło nie mówi.
+Warunek personalizacji zgubił kluczowy człon: u dewelopera dotyczy osób, które
+kupują na etapie budowy. Generator opisów lokali podawał rekuperację jako źródło
+ogrzewania (to wentylacja) i twierdził, że budynek 8 ma "dwa najbardziej
+przestronne lokale w osiedlu", choć budynek 3 ma dokładnie takie same metraże.
+"Unikalny w skali kraju" zespół wydm to według glowno.pl "unikalny w województwie
+łódzkim". Central Wake Park sam nie nazywa się "jednym z największych".
+
+Dodane: kapitał zakładowy 10 000 zł w danych rejestrowych (art. 206 KSH),
+własny Open Graph dla trzech stron prawnych, stała data `lastmod` dla dokumentów
+prawnych w sitemapie.
+
+### Do potwierdzenia przez klienta
+
+1. **Co oznacza `total_area` w konfiguratorze.** Jeśli to powierzchnia ogrodu,
+   wracają metraże przy 20 lokalach - zmiana na pięć minut.
+2. **Kto prowadzi serwis i jest administratorem danych.** Dokumenty prawne
+   klienta na plazowa-park.pl wskazują **KS PRESTIGE Sp. z o.o. (NIP 7331362953,
+   KRS 0000817877)**, a nasze - KS Prestige Development (NIP 7331366052).
+   Obie spółki istnieją, są czynne i mają ten sam adres. Deweloperem inwestycji
+   jest potwierdzony Development; kto odpowiada za stronę - do rozstrzygnięcia.
+3. **Termin oddania: 4 kw. 2026.** Podają go rynekpierwotny.pl i noweinwestycje.pl,
+   ale nie ma go ani na stronie dewelopera, ani w konfiguratorze. Po potwierdzeniu
+   wchodzi na stronę - to pierwsze pytanie kupującego.
+4. **Rozbieżność cen na portalach.** rynekpierwotny.pl podaje "od 603 000 zł"
+   i maksimum 896 000 zł, konfigurator dewelopera 633 000-926 000 zł.
+   Bierzemy dane z konfiguratora; portal wygląda na nieaktualny.
+5. **Powierzchnia lokalu 2.2A: 92,72 m²** przy 92,74 m² dla trzech bliźniaczych
+   lokali. Odwzorowujemy API wiernie, ale ta asymetria wygląda na literówkę
+   po stronie dewelopera.
+6. **Zgoda RODO jest w formularzu obowiązkowa**, a polityka opisuje ją jako
+   jedną z podstaw i podaje przykład kontaktu marketingowego. Do rozstrzygnięcia
+   z prawnikiem klienta.
+7. **Sąd rejestrowy** do bloku danych rejestrowych (art. 206 KSH) - nie ma go
+   w odpisie z API, więc nie wpisujemy go zgadując.

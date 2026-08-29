@@ -29,16 +29,13 @@ export function isCornerBuilding(u: Unit): boolean {
 
 // ~150-char meta/OG description, enriched with the unit's real numbers.
 export function unitMetaDescription(u: Unit): string {
-  return `Mieszkanie ${u.name}: ${area(u.area)}, ${rooms(u.rooms)}, ogród ${area(
-    u.garden
-  )}, taras i poddasze w cenie. Cena ${plnShort(u.price)}. Plażowa Park, Głowno nad Zalewem Mrożyczka.`;
+  return `Mieszkanie ${u.name}: ${area(u.area)}, ${rooms(u.rooms)}, prywatny ogród, taras i poddasze w cenie. Cena ${plnShort(u.price)}. Plażowa Park, Głowno nad Zalewem Mrożyczka.`;
 }
 
 // Structurally varied, attribute-driven prose (~260-330 words, 5 paragraphs).
 export function unitDescription(u: Unit): string[] {
   const corner = isCornerBuilding(u);
   const A = area(u.area);
-  const G = area(u.garden);
   const R = rooms(u.rooms);
   const P = plnShort(u.price);
   const PM = plnShort(u.pricePerM);
@@ -47,9 +44,9 @@ export function unitDescription(u: Unit): string[] {
 
   const introV = [
     `Mieszkanie ${u.name} to ${R} o powierzchni ${A} w kameralnym osiedlu Plażowa Park w Głownie.`,
-    `${A}, ${R} i własny ogród ${G} - tak w skrócie prezentuje się mieszkanie ${u.name} w Plażowa Park w Głownie.`,
+    `${A}, ${R} i własny ogród - tak w skrócie prezentuje się mieszkanie ${u.name} w Plażowa Park w Głownie.`,
     `W ${corner ? "narożnym" : "środkowym"} budynku ${bl} osiedla Plażowa Park w Głownie znajduje się mieszkanie ${u.name} o powierzchni ${A} (${R}).`,
-    `Mieszkanie ${u.name} (${A}, ${R}) otwiera się na prywatny ogród ${G} i taras z panoramicznymi oknami.`,
+    `Mieszkanie ${u.name} (${A}, ${R}) otwiera się na prywatny ogród i taras z panoramicznymi oknami.`,
   ];
 
   const buildingV = corner
@@ -60,30 +57,24 @@ export function unitDescription(u: Unit): string[] {
       ]
     : [
         `To jedno z dwóch największych, pięciopokojowych mieszkań w środkowym budynku ${bl}.`,
-        `Środkowy budynek ${bl} mieści dwa najbardziej przestronne, pięciopokojowe lokale w osiedlu.`,
+        `Środkowy budynek ${bl} mieści dwa najbardziej przestronne, pięciopokojowe lokale.`,
         `Należy do dwóch największych, pięciopokojowych mieszkań w środkowym budynku ${bl}.`,
       ];
 
-  const gardenV =
-    u.garden > 100
-      ? [
-          `Prywatny ogród ${G} to rzadkość w zabudowie wielorodzinnej - dość miejsca na strefę wypoczynku, zabawę dzieci i własne nasadzenia.`,
-          `Do lokalu należy wyjątkowo duży, prywatny ogród ${G} oraz taras z panoramicznymi oknami.`,
-        ]
-      : u.garden >= 70
-        ? [
-            `Prywatny ogród ${G} i taras z panoramicznymi oknami dają komfortową przestrzeń na wypoczynek na świeżym powietrzu.`,
-            `Własny ogród ${G} oraz taras tworzą wygodną, zieloną strefę tuż przy wejściu.`,
-          ]
-        : [
-            `Kameralny ogród ${G} i taras z panoramicznymi oknami tworzą prywatną, zieloną strefę przy wejściu.`,
-            `Do mieszkania należy przytulny ogród ${G} z tarasem - zieleń na wyłączność.`,
-          ];
+  // Metraż ogrodu zdjęty z treści: pochodził z pola API `total_area`, które
+  // w słowniku konfiguratora dewelopera znaczy "Powierzchnia całkowita", a pole
+  // opisujące działkę (`land_area`) jest puste dla wszystkich 20 lokali.
+  // Do przywrócenia, gdy biuro sprzedaży potwierdzi, co ta liczba oznacza.
+  const gardenV = [
+    `Prywatny ogród i taras z panoramicznymi oknami dają komfortową przestrzeń na wypoczynek na świeżym powietrzu.`,
+    `Do lokalu należy prywatny ogród oraz taras z panoramicznymi oknami - zieleń na wyłączność.`,
+    `Własny ogród i taras tworzą wygodną, zieloną strefę tuż przy wejściu.`,
+  ];
 
   const standardV = [
-    `Układ na ${u.floors} kondygnacjach uzupełnia poddasze w cenie, które zaadaptujesz na sypialnię, gabinet lub pokój do zabawy. Ogrzewanie zapewniają pompa ciepła i instalacja podłogowa (opcjonalnie rekuperacja i fotowoltaika), a do lokalu należą dwa miejsca postojowe.`,
+    `Układ na ${u.floors} kondygnacjach uzupełnia poddasze w cenie, które zaadaptujesz na sypialnię, gabinet lub pokój do zabawy. Ogrzewanie zapewniają pompa ciepła i instalacja podłogowa, a rekuperacja i fotowoltaika pozostają opcją na etapie budowy; do lokalu należą dwa miejsca postojowe.`,
     `Do dyspozycji masz ${u.floors} kondygnacje oraz adaptowalne poddasze wliczone w cenę - idealne na dodatkowy pokój lub domowe biuro. Standard jest energooszczędny: pompa ciepła, ogrzewanie podłogowe i dwa miejsca postojowe, a rekuperacja oraz fotowoltaika pozostają opcją.`,
-    `Rozkład na ${u.floors} kondygnacjach dopełnia poddasze w cenie. Elewacja z elastycznej cegły i tynku najwyższej klasy oraz dach z blachy na rąbek stojący idą w parze z pompą ciepła i ogrzewaniem podłogowym; w komplecie dwa miejsca postojowe.`,
+    `Rozkład na ${u.floors} kondygnacjach dopełnia poddasze w cenie. Elewacja z elastycznej cegły, tynku najwyższej klasy i blachy na rąbek idzie w parze z pompą ciepła i ogrzewaniem podłogowym; w komplecie dwa miejsca postojowe.`,
   ];
 
   const locLead = [
@@ -96,7 +87,7 @@ export function unitDescription(u: Unit): string[] {
     "Ponad 100-letni sosnowy las otacza inwestycję, dając cień i czyste powietrze przez cały rok.",
     "W sąsiedztwie działa Central Wake Park, jeden z najważniejszych ośrodków wakeboardingu w Polsce.",
     "Ścieżki rowerowe wokół zalewu i w lesie zachęcają do codziennej rekreacji tuż za progiem.",
-    "Do centrum Łodzi jest około 32 km autostradą A1 przez węzeł Stryków, oddalony o 11 km od osiedla.",
+    "Do centrum Łodzi jest około 32 km drogą krajową 14 przez Stryków, a Stryków z węzłem autostradowym leży 11 km od osiedla.",
     "Restauracje, szkoły i przychodnie w Głownie znajdują się w krótkim dystansie od osiedla.",
   ];
   // Independent dispersion: each slot is driven by a DIFFERENT real attribute
@@ -113,13 +104,13 @@ export function unitDescription(u: Unit): string[] {
 
   const osiedleV = [
     `Plażowa Park to kameralne osiedle zaledwie 20 domów, stworzone dla rodzin ceniących bliskość natury i codzienny komfort. Prywatne ogrody, cisza sosnowego lasu i sąsiedztwo wody sprawiają, że lokal sprawdzi się i na całoroczne mieszkanie, i na dom rekreacyjny w zasięgu Łodzi.`,
-    `Zaledwie 20 domów, prywatne ogrody i cisza sosnowego lasu - Plażowa Park łączy spokój z rekreacją nad wodą w zasięgu aglomeracji łódzkiej. Kameralna skala osiedla to mało sąsiadów, bezpieczne otoczenie dla dzieci i spójna, nowoczesna architektura wszystkich budynków.`,
+    `Zaledwie 20 domów, prywatne ogrody i cisza sosnowego lasu - Plażowa Park łączy spokój z rekreacją nad wodą w zasięgu aglomeracji łódzkiej. Kameralna skala osiedla to mało sąsiadów i bezpieczne otoczenie dla dzieci.`,
     `Osiedle liczy tylko 20 domów z prywatnymi ogrodami, w otoczeniu ponad 100-letniego lasu i tuż przy Zalewie Mrożyczka. To propozycja zarówno na stałe mieszkanie blisko natury, jak i na drugi dom nad wodą niedaleko Łodzi, z pełnym zapleczem rekreacyjnym za progiem.`,
   ];
 
   const valueV = [
     `Poddasze jest wliczone w cenę, ale nie w metraż, więc realnie zyskujesz przestrzeń ponad ${A} do własnej aranżacji. Ogród i taras stają się przedłużeniem salonu wiosną i latem, a ${R} rozłożone na ${u.floors} kondygnacjach daje wygodny podział na strefę dzienną i prywatną.`,
-    `W cenie ${P} otrzymujesz nie tylko ${A} i ${R}, ale też adaptowalne poddasze poza metrażem oraz prywatny ogród ${G} - to wymierna wartość względem mieszkań bez własnej zieleni, a dwa miejsca postojowe rozwiązują codzienny problem parkowania.`,
+    `W cenie ${P} otrzymujesz nie tylko ${A} i ${R}, ale też adaptowalne poddasze poza metrażem oraz prywatny ogród - to wymierna wartość względem mieszkań bez własnej zieleni, a dwa miejsca postojowe rozwiązują codzienny problem parkowania.`,
     `Przy cenie ${PM}/m² mieszkanie ${u.name} łączy prywatny ogród, taras i poddasze w cenie z energooszczędnym standardem, dzięki czemu koszty utrzymania pozostają niskie. To rzadkie połączenie metrażu ${A}, zieleni na wyłączność i dojazdu do centrum Łodzi w granicach 32 km.`,
   ];
 

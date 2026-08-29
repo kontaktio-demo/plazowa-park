@@ -2,15 +2,26 @@ import type { Metadata } from "next";
 import LegalShell from "@/components/LegalShell";
 import { DEVELOPER, SITE } from "@/lib/data/site";
 
+const description =
+  "Zasady przetwarzania danych osobowych (RODO) w serwisie Plażowa Park w Głownie: administrator, cele i podstawy prawne przetwarzania oraz prawa użytkownika.";
+
 export const metadata: Metadata = {
   title: "Polityka prywatności",
-  description: "Zasady przetwarzania danych osobowych (RODO) w serwisie Plażowa Park w Głownie: administrator, cele i podstawy prawne przetwarzania oraz prawa użytkownika.",
+  description,
   alternates: { canonical: "/polityka-prywatnosci" },
+  openGraph: {
+    type: "website",
+    locale: "pl_PL",
+    url: `${SITE.url}/polityka-prywatnosci`,
+    siteName: "Plażowa Park",
+    title: "Polityka prywatności - Plażowa Park",
+    description,
+  },
 };
 
 export default function Page() {
   return (
-    <LegalShell title="Polityka prywatności" updated="3 lipca 2026">
+    <LegalShell title="Polityka prywatności" updated="29 sierpnia 2026">
       <p>
         Niniejsza Polityka prywatności opisuje zasady przetwarzania danych osobowych osób korzystających z serwisu
         internetowego <strong>plazowa-park.pl</strong> ("Serwis") oraz kontaktujących się z nami w sprawie inwestycji
@@ -20,7 +31,7 @@ export default function Page() {
 
       <h2>1. Administrator danych</h2>
       <p>
-        Administratorem danych osobowych jest <strong>{DEVELOPER.name}</strong> z siedzibą w {DEVELOPER.city},
+        Administratorem danych osobowych jest <strong>{DEVELOPER.name}</strong> z siedzibą w Głownie,
         {" "}{DEVELOPER.street}, {DEVELOPER.postal} {DEVELOPER.city}, wpisana do rejestru przedsiębiorców KRS pod
         numerem {DEVELOPER.krs}, NIP {DEVELOPER.nip} ("Administrator").
       </p>
@@ -57,6 +68,17 @@ export default function Page() {
         narzędzi analitycznych, obsługi poczty oraz doradcom. Podmioty te przetwarzają dane wyłącznie na podstawie
         umów powierzenia i w zakresie niezbędnym do realizacji usług.
       </p>
+      <p>
+        Wiadomości z formularza kontaktowego obsługuje zewnętrzny operator formularzy Web3Forms. Do jego
+        systemu trafia komplet danych podanych w formularzu, a na potrzeby ochrony antyspamowej także adres
+        IP i adres e-mail osoby wysyłającej. Kopia zgłoszenia pozostaje u operatora przez okres wynikający
+        z jego regulaminu. Dane mogą być przekazywane poza Europejski Obszar Gospodarczy - odbywa się to na
+        podstawie mechanizmów przewidzianych w RODO, w szczególności standardowych klauzul umownych.
+      </p>
+      <p>
+        Mapa okolicy pobiera kafle satelitarne od zewnętrznego dostawcy (Esri ArcGIS Online), któremu przy
+        wyświetleniu mapy przekazywany jest adres IP Twojego urządzenia.
+      </p>
 
       <h2>6. Twoje prawa</h2>
       <p>Przysługuje Ci prawo do:</p>
@@ -67,7 +89,7 @@ export default function Page() {
         <li>przenoszenia danych,</li>
         <li>wniesienia sprzeciwu wobec przetwarzania,</li>
         <li>wycofania zgody w dowolnym momencie (bez wpływu na zgodność z prawem wcześniejszego przetwarzania),</li>
-        <li>wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa).</li>
+        <li>wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stanisława Moniuszki 1A, 00-014 Warszawa).</li>
       </ul>
 
       <h2>7. Dobrowolność podania danych</h2>
@@ -85,11 +107,6 @@ export default function Page() {
       <p>
         Możemy aktualizować niniejszą Politykę. Aktualna wersja jest zawsze dostępna w Serwisie wraz z datą ostatniej
         aktualizacji.
-      </p>
-
-      <p className="t-meta-sm fg-muted">
-        Powyższy dokument ma charakter informacyjny. Ostateczna treść klauzul powinna zostać zweryfikowana przez
-        Administratora i jego doradcę prawnego przed publikacją produkcyjną.
       </p>
     </LegalShell>
   );

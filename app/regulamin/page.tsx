@@ -2,20 +2,31 @@ import type { Metadata } from "next";
 import LegalShell from "@/components/LegalShell";
 import { DEVELOPER, SITE } from "@/lib/data/site";
 
+const description =
+  "Regulamin korzystania z serwisu internetowego Plażowa Park - zasady świadczenia usług, prawa i obowiązki użytkownika oraz dane dewelopera KS Prestige Development.";
+
 export const metadata: Metadata = {
   title: "Regulamin serwisu",
-  description: "Regulamin korzystania z serwisu internetowego Plażowa Park - zasady świadczenia usług, prawa i obowiązki użytkownika oraz dane dewelopera KS Prestige Development.",
+  description,
   alternates: { canonical: "/regulamin" },
+  openGraph: {
+    type: "website",
+    locale: "pl_PL",
+    url: `${SITE.url}/regulamin`,
+    siteName: "Plażowa Park",
+    title: "Regulamin serwisu - Plażowa Park",
+    description,
+  },
 };
 
 export default function Page() {
   return (
-    <LegalShell title="Regulamin serwisu" updated="3 lipca 2026">
+    <LegalShell title="Regulamin serwisu" updated="29 sierpnia 2026">
       <h2>§1. Postanowienia ogólne</h2>
       <p>
         Niniejszy Regulamin określa zasady korzystania z serwisu internetowego dostępnego pod adresem
-        {" "}<strong>plazowa-park.pl</strong> ("Serwis"), prowadzonego przez {DEVELOPER.name} z siedzibą w
-        {" "}{DEVELOPER.city}, {DEVELOPER.street}, {DEVELOPER.postal} {DEVELOPER.city} (KRS {DEVELOPER.krs},
+        {" "}<strong>plazowa-park.pl</strong> ("Serwis"), prowadzonego przez {DEVELOPER.name} z siedzibą
+        w Głownie, {DEVELOPER.street}, {DEVELOPER.postal} {DEVELOPER.city} (KRS {DEVELOPER.krs},
         NIP {DEVELOPER.nip}) ("Usługodawca").
       </p>
 
@@ -30,8 +41,9 @@ export default function Page() {
       <p>
         Informacje zawarte w Serwisie - w tym wizualizacje, animacje, plany, metraże, ceny i statusy dostępności -
         mają charakter <strong>poglądowy i informacyjny i nie stanowią oferty</strong> w rozumieniu art. 66 i nast.
-        Kodeksu cywilnego. Część wizualizacji wnętrz i otoczenia została przygotowana z użyciem narzędzi generatywnych
-        na podstawie rzeczywistych materiałów inwestycji i może różnić się od stanu faktycznego. Wiążące warunki
+        Kodeksu cywilnego. Wizualizacje budynków i wnętrz, rzuty lokali oraz plan osiedla pochodzą od dewelopera
+        inwestycji; zdjęcie na pierwszym ekranie jest wizualizacją poglądową. Wszystkie mogą różnić się od stanu
+        faktycznego. Wiążące warunki
         zakupu określa umowa zawierana w formie aktu notarialnego, a aktualne ceny i dostępność potwierdza biuro
         sprzedaży.
       </p>
@@ -66,11 +78,6 @@ export default function Page() {
       <p>
         Usługodawca zastrzega prawo do zmiany Regulaminu. W sprawach nieuregulowanych zastosowanie mają przepisy
         prawa polskiego, w szczególności Kodeksu cywilnego.
-      </p>
-
-      <p className="t-meta-sm fg-muted">
-        Dokument ma charakter informacyjny i przed wdrożeniem produkcyjnym powinien zostać zweryfikowany przez doradcę
-        prawnego Usługodawcy.
       </p>
     </LegalShell>
   );

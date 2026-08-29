@@ -29,6 +29,7 @@ export const DEVELOPER = {
   nip: "7331366052",
   regon: "525091200",
   statusVat: "Czynny", // MF Biała Lista, zweryfikowano wg NIP
+  kapital: "10 000 zł", // odpis KRS, dział 1: wysokość kapitału zakładowego
 } as const;
 
 export type NavItem = { label: string; href: string };
@@ -48,7 +49,7 @@ export const NAV: NavItem[] = [
 export const POI = [
   {
     name: "Zalew Mrożyczka",
-    desc: "Ponad 30 hektarów wody z piaszczystą plażą, molo i strzeżonym kąpieliskiem. Latem miejsce wypoczynku nad wodą, poza sezonem sceneria spacerów i biegania wokół zbiornika.",
+    desc: "30 hektarów wody z piaszczystą plażą, molo i strzeżonym kąpieliskiem. Latem miejsce wypoczynku nad wodą, poza sezonem sceneria spacerów i biegania wokół zbiornika.",
     dist: "przy osiedlu",
     cat: "natura",
   },
@@ -72,7 +73,7 @@ export const POI = [
   },
   {
     name: "Wydmy śródlądowe",
-    desc: "Unikalny w skali kraju zespół wydm śródlądowych, jedna z przyrodniczych osobliwości okolic Głowna.",
+    desc: "Unikalny w województwie łódzkim zespół wydm śródlądowych, jedna z przyrodniczych osobliwości okolic Głowna.",
     dist: "w okolicy",
     cat: "natura",
   },
@@ -87,9 +88,9 @@ export const POI = [
 // Odległości zweryfikowane routingiem (OSRM) i w OpenStreetMap. Podajemy
 // kilometry, nie minuty: czas zależy od korków i szybko robi się nieprawdą.
 export const DOJAZD = [
-  { name: "Centrum Łodzi", value: "32 km", note: "autostradą A1 przez węzeł Stryków" },
-  { name: "Węzeł A1 Stryków", value: "11 km", note: "wjazd na autostradę" },
-  { name: "Stacja kolejowa Głowno", value: "3 km", note: "połączenia regionalne" },
+  { name: "Centrum Łodzi", value: "32 km", note: "drogą krajową 14 przez Stryków" },
+  { name: "Stryków", value: "11 km", note: "miasto z węzłem autostrad A1 i A2" },
+  { name: "Stacja kolejowa Głowno", value: "4 km", note: "połączenia regionalne" },
   { name: "Warszawa", value: "104 km", note: "trasą przez A2" },
 ] as const;
 
@@ -98,12 +99,12 @@ export const DOJAZD = [
 // `optional: true` znaczy montaż na życzenie na etapie budowy. Wcześniej ta sama
 // informacja siedziała w nawiasie w tytule; teraz jest osobnym polem i tagiem w UI.
 export const STANDARD = [
-  { title: "Pompy ciepła", desc: "Ekonomiczne, ekologiczne źródło ogrzewania dla każdego domu.", icon: "heat" },
-  { title: "Ogrzewanie podłogowe", desc: "Równomierne ciepło i pełna swoboda aranżacji bez grzejników.", icon: "floor" },
+  { title: "Pompy ciepła", desc: "Ekonomiczne, ekologiczne źródło ogrzewania w standardzie osiedla.", icon: "heat" },
+  { title: "Ogrzewanie podłogowe", desc: "Równomierne ciepło i swoboda aranżacji bez widocznych grzejników.", icon: "floor" },
   { title: "Rekuperacja", desc: "Wentylacja z odzyskiem ciepła, montaż na etapie budowy.", icon: "air", optional: true },
   { title: "Fotowoltaika", desc: "Własna energia i niższe rachunki, montaż na życzenie.", icon: "solar", optional: true },
   { title: "Panoramiczne okna", desc: "Przeszklenia od podłogi do sufitu z widokiem na las.", icon: "window" },
-  { title: "Materiały premium", desc: "Elastyczna cegła, tynk najwyższej klasy i blacha na rąbek stojący.", icon: "brick" },
+  { title: "Materiały premium", desc: "Elastyczna cegła, tynk najwyższej klasy i blacha na rąbek.", icon: "brick" },
   { title: "Prywatny ogród i taras", desc: "Własna zielona przestrzeń przy każdym mieszkaniu.", icon: "garden" },
   { title: "2 miejsca postojowe", desc: "Dwa miejsca na lokal; cztery lokale z własnym garażem.", icon: "car" },
   { title: "Prywatne wejście", desc: "Każde mieszkanie ma własne, niezależne wejście.", icon: "door" },
@@ -136,7 +137,7 @@ export const FAQ = [
   },
   {
     q: "Jaki jest standard wykończenia i technologia?",
-    a: "Mieszkania powstają w oparciu o pompy ciepła i ogrzewanie podłogowe, z opcją rekuperacji i fotowoltaiki. Standard obejmuje panoramiczne okna, elewację z tynku najwyższej klasy i elastycznej cegły oraz dach z blachy na rąbek stojący. Możliwa jest personalizacja wykończenia pod klucz.",
+    a: "Mieszkania powstają w oparciu o pompy ciepła i ogrzewanie podłogowe, z opcją rekuperacji i fotowoltaiki. Standard obejmuje panoramiczne okna oraz elewację z tynku najwyższej klasy, elastycznej cegły i blachy na rąbek. Możliwa jest personalizacja wykończenia pod klucz.",
   },
   {
     q: "Czy do mieszkania należy ogród i miejsce postojowe?",

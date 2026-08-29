@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<HTML LANG="pl" DIR="ltr">
+<HEAD>
+<BASE href="https://www.glowno.pl/">
+<META HTTP-EQUIV="content-type" CONTENT="text/html; charset=utf-8">
+<META NAME="description" CONTENT="Głowno - oficjalna strona internetowa">
+<META NAME="keywords" CONTENT="Głowno, urząd, miejski">
+<META NAME="robots" CONTENT="index,follow,archive">
+<META NAME="author" CONTENT="Urząd Miejski w Głownie">
+<META NAME="generator" CONTENT="netadmin v7.32 | extranet internet creator | www.extranet.pl">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1">
+<TITLE>Plaża i kąpielisko | GŁOWNO - oficjalna strona miasta</TITLE>
+<LINK REL="alternate" HREF="https://www.glowno.pl/lang,pl" HREFLANG="pl">
+<LINK REL="alternate" HREF="https://www.glowno.pl/lang,en" HREFLANG="en">
+<LINK REL="alternate" HREF="https://www.glowno.pl/lang,uk" HREFLANG="uk">
+<LINK REL="manifest" HREF="https://www.glowno.pl/manifest.webmanifest">
+<LINK REL="stylesheet" HREF="css,css/system_default.css" MEDIA="all" TYPE="text/css" INTEGRITY="sha256-+NesxqEGT2Mnb5VXyW96eR1d8I49837uL19TfRVNQSE=" CROSSORIGIN="anonymous">
+<LINK REL="stylesheet" HREF="css,css/print.css" MEDIA="print" TYPE="text/css" INTEGRITY="sha256-Qlz0DVdb8K1GlbtsuapZOdSeQ+7IYY8ELlghlHFDH8w=" CROSSORIGIN="anonymous">
+<LINK REL="stylesheet" HREF="css,skory/default/style.css" MEDIA="all" TYPE="text/css">
+<LINK REL="icon" HREF="https://www.glowno.pl/favicon.ico" TYPE="image/x-icon">
+<LINK REL="search" HREF="https://www.glowno.pl/redir,opensearch?jezyk=1" TYPE="application/opensearchdescription+xml">
+<LINK REL="home" HREF="https://www.glowno.pl/">
+<LINK REL="stylesheet" HREF="css,js/fancybox3/jquery.fancybox.min.css" MEDIA="all" TYPE="text/css" INTEGRITY="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" CROSSORIGIN="anonymous">
+<LINK REL="stylesheet" HREF="css,js/datatables/jquery.datatables.css" MEDIA="all" TYPE="text/css" INTEGRITY="sha256-LBdcGBvtLXuOq7xLyqkjsKqZ1ncoD7jBKAtoJEa/33k=" CROSSORIGIN="anonymous">
+<LINK REL="stylesheet" HREF="css,js/bootstrap-datetimepicker/bootstrap-datetimepicker.css" MEDIA="all" TYPE="text/css" INTEGRITY="sha256-BN3xkkUFZ6aN6GI2rfwo9QnkBljHohaWaA4rAfyiU8k=" CROSSORIGIN="anonymous">
+<LINK REL="stylesheet" HREF="css,webfonts/system-font/css/system-icons.css" MEDIA="all" TYPE="text/css" INTEGRITY="sha256-k6tC61qLyGp4U7JO67Yn6ETh0f1sHJP4P7ZynCl5x88=" CROSSORIGIN="anonymous">
+<LINK REL="stylesheet" HREF="css,webfonts/system-font/css/system-icons-codes.css" MEDIA="all" TYPE="text/css" INTEGRITY="sha256-l5SylbTnc/8xFKz3vgTmbUzNEGLTerC/CcyK4Q27Ow8=" CROSSORIGIN="anonymous">
+<LINK REL="stylesheet" HREF="css,webfonts/system-filetypes/css/style.css" MEDIA="all" TYPE="text/css" INTEGRITY="sha256-SLQmC9y3RqHCRRMqS7Jp5stGydJiNOnhiF5IF1IqFkM=" CROSSORIGIN="anonymous">
+<LINK REL="image_src" HREF="https://www.glowno.pl/jpg,skory/site_thumb.jpg">
+<LINK REL="stylesheet" HREF="css,skory/webfont/fontawesome/fontawesome.min.css" MEDIA="screen" TYPE="text/css" INTEGRITY="sha256-0uUjSJUtHqC4PbWFiHfgPReneQNSagIQAfoNZdxQS1w=" CROSSORIGIN="anonymous">
+<LINK REL="stylesheet" HREF="css,skory/js/malihu-custom-scrollbar/jquery.mCustomScrollbar-STRICT.css" MEDIA="screen" TYPE="text/css">
+<SCRIPT SRC="redir,load_javascripts" INTEGRITY="sha256-ZGykEcqX3PjNrLHWjnMagqNektlgyTb8Kqshw6ivTAE=" CROSSORIGIN="anonymous"></SCRIPT>
+<SCRIPT SRC="js,skory/js/enquire.min.js"></SCRIPT>
+<SCRIPT SRC="js,skory/js/focus-visible/focus-visible.js"></SCRIPT>
+<SCRIPT SRC="js,skory/js/jquery.OpenHideBox.js"></SCRIPT>
+<SCRIPT SRC="js,skory/js/malihu-custom-scrollbar/jquery.mousewheel.min.js"></SCRIPT>
+<SCRIPT SRC="js,skory/js/malihu-custom-scrollbar/jquery.mCustomScrollbar.min.js"></SCRIPT>
+<SCRIPT SRC="js,skory/js/menu.js"></SCRIPT>
+<SCRIPT SRC="js,skory/js/jquery.carouFredSel-6.2.1-packed.js"></SCRIPT>
+<SCRIPT SRC="js,skory/js/jquery.touchSwipe.min.js"></SCRIPT>
+<SCRIPT SRC="js,skory/js/CarouFredselCustom.js"></SCRIPT>
+<SCRIPT><!--//--><![CDATA[//><!--
+function dataTablesInit(selector){
+	var counter=0;
+	var objectsTable=new Array;
+	$(selector).each(function(){
+		var isSort = $(this).is('.sortuj,.sortable');
+		var isSzukaj = $(this).hasClass('szukaj');
+		var isWszystko = $(this).hasClass('wszystko');
+		var isNieInfo = $(this).hasClass('nieinfo'); // działa jedynie na wykazach stronicowanych
+		if ($('thead th.sortasc, thead th.sortdesc', this).length==0) {
+			_order=[];
+		} else {
+			_order=[
+				[
+					($('thead th.sortasc, thead th.sortdesc', this).index()),
+					(($('thead th.sortdesc', this).length==0) ? 'asc' : 'desc')
+				]
+			];
+		}
+		objRef=$(this).DataTable({
+			'oLanguage': {
+				'sUrl': 'txt,js/datatables/lang/1.txt'
+			},
+			'responsive': true,
+			'bSortClasses': false,
+			'bPaginate': !isWszystko,
+			'iDisplayLength': isWszystko ? -1 : 25,
+			'bInfo': (!isWszystko && !isNieInfo),
+			'bFilter': isSzukaj,
+			'sDom': 'Rlfrtip',
+			'bSort': isSort,
+			'order': _order,
+			'stateSave': true,
+			'fnDrawCallback': function(oSettings, json) {
+				// wyłączenie sortowania/wyszukiwania dla kolumn <th> z klasą nosort/nosearch
+				$(this).find('thead th').each( function (key, value) {
+					if ($(this).hasClass('nosort')) {
+						oSettings.aoColumns[key].bSortable=false;
+						$(this).removeClass(oSettings.oClasses.sSortAsc+' '+oSettings.oClasses.sSortDesc+' '+oSettings.aoColumns[key].sSortingClass);
+						$(this).addClass( oSettings.oClasses.sSortableNone );
+					}
+					if ($(this).hasClass('nosearch')) {
+						oSettings.aoColumns[key].bSearchable=false;
+					}
+				} );
+			}
+		});
+		objectsTable[counter]=objRef;
+		counter++;
+	});
+	return objectsTable;
+}
+function UserConsentShow() {
+			$.fancybox.close();
+			$.fancybox.open({
+				src: '#user_consentBox',
+				type: 'inline'
+			});
+		}
+function UserConsentClose() {
+			$.fancybox.close();
+		}
+//--><!]]></SCRIPT>
+<STYLE><!--/*--><![CDATA[/*><!--*/
+#PageContent .predef { font-size: 1.7333em; }
+#PageContent { font-size: 1em; }
+html,body,select,input,textarea,button { font-size: 15px; }
+#header .header__bg { background-image: url(jpg,aktualizacja/data/grafiki/7.jpg) }
+/*]]>*/--></STYLE>
+</HEAD>
+<BODY class="user_info user_consent_refuse_available user_consent subpage fontsize_normal">
+<section id="user_infoBox" role="alert"><div class="user_infoBox_overlay"></div><form id="user_info_form" action="https://www.glowno.pl/4952,plaza-i-kapielisko" method="post"><div><input type="hidden" name="_user_consent_fp" value="f55439"></div><div class="user_infoBox_dialog"><div class="user_infoBox_content"><div class="user_infoBox_header"></div><div class="user_infoBox_content_text"><p>Ta strona używa <a href="./redir,5582">mechanizmu ciasteczek</a>. Polityka prywatności dostępna jest <a href="./redir,4679">tutaj.</a> Kontynuując korzystanie ze strony zgadzasz się z warunkami jego używania.</p>
+<p>Administratorem danych osobowych jest Urząd Miejski w Głownie, ul. Młynarska 15, 95-015 Głowno.</p></div><div class="user_infoBox_content_buttons"><span id="user_info_redirect_buttonBox"><button type="submit" name="_user_info_redirect" value="1" class="user_info_button" id="user_info_redirect_button">Polityka prywatności</button></span><span id="user_info_show_profile_buttonBox"><button type="button" class="user_info_button" id="user_info_show_profile_button" aria-controls="user_consentBox">Wyświetl ustawienia zgód</button></span><span id="user_info_refuse_buttonBox"><button type="submit" name="_user_consent_all_refuse" value="1" class="user_info_button user_info_refuse_button" id="user_info_refuse_button">Akceptuję tylko niezbędne pliki ciastek</button></span><span id="user_info_accept_buttonBox"><button type="submit" name="_user_consent_all_accept" value="1" class="user_info_button user_info_accept_button" id="user_info_accept_button">Akceptuję wszystkie zgody</button></span><span id="user_info_closeBox"><button type="button" class="user_info_button user_info_close_button" id="user_info_close">Zamknij</button></span></div></div></div></form></section><section id="user_consentBox" class="system_hide" role="dialog" aria-modal="true" aria-labelledby="user_consentBox_header" aria-describedby="user_consentBox_content_text"><form action="https://www.glowno.pl/4952,plaza-i-kapielisko" method="post" id="user_consent_form"><div><input type="hidden" name="_user_consent_fp" value="f55439"></div><h2 class="user_consentBox_header" id="user_consentBox_header">Ustawienia zgód</h2><div class="user_consentBox_content"><div class="user_consentBox_content_text" id="user_consentBox_content_text"></div><div class="user_consentBox_content_consent"><ul class="system_ul"><li class="user_consent_item"><p class="user_consent_item_name">Pliki ciastek (z ang. cookies) niezbędne do świadczenia usług drogą elektroniczną</p><p class="user_consent_item_opis">Niezbędne pliki ciastek (z ang. cookies) umożliwiają korzystanie z podstawowych funkcji strony internetowej - bez nich nie byłoby możliwe prawidłowe korzystanie z niniejszej strony internetowej.</p><p class="user_consent_item_opis_dodatkowy"><a href="#_user_consent_system_more" class="user_consent_item_opis_dodatkowy_link" role="button" aria-controls="_user_consent_system_more" aria-haspopup="false" aria-expanded="false" data-expanded-true="schowaj wykaz wykorzystywanych ciasteczek" data-expanded-false="wyświetl wykaz wykorzystywanych ciasteczek"><span>wyświetl wykaz wykorzystywanych ciasteczek</span> <span class="system-icon system-icon-down-open"><!--//--></span></a></p><div id="_user_consent_system_more" class="system_hide user_consent_item_opis_dodatkowy_content"><table class="tabela wszystko" style="border-collapse: collapse; border-width: 1px; border-style: solid; width: 100%; border-spacing: 1px;"><caption><strong>Wykaz wykorzystywanych ciastek</strong></caption>
+<thead>
+<tr>
+<th style="border-width: 1px; padding: 5px; width: 8.46033%;" scope="col">Nazwa ciastka</th>
+<th style="border-width: 1px; padding: 5px; width: 10.0368%;" scope="col">Dostawca / domena</th>
+<th style="border-width: 1px; padding: 5px; width: 8.67052%;" scope="col">Okres przechowywania</th>
+<th style="border-width: 1px; padding: 5px; width: 72.8324%;" scope="col">Opis ciastka</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="border-width: 1px; padding: 5px; width: 8.46033%;">_nsid</td>
+<td style="border-width: 1px; padding: 5px; width: 10.0368%;">serwer hostingowy / bieżąca domena</td>
+<td style="border-width: 1px; padding: 5px; width: 8.67052%;">1 dzień</td>
+<td style="border-width: 1px; padding: 5px; width: 72.8324%;">Ciastko generowane przez mechanizm CMS na potrzeby obsługi mechanizmu zabezpieczania przed wywołaniami strony przez np. boty rozsyłające spam.</td>
+</tr>
+<tr>
+<td style="border-width: 1px; padding: 5px; width: 8.46033%;">_cp</td>
+<td style="border-width: 1px; padding: 5px; width: 10.0368%;">serwer hostingowy / bieżąca domena</td>
+<td style="border-width: 1px; padding: 5px; width: 8.67052%;">365 dni</td>
+<td style="border-width: 1px; padding: 5px; width: 72.8324%;">Ciastko zapisywane przez mechanizm CMS na potrzeby obsługi wyrażanych zgód przez użytkownika.</td>
+</tr>
+<tr>
+<td style="border-width: 1px; padding: 5px; width: 8.46033%;">PHPSESSID</td>
+<td style="border-width: 1px; padding: 5px; width: 10.0368%;">serwer hostingowy / bieżąca domena</td>
+<td style="border-width: 1px; padding: 5px; width: 8.67052%;">sesja</td>
+<td style="border-width: 1px; padding: 5px; width: 72.8324%;">Ciastko generowane przez aplikacje oparte na języku PHP (identyfikator ogólnego przeznaczenia używany do obsługi zmiennych sesji użytkownika). Zwykle wartość to liczba generowana losowo, sposób jej użycia może być specyficzny dla witryny, ale dobrym przykładem jest utrzymywanie statusu zalogowanego użytkownika między stronami.</td>
+</tr>
+<tr>
+<td style="border-width: 1px; padding: 5px; width: 8.46033%;">fontsize</td>
+<td style="border-width: 1px; padding: 5px; width: 10.0368%;">serwer hostingowy / bieżąca domena</td>
+<td style="border-width: 1px; padding: 5px; width: 8.67052%;">30 dni</td>
+<td style="border-width: 1px; padding: 5px; width: 72.8324%;">Ciastko generowane przez mechanizm CMS na potrzeby obsługi wielkości wyświetlanej czcionki.</td>
+</tr>
+<tr>
+<td style="border-width: 1px; padding: 5px; width: 8.46033%;">jezyk_www</td>
+<td style="border-width: 1px; padding: 5px; width: 10.0368%;">serwer hostingowy / bieżąca domena</td>
+<td style="border-width: 1px; padding: 5px; width: 8.67052%;">sesja</td>
+<td style="border-width: 1px; padding: 5px; width: 72.8324%;">Ciastko generowane przez mechanizm CMS na potrzeby obsługi wersji językowej strony.</td>
+</tr>
+<tr>
+<td style="border-width: 1px; padding: 5px; width: 8.46033%;">licznikX</td>
+<td style="border-width: 1px; padding: 5px; width: 10.0368%;">serwer hostingowy / bieżąca domena</td>
+<td style="border-width: 1px; padding: 5px; width: 8.67052%;">sesja</td>
+<td style="border-width: 1px; padding: 5px; width: 72.8324%;">Ciastko generowane przez mechanizm CMS na potrzeby obsługi podstawowych statystyk odwiedzin strony (zapis X przyjmuje postać liczby).</td>
+</tr>
+<tr>
+<td style="border-width: 1px; padding: 5px; width: 8.46033%;">licznik[X]</td>
+<td style="border-width: 1px; padding: 5px; width: 10.0368%;">serwer hostingowy / bieżąca domena</td>
+<td style="border-width: 1px; padding: 5px; width: 8.67052%;">15 minut</td>
+<td style="border-width: 1px; padding: 5px; width: 72.8324%;">Ciastko generowane przez mechanizm CMS na potrzeby obsługi podstawowych statystyk odwiedzin strony (zapis X przyjmuje postać liczby).</td>
+</tr>
+<tr>
+<td style="border-width: 1px; padding: 5px; width: 8.46033%;">wersja_gui</td>
+<td style="border-width: 1px; padding: 5px; width: 10.0368%;">serwer hostingowy / bieżąca domena</td>
+<td style="border-width: 1px; padding: 5px; width: 8.67052%;">sesja</td>
+<td style="border-width: 1px; padding: 5px; width: 72.8324%;">Ciastko generowane przez mechanizm CMS na potrzeby obsługi wybranej wizualizacji strony.</td>
+</tr>
+<tr>
+<td style="border-width: 1px; padding: 5px; width: 8.46033%;">bnr[X]</td>
+<td style="border-width: 1px; padding: 5px; width: 10.0368%;">serwer hostingowy / bieżąca domena</td>
+<td style="border-width: 1px; padding: 5px; width: 8.67052%;">od 1 minuty</td>
+<td style="border-width: 1px; padding: 5px; width: 72.8324%;">Ciastko generowane przez mechanizm CMS na potrzeby obsługi wyświetlania banerów z ustawionym czasem karencji (zapis X przyjmuje postać liczby).</td>
+</tr>
+<tr>
+<td style="border-width: 1px; padding: 5px; width: 8.46033%;">kalendarium_rok,<br>kalendarium_miesiac</td>
+<td style="border-width: 1px; padding: 5px; width: 10.0368%;">serwer hostingowy / bieżąca domena</td>
+<td style="border-width: 1px; padding: 5px; width: 8.67052%;">1 dzień</td>
+<td style="border-width: 1px; padding: 5px; width: 72.8324%;">Ciastko zapisywane przez mechanizm CMS na potrzeby filtrowania wydarzeń przez użytkownika (moduł kalendarium).</td>
+</tr>
+</tbody>
+</table></div></li><li class="user_consent_item"><p class="user_consent_item_name"><input type="hidden" name="_user_consent[ga]" value="0"><input type="checkbox" id="_user_consent_ga" name="_user_consent[ga]" value="1" class="user_consent_checkbox"> <label for="_user_consent_ga" class="user_consent_item_nazwa">Narzędzia analityczne firmy Google</label></p><p class="user_consent_item_opis">Strona korzysta z usługi analitycznej firmy Google, która pozwala na gromadzenie, przeglądanie oraz analizę statystyk związanych z aktywnością użytkowników. Usługa Google Analytics gromadzi informacje na temat Twojej aktywności na stronie w tym adres IP. Informacje te mogą być wykorzystywane przez firmę Google przy budowaniu Twojego profilu użytkownika. Wyrażenie zgody jest dobrowolne i można je w każdym momencie wycofać.</p><p class="user_consent_item_opis_dodatkowy"><a href="#_user_consent_ga_more" class="user_consent_item_opis_dodatkowy_link" role="button" aria-controls="_user_consent_ga_more" aria-haspopup="false" aria-expanded="false" data-expanded-true="schowaj dodatkowe informacje" data-expanded-false="wyświetl dodatkowe informacje"><span>wyświetl dodatkowe informacje</span> <span class="system-icon system-icon-down-open"><!--//--></span></a></p><div id="_user_consent_ga_more" class="system_hide user_consent_item_opis_dodatkowy_content"><p>Wykaz wykorzystywanych ciastek został przedstawiony w artykule <a href="https://developers.google.com/analytics/devguides/collection/ga4/tag-options?hl=pl" rel="noopener" class="external_blank" title="link zostanie otworzony w nowym oknie/karcie przeglądarki">"Tagowanie na potrzeby Google Analytics"</a> na stronach firmy Google.</p></div><p class="user_consent_item_link"><a href="https://policies.google.com/privacy?hl=pl" class="external_blank">Polityka prywatności firmy Google</a></p></li></ul></div></div><div class="user_consentBox_content_buttons"><span id="user_consent_save_buttonBox"><button type="submit" name="_user_consent_save_profile" value="1" class="user_consent_button" id="user_consent_save_button">Zapisz i zamknij</button></span><span id="user_consent_refuse_buttonBox"><button type="submit" name="_user_consent_all_refuse" value="1" class="user_consent_button user_consent_refuse_button" id="user_consent_refuse_button">Akceptuję tylko niezbędne pliki ciastek</button></span><span id="user_consent_accept_buttonBox"><button type="submit" name="_user_consent_all_accept" value="1" class="user_consent_button user_consent_accept_button" id="user_consent_accept_button">Akceptuję tylko niezbędne pliki ciastek</button></span><span id="user_consent_closeBox"><button type="button" class="user_consent_button" id="user_consent_close">Ukryj ustawienia zgód</button></span></div></form></section><!-- netadmin -->
+<div class="netadmin" id="netadmin">
+    <div class="main-wrapper" id="main-wrapper">
+	
+<!-- SKIP LINKS -->
+<div id="shortcut-box" class="shortcut-box">
+	<div class="hide_WCAG">
+		<h2>Przejście do sekcji: </h2>
+	</div>
+	<ul class="shortcut-box__list">
+	
+        <li class="shortcut-box__item">
+			<a class="shortcut-box__link shortcut-box__link--homepage" href="https://www.glowno.pl/" accesskey="1">Przejdź do strony głównej</a>
+		</li>
+		
+        <li class="shortcut-box__item">
+			<a class="shortcut-box__link shortcut-box__link--menu scroll" href="https://www.glowno.pl/4952,plaza-i-kapielisko#menu" accesskey="2">Przejdź do menu głównego</a>
+		</li>
+		
+        <li class="shortcut-box__item">
+			<a class="shortcut-box__link shortcut-box__link--content scroll" href="https://www.glowno.pl/4952,plaza-i-kapielisko#PageContent" accesskey="3">Przejdź do treści strony</a>
+		</li>
+		
+        <li class="shortcut-box__item">
+			<a class="shortcut-box__link shortcut-box__link--service-structure" href="./redir,struktura_serwisu" accesskey="4">Przejdź do mapy serwisu</a>
+		</li>
+		
+        <li class="shortcut-box__item">
+			<a class="shortcut-box__link shortcut-box__link--search scroll" href="https://www.glowno.pl/4952,plaza-i-kapielisko#search-form__form" accesskey="5">Przejdź do wyszukiwarki</a>
+		</li>
+		
+        <li class="shortcut-box__item">
+			<a class="shortcut-box__link shortcut-box__link--a11y scroll" href="https://www.glowno.pl/4952,plaza-i-kapielisko#a11y" accesskey="6">Przejdź do ułatwienia dostępności</a>
+		</li>
+		
+        <li class="shortcut-box__item">
+			<a class="shortcut-box__link shortcut-box__link--contact scroll" href="https://www.glowno.pl/4952,plaza-i-kapielisko.#contact-info" accesskey="9">Przejdź do kontaktu</a>
+		</li>
+		
+        <li class="shortcut-box__item">
+			<a class="shortcut-box__link shortcut-box__link--wcag" href="4666,deklaracja-dostepnosci" accesskey="0">Deklaracja dostępności</a>
+		</li>
+		
+	</ul>
+</div>
+    <!-- HEADER -->
+<header class="header" id="header">
+    <div class="container-fluid">
+        <div class="header__container">
+            <div class="header__inner">
+                <div class="header__mobile-container"></div>
+
+<div class="container">
+    <div class="navbar">
+        <div class="navbar__inner">
+            <div class="navbar__item">
+                <div class="logos">
+                    <div class="logos__item">
+                        <h1 class="logo">
+                            <a class="logo__link" href="https://www.glowno.pl/" aria-label="Przejdź do strony głównej">
+
+<span class="logo">
+    <!-- LOGO -->
+    <span class="logo__emblem-wrapper">
+        <img class="logo__emblem-img" src="logo,www-um-glowno.png" alt="Logo - UM Głowno">
+                          
+    </span>
+    <!-- END LOGO -->
+</span>
+                              
+                            </a>
+                        </h1>
+                    </div>
+                    
+                    <div class="logos__item">
+                        <img src="png,skory/default/images/solidarni_z_ukraina.png" alt="Solidarni z Ukrainą">    
+                    </div>
+    
+                </div>
+            </div>
+            <div class="navbar__item">
+
+<!-- ICONS TOP -->
+<section class="icons-top" id="icons-top">
+    <div class="icons-top__container container">
+        <div class="icons-top__row">
+            <div class="icons-top__col">
+                <div class="icons-top__inner">
+                   <div class="icons__inner">
+                        <h2 class="heading hide_WCAG">
+                            <span class="heading__icon icon icon-arrow-right-angle"></span>
+                            <span class="heading__text">Ważne linki</span>
+                        </h2>
+                        <ul class="icons-top__list">
+
+                            <li class="icons-top__item icons-top__item--bip" data-order="1">
+                                <div class="single-icon">
+                            
+         <div class="single-icon">
+            <a class="single-icon__link single-icon__link--bip" 
+                href="https://glowno.bip.net.pl/" 
+                aria-label="Przejdź do Biuletyn Informacji Publicznej Gminy Miasta Głowno" 
+                title="Biuletyn Informacji Publicznej Gminy Miasta Głowno"
+                target="_blank"
+           >
+                <span class="single-icon__icon icon icon-bip" aria-hidden="true"></span>
+                <span class="single-icon__text">Biuletyn Informacji Publicznej Gminy Miasta Głowno</span>
+            </a>
+        </div>
+        
+                                </div>
+                            </li>
+        
+                            <li class="icons-top__item icons-top__item--contact" data-order="2">
+                                <div class="single-icon">
+                            
+         <div class="single-icon">
+            <a class="single-icon__link single-icon__link--contact" 
+                href="./redir,4836" 
+                aria-label="Przejdź do strony kontaktowej" 
+                title="Strona kontaktowa"
+                target="_blank"
+           >
+                <span class="single-icon__icon icon icon-contact" aria-hidden="true"></span>
+                <span class="single-icon__text">Strona kontaktowa</span>
+            </a>
+        </div>
+        
+                                </div>
+                            </li>
+        
+                            <li class="icons-top__item icons-top__item--facebook" data-order="3">
+                                <div class="single-icon">
+                            
+         <div class="single-icon">
+            <a class="single-icon__link single-icon__link--facebook" 
+                href="https://www.facebook.com/MiastoGlowno/" 
+                aria-label="Przejdź do" 
+                title="Profil w serwisie facebook"
+                target="_blank"
+           >
+                <span class="single-icon__icon icon icon-facebook" aria-hidden="true"></span>
+                <span class="single-icon__text">Profil w serwisie facebook</span>
+            </a>
+        </div>
+        
+                                </div>
+                            </li>
+        
+                            <li class="icons-top__item icons-top__item--instagram" data-order="4">
+                                <div class="single-icon">
+                            
+         <div class="single-icon">
+            <a class="single-icon__link single-icon__link--instagram" 
+                href="https://www.instagram.com/miasto_glowno/" 
+                aria-label="Przejdź do" 
+                title="Profil w serwisie instagram"
+                target="_blank"
+           >
+                <span class="single-icon__icon icon icon-instagram" aria-hidden="true"></span>
+                <span class="single-icon__text">Profil w serwisie instagram</span>
+            </a>
+        </div>
+        
+                                </div>
+                            </li>
+        
+                            <li class="icons-top__item icons-top__item--search" data-order="5">
+                                <div class="single-icon">
+                            
+         <div class="single-icon">
+            <a class="single-icon__link single-icon__link--search single-icon__link--toggle netadmin--hide-hc" 
+                href="#" 
+                aria-label="Wyświetl wyszukiwarkę" 
+                aria-haspopup="true"
+                aria-expanded="false"
+                title="Wyświetl wyszukiwarkę"
+                data-text-on-hidden = "Wyświetl wyszukiwarkę"
+                data-text-on-visible = "Zamknij wyszukiwarkę"
+                aria-controls = "single-icon__link--search"
+            >
+                <span class="single-icon__icon icon icon-search" aria-hidden="true"></span>
+                <span class="single-icon__text">Wyświetl wyszukiwarkę</span>
+            </a>
+            <div class="single-icon__content" id="single-icon__link--search">
+            <form method="get" class="search-form__form" id="search-form__form" action="redir,szukaj?jezyk=1">
+	<div><input type="hidden" name="szukaj_wyniki" value="1"></div>
+	<div><input type="hidden" name="_session_antiCSRF" value="17a6a21a883cb663c53095a92fe3955220f2918f38638cedb29ee8038fedd10a88a548"></div>    <h3 class="heading hide_WCAG">Wyszukiwarka</h3>
+    <fieldset class="search-form__fieldset">
+        <legend class="search-form__legend hide_WCAG">Wyszukiwarka:</legend>
+        <div class="search-form__inner">
+            <div class="search-form__field-box">
+                <label for="search-form__field--input" class="search-form__label hide_WCAG">Wyszukaj</label>
+                <input id="search-form__field--input" class="search-form__field search-form__field--input" type="search" name="szukaj" value="" placeholder="Wpisz szukaną frazę" size="30" aria-label="Wpisz szukaną frazę" required minlength="3">
+            </div>
+            <div class="search-form__field-box">
+                <button id="search-form__submit" class="search-form__field search-form__field--submit" type="submit" aria-label="Szukaj">
+                    <span class="search__text">Szukaj</span>
+                </button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+
+            </div>
+        </div>
+        
+                                </div>
+                            </li>
+        
+                            <li class="icons-top__item icons-top__item--a11y" data-order="6">
+                                <div class="single-icon">
+                            
+         <div class="single-icon">
+            <a class="single-icon__link single-icon__link--a11y single-icon__link--toggle netadmin--hide-hc" 
+                href="#" 
+                aria-label="Wyświetl ułatwienia dostępu" 
+                aria-haspopup="true"
+                aria-expanded="false"
+                title="Wyświetl ułatwienia dostępu"
+                data-text-on-hidden = "Wyświetl ułatwienia dostępu"
+                data-text-on-visible = "Zamknij ułatwienia dostępu"
+                aria-controls = "single-icon__link--a11y"
+            >
+                <span class="single-icon__icon icon icon-a11y" aria-hidden="true"></span>
+                <span class="single-icon__text">Wyświetl ułatwienia dostępu</span>
+            </a>
+            <div class="single-icon__content" id="single-icon__link--a11y">
+            <div class="a11y" id="a11y">
+    <h3 class="heading hide_WCAG">Rozmiar czcionki i kontrast</h3>
+    <div class="a11y__inner" id="a11y__inner">
+        <div class="a11y__content">
+            <ul class="ul a11y__list">
+                <li class="a11y__item">
+                    <a class="a11y__link a11y__link--A a11y__link--active" title="Domyślna wielkość czcionki" href="/4952,plaza-i-kapielisko?fontsize=normal">
+                        <span class="a11y__txt">
+                            <span class="netadmin--hide-hc a11y--A">A</span>
+                            <span class="hide_WCAG">Domyślna wielkość czcionki</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="a11y__item">
+                    <a class="a11y__link a11y__link--AA" title="Większa wielkość czcionki" href="/4952,plaza-i-kapielisko?fontsize=big">
+                        <span class="a11y__txt">
+                            <span class="netadmin--hide-hc a11y--AA">A</span>
+                            <span class="hide_WCAG">Większa wielkość czcionki</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="a11y__item">
+                    <a class="a11y__link a11y__link--AAA" title="Największa wielkość czcionki" href="/4952,plaza-i-kapielisko?fontsize=bigger">
+                        <span class="a11y__txt">
+                            <span class="netadmin--hide-hc a11y--AAA">A</span>
+                            <span class="hide_WCAG">Największa wielkość czcionki</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="a11y__item">
+                    <a class="a11y__link a11y__link--HC" href="./skin,hc" title="Wysoki kontrast">
+                        <span class="icon icon-contrast"></span>
+                        <span class="a11y__txt hide_WCAG">Wysoki kontrast</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+        
+                                </div>
+                            </li>
+        
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END ICONS TOP -->
+
+            </div>
+
+             <div class="navbar__item">
+                <div class="weather" id="weather">
+                    <button class="weather__btn netadmin--hide-hc" aria-controls="weather__content" aria-haspopup="true" aria-expanded="false" aria-label="Pogoda">
+                        <span class="icon icon-haw-weather"></span>
+                        <span class="hide_WCAG">Pogoda</span>
+                    </button>
+                    <div class="weather__content" id="weather__content">
+    <div class="system_float_clear"></div><div><div class="system_anchor obiekt obiekt_html" id="html_55"><div class="system_margin_auto"><a class="weatherwidget-io" href="https://forecast7.com/pl/51d9619d72/glowno/" aria-label="Pogoda dla miejscowości Głowno" data-label_1="Głowno" data-mode="Current" data-days="3" data-theme="original" data-basecolor="#ffffff" data-textcolor="#145a00" data-mooncolor="#3f91cf">Głowno</a>
+<script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+</script></div></div></div><div class="system_float_clear"></div>                
+                    </div>
+                </div>
+            </div>
+                    
+        </div>
+    </div>
+</div>
+<!-- MENU -->
+<div class="menu" id="menu">
+    <div class="container">
+        <div class="menu__row">
+            <div class="menu__cell">
+                <nav class="menu__nav nav" id="nav" aria-labelledby="mainNavHeading">
+                    <h2 class="hide_WCAG" id="mainNavHeading">Menu</h2>
+                    <div class="menu__box">
+                        	<ul class="menu__list js-menu__list" role="menubar"><li class="menu__item" role="presentation"><div class="menu__item-inner js-menu__item-inner" role="presentation"><a class="menu__link" href="4671,miasto" role="menuitem"><span class="menu__link-text">Miasto</span><span class="menu__link-icon icon icon-arrow-bottom"></span></a>		<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4831,demografia" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Demografia</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4829,herb-i-flaga" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Herb i flaga</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4830,przyroda" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Przyroda</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4834,honorowi-obywatele" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Honorowi obywatele</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5489,zasady-nadawania-tytulu" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zasady nadawania tytułu</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4978,plan-miasta-glowna" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Plan Miasta Głowna</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4828,historia" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Historia</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4839,galeria-historyczna" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Galeria historyczna</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4840,historyczne-wladze-miasta" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Historyczne władze miasta</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6180,zwiazki-glowna-z-marka-citro-n" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Związki Głowna z marką Citroën</span></a></div>				<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6189,links-between-glowno-and-the-citro-n-brand" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Links between Głowno and the Citroën brand</span></a></div></li>
+				</ul></div>
+				</li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4832,zasluzeni-dla-miasta" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zasłużeni dla miasta</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5490,zasady-nadawania-tytulu" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zasady nadawania tytułu</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4835,zagospodarowanie-przestrzenne" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zagospodarowanie przestrzenne</span></a></div></li>
+		</ul></div>
+		</div></li>
+<li class="menu__item" role="presentation"><div class="menu__item-inner js-menu__item-inner" role="presentation"><a class="menu__link" href="4926,samorzad" role="menuitem"><span class="menu__link-text">Samorząd</span><span class="menu__link-icon icon icon-arrow-bottom"></span></a>		<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4933,rada-miejska" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Rada Miejska</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4934,radni" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Radni</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4936,komisje" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Komisje</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4980,terminarz" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Terminarz</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5583,transmisje" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Transmisje</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4981,nagrania-z-sesji" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Nagrania z sesji</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4937,kontakt" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Kontakt</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4927,wladze-miasta" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Władze miasta</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5001,burmistrz-glowna" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Burmistrz Głowna</span></a></div>				<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5002,zapytaj-burmistrza" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zapytaj Burmistrza</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5235,odpowiedzi-na-pytania" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Odpowiedzi na pytania</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5003,patronat-burmistrza" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Patronat Burmistrza</span></a></div></li>
+				</ul></div>
+				</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4930,zastepca-burmistrza" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zastępca Burmistrza</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4931,sekretarz-miasta" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Sekretarz Miasta</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4932,skarbnik-miasta" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Skarbnik Miasta</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4982,miejskie-jednostki-organizacyjne" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Miejskie jednostki organizacyjne</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4987,miejski-osrodek-pomocy-spolecznej" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Miejski Ośrodek Pomocy Społecznej</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4988,miejski-zaklad-komunalny" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Miejski Zakład Komunalny</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4989,srodowiskowy-dom-samopomocy" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Środowiskowy Dom Samopomocy</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4990,szkola-podstawowa-nr-1" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Szkoła Podstawowa nr 1</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4991,szkola-podstawowa-nr-2" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Szkoła Podstawowa nr 2</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4992,szkola-podstawowa-nr-3" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Szkoła Podstawowa nr 3</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4993,miejskie-przedszkole-nr-1" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Miejskie Przedszkole nr 1</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4994,miejskie-przedszkole-nr-2" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Miejskie Przedszkole nr 2</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4995,miejskie-przedszkole-nr-3" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Miejskie Przedszkole nr 3</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4996,miejski-zlobek" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Miejski Żłobek</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4939,uchwaly-i-zarzadzenia" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Uchwały i zarządzenia</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="./redir,uchwaly" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Uchwały Rady Miejskiej</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="./redir,zarzadzenia" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zarządzenia Burmistrza</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4985,miejskie-spolki" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Miejskie spółki</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4999,miejski-zaklad-wodciagow-i-kanalizacji" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Miejski Zakład Wodciągów i Kanalizacji</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5000,centrum-medyczne" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Centrum Medyczne</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4986,organizacje-pozarzadowe" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Organizacje pozarządowe</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4940,dokumenty-strategiczne" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Dokumenty strategiczne</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4983,miejskie-instytucje-kultury" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Miejskie instytucje kultury</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4997,miejski-osrodek-kultury" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Miejski Ośrodek Kultury</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4998,miejska-biblioteka-publiczna" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Miejska Biblioteka Publiczna</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6522,kadencja-2018-2024" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Kadencja 2018-2024</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6457,sluzba-zdrowia" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Służba zdrowia</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6458,miejski-zlobek-w-glownie" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Miejski Żłobek w Głownie</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6459,rozwoj-sieci-wodno-kanalizacyjnej" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Rozwój sieci wodno-kanalizacyjnej</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6460,przedszkola-miejskie" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Przedszkola Miejskie</span></a></div>				<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6461,miejskie-przedszkole-nr-1" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Miejskie Przedszkole nr 1</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6462,miejskie-przedszkole-nr-2" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Miejskie Przedszkole nr 2</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6463,miejskie-przedszkole-nr-3" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Miejskie Przedszkole nr 3</span></a></div></li>
+				</ul></div>
+				</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6466,infrastruktura-drogowa" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Infrastruktura drogowa</span></a></div></li>
+			</ul></div>
+			</li>
+		</ul></div>
+		</div></li>
+<li class="menu__item" role="presentation"><div class="menu__item-inner js-menu__item-inner" role="presentation"><a class="menu__link" href="4672,urzad-miejski" role="menuitem"><span class="menu__link-text">Urząd Miejski</span><span class="menu__link-icon icon icon-arrow-bottom"></span></a>		<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4825,referaty" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Referaty</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4826,referat-organizacyjno-administracyjny" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Referat Organizacyjno-Administracyjny</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4827,referat-inwestycji" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Referat Inwestycji</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5117,referat-ochrony-srodowiska-i-infrastruktury-drogowej" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Referat Ochrony Środowiska i Infrastruktury Drogowej</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5118,referat-finansow" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Referat Finansów</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5119,referat-strategii-i-planowania" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Referat Strategii i Planowania</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5120,referat-promocji-i-komunikacji-spolecznej" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Referat Promocji i Komunikacji Społecznej</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5121,referat-spraw-obywatelskich" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Referat Spraw Obywatelskich</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5122,referat-edukacji-i-spraw-spolecznych" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Referat Edukacji i Spraw Społecznych</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5123,urzad-stanu-cywilnego" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Urząd Stanu Cywilnego</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5124,referat-ds-obslugi-rady-miejskiej" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Referat ds. Obsługi Rady Miejskiej</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5684,referat-gospodarki-odpadami-komunalnymi" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Referat Gospodarki Odpadami Komunalnymi</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6117,samodzielne-stanowisko-ds-kontroli" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Samodzielne Stanowisko ds. Kontroli</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6666,samodzielne-stanowisko-ds-ochrony-wod-i-gospodarki-sciekowej" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Samodzielne Stanowisko ds. Ochrony Wód i Gospodarki Ściekowej</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6631,audytor-wewnetrzny" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Audytor wewnętrzny</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6979,samodzielne-stanowisko-ds-nadzoru-finansowego-i-analiz" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Samodzielne Stanowisko ds. Nadzoru Finansowego i Analiz</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="7014,samodzielne-stanowisko-ds-cyberbezpieczenstwa" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Samodzielne Stanowisko ds. Cyberbezpieczeństwa</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4844,e-urzad" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">e-urząd</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4898,elektroniczna-skrzynka-podawcza" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Elektroniczna skrzynka podawcza</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4896,e-podatki" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">e-podatki</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4897,wnioski-i-formularze-do-pobrania" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Wnioski i formularze do pobrania</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5511,nieruchomosci" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Nieruchomości</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5574,oferta-inwestycyjna-i-budowlana" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Oferta inwestycyjna i budowlana</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5575,przetargi" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Przetargi</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5512,dzialki-budowlane-na-sprzedaz" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Działki budowlane na sprzedaż</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5513,tereny-inwestycyjne" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Tereny inwestycyjne</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4876,inwestycje-miejskie" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Inwestycje miejskie</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4836,adresy-i-konta-bankowe" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Adresy i konta bankowe</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6738,inne-informacje" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Inne informacje</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6739,standardy-ochrony-maloletnich-w-urzedzie-miejskim-w-glownie" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Standardy ochrony małoletnich w Urzędzie Miejskim w Głownie</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6740,zgloszenia-wewnetrzne" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zgłoszenia wewnętrzne</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6741,zgloszenia-zewnetrzne" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zgłoszenia zewnętrzne</span></a></div></li>
+			</ul></div>
+			</li>
+		</ul></div>
+		</div></li>
+<li class="menu__item" role="presentation"><div class="menu__item-inner js-menu__item-inner" role="presentation"><a class="menu__link" href="4673,dla-mieszkanca" role="menuitem"><span class="menu__link-text">Dla mieszkańca</span><span class="menu__link-icon icon icon-arrow-bottom"></span></a>		<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4846,podatki-i-oplaty-lokalne" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Podatki i opłaty lokalne</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5034,podatek-od-nieruchomosci" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Podatek od nieruchomości</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5035,podatek-od-srodkow-transportowych" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Podatek od środków transportowych</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5036,podatek-rolny" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Podatek rolny</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5037,podatek-lesny" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Podatek leśny</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4847,gospodarka-odpadami" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Gospodarka odpadami</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5017,zasady-segregacji-odpadow" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zasady segregacji odpadów</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5714,harmonogram-wywozu-nieczystosci-stalych" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Harmonogram wywozu nieczystości stałych</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5019,obowiazujace-dokumenty" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Obowiązujące dokumenty</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5020,dane-statystyczne" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Dane statystyczne</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4851,usuwanie-azbestu" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Usuwanie azbestu</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4850,woda-i-scieki" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Woda i ścieki</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5778,pytania-i-odpowiedzi" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Pytania i odpowiedzi</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="7060,upcykling-i-refreshing" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Upcykling i refreshing</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4942,zarzadzanie-kryzysowe" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zarządzanie kryzysowe</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6935,ostrzezenia-meteorologiczne-i-hydrologiczne" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Ostrzeżenia meteorologiczne i hydrologiczne</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5027,zasady-postepowania-podczas-zagrozen" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zasady postępowania podczas zagrożeń</span></a></div>				<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6895,alarmowanie-i-ostrzeganie" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Alarmowanie i ostrzeganie</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6864,poradnik-bezpieczenstwa" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Poradnik bezpieczeństwa</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6245,pierwsza-pomoc" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Pierwsza pomoc</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6217,informacje-istotne-przy-zglaszaniu-sluzbom-ratunkowym" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Informacje istotne przy zgłaszaniu służbom ratunkowym</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5030,zagrozenie-powodziowe" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zagrożenie powodziowe</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5029,zagrozenie-terrorystyczne" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zagrożenie terrorystyczne</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6863,zagrozenie-dronowe" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zagrożenie dronowe</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5028,zagrozenie-radiacyjne" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zagrożenie radiacyjne</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5031,zagrozenie-epidemiczne" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zagrożenie epidemiczne</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5032,koniecznosc-ewakuacji" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Konieczność ewakuacji</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6075,awaria-energetyczna" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Awaria energetyczna</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6163,burze-z-gradem-i-silne-wiatry" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Burze z gradem i silne wiatry</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6246,susza-hydrodekalog" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Susza - Hydrodekalog</span></a></div></li>
+				</ul></div>
+				</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4944,okres-zimowy" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Okres zimowy</span></a></div>				<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5025,obowiazki-zarzadcow-nieruchomosci" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Obowiązki zarządców nieruchomości</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5026,zasady-postepowania-podczas-mrozow-i-zamieci-snieznych" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zasady postępowania podczas mrozów i zamieci śnieżnych</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5024,pomoc-dla-bezdomnych" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Pomoc dla bezdomnych</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6031,wypadki-na-otwartych-zbiornikach-wodnych" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Wypadki na otwartych zbiornikach wodnych</span></a></div></li>
+				</ul></div>
+				</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5977,okres-letni" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Okres letni</span></a></div>				<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6252,ile-wody-pic-latem" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Ile wody pić latem?</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5978,zasady-postepowania-w-przypadku-upalu" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zasady postępowania w przypadku upału</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6032,wypadki-na-otwartych-zbiornikach-wodnych" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Wypadki na otwartych zbiornikach wodnych</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6198,zasady-bezpieczenstwa-nad-woda" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zasady bezpieczeństwa nad wodą</span></a></div></li>
+				</ul></div>
+				</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4946,telefony-alarmowe" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Telefony alarmowe</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5721,aplikacja-pge" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Aplikacja PGE</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4855,pomoc-spoleczna" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Pomoc społeczna</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4857,karta-duzej-rodziny" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Karta Dużej Rodziny</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4860,karta-seniora-wojewodztwa-lodzkiego" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Karta Seniora Województwa Łodzkiego</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4858,bezplatna-pomoc-prawna" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Bezpłatna pomoc prawna</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5039,inne-informacje" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Inne informacje</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4854,komunikacja-miejska" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Komunikacja miejska</span></a></div>				<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4949,lodzka-kolej-aglomeracyjna-lka" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Łódzka Kolej Aglomeracyjna (ŁKA)</span></a></div></li>
+				</ul></div>
+				</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4950,jakosc-powietrza" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Jakość powietrza</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6996,planowane-pomiary-pol-elektromagnetycznych" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Planowane pomiary pól elektromagnetycznych</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6176,czyste-powietrze" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Czyste Powietrze</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6497,cieple-mieszkanie" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Ciepłe Mieszkanie</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link external_blank" href="5021,przytulisko-dla-zwierzat" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Przytulisko dla zwierząt</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6550,centralna-ewidencja-emisyjnosci-budynkow" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Centralna Ewidencja Emisyjności Budynków</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6818,dofinansowanie-na-zakup-kotla-lub-kominka-na-biomase-w-formie-pelletu-drzewnego" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Dofinansowanie na zakup kotła lub kominka na biomasę w formie pelletu drzewnego</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6414,konkursy" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Konkursy</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link external_blank" href="5588,strona-archiwalna" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Strona archiwalna</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5058,informacje-dla-rolnikow" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Informacje dla rolników</span></a></div></li>
+		</ul></div>
+		</div></li>
+<li class="menu__item menu__item--on menu--selected" role="presentation"><div class="menu__item-inner js-menu__item-inner" role="presentation"><a class="menu__link menu__link--active" href="4843,dla-turysty" role="menuitem"><span class="menu__link-text">Dla turysty</span><span class="menu__link-icon icon icon-arrow-bottom"></span></a>		<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4887,warto-zobaczyc" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Warto zobaczyć</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5043,plac-wolnosci-z-debem-wolnosci" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Plac Wolności z Dębem Wolności</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5044,kosciol-sw-jakuba-apostola" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Kościół św. Jakuba Apostoła</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5042,palac-jablonskich" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Pałac Jabłońskich</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5041,dworek-hrabiny-komorowskiej" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Dworek hrabiny Komorowskiej</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5045,dworzec-kolejowy" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Dworzec kolejowy</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5046,wydmy-srodladowe" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Wydmy śródlądowe</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5049,rezerwat-przyrody-zabrzeznia" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Rezerwat przyrody Zabrzeźnia</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5056,galeria" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Galeria</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item menu__sub-item--on menu--selected js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link menu__sub-link--active" href="4889,zalew-mrozyczka" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zalew Mrożyczka</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5047,central-wake-park" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Central Wake Park</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5048,molo-rekreacyjne-z-platforma-widokowa" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Molo rekreacyjne z platformą widokową</span></a></div></li>
+<li class="menu__sub-item menu__sub-item--current menu--selected js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link menu__sub-link--current" href="4952,plaza-i-kapielisko" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Plaża i kąpielisko</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4953,wypozyczalnia-sprzetu-wodnego" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Wypożyczalnia sprzętu wodnego</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4954,plac-zabaw" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Plac zabaw</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5051,boisko-do-beach-soccera" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Boisko do beach soccera</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5052,boiska-do-siatkowki-plazowej" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Boiska do siatkówki plażowej</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5054,sciezka-edukacyjna" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Ścieżka edukacyjna</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4888,obiekty-rekreacyjno-sportowe" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Obiekty rekreacyjno-sportowe</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5055,park-linowy" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Park linowy</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4891,hala-widowiskowo-sportowa" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Hala widowiskowo-sportowa</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4892,boiska-orlik" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Boiska Orlik</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4959,korty-tenisowe" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Korty tenisowe</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4960,silownie-plenerowe" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Siłownie plenerowe</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4961,boisko-lekkoatletyczne" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Boisko lekkoatletyczne</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4957,stadion-pilkarski" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Stadion piłkarski</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4893,mapa-atrakcji" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Mapa atrakcji</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4963,imprezy-cykliczne" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Imprezy cykliczne</span></a></div>			<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5185,festiwal-kolej-na-kobiety" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Festiwal Kolej na Kobiety</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5186,remo-glowno-race" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Remo Głowno Race</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5187,rodzinny-piknik-biegowy" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Rodzinny Piknik Biegowy</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5188,projekt-plazowka" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Projekt &quot;Plażówka&quot;</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5189,pikniki-rodzinne" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Pikniki Rodzinne</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5190,swieto-glowna" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Święto Głowna</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5238,mroga-trophy" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Mroga Trophy</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5191,rodzinny-piknik-mikolajkowy" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Rodzinny Piknik Mikołajkowy</span></a></div></li>
+			</ul></div>
+			</li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="4964,informator" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Informator</span></a></div></li>
+<li class="menu__separator" role="separator"><!-- //--></li>
+<li class="menu__separator" role="separator"><!-- //--></li>
+<li class="menu__separator" role="separator"><!-- //--></li>
+<li class="menu__separator" role="separator"><!-- //--></li>
+		</ul></div>
+		</div></li>
+<li class="menu__item" role="presentation"><div class="menu__item-inner js-menu__item-inner" role="presentation"><a class="menu__link" href="6532,fundusze-zewnetrzne" role="menuitem"><span class="menu__link-text">Fundusze Zewnętrzne</span><span class="menu__link-icon icon icon-arrow-bottom"></span></a>		<div class="js-menu__sub-list-wrapper menu__sub-list-wrapper"><ul class="menu__sub-list js-menu__sub-list" role="menu"><li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5595,rzadowy-fundusz-rozwoju-drog" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Rządowy Fundusz Rozwoju Dróg</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5596,regionalny-program-operacyjny-wojewodztwa-lodzkiego-na-lata-2014-2020" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Regionalny Program Operacyjny Województwa Łódzkiego na lata 2014-2020</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5598,wojewodzki-fundusz-ochrony-srodowiska-i-gospodarki-wodnej-w-lodzi" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Wojewódzki Fundusz Ochrony Środowiska i Gospodarki Wodnej w Łodzi</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5599,panstwowy-fundusz-rehabilitacji-osob-niepelnosprawnych" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Państwowy Fundusz Rehabilitacji Osób Niepełnosprawnych</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5786,program-rozwoju-obszarow-wiejskich-na-lata-2014-2020" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Program Rozwoju Obszarów Wiejskich na lata 2014-2020</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5824,rzadowy-fundusz-inwestycji-lokalnych" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Rządowy Fundusz Inwestycji Lokalnych</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5854,rzadowy-fundusz-polski-lad-program-inwestycji-strategicznych" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Rządowy Fundusz Polski Ład: Program Inwestycji Strategicznych</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="5930,program-operacyjny-polska-cyfrowa-na-lata-2014-2020" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Program Operacyjny Polska Cyfrowa na lata 2014-2020</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6172,program-operacyjny-infrastruktura-i-srodowisko-na-lata-2014-2020" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Program Operacyjny Infrastruktura i Środowisko na lata 2014-2020</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6583,dotacje-z-samorzadu-wojewodztwa-lodzkiego" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Dotacje z Samorządu Województwa Łódzkiego</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6585,zadania-realizowane-ze-srodkow-budzetu-panstwa" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Zadania realizowane ze środków budżetu państwa</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6812,program-regionalny-fundusze-europejskie-dla-lodzkiego-na-lata-2021-2027" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Program Regionalny Fundusze Europejskie dla Łódzkiego na lata 2021-2027</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6897,krajowy-plan-odbudowy" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Krajowy Plan Odbudowy</span></a></div></li>
+<li class="menu__sub-item js-menu__sub-item" role="presentation"><div class="menu__sub-link-wrapper js-menu__sub-link-wrapper" role="presentation"><a class="menu__sub-link" href="6971,europejski-fundusz-rolny-na-rzecz-rozwoju-obszarow-wiejskich" role="menuitem"><span class="menu__sub-link-icon icon icon-arrow-bottom"></span><span class="menu__sub-link-text">Europejski Fundusz Rolny na rzecz Rozwoju Obszarów Wiejskich</span></a></div></li>
+		</ul></div>
+		</div></li>
+	</ul>
+	                    </div>
+                </nav>
+            </div>
+            
+				<div class="menu__cell">
+                <div class="bip netadmin--hide-hc">
+                    <a class="icon__link" href="https://glowno.bip.net.pl/" title="Biuletyn Informacji Publicznej Gminy Miasta Głowno" aria-label="Przejdź do Biuletyn Informacji Publicznej Gminy Miasta Głowno">
+                        <span class="icon icon-bip"></span>
+                        <span class="hide_WCAG">Przejdź do Biuletyn Informacji Publicznej Gminy Miasta Głowno</span>
+                    </a>
+                </div>
+				</div>
+                        </div>
+    </div>
+</div>
+<!-- END MENU -->
+
+                <div class="header__bg"></div>
+                                </div>
+        </div>
+    </div>
+</header>
+<!-- END HEADER -->
+       <main class="main layout" id="main">
+   
+           <div class="layout__container container">
+               <div class="layout__container-inner">
+                   <div class="layout__row">
+                       <div class="layout__col">
+    <!-- BREADCRUMBS -->
+<div class="breadcrumb" id="breadcrumb">
+    <nav class="breadcrumb__nav" aria-label="Breadcrumb">
+        <div class="header hide_WCAG">
+            <h2 class="heading">
+                <span class="heading__text">Ścieżka nawigacji</span>
+            </h2>
+        </div>
+        <ul class="breadcrumb__list">
+            <li class="breadcrumb__item">
+                <a class="breadcrumb__link" href="./" aria-label="Powrót do strony głównej">
+                    <span class="icon icon-home"></span>
+                </a>
+            </li>
+        <li class="breadcrumb__item"><a class="breadcrumb__link" href="4843,dla-turysty">Dla turysty</a></li><li class="breadcrumb__item"><a class="breadcrumb__link" href="4889,zalew-mrozyczka">Zalew Mrożyczka</a></li><li class="breadcrumb__item"><span class="last">Plaża i kąpielisko</span></li>        </ul>
+    </nav>
+</div>
+<!-- END BREADCRUMBS -->
+                            <section class="section page__content" id="PageContent">
+                                <div class="section__inner">
+                                    <div class="section__heading hide_WCAG">
+                                        <h2 class="heading">
+                                            <span class="heading__text">Plaża i kąpielisko</span>
+                                        </h2>
+                                    </div>
+                                    <div class="section__content">
+		
+<div class="system_float_clear"></div><div><div class="system_anchor obiekt obiekt_galeria" id="galeria_5562"><figure class="obiekt_galeria galeria_tabela galeria_elementow_parzyste system_margin_auto"><ul class="galeria_wiersz"><li id="galeria_grafika_28881" class="galeria_grafika"><div class="galeria_grafika_box"><div class="galeria_grafika_podobiekt"><a href="grafika,28881,dzieci-korzystajace-z-atrakcji-dmuchanego-parku-wodnego.jpg" class="fancybox fancybox_5562" title="Dzieci korzystające z atrakcji dmuchanego parku wodnego" role="button"><img src="grafika,miniatura,28881,dzieci-korzystajace-z-atrakcji-dmuchanego-parku-wodnego.jpg" width="450" height="300" alt="Dzieci korzystające z atrakcji dmuchanego parku wodnego"></a></div></div></li><li id="galeria_grafika_28882" class="galeria_grafika"><div class="galeria_grafika_box"><div class="galeria_grafika_podobiekt"><a href="grafika,28882,plac-zabaw-w-formie-statku-nad-zalewem-mrozyczka.jpg" class="fancybox fancybox_5562" title="Plac zabaw w formie statku nad zalewem Mrożyczka" role="button"><img src="grafika,miniatura,28882,plac-zabaw-w-formie-statku-nad-zalewem-mrozyczka.jpg" width="450" height="300" alt="Plac zabaw w formie statku nad zalewem Mrożyczka"></a></div></div></li></ul></figure></div><div class="system_anchor obiekt obiekt_akapit" id="akapit_4943"><h2 class="predef">Plaża i kąpielisko</h2><p>Nad zalewem Mrożyczka, w pobliżu centrum Głowna znajduje się piaszczysta plaża, na której – zwłaszcza latem – chętnie wypoczywają mieszkańcy miasta oraz przyjeżdżający do Głowna turyści. Piasek jest tu wyjątkowy, bo pochodzi ze znajdujących się nieopodal śródlądowych wydm, unikalnej w skali regionu atrakcji przyrodniczej. Plaża sąsiaduje z kąpieliskiem, które w sezonie letnim jest nadzorowane przez służby sanitarne i strzeżone przez ratownika. W bezpośrednim sąsiedztwie plaży znajduje się wybudowana w roku 2017 altana taneczno-koncertowa, która jest miejscem pikników, koncertów i spotkań.</p>
+<p><br><br></p></div><div class="system_anchor obiekt obiekt_galeria" id="galeria_5563"><figure class="obiekt_galeria galeria_tabela galeria_elementow_parzyste system_margin_auto"><ul class="galeria_wiersz"><li id="galeria_grafika_28883" class="galeria_grafika"><div class="galeria_grafika_box"><div class="galeria_grafika_podobiekt"><a href="grafika,28883,plazowicze-korzystajacy-z-atrakcji-dmuchanego-parku-wodnego.jpg" class="fancybox fancybox_5563" title="Plażowicze korzystający z atrakcji dmuchanego parku wodnego" role="button"><img src="grafika,miniatura,28883,plazowicze-korzystajacy-z-atrakcji-dmuchanego-parku-wodnego.jpg" width="300" height="200" alt="Plażowicze korzystający z atrakcji dmuchanego parku wodnego"></a></div></div></li><li id="galeria_grafika_28884" class="galeria_grafika"><div class="galeria_grafika_box"><div class="galeria_grafika_podobiekt"><a href="grafika,28884,plazowicze-korzystajacy-z-atrakcji-dmuchanego-parku-wodnego.jpg" class="fancybox fancybox_5563" title="Plażowicze korzystający z atrakcji dmuchanego parku wodnego" role="button"><img src="grafika,miniatura,28884,plazowicze-korzystajacy-z-atrakcji-dmuchanego-parku-wodnego.jpg" width="300" height="200" alt="Plażowicze korzystający z atrakcji dmuchanego parku wodnego"></a></div></div></li><li id="galeria_grafika_28885" class="galeria_grafika"><div class="galeria_grafika_box"><div class="galeria_grafika_podobiekt"><a href="grafika,28885,plac-zabaw-w-formie-statku-nad-zalewem-mrozyczka.jpg" class="fancybox fancybox_5563" title="Plac zabaw w formie statku nad zalewem Mrożyczka" role="button"><img src="grafika,miniatura,28885,plac-zabaw-w-formie-statku-nad-zalewem-mrozyczka.jpg" width="300" height="200" alt="Plac zabaw w formie statku nad zalewem Mrożyczka"></a></div></div></li></ul><ul class="galeria_wiersz"><li id="galeria_grafika_28886" class="galeria_grafika"><div class="galeria_grafika_box"><div class="galeria_grafika_podobiekt"><a href="grafika,28886,altana-taneczno-koncertowa.jpg" class="fancybox fancybox_5563" title="Altana taneczno-koncertowa" role="button"><img src="grafika,miniatura,28886,altana-taneczno-koncertowa.jpg" width="300" height="200" alt="Altana taneczno-koncertowa"></a></div></div></li><li id="galeria_grafika_28887" class="galeria_grafika"><div class="galeria_grafika_box"><div class="galeria_grafika_podobiekt"><a href="grafika,28887,dzieci-tanczace-przy-altanie-taneczno-koncertowej.jpg" class="fancybox fancybox_5563" title="Dzieci tańczące przy altanie taneczno-koncertowej" role="button"><img src="grafika,miniatura,28887,dzieci-tanczace-przy-altanie-taneczno-koncertowej.jpg" width="300" height="200" alt="Dzieci tańczące przy altanie taneczno-koncertowej"></a></div></div></li><li id="galeria_grafika_28888" class="galeria_grafika"><div class="galeria_grafika_box"><div class="galeria_grafika_podobiekt"><a href="grafika,28888,widok-na-plaze-i-zalew-mrozyczka-spod-parasoli-hawajskich.jpg" class="fancybox fancybox_5563" title="Widok na plażę i zalew Mrożyczka spod parasoli hawajskich" role="button"><img src="grafika,miniatura,28888,widok-na-plaze-i-zalew-mrozyczka-spod-parasoli-hawajskich.jpg" width="300" height="200" alt="Widok na plażę i zalew Mrożyczka spod parasoli hawajskich"></a></div></div></li></ul></figure></div></div><div class="system_float_clear"></div>
+                                    </div>
+                                </div>
+                            </section>
+    
+                       </div> <!-- END .layout__col -->
+                   </div> <!-- END .layout__row -->
+               </div> <!-- END .layout__container-inner -->
+           </div><!-- END .layout__container .container -->
+        </main><!-- END .main -->
+<!-- FOOTER -->
+<footer class="footer" id="footer">
+
+<!-- BANNERS -->
+<section class="banners-bottom js-banners-bottom" id="banners-bottom">
+    <div class="banners-bottom__inner js-banners-bottom__inner">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2 class="heading hide_WCAG">
+                        <span class="heading__text">Banery</span>
+                    </h2>
+                    <div class="banners-bottom__content">
+                        <div class="banners-bottom__content-box">
+                            <ul class="banners-bottom__list js-banners-bottom__list" id="banners-bottom__list" aria-roledescription="carousel">
+                                <li class="banners-bottom__item js-banners-bottom__item" aria-roledescription="slide"><div class="banner-bottom js-banner-bottom"><a href="./redir,reklama_redir?lp=133" class="external_blank"><img src="baner,133,mp2.jpg" width="250" height="100" alt="Miejskie Przedszkole Nr 2"></a></div></li><li class="banners-bottom__item js-banners-bottom__item" aria-roledescription="slide"><div class="banner-bottom js-banner-bottom"><a href="./redir,reklama_redir?lp=114" class="external_blank"><img src="baner,114,zwik.jpg" width="250" height="100" alt="Miejski Zakład Wodociagów i Kanalizacji"></a></div></li><li class="banners-bottom__item js-banners-bottom__item" aria-roledescription="slide"><div class="banner-bottom js-banner-bottom"><a href="./redir,reklama_redir?lp=131" class="external_blank"><img src="baner,131,mp3.jpg" width="250" height="100" alt="Miejskie Przedszkole Nr 3"></a></div></li><li class="banners-bottom__item js-banners-bottom__item" aria-roledescription="slide"><div class="banner-bottom js-banner-bottom"><a href="./redir,reklama_redir?lp=123" class="external_blank"><img src="baner,123,sp2.jpg" width="250" height="100" alt="Szkoła podstawowa nr 2"></a></div></li><li class="banners-bottom__item js-banners-bottom__item" aria-roledescription="slide"><div class="banner-bottom js-banner-bottom"><a href="./redir,reklama_redir?lp=145" class="external_blank"><img src="baner,145,mok.jpg" width="250" height="100" alt="MIEJSKI OŚRODEK KULTURY"></a></div></li><li class="banners-bottom__item js-banners-bottom__item" aria-roledescription="slide"><div class="banner-bottom js-banner-bottom"><a href="./redir,reklama_redir?lp=129" class="external_blank"><img src="baner,129,sp1.jpg" width="250" height="100" alt="Szkoła Podstawowa Nr 1"></a></div></li><li class="banners-bottom__item js-banners-bottom__item" aria-roledescription="slide"><div class="banner-bottom js-banner-bottom"><a href="./redir,reklama_redir?lp=126" class="external_blank"><img src="baner,126,zlobek-miejski.jpg" width="250" height="100" alt="żłobek miejski"></a></div></li><li class="banners-bottom__item js-banners-bottom__item" aria-roledescription="slide"><div class="banner-bottom js-banner-bottom"><a href="./redir,reklama_redir?lp=118" class="external_blank"><img src="baner,118,mops.jpg" width="250" height="100" alt="Miejski Ośrodek Pomocy Społecznej w Głownie"></a></div></li><li class="banners-bottom__item js-banners-bottom__item" aria-roledescription="slide"><div class="banner-bottom js-banner-bottom"><a href="./redir,reklama_redir?lp=111" class="external_blank"><img src="baner,111,sds.jpg" width="250" height="100" alt="Środowiskowy Dom Samopomocy w Głownie - logo"></a></div></li><li class="banners-bottom__item js-banners-bottom__item" aria-roledescription="slide"><div class="banner-bottom js-banner-bottom"><a href="./redir,reklama_redir?lp=117" class="external_blank"><img src="baner,117,remedium.jpg" width="250" height="100" alt="Remdium"></a></div></li><li class="banners-bottom__item js-banners-bottom__item" aria-roledescription="slide"><div class="banner-bottom js-banner-bottom"><a href="./redir,reklama_redir?lp=132" class="external_blank"><img src="baner,132,mzk.jpg" width="250" height="100" alt="Miejski Zakład Komunalny w Głownie"></a></div></li><li class="banners-bottom__item js-banners-bottom__item" aria-roledescription="slide"><div class="banner-bottom js-banner-bottom"><a href="./redir,reklama_redir?lp=124" class="external_blank"><img src="baner,124,sp3.jpg" width="250" height="100" alt="Szkoła podstawowa nr 3"></a></div></li><li class="banners-bottom__item js-banners-bottom__item" aria-roledescription="slide"><div class="banner-bottom js-banner-bottom"><a href="./redir,reklama_redir?lp=113" class="external_blank"><img src="baner,113,mp1.jpg" width="250" height="100" alt="Miejskie przedszkole nr 1"></a></div></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END BANNERS -->
+        
+
+<section class="section contact-info" id="contact-info">
+    <div class="contact-info__inner">
+        <div class="contact-info__header">
+            <h2 class="heading hide_WCAG">
+                <span class="heading__text">Sekcja kontaktowa</span>
+            </h2>   
+        </div>
+        <div class="contact-info__content">
+            <div class="contact-info__col">
+                <div class="contact-info__col__inner">
+                    <div class="contact-info__col__header">
+                        <div class="logo-bottom">
+                            <a class="logo-bottom__link" href="https://www.glowno.pl/" aria-label="Przejdź do strony głównej">
+
+        
+<span class="logo">
+    <!-- LOGO -->
+    <span class="logo__emblem-wrapper">
+        <img class="logo__emblem-img" src="logo,www-um-glowno.png" alt="Logo - UM Głowno">
+                          
+    </span>
+    <!-- END LOGO -->
+</span>
+    
+                                <div class="logo-bottom__text">Miasto <span>Głowno</span></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="contact-info__col__text">
+       <div class="system_float_clear"></div><div><div class="system_anchor obiekt obiekt_akapit" id="akapit_4825"><p><span style="font-size:150%;"><strong>Dane kontaktowe</strong></span></p>
+<table style="border-collapse:collapse;border-width:0px;border-style:solid;width:100%;">
+<tbody>
+<tr style="height:142px;">
+<td style="width:50%;border-width:0px;vertical-align:top;">
+<p>Urząd Miejski w Głownie<br>ul. Młynarska 15<br>95-015 Głowno<br>tel. (48) 42 719 11 51<br>e-mail: sekretariat@glowno.pl</p>
+<p>Skrzynka podawcza ePuap:<br>/UMGlowno/skrytka</p>
+<p>Adres do e-Doręczeń:<br>AE:PL-75655-82576-ATBJF-30<br><br></p>
+</td>
+<td style="width:50%;border-width:0px;vertical-align:top;">
+<p><strong>Godziny pracy:</strong><br>poniedziałek, środa, czwartek, piątek: 08:30 - 15:30<br>wtorek: 8:00 - 16:00</p>
+<p> </p>
+<p><strong>Kasa urzędu czynna:</strong><br>poniedziałek, środa, czwartek, piątek: 08:30 - 15:00<br>wtorek: 8:00 - 15:00</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Konto dochodów budżetu Miasta Głowna:</strong><br>69 8787 0000 0024 6899 2000 0008</p></div></div><div class="system_float_clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-info__col">
+    
+            <iframe class="contact-info__map js-contact-info__map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16539.32907532337!2d19.72870397676769!3d51.959741039884555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471bc46891d8ede5%3A0x1246aac9f7221bcf!2sUrz%C4%85d%20Miejski!5e0!3m2!1spl!2spl!4v1607259631990!5m2!1spl!2spl&hl=pl" title="Mapa dojazdu do UM Głowno" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        
+            </div>
+        </div>
+    </div>
+</section>
+   
+<!-- WEBSITE INFO -->
+<section class="website-info" id="website-info">
+    <div class="website-info__inner container">
+        <div class="row js-row">
+            <h2 class="heading hide_WCAG">
+                <span class="heading__text">Stopka strony</span>
+            </h2>
+            <div class="website-info__content">
+                <ul class="website-info__list js-website-info__list">
+                
+                    <li class="website-info__item">
+                        <div class="website-info__item-inner">
+                            <p>
+                                <a class="website-info__link external_blank" href="https://www.extranet.pl/" rel="noopener">
+                                Projekt i wykonanie: extranet.pl
+                                </a>
+                            </p>
+                        </div>
+                    </li>
+
+                    <li class="website-info__item">
+                        <div class="website-info__item-inner">
+                        <p><a href="https://creativecommons.org/licenses/by/4.0/deed.pl" rel="noreferrer noopener" class="external_blank" title="link zostanie otworzony w nowym oknie/karcie przeglądarki">Licencja CC BY 4.0</a></p>
+                        </div>
+                    </li>
+        
+                    <li class="website-info__item">
+                        <div class="website-info__item-inner">
+                            <p>
+                                <a class="website-info__link" href="./4678,struktura-serwisu">
+                                    Struktura serwisu
+                                </a>
+                            </p>
+                        </div>
+                    </li>
+        
+                    <li class="website-info__item">
+                        <div class="website-info__item-inner">
+                            <p>
+                                <a class="website-info__link" href="./4679,polityka-prywatnosci">
+                                    Polityka prywatności
+                                </a>
+                            </p>
+                        </div>
+                    </li>
+        
+                    <li class="website-info__item">
+                        <div class="website-info__item-inner">
+                            <p>
+                                <a class="website-info__link" href="./4666,deklaracja-dostepnosci">
+                                    Deklaracja dostępności
+                                </a>
+                            </p>
+                        </div>
+                    </li>
+        <li class="website-info__item"><div class="website-info__item-inner"><p><a href="#user_consentBox" class="website-info__link" role="button" id="consents_settings_link" aria-controls="user_consentBox">Ustawienia zgód</a></p></div></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END WEBSITE INFO -->
+</footer>
+<!-- END FOOTER -->
+
+    </div><!-- END .main-wrapper -->
+</div><!-- END NETADMIN -->
+<SCRIPT><!--//--><![CDATA[//><!--
+$.fancybox.defaults.lang='pl';$.fancybox.defaults.caption=function(instance, item) {
+		return $(this).attr('title');
+	};
+$().fancybox({
+	selector: 'a.fancybox,a[rel=fancybox]',
+	loop: false,
+	transitionEffect: false
+});
+$.fn.dataTableExt.oSort['string-asc']=function(x,y) { return x.toString().localeCompare(y.toString()); };
+$.fn.dataTableExt.oSort['string-desc']=function(x,y) { return y.toString().localeCompare(x.toString()); };
+$('table.sortuj,table.sortable').addClass('tabela');
+dataTablesInit('table.tabela');
+$('<link/>', {
+	rel: 'stylesheet', type: 'text/css', media: 'screen', href: 'css,css/specific.css',integrity: 'sha256-LF/nbx3/lxNZdvCQ1eUYHiG98LpUhkyr/Vi6er2GD8o=', crossorigin: 'anonymous'
+}).appendTo('head');
+$('<link/>', {
+		rel: 'stylesheet', type: 'text/css', media: 'screen', href: 'css,css/speech-input.css', integrity: 'sha256-yzf6rqXqX+0o0dyLUUWD5D6FZKEVjwRf4kvIC9F1HCI=', crossorigin: 'anonymous'
+	}).appendTo('head');
+$('<script/>', {
+		async: 'async', src: 'js,js/speech-input-compress.js', integrity: 'sha384-ZWUwNDVjMWIwYWI0YjM0NjU4MjYzYjU0ODRmODgyNDE1NmVhNzU4ZWNjNDc2YTUxOTVhYjFkNmIwN2E1OTIwNjE3NGMyNDNhZjcyYzM4ZTllZGJiZWIyMDhkZTA0ZGY3', crossorigin: 'anonymous'
+	}).appendTo('head');
+$('input[type=text],textarea').not('[readonly],[disabled],.nospeech').addClass('speech-input');
+$('#user_info_show_profile_button').on('click', function(e){
+				UserConsentShow();
+			});$('#user_info_close').on('click', function(e){ $('#user_infoBox').fadeToggle(); });$('#user_info_form').on('submit', function(e){
+			_submitter_id=$(e.originalEvent.submitter).attr('id');
+			if (
+					_submitter_id=='user_info_redirect_button'
+			) {
+				return true;
+			}
+
+			_data=$(this).serialize();
+			if ($(e.originalEvent.submitter).is('[name]')) {
+				_data+='&'+$.param( $(e.originalEvent.submitter) );
+			}
+
+			$('button[type=submit]:not(#user_info_redirect_button)', '#user_info_form').prop('disabled', true);
+
+			$.ajax({
+				type: 'POST',
+				url: 'https://www.glowno.pl/4952,plaza-i-kapielisko',
+				headers: { 'X-IGNORE-RESPONSE': 'f55439' },
+				data: _data,
+				timeout: 5000
+			})
+			.done(function(data){
+				$('button[type=submit]:not(#user_info_redirect_button)', '#user_info_form').prop('disabled', false);
+				$('#user_info_form,#user_infoBox').remove();
+				if (
+						_submitter_id=='user_info_accept_button'
+				) {
+					$('#user_consentBox input[type=checkbox].user_info_consent_group:enabled,#user_consentBox input[type=checkbox].user_consent_checkbox:enabled').prop('checked', true);
+				}
+			})
+			.error(function(xhr){
+				$('button[type=submit]:not(#user_info_redirect_button)', '#user_info_form').prop('disabled', false);
+			});
+
+			return false;
+		});
+$('#user_consent_close').on('click', function(e){ UserConsentClose(); });$('#user_consentBox').on('click', '.user_consent_item_opis_dodatkowy a', function(e){
+			e.preventDefault();
+
+			$(this).toggleClass('clicked')
+				.find('.system-icon').toggleClass('system-icon-up-open system-icon-down-open');
+
+			_destObj=$(this).attr('href');
+			if ($(_destObj)) $(_destObj).fadeToggle();
+
+			if ($(this).attr('role'))
+				if ($(this).hasClass('clicked')) {
+					$(this)
+						.attr('aria-expanded', 'true')
+						.find('span:first').text($(this).attr('data-expanded-true'));
+				} else {
+					$(this)
+						.attr('aria-expanded', 'false')
+						.find('span:first').text($(this).attr('data-expanded-false'));
+				}
+		});$('#user_consent_form').on('submit', function(e){
+			_submitter_id=$(e.originalEvent.submitter).attr('id');
+
+			_data=$(this).serialize();
+			if ($(e.originalEvent.submitter).is('[name]')) {
+				_data+='&'+$.param( $(e.originalEvent.submitter) );
+			}
+
+			$('button[type=submit]:not(#user_consent_save_button)', '#user_consent_form').prop('disabled', true);
+
+			$.ajax({
+				type: 'POST',
+				url: 'https://www.glowno.pl/4952,plaza-i-kapielisko',
+				headers: { 'X-IGNORE-RESPONSE': 'f55439' },
+				data: _data,
+				timeout: 5000
+			})
+			.done(function(data){
+				$('button[type=submit]:not(#user_consent_save_button)', '#user_consent_form').prop('disabled', false);
+				UserConsentClose();
+				if (
+						_submitter_id=='user_consent_accept_button'
+				) {
+					$('#user_consentBox input[type=checkbox].user_info_consent_group:enabled,#user_consentBox input[type=checkbox].user_consent_checkbox:enabled').prop('checked', true);
+				}
+			})
+			.error(function(xhr){
+				$('button[type=submit]:not(#user_consent_save_button)', '#user_consent_form').prop('disabled', false);
+			});
+
+			return false;
+		});
+$(function(){ ExternalLinks(); $('.js_hide').addClass('hide hc_hide'); })
+
+		var hasTouch = false;
+		if (('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0)) {
+			hasTouch = true;
+		}
+	
+
+	//-------------------------------------------------------------------------
+	//                      REPAIR ALL CAROUSELS ETC
+	//-------------------------------------------------------------------------
+	$(window).on('load', function() {
+		$(this).trigger('resize');
+		$(this).trigger('scroll');
+	});
+	
+
+	//-------------------------------------------------------------------------
+	//                   CHECK IF IS SET BIGGER FONT-SIZE
+	//-------------------------------------------------------------------------
+	function isDefaultFontSize() {
+		return ($('body.fontsize_big').length > 0 || $('body.fontsize_bigger').length > 0 ) ? false : true;
+	}
+	
+
+			$(function() {
+				const shortcut_box = $('#shortcut-box');
+				                                        
+                    
+                // set focus on first menu link
+                shortcutBoxHandler(shortcut_box, {
+                    shortcut_link_selector          : '.shortcut-box__link--menu',
+                    box_btn_selector                : '#menu .menu__btn-toggle',
+                    focusable_selector              : '#menu .menu__link:first'
+                });
+
+				// set focus on search input
+				shortcutBoxHandler(shortcut_box, {
+					shortcut_link_selector          : '.shortcut-box__link--search',
+					box_btn_selector                : '.single-icon__link--search',
+					focusable_selector              : '#search-form__field--input'
+				});
+
+				// set focus on first accessibility item
+				shortcutBoxHandler(shortcut_box, {
+					shortcut_link_selector          : '.shortcut-box__link--a11y',
+					box_btn_selector                : '.single-icon__link--a11y',
+					focusable_selector              : '#a11y .a11y__link:first'
+				});
+
+				/**
+				* @param   object       obj
+				* @param   string       obj.shortcut_link_selector           link in shortcutbox
+				* @param   string       obj.box_btn_selector                 btn to open a box to set focus on element
+				* @param   string       obj.focusable_selector               element which on should set focus
+				*/
+				function shortcutBoxHandler(shortcut_box, obj) {
+
+					shortcut_box.find(obj.shortcut_link_selector).on('click', function(e) {
+						e.preventDefault();
+
+						let box_btn_selector = $(obj.box_btn_selector);
+
+						if (box_btn_selector.length > 0 && box_btn_selector.is(':visible')) {
+							$(obj.box_btn_selector)
+								.trigger('click')
+								.promise()
+								.done(function() { // when menu is open then set focus on first link in menu rwd
+									$(obj.focusable_selector).trigger('focus');
+								});
+						} else {
+							$(obj.focusable_selector).trigger('focus');
+						}
+					});
+				}
+			});
+		
+
+    $(function() {
+        SearchFrame({
+            general: {
+                lang: 1,
+            },
+
+            selectors: {
+                search_form         : $('#search-form__form'),
+                search_input        : $('#search-form__field--input')
+            }
+        });
+        
+    }) ;
+
+
+        $(function() {
+            const context = $('body');
+            const a11y = $('#a11y'); 
+            const search = $('#search-form__form');
+            const icons = $('#icons-top', context);
+            const listIcons = icons.find('.icons-top__list');
+            const linkToggle = icons.find('.single-icon__link--toggle');
+            const headerMobileContainer = $('.header__mobile-container', context);
+            const a11yContainer = a11y.closest('.icons-top__item'); 
+            const searchContainer = search.closest('.icons-top__item'); 
+
+            linkToggle.on('click', function(e) {
+                e.preventDefault();
+                let _this = $(this);
+                _this.siblings('.single-icon__content').stop(true, false).fadeToggle(500);
+                toggleAccessibilityBtn(_this, _this.attr('data-text-on-hidden'), _this.attr('data-text-on-visible'));
+            });
+            
+            if (isDefaultFontSize()) {
+                enquire.register('screen and (max-width: 992px)', {
+                    match: function() {
+                        headerMobileContainer.append(a11y).append(search);  
+                        a11yContainer.hide();
+                        searchContainer.hide();
+                        a11y.add(icons).add(search).addClass('icons--show');
+                    },
+                    unmatch: function() {
+                        a11y.appendTo(a11yContainer.find('.single-icon__content'));
+                        a11yContainer.show();
+                        search.appendTo(searchContainer.find('.single-icon__content'));
+                        searchContainer.show();
+    
+                        let items = listIcons.children().sort(function(a,b){
+                            return $(a).attr('data-order') - $(b).attr('data-order');
+                        });
+                        
+                        items.appendTo(listIcons);
+                    }
+                });
+            } else {
+                headerMobileContainer.append(a11y).append(search);  
+                a11yContainer.hide();
+                searchContainer.hide();
+                a11y.add(icons).add(search).addClass('icons--show');
+            }
+        });
+    
+
+            $(function() {
+                const context = $('#weather');
+                const weather_btn = $('.weather__btn', context);
+                const weather_content = $('.weather__content', context);
+                
+                weather_btn.on('click', function() {
+                    if (weather_btn.attr('aria-expanded') === 'true') {
+                        weather_btn.attr('aria-expanded', false);
+                        weather_content.fadeOut();
+                    } else {
+                        weather_btn.attr('aria-expanded', true);
+                        weather_content.fadeIn();
+                    }        
+                });
+                
+                enquire.register('screen and (min-width: 993px)', {
+                    match: function() {
+                        weather_btn.attr('aria-expanded', false);
+                        weather_content.css({'display':''});
+                    }
+                });                                  
+            });
+        
+
+        $(function () {
+            let menu = new Menu({
+                selectors: {
+                    menu                        : '#menu',
+                    menu_btn                    : '.menu__btn-toggle',
+                    menu_box                    : '.menu__box',
+                    sub_menu                    : '.menu__sub-list',
+                    sub_menu_btn                : '.menu__sub-list-btn'
+                },
+                classes: {
+                    menu_path_selected          : 'menu--selected',
+                    menu_focused_indicator      : 'menu--focused',
+                    has_sub_menu                : 'menu--has-subpages',
+                    menu_btn_class              : 'menu__btn-toggle',
+                    sub_menu_btn_class          : 'menu__sub-list-btn',
+                    sub_menu_open_indicator     : 'menu--open'
+                },
+            });
+            
+            // Overwrite open in current path method
+            let conf = menu.getConfObj();
+            let classes = conf.classes;
+            let selectors = conf.selectors;
+            
+            $('.menu__item.' + classes.menu_path_selected ,selectors.menu).children().children().children(selectors.sub_menu_btn).trigger('click');
+            $('.' + classes.menu_path_selected ,selectors.menu).children().children(selectors.sub_menu_btn).trigger('click');
+        });
+    
+
+        if (isDefaultFontSize()) {
+            $(function(){
+                const context = $('#nav');
+                const toggleBox = $('.js-menu__list', context);
+    
+                enquire.register('screen and (min-width: 992px)', {
+                    match: function() {
+                        toggleBox.wcagToggleBox({
+                            classes: {
+                                toggleShowBox: 'js-menu__sub-list'
+                            }
+                        });
+                    },
+                    unmatch: function() {
+                        toggleBox.wcagToggleBox({
+                            classes: {
+                                toggleShowBox: 'js-menu__sub-list'
+                            },
+                            destroy: true
+                        });
+                    }
+                });
+            });
+        }
+    
+        //-------------------------------------------------------------------------
+        //                             LOGIC MENU
+        //-------------------------------------------------------------------------
+        $(function () {
+            let menu = $('#menu');
+            let menu_items = $('.menu__item', menu);
+    
+            if (isDefaultFontSize()) {
+                enquire.register('screen and (min-width: 993)', {
+                    match: function() {
+                        $(window).on('resize', setTheSameHeightMenuItem).trigger('resize');
+                    },
+                    unmatch: function() {
+                        $(window).off('resize', setTheSameHeightMenuItem);
+                        menu_items.find('.js-menu__item-inner').outerHeight('');
+                    }
+                });
+            }
+            
+            //-------------------------------------------------------------------------
+            //           SET CLASS TO IDENTITY WHICH LI HAS A SUBPAGES
+            //-------------------------------------------------------------------------
+            function setClassForSubpageMenu(menu_items) {
+                menu_items.each(function () {
+                    let _this = $(this);
+                    if (_this.find('.menu__sub-list').length > 0) {
+                        _this.addClass('menu--has-subpages');
+                    }                        
+                });
+            }
+    
+            //-------------------------------------------------------------------------
+            //                      SET FOCUSED CLASS
+            //-------------------------------------------------------------------------
+            function setFocusClass() {
+                menu.find('a').on('focusin focusout', function () {
+                    $(this).parents('li').toggleClass('menu--focused');
+                });
+            }
+    
+            function setAria() {
+                menu.find('a').on('focusin', function () {
+                    $(this).closest('.menu__item.menu--has-subpages').attr('aria-expanded', 'true');
+                });
+    
+                menu.find('a').on('focusout', function () {
+                    $(this).closest('.menu__item.menu--has-subpages').attr('aria-expanded', 'false');
+                });
+    
+                menu_items.closest('.menu__item.menu--has-subpages').on('mouseenter', function () {
+                    $(this).attr('aria-expanded', 'true');
+                });
+    
+                menu_items.closest('.menu__item.menu--has-subpages').on('mouseleave', function () {
+                    $(this).attr('aria-expanded', 'false');
+                });
+            }
+            
+            function setTheSameHeightMenuItem() { 
+                let the_biggest = 0;
+                let menu_item_inner = menu_items.find('.js-menu__item-inner');
+                
+                menu_item_inner.outerHeight('');
+                
+                menu_item_inner.each(function(index, item) {
+                    let _item = $(item);
+                    the_biggest = _item.outerHeight() > the_biggest ? _item.outerHeight() : the_biggest; 
+                });
+                
+                menu_item_inner.outerHeight(the_biggest);
+            }
+        });
+        
+    
+
+                $(function(){
+                    const context = $('#breadcrumb');
+                    const currentPage = $('.breadcrumb__item .last', context);
+                    
+                    currentPage.attr('aria-current', 'page');
+                    removeNodeTextBetweenInlineBlock('#breadcrumb .breadcrumb__list');
+                    removeNodeTextBetweenInlineBlock('#breadcrumb .breadcrumb__item');
+                    
+                    /**
+                     * Remove text node between inline block elements.
+                     */
+                    function removeNodeTextBetweenInlineBlock(list_selector) {
+                        const list = document.querySelector(list_selector);
+                        if (list && list.hasChildNodes()) {
+                            list.childNodes.forEach(function (item) {
+                                if (item.nodeType === 3) {
+                                    item.parentNode.removeChild(item);
+                                }
+                            });
+                        }
+                    }
+                });
+            
+$('a.fancybox_5562').on('click', function(e){
+			e.preventDefault();
+			$.fancybox.open(
+				$('a.fancybox_5562'),
+				{
+					transitionEffect: false
+				},
+				$('a.fancybox_5562').index(this)
+			);
+		});$('a.fancybox_5563').on('click', function(e){
+			e.preventDefault();
+			$.fancybox.open(
+				$('a.fancybox_5563'),
+				{
+					transitionEffect: false
+				},
+				$('a.fancybox_5563').index(this)
+			);
+		});
+
+                $(function() {
+                    const banners_bottom = new CarouFredselCustom({
+                        namespace: 'BANNERS_BOTTOM',
+                        context: '#banners-bottom',
+                        carouselContainerSelector: '.js-banners-bottom__inner',
+                        carouselListSelector: '.js-banners-bottom__list',
+                        carouselItemSelector: '.js-banners-bottom__item',
+                        carouselJustifyItemSelector: '.js-banner-bottom',
+                        carouselResizeRefreshTime: 250,
+                        carouselPagination: false,
+                        carouselNavigation: true,
+                        navigationBtnPrevText: 'Poprzedni baner',
+                        navigationBtnNextText: 'Następny baner',
+                        cbBeforeAlignment: function () {},
+                        cbAfterAlignment: function () {},
+                        paginationItems: null,
+                        paginationWrapper: null,
+                        togglePlayBtn: {
+                            toggleBtnPauseClass: 'icon-pause',
+                            toggleBtnPlayClass: 'icon-arrow-right',
+                            insertBetweenNavBtn: true
+                        },
+                    });  
+
+                    banners_bottom.jQueryEl.carouselJustifyItem.find('img').wrap('<div class="banner-bottom__img-container"><div class="banner-bottom__img-wrapper"><\/div><\/div>');
+                    
+                    /**
+                     * Add aria-label for li element.
+                     */
+                     const items = banners_bottom.jQueryEl.carouselJustifyItem;
+                     items.each(function(index, item) {
+                        $(this).attr('aria-label', (index+1) + ' z '+ items.length);
+                     });
+                });
+            
+$('#consents_settings_link').on('click',function(e){
+        e.preventDefault();
+        UserConsentShow();
+    });
+
+        $(function () {
+            const context = $('#website-info');
+            const items = $('.js-website-info__list', context).children('li');
+            const config = {
+                items: items,
+                setWidth: true,
+                breakpoints: {
+                    0: {
+                        itemsPerRow: 1,
+                        clearHeight: true
+                    },
+    
+                    480: {
+                        itemsPerRow: 2
+                    },
+    
+                    768: {
+                        itemsPerRow: 3
+                    },
+    
+                    992: {
+                        itemsPerRow: items.length
+                    }
+                }
+            };
+    
+            $(window).on('resize.SITE_INFO', function() {
+                theSameColInRow(config);
+            }).trigger('resize.SITE_INFO');
+    
+            removeNodeTextBetweenInlineBlock('#website-info .js-website-info__list');
+        });
+    
+
+        $(function () {
+            let page_content = $('#PageContent');
+            let main = $('#main');
+
+            if(page_content.find('.wyswietl_wstecz_link').length == 0) {
+                // page_content.find('.netadmin__container').append($(btn_template()));
+                main.append($(btn_template()));
+            }
+
+
+            function btn_template() {
+                return  '\
+                <div class="btn-history-back">\
+                    <div class="btn">\
+                        <div class="btn__container">\
+                            <button class="btn__link history-back">\
+                                <span class="btn__icon icon icon-arrow-left-medium"></span>\
+                                <span class="btn__text">Powrót do strony głównej</span>\
+                            </button>\
+                        </div>\
+                    </div>\
+                </div>';
+            }
+
+             main.on('click', '.history-back', function(e) {
+                 e.preventDefault();
+                 window.location.href = 'https://www.glowno.pl/';
+             });
+
+//            page_content.on('click', '.history-back', function(e) {
+//                e.preventDefault();
+//                if (window.history.length === 1) {
+//                    window.location.href = '/';
+//                } else {
+//                    window.history.back();
+//                }
+//            });
+
+        });
+    
+
+    //------------------------------------------------------
+    //	    REMOVE ANCHOR FORM LINK WHEN IMG IS A FILE
+    //------------------------------------------------------
+    function removeAnchorWhenImgIsFile(obj)
+    {
+        /**
+         * PARAMS:
+         *   selectorLink,
+         *   arrFileType
+         */
+
+        let arrFileType;
+        let arrFileTypeDefault = ['jpg', 'jpeg', 'png', 'gif'];
+
+        if (typeof obj.arrFileType !== 'undefined') {
+            if (Array.isArray(obj.arrFileType) === false) {
+                console.warn('removeAnchorWhenImgIsFile(): parameter arrFileType must be an array');
+                return false;
+            }
+            arrFileType = obj.arrFileType;
+        } else {
+            arrFileType = arrFileTypeDefault;
+        }
+
+        if (typeof obj.selectorLink === 'undefined') {
+            console.warn('removeAnchorWhenImgIsFile(): selector not found');
+            return false;
+        }
+
+
+        $(obj.selectorLink).each(function()
+        {
+            let _this = $(this);
+            let _attr = _this.attr('href');
+
+            arrFileType.forEach(function(item, index)
+            {
+                if (_attr.search(item) !== -1) {
+                    _this.removeAttr('href');
+                }
+            });
+        });
+    }
+
+    /**
+     * Scroll to element.
+     *
+     * @param {object} obj - scrollToSelector, time, additionalSectionOffset, callback
+     */
+    function scrollToElement(obj) {
+        let el = $(obj.scrollToSelector);
+        let time = defaultValuePolyfill(obj.time, 500);
+
+        if(el.length == 0) return false;
+
+        let additionalSectionOffset = defaultValuePolyfill(obj.additionalSectionOffset, 0);
+        let callback = defaultValuePolyfill(obj.callback, null);
+        let offsetElement = el.offset().top - additionalSectionOffset;
+
+        $('html').clearQueue().animate({
+            scrollTop: offsetElement
+        }, time, callback);
+    }
+
+
+    //------------------------------------------------------
+    //					DEFAULT VALUE
+    //------------------------------------------------------
+    function defaultValuePolyfill(value, defaultValue)
+    {
+        return (typeof value !== 'undefined' ) ? value : defaultValue;
+    }
+
+    
+
+    //------------------------------------------------------
+    //     SET THE SAME HEIGHT OR GET THE BIGGEST ELEMENT
+    //------------------------------------------------------
+    function setTheSameHeight(obj)
+    {
+        /**
+        * items_obj         : Wszystkie elemenety, po których będzie szła pętla aby znaleźć największego z nich
+        * defaultHeight     : Minimalna wysokość elementu
+        * item              : Element DOM któremu ma zostać przypisana największa wartość (jeżeli undefined to przypisywane jest wszystkim)
+        * getValue          : Jeżeli true to zwraca wartość
+        */
+
+        let items = obj.items_obj;
+        let theBiggest = (typeof obj.defaultHeight === 'undefined') ? 0 : obj.defaultHeight;
+        let item = (typeof obj.item === 'undefined') ? false : obj.item;
+        let getValue = (obj.getValue === true) ? true : false;
+        let timer;
+
+        if (items.length === 0) {
+            return false;
+        }
+
+        // clear value
+        if (item.length > 0 ) {
+            item.height('');
+        } else {
+            items.height('');
+        }
+
+        // search the biggest value
+        items.each(function(index, item){
+            let _this = $(this);
+
+            if (theBiggest < _this.outerHeight()) {
+                theBiggest = _this.outerHeight();
+            }
+        });
+
+        // if param set then return value
+        if (getValue) {
+            return theBiggest;
+        }
+
+        // set value
+        if (item.length > 0 ) {
+            item.height(theBiggest);
+        } else {
+            items.height(theBiggest);
+        }
+    }
+    
+    
+
+     /**
+     * Set the same height on items per row.
+     *
+     * @param {object} obj - items, breakpoints: {[number]: {itemsPerRow}}
+     */
+    function theSameColInRow(obj) {
+        if (typeof obj !== 'object') {
+            console.warn('JS object expected, ' + (typeof obj) + ' given on parameter');
+            return false;
+        }
+
+        if (typeof obj.breakpoints !== 'object') {
+            console.warn('JS object expected, ' + (typeof obj.breakpoints) + ' given on `breakpoints` parameter');
+            return false;
+        }
+
+        if (!(obj.items instanceof jQuery)) {
+            console.warn('jQuery object expected, ' + (typeof obj.items) + ' given on `items` parameter');
+            return false;
+        }
+
+        let items = obj.items;
+        let breakpoints = obj.breakpoints;
+        let currentBreakpoint = null;
+        let theBiggestItem = 0;
+        let itemsToSetHeight = [];
+        
+        items.outerHeight('');        
+        items.outerWidth('');        
+
+        for (breakpoint in breakpoints) {
+            if (breakpoint >= $(window).width()) {
+                break;
+            }
+
+            if (breakpoint < $(window).width()) {
+                currentBreakpoint = breakpoints[breakpoint];
+            }
+        }
+        
+        if (!currentBreakpoint.clear) {
+            if (!currentBreakpoint.clearWidth ) {
+                items.each(function (index, item) {
+                    setTheSameWidthColInRow(index, item);
+                });
+            }
+            
+            if (!currentBreakpoint.clearHeight ) {
+                items.each(function (index, item) {
+                    setTheSameHeightColInRow(index, item)  
+                });
+            }
+        }
+
+        function setTheSameWidthColInRow(index, item) {
+            let _item = $(item);
+            if (
+                (index + 1) % currentBreakpoint.itemsPerRow === 0 ||
+                items.length === (index + 1)
+            ) {
+                if (typeof obj.setWidth === 'boolean' && obj.setWidth === true) {
+                    let widthItem = (100/currentBreakpoint.itemsPerRow).toFixed(4) + '%';
+                    setWidth(items, widthItem);
+                }
+            }
+        }
+
+        function setTheSameHeightColInRow(index, item) {
+            let _item = $(item);
+            theBiggestItem = (theBiggestItem < _item.outerHeight()) ? _item.outerHeight() : theBiggestItem;
+            itemsToSetHeight.push(_item);
+            if (
+                (index + 1) % currentBreakpoint.itemsPerRow === 0 ||
+                items.length === (index + 1)
+            ) {
+                if (typeof obj.otherItems === 'function') {
+                    itemsToSetHeight = obj.otherItems(itemsToSetHeight);
+                }
+                
+                setTheSameHeight(itemsToSetHeight, theBiggestItem);
+                theBiggestItem = 0;
+                itemsToSetHeight = [];
+            }
+        }
+        
+        /**
+         * Set the same height on items on the same row.
+         *
+         * @param items
+         * @param height
+         */
+        function setTheSameHeight(items, height) {
+            $(items).each(function (index, item) {
+                $(item).outerHeight(height);
+            });
+        }
+
+        /**
+         * Set the same width on items.
+         *
+         * @param {object} items
+         * @param {string} itemWidth
+         */
+        function setWidth(items, itemWidth) {
+            $(items).css({'width' : itemWidth});
+        }
+    }
+
+    /**
+     * Remove text node between inline block elements.
+     */
+    function removeNodeTextBetweenInlineBlock(listSelector) {
+        const list = document.querySelector(listSelector);
+
+        if (list && list.hasChildNodes()) {
+            list.childNodes.forEach(function (item) {
+                if (item.nodeType === 3) item.parentNode.removeChild(item);
+            });
+        }
+    }
+
+    /**
+     * Show heading on specify breakpoint.
+     *
+     * @param {string} contextSelector
+     * @param {string} headingSelector
+     * @param {number} breakpointMaxHeight
+     */
+    function showHeading(contextSelector, headingSelector, breakpointMaxHeight) {
+        const context = $(contextSelector);
+        const heading = $(headingSelector, context);
+        enquire.register('screen and (max-width: ' + breakpointMaxHeight + 'px)', {
+            match: function () {
+                heading.removeClass('hide_WCAG');
+            },
+            unmatch: function () {
+                heading.addClass('hide_WCAG');
+            }
+        });
+    }
+    
+     /**
+     * Change img to bg.
+     *
+     * @param obj {bgElements, imgSelector, defaultImgStyles, defaultImgSrc, removeAnchor, removeImg}
+     */
+    function img2bg(obj) {
+        if (!(obj.bgElements instanceof jQuery)) {
+            console.warn('jQuery object expected, ' + (typeof obj.bgElements) + ' given on `bgElements` parameter');
+            return false;
+        }
+
+        obj.bgElements.each(function (index, bg) {
+            let _bg = $(bg);
+            let _img = _bg.find(obj.imgSelector);
+
+            if (_img.length && _img.attr('src').length) {
+                _bg.css({'background-image' : 'url(' + _img.attr('src') + ')'});
+                _img.hide();
+            } else if (typeof obj.defaultImgSrc !== 'undefined') {
+                _bg.css({'background-image' : 'url('+ obj.defaultImgSrc + ')'});
+                if (typeof obj.defaultImgStyles === 'object') {
+                    _bg.css(obj.defaultImgStyles);
+                }
+            } else {
+                // TODO Placeholder img - Przygotować
+            }
+            
+        });
+
+        if (obj.removeImg) {
+            obj.bgElements.find(obj.imgSelector).remove();
+        }
+
+        if (obj.removeAnchor) {
+            obj.bgElements.find(obj.imgSelector).closest('a').children().first().unwrap();
+        }
+    }
+    
+    /**
+     * Change attr on click element.
+     *
+     * @param {object} el
+     *   jQuery object.
+     * @param {string} text_on_hidden_box
+     *   Text which is display when box is hidden.
+     * @param {string} text_on_visible_box
+     *   Text which is display when box is visible.
+     *
+     * @return void
+     */
+    function toggleAccessibilityBtn(el, text_on_hidden_box, text_on_visible_box) {
+
+        if (
+            typeof text_on_hidden_box !== 'string' ||
+            typeof text_on_visible_box !== 'string' ||
+            !(el instanceof jQuery)
+        ) {
+            console.warn('wrong type of params');
+            return false;
+        }
+
+        let is_open = el.attr('aria-expanded') === 'true' ? false : true;
+
+        const attrs = {
+            'aria-expanded': is_open,
+            'aria-label': is_open ? text_on_visible_box : text_on_hidden_box,
+            'title': is_open ? text_on_visible_box : text_on_hidden_box
+        };
+
+        for (prop in attrs) {
+            el.attr(prop, attrs[prop]);
+        }
+    }
+    
+    /**
+    * Get the biggest height from array of jQuery objects dom elements.
+    *
+    * @params {array} items
+    *   jQuery array of objects dom.
+    *
+    * @return {number} theBiggest
+    *   The biggest height height. 
+    *
+    */
+    function getTheBiggestHeight(items) {
+        let theBiggest = 0;
+        
+        items.each(function(index, item) {
+          theBiggest = $(item).outerHeight() > theBiggest ? $(item).outerHeight() : theBiggest; 
+        });
+    
+        return theBiggest;
+    }
+    
+    /**
+    * Remove empty anchor tag.
+    *
+    * @params {jQuery} items
+    *   jQuery items object.
+    *
+    * @return {void}
+    */
+    function removeEmptyAnchorTag(items) {
+        items.each(function(index, item) {
+            let _item = $(item);
+            if (_item.attr('href') === '' || _item.attr('href') === '#') {
+                _item.remove();
+            }
+        });        
+    }
+    
+//--><!]]></SCRIPT>
+
+</BODY>
+</HTML>
