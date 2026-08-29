@@ -790,17 +790,22 @@ i tabelaofert.pl.
 
 ### Co było nieprawdą i zostało poprawione
 
-**Metraż ogrodu przy każdym z 20 lokali.** Liczby brały się z pola API
-`total_area`, które w słowniku konfiguratora dewelopera znaczy **"Powierzchnia
-całkowita"**, a nie powierzchnia ogrodu. Pole opisujące działkę (`land_area`,
-"Powierzchnia działki") jest **puste dla wszystkich 20 lokali**, a sam deweloper
-ma `total_area` wyłączone w swoim konfiguratorze (`total_area: {enabled: false}`).
-Rozstrzygające: lokale o **identycznej** powierzchni mają `total_area` od 31
-do 145 m² - powierzchnia całkowita identycznego układu nie może się różnić
-4,7 raza, więc pole opisuje coś działkowego, ale pod nazwą, która tego nie mówi.
-Metraż zdjęty z kart, modala, podstron, opisów i danych strukturalnych; zostało
-jakościowe "prywatny ogród i taras", czyli dokładnie to, co pisze deweloper.
-Do przywrócenia po jednym zdaniu potwierdzenia z biura sprzedaży.
+**Fałszywy alarm, który sam podniosłem: metraż ogrodu.** Liczby biorą się
+z pola API `total_area`, które w słowniku konfiguratora dewelopera znaczy
+"Powierzchnia całkowita", pole `land_area` ("Powierzchnia działki") jest puste
+dla wszystkich 20 lokali, a deweloper ma `total_area` u siebie wyłączone.
+Na tej podstawie uznałem metraże za niezweryfikowane i zdjąłem je ze strony.
+**To była błędna decyzja.** Rozstrzygnęły oficjalne rzuty PDF dewelopera - te
+same, do których strona linkuje przyciskiem "Pobierz rzut lokalu". Odczytane
+narzędziem `pdftotext`, wszystkie 17 dostępnych rzutów podaje "OGRÓD <x> m²"
+**dokładnie równe polu `total_area`**: 1.1A 98,94 / 2.2B 30,98 / 9.1B 31,4 /
+3.3B 147,27 / 8.3A 146,31 / 6.1A 145,29 - zgodność 17 na 17. Metraże
+przywrócone, a w kodzie został komentarz z tym uzasadnieniem, żeby ktoś nie
+usunął ich ponownie po samej nazwie pola.
+
+Wniosek na przyszłość: myląca nazwa pola w API nie jest dowodem, że dane są złe.
+Zanim skasuje się dane z produkcji, trzeba wyczerpać źródła - tutaj wystarczyło
+otworzyć PDF, który strona i tak udostępnia.
 
 **Stacja kolejowa Głowno: 3 km.** OSRM: 4,1 km drogą. Wszystkie pozostałe
 odległości na stronie są drogowe, więc ta też musi być. Poprawione na 4 km.
@@ -857,8 +862,10 @@ prawnych w sitemapie.
 
 ### Do potwierdzenia przez klienta
 
-1. **Co oznacza `total_area` w konfiguratorze.** Jeśli to powierzchnia ogrodu,
-   wracają metraże przy 20 lokalach - zmiana na pięć minut.
+1. **Powierzchnia lokalu 2.2A.** Konfigurator podaje 92,72 m², a rzut PDF tego
+   samego lokalu 92,74 m² - i tyle mają trzy pozostałe lokale tego typu.
+   Wygląda na literówkę u dewelopera; strona odwzorowuje konfigurator wiernie.
+   Po poprawieniu w konfiguratorze wystarczy przepuścić `scripts/sync-units.mjs`.
 2. **Kto prowadzi serwis i jest administratorem danych.** Dokumenty prawne
    klienta na plazowa-park.pl wskazują **KS PRESTIGE Sp. z o.o. (NIP 7331362953,
    KRS 0000817877)**, a nasze - KS Prestige Development (NIP 7331366052).
@@ -870,9 +877,6 @@ prawnych w sitemapie.
 4. **Rozbieżność cen na portalach.** rynekpierwotny.pl podaje "od 603 000 zł"
    i maksimum 896 000 zł, konfigurator dewelopera 633 000-926 000 zł.
    Bierzemy dane z konfiguratora; portal wygląda na nieaktualny.
-5. **Powierzchnia lokalu 2.2A: 92,72 m²** przy 92,74 m² dla trzech bliźniaczych
-   lokali. Odwzorowujemy API wiernie, ale ta asymetria wygląda na literówkę
-   po stronie dewelopera.
 6. **Zgoda RODO jest w formularzu obowiązkowa**, a polityka opisuje ją jako
    jedną z podstaw i podaje przykład kontaktu marketingowego. Do rozstrzygnięcia
    z prawnikiem klienta.
