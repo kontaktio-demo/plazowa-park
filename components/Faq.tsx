@@ -8,7 +8,7 @@ export default function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="band band-sand-2 sec">
+    <section id="faq" className="band band-sand sec">
       <div className="wrap grid gap-10 lg:grid-cols-[35fr_65fr] lg:gap-16">
         <SectionHeader
           id="faq"

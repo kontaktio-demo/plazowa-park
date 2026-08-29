@@ -585,3 +585,131 @@ Po powrocie do Inter Tight punktem odniesienia jest 86.
 `gitleaks` zgłasza jedno trafienie - publiczny klucz Web3Forms w
 `components/Contact.tsx`. To fałszywy alarm: na darmowym planie klucz musi
 siedzieć w kodzie klienta, a Web3Forms sam opisuje go jako publiczny.
+
+## 12. Uwagi klienta: "za czarna, nie robi wow" (2026-08-29)
+
+### Co powiedział klient
+
+Mail, dosłownie: *na osiedlu dołożyłbym parę drzew; pierwsza strona za czarna
+i nie żyje, np. na Camarze jest ten las żywy i budynki też; poprawiłbym grafikę;
+spacer jest tylko po osiedlu, a co z wnętrzem, był a nie mam; dom bym obejrzał
+dookoła; strona ma pobudzać, nie gasić; układ ok, lecz czegoś jej brakuje.*
+Do tego: możliwość przybliżania i obracania widoków oraz brak opisów w zakładkach
+Standard i Okolica. Referencje: Aleja Drzew, Camar, LW Deweloper, PB Deweloper.
+
+### Czego nauczyły referencje
+
+Cztery wskazane serwisy zostały zmierzone, nie obejrzane. Najważniejsze
+ustalenie jest kontrintuicyjne: **te strony wcale nie są jasne w warstwie
+fotografii**. Klatka lasu z hero domywakacjach.pl ma średnią luminancję 71/255,
+zdjęcie koron drzew na camar.pl 109/255. Żyją przez **nasycenie zieleni**
+(48-81% pikseli o dominancie zielonej), **źródło światła widoczne w kadrze**
+i **ludzi w scenie**, a nie przez podniesioną jasność.
+
+Jasna jest natomiast cała reszta strony. Średnia luminancja całego dokumentu:
+camar.pl 196, Aleja Drzew 210, lawinowa18 233. Nasza strona miała **140**,
+przy 41,6% wierszy poniżej L=90. U żadnej z czterech referencji nie występują
+naprzemienne pasma jasne i ciemne w środku strony - ciemność jest wyłącznie
+klamrą na krańcach.
+
+Żadna z czterech referencji nie ma obrotu 360, dollhouse'u ani zoomu rzutów.
+To jedyne miejsce, w którym możemy być bezdyskusyjnie lepsi od wzoru.
+
+### Materiał, którego nie mieliśmy, a leżał u dewelopera
+
+Konfigurator SenseVR wystawia `invest_dollhouse/v2`: **120 klatek pełnego obrotu
+wokół osiedla, w czterech porach doby, do 2048 px, z obrysem SVG każdego budynku
+i punktem etykiety osobno dla każdej klatki**. Sześć identyfikatorów obrysów
+(529-534) pokrywa się jeden do jednego z `stageId` w `units.ts`.
+
+Do tego siedem nieużywanych renderów zmierzchowych i dwa wnętrza na
+plazowa-park.pl oraz izometryczna mapka okolicy 2400x1792.
+
+Czego **nie ma**: spaceru 360 po wnętrzach. Wersja v4, której używamy, ma 14 scen
+i wszystkie są zewnętrzne - sceny nazwane "Lokal 1A" to dojścia i ogrody przy
+lokalach. Wersje v2 i v5 zwracają puste manifesty. Klient pamięta spacer po
+wnętrzu, ale u dewelopera go nie ma.
+
+### Co zrobione
+
+**Obrót wokół osiedla** (`scripts/dollhouse.mjs`, `components/estate/EstateMap.tsx`).
+Statyczna klatka zastąpiona 40 klatkami (krok 9 stopni) z przeciąganiem myszą
+i palcem oraz przyciskami obrotu. Obrysy budynków klikalne na każdej klatce.
+Ścieżki SVG po kilkaset punktów uproszczone Douglasem-Peuckerem do ~15 punktów
+na budynek: 600 KB schodzi do 35 KB. Klatka źródłowa jest kwadratem, w którym
+osiedle zajmuje pas 30-88% wysokości, więc kadrujemy do 3:2 i tym samym
+przekształceniem przeliczamy obrysy. Klatki doczytują się dopiero, gdy plan
+wjeżdża w ekran - 1,8 MB nie obciąża pierwszego wejścia.
+
+**Sześć kadrów budynków** (`scripts/osiedle-kadry.mjs`). Rysowane sylwetki
+elewacji w sekcji Osiedle - płaskie, cztery z sześciu identyczne, bez ani
+jednego drzewa - zastąpione realnymi kadrami z dollhouse'u. Dla każdego budynku
+skrypt wybiera klatkę, na której jego obrys ma największą powierzchnię, i kadruje
+z obrysu. Zmierzone: luminancja 111-149, zieleń 22-36%, w kadrach drzewa,
+żywopłoty, samochody, meble ogrodowe i sylwetki ludzi.
+
+**Galeria** (`components/Galeria.tsx`). Siedem wizualizacji dewelopera, w tym
+wnętrze salonu. Cztery rendery podbite z 1024 px do 4K, bo w oryginale nie dało
+się ich przybliżać. Duży kafel dostał najjaśniejszy kadr (salon, L=148), nie
+najciemniejszy (elewacja frontowa, L=60).
+
+**Zoom i przesuwanie** (`components/Lightbox.tsx`, `ZoomShots.tsx`). Kółko myszy,
+szczypanie dwoma palcami, przeciąganie, podwójne kliknięcie, klawiatura.
+Podpięte pod galerię i pod rzuty lokali. Rzuty przegenerowane z oryginałów
+2048 px z przycięciem tła: było 571 px i 22 KB, jest 1500 px i ~50 KB.
+
+**Tonalność.** Pasmo ciemne przestało być rytmem strony i stało się klamrą.
+Życie i Deweloper zeszły na pasma piaskowe, pasek nawigacji po przewinięciu jest
+jasny (u wszystkich czterech referencji jest biały), kafle rzutów zeszły
+z granatu na piasek. Hero: dwie pełnoekranowe nakładki dające w strefie H1
+ok. 90% krycia zastąpione scrimem ograniczonym do kolumny tekstu, czytelność
+przeniesiona na cień tekstu. To samo w sekcji spaceru. Render hero podbity
+w nasyceniu (zieleń 14,6% -> 17,7%) i dostał 26-sekundowy najazd Ken Burns.
+Zimna mięta w drugiej linii H1 ustąpiła ciepłemu `sun` - stała na renderze
+o dominancie złotej.
+
+Wynik pomiaru tą samą metodą co referencje:
+
+| | średnia luminancja | wiersze L<90 |
+|---|---|---|
+| przed | 140 | 41,6% |
+| **po** | **175** | **19,7%** |
+| Camar | 196 | 6,0% |
+| Aleja Drzew | 210 | ok. 5% |
+
+**Paleta.** Trzy poziomy ciemności były nierozróżnialne (kontrast 1,15:1 między
+`abyss` a `deep`) - rozsunięte do 1,50:1. Akcent na jasnych pasmach miał wobec
+tekstu kontrast 2,23:1, czyli wyróżnienia w nagłówkach były niewidoczne - nowy
+`--color-lake-600 #1d7180`. `--color-sun` i `--color-hold` były tym samym
+hexem, więc żółty znaczył naraz "kliknij" i "zajęte" - status rezerwacji zszedł
+na `#a86b12`. Status "dostępny" nie spełniał 3:1 na piasku - `#1f7a4d`.
+Doszły trzy tokeny zieleni (`pine`, `moss`), bo osiedle w lesie nie miało
+w palecie ani jednego zielonego piksela.
+
+**Opisy.** Standard dostał trzy akapity o technologii i materiałach plus render
+elewacji; parametrów liczbowych (COP, Uw, grubości izolacji) świadomie nie
+wpisujemy - nie ma ich w żadnym zweryfikowanym źródle, więc odsyłamy do prospektu.
+Okolica dostała dwa akapity, cztery zweryfikowane odległości (Łódź 32 km,
+węzeł A1 Stryków 11 km, stacja Głowno 3 km, Warszawa 104 km) i izometryczną
+mapkę okolicy od dewelopera. Z listy POI zniknął duplikat "Plaża i kąpielisko",
+scalony z wpisem o zalewie, a opisy urosły z 4-7 słów do 25-40.
+
+**Naprawione przy okazji.** Klik w budynek w sekcji Osiedle scrollował do
+`#lokale`, elementu o takim id na stronie nie ma - nic się nie działo.
+Kropka statusu przy etykiecie budynku na planie była zawsze zielona, niezależnie
+od dostępności. Legenda planu pokazywała status "Sprzedany", którego w danych
+nie ma ani razu. `FINANCE_STEPS` leżały w `site.ts` i nie były renderowane -
+teraz zamykają sekcję o deweloperze.
+
+### Czego nie da się zrobić bez dewelopera
+
+- **Spaceru 360 po wnętrzu nie ma.** Trzeba go zamówić albo poprosić o wersję,
+  którą klient pamięta. Do tego czasu wnętrze pokazuje jeden render salonu.
+- **Terminu oddania inwestycji nie ma nigdzie** - ani na stronie dewelopera, ani
+  w konfiguratorze. To pierwsze pytanie kupującego i jedyny brak, który realnie
+  blokuje decyzję. Do uzupełnienia po potwierdzeniu z biurem sprzedaży.
+- **Renderów dziennych elewacji nie ma** - wszystkie siedem jest o zmierzchu.
+  Referencje grają dniem; warto poprosić o te same kadry w świetle dziennym.
+- **Ludzi w kadrach zewnętrznych nie ma.** U Camara w każdej scenie jest rodzina,
+  dziecko, para na huśtawce. Nasze rendery są puste; sylwetki są tylko w kadrach
+  z dollhouse'u.

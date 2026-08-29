@@ -35,22 +35,62 @@ export type NavItem = { label: string; href: string };
 export const NAV: NavItem[] = [
   { label: "Osiedle", href: "#osiedle" },
   { label: "Mieszkania i domy", href: "#mieszkania-i-domy" },
+  { label: "Galeria", href: "#galeria" },
   { label: "Spacer 360", href: "#spacer" },
   { label: "Standard", href: "#standard" },
   { label: "Okolica", href: "#okolica" },
   { label: "Kontakt", href: "#kontakt" },
 ];
 
-// Location selling points - only those stated on plazowa-park.pl. No invented
-// distances (the site gives none), so proximity is qualitative.
+// Punkty w okolicy - wyłącznie te wymienione na plazowa-park.pl. Odległości są
+// jakościowe, bo strona dewelopera nie podaje żadnych metrów; twarde kilometry
+// dla dojazdu siedzą osobno w DOJAZD i są zweryfikowane routingiem.
 export const POI = [
-  { name: "Zalew Mrożyczka", desc: "30-hektarowy zbiornik wodny z plażą i kąpieliskiem", dist: "przy osiedlu", cat: "natura" },
-  { name: "Central Wake Park", desc: "Najważniejsze miejsce na wakeboardowej mapie Polski", dist: "w sąsiedztwie", cat: "sport" },
-  { name: "Ponad 100-letni las", desc: "Sosnowy drzewostan otaczający osiedle", dist: "wokół osiedla", cat: "natura" },
-  { name: "Plaża i kąpielisko", desc: "Wypoczynek nad wodą w sezonie letnim", dist: "przy osiedlu", cat: "natura" },
-  { name: "Ścieżki rowerowe", desc: "Trasy rekreacyjne wokół zalewu i w lesie", dist: "przy osiedlu", cat: "sport" },
-  { name: "Wydmy śródlądowe", desc: "Unikalny w skali kraju zespół wydm śródlądowych", dist: "w okolicy", cat: "natura" },
-  { name: "Restauracje, szkoły, przychodnie", desc: "Codzienne usługi w Głownie", dist: "krótki dystans", cat: "usługi" },
+  {
+    name: "Zalew Mrożyczka",
+    desc: "Ponad 30 hektarów wody z piaszczystą plażą, molo i strzeżonym kąpieliskiem. Latem miejsce wypoczynku nad wodą, poza sezonem sceneria spacerów i biegania wokół zbiornika.",
+    dist: "przy osiedlu",
+    cat: "natura",
+  },
+  {
+    name: "Central Wake Park",
+    desc: "Najważniejsze miejsce na wakeboardowej mapie Polski, w bezpośrednim sąsiedztwie osiedla. Ściąga nad Mrożyczkę amatorów sportów wodnych z całego regionu.",
+    dist: "w sąsiedztwie",
+    cat: "sport",
+  },
+  {
+    name: "Ponad 100-letni las",
+    desc: "Sosnowy drzewostan otaczający inwestycję. Daje cień w upalne dni, wycisza osiedle i przez cały rok trzyma powietrze czystym.",
+    dist: "wokół osiedla",
+    cat: "natura",
+  },
+  {
+    name: "Ścieżki rowerowe",
+    desc: "Trasy rekreacyjne wokół zalewu i w lesie, do których wjeżdża się wprost z osiedla, bez odcinka po ruchliwej drodze.",
+    dist: "przy osiedlu",
+    cat: "sport",
+  },
+  {
+    name: "Wydmy śródlądowe",
+    desc: "Unikalny w skali kraju zespół wydm śródlądowych, jedna z przyrodniczych osobliwości okolic Głowna.",
+    dist: "w okolicy",
+    cat: "natura",
+  },
+  {
+    name: "Restauracje, szkoły, przychodnie",
+    desc: "Codzienne zaplecze Głowna: szkoły i przedszkola, przychodnie, sklepy i restauracje w krótkim dystansie od osiedla.",
+    dist: "krótki dystans",
+    cat: "usługi",
+  },
+] as const;
+
+// Odległości zweryfikowane routingiem (OSRM) i w OpenStreetMap. Podajemy
+// kilometry, nie minuty: czas zależy od korków i szybko robi się nieprawdą.
+export const DOJAZD = [
+  { name: "Centrum Łodzi", value: "32 km", note: "autostradą A1 przez węzeł Stryków" },
+  { name: "Węzeł A1 Stryków", value: "11 km", note: "wjazd na autostradę" },
+  { name: "Stacja kolejowa Głowno", value: "3 km", note: "połączenia regionalne" },
+  { name: "Warszawa", value: "104 km", note: "trasą przez A2" },
 ] as const;
 
 // Standard: heat pumps + underfloor heating are standard; recuperation and

@@ -1,4 +1,4 @@
-import { DEVELOPER, SITE } from "@/lib/data/site";
+import { DEVELOPER, SITE, FINANCE_STEPS } from "@/lib/data/site";
 import { sectionEyebrow } from "@/lib/sections";
 import { Icon } from "./Icons";
 
@@ -17,7 +17,7 @@ const registry = [
 
 export default function Developer() {
   return (
-    <section id="deweloper" className="band band-lake sec">
+    <section id="deweloper" className="band band-sand-2 sec">
       <div className="wrap">
         <header className="mx-auto max-w-[720px] text-center" data-reveal>
           <p className="eyebrow">{sectionEyebrow("deweloper")}</p>
@@ -64,6 +64,25 @@ export default function Developer() {
               Umów spotkanie
             </a>
           </div>
+        </div>
+
+        {/* FINANCE_STEPS leżały w danych i nie były nigdzie renderowane, a to
+            pierwsze pytanie kupującego z rynku pierwotnego: co się dzieje po
+            kliknięciu "Zapytaj". */}
+        <div className="bd mx-auto mt-12 max-w-[720px] border-t pt-8 sm:mt-16" data-reveal="stagger">
+          <p className="t-meta-sm fg-muted">Jak przebiega zakup</p>
+          <ol className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+            {FINANCE_STEPS.map((s, i) => (
+              <li key={s.step} style={{ transitionDelay: `${i * 60}ms` }}>
+                <span className="t-meta-sm fg-accent num">{s.step}</span>
+                <h3 className="t-title mt-2">{s.title}</h3>
+                <p className="t-body fg-muted mt-1.5 text-pretty">{s.desc}</p>
+              </li>
+            ))}
+          </ol>
+          <p className="t-meta-sm fg-muted mt-7">
+            Harmonogram transz, prospekt informacyjny i wzór umowy deweloperskiej udostępnia biuro sprzedaży.
+          </p>
         </div>
       </div>
     </section>

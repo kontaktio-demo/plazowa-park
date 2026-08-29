@@ -9,9 +9,10 @@
 @theme {
   /* woda */
   --color-abyss: #06171b;
-  --color-deep: #0b252b;
-  --color-lake-900: #10353d;
+  --color-deep: #113a43;
+  --color-lake-900: #1d5560;
   --color-lake-700: #17545f;
+  --color-lake-600: #1d7180;
   --color-lake-500: #2a8894;
   --color-lake-300: #7cc3c6;
 
@@ -19,6 +20,11 @@
   --color-sand-50: #f7f4ed;
   --color-sand-200: #e6dfd1;
   --color-sand-500: #b6a98d;
+
+  /* las */
+  --color-pine-700: #2b4a33;
+  --color-pine-500: #4a7a4f;
+  --color-moss-300: #8fae7a;
 
   /* światło */
   --color-sun: #e9a43f;
@@ -28,8 +34,8 @@
   --color-ink-muted: #4a5a5e;
 
   /* statusy - mocne, rozróżnialne z odległości */
-  --color-ok: #2fa37f;
-  --color-hold: #e9a43f;
+  --color-ok: #1f7a4d;
+  --color-hold: #a86b12;
   --color-gone: #c2544a;
 
   --font-display: var(--font-inter-tight), "Inter Tight", ui-sans-serif, system-ui, sans-serif;
@@ -57,8 +63,8 @@
     --band-bg: var(--color-sand-50);
     --band-fg: var(--color-ink);
     --band-fg-muted: var(--color-ink-muted);
-    --band-accent: var(--color-lake-700);
-    --band-line: color-mix(in srgb, var(--color-ink) 13%, transparent);
+    --band-accent: var(--color-lake-600);
+    --band-line: color-mix(in srgb, var(--color-ink) 20%, transparent);
     --band-line-strong: color-mix(in srgb, var(--color-ink) 26%, transparent);
     --band-surface: #ffffff;
     --band-focus: var(--color-lake-700);
@@ -67,8 +73,8 @@
     --band-bg: var(--color-sand-200);
     --band-fg: var(--color-ink);
     --band-fg-muted: var(--color-ink-muted);
-    --band-accent: var(--color-lake-700);
-    --band-line: color-mix(in srgb, var(--color-ink) 15%, transparent);
+    --band-accent: var(--color-lake-600);
+    --band-line: color-mix(in srgb, var(--color-ink) 22%, transparent);
     --band-line-strong: color-mix(in srgb, var(--color-ink) 28%, transparent);
     --band-surface: var(--color-sand-50);
     --band-focus: var(--color-lake-700);
@@ -78,9 +84,9 @@
     --band-fg: var(--color-sand-50);
     --band-fg-muted: color-mix(in srgb, var(--color-sand-50) 72%, transparent);
     --band-accent: var(--color-lake-300);
-    --band-line: color-mix(in srgb, var(--color-lake-700) 60%, transparent);
+    --band-line: color-mix(in srgb, var(--color-lake-700) 85%, transparent);
     --band-line-strong: color-mix(in srgb, var(--color-lake-500) 70%, transparent);
-    --band-surface: color-mix(in srgb, var(--color-lake-700) 22%, transparent);
+    --band-surface: color-mix(in srgb, var(--color-lake-700) 42%, transparent);
     --band-focus: var(--color-lake-300);
   }
   .band-deep {
@@ -88,9 +94,9 @@
     --band-fg: var(--color-sand-50);
     --band-fg-muted: color-mix(in srgb, var(--color-sand-50) 72%, transparent);
     --band-accent: var(--color-lake-300);
-    --band-line: color-mix(in srgb, var(--color-lake-700) 65%, transparent);
+    --band-line: color-mix(in srgb, var(--color-lake-700) 88%, transparent);
     --band-line-strong: color-mix(in srgb, var(--color-lake-500) 70%, transparent);
-    --band-surface: color-mix(in srgb, var(--color-lake-700) 26%, transparent);
+    --band-surface: color-mix(in srgb, var(--color-lake-700) 46%, transparent);
     --band-focus: var(--color-lake-300);
   }
   .band-lake {
@@ -98,9 +104,9 @@
     --band-fg: var(--color-sand-50);
     --band-fg-muted: color-mix(in srgb, var(--color-sand-50) 74%, transparent);
     --band-accent: var(--color-lake-300);
-    --band-line: color-mix(in srgb, var(--color-lake-500) 40%, transparent);
+    --band-line: color-mix(in srgb, var(--color-lake-500) 65%, transparent);
     --band-line-strong: color-mix(in srgb, var(--color-lake-500) 62%, transparent);
-    --band-surface: color-mix(in srgb, var(--color-lake-700) 45%, transparent);
+    --band-surface: color-mix(in srgb, var(--color-lake-700) 62%, transparent);
     --band-focus: var(--color-lake-300);
   }
 }
@@ -180,7 +186,7 @@
   }
   .sec {
     position: relative;
-    padding-block: clamp(44px, 7vw, 128px);
+    padding-block: clamp(72px, 9vw, 128px);
   }
 
   /* --------------------------------------------- typografia */
@@ -336,7 +342,7 @@
     border-color: var(--color-lake-700);
     color: var(--color-sand-50);
   }
-  .status-dot { width: 8px; height: 8px; border-radius: 999px; flex: none; }
+  .status-dot { width: 10px; height: 10px; border-radius: 999px; flex: none; }
 
   /* ikona jako rysunek techniczny: cienki kwadratowy obrys, bez kółka */
   .glyph-box {
@@ -433,8 +439,18 @@ body.motion-ready [data-reveal="stagger"] > * {
 }
 body.motion-ready [data-reveal="stagger"].is-in > * { opacity: 1; transform: none; }
 
+
+@keyframes kenBurns {
+  from { transform: scale(1.06); }
+  to { transform: scale(1.16); }
+}
+
+@layer utilities {
+  .ken-burns { animation: kenBurns 26s ease-out both; }
+}
 @media (prefers-reduced-motion: reduce) {
   .rise, .rise-y { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .ken-burns { animation: none !important; }
   body.motion-ready [data-reveal],
   body.motion-ready [data-reveal="stagger"] > * { opacity: 1 !important; transform: none !important; }
   * { scroll-behavior: auto !important; }
