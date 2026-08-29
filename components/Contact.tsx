@@ -80,7 +80,7 @@ export default function Contact() {
           "Imię i nazwisko": data.name,
           Telefon: data.phone,
           "E-mail": data.email,
-          Apartament: data.unit || "nie wskazano",
+          Mieszkanie: data.unit || "nie wskazano",
           Wiadomość: data.message || "brak",
           "Zgoda RODO": data.rodo ? "tak" : "nie",
         }),
@@ -110,7 +110,7 @@ export default function Contact() {
                 Umów prezentację <span className="fg-accent">osiedla</span>
               </>
             }
-            lead="Zostaw kontakt albo zadzwoń. Pokażemy dostępne apartamenty, przekażemy cennik i harmonogram."
+            lead="Zostaw kontakt albo zadzwoń. Pokażemy dostępne mieszkania i domy, przekażemy cennik i harmonogram."
           />
 
           <div className="mt-8 flex flex-col sm:mt-10">
@@ -174,9 +174,9 @@ export default function Contact() {
                 <Field label="E-mail" name="email" type="email" placeholder="jan@example.com" error={errors.email} autoComplete="email" />
               </div>
               <Field
-                label="Wybrany apartament"
+                label="Wybrane mieszkanie"
                 name="unit"
-                placeholder="np. Apartament 3.3A"
+                placeholder="np. Mieszkanie 3.3A"
                 optional
                 value={unit}
                 onChange={setUnit}

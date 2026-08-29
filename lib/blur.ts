@@ -1,7 +1,7 @@
 // Wygenerowane przez scripts/assets.mjs - placeholdery blur dla next/image.
 export const BLUR = {
   "hero": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAACwAQCdASoOAAgABABsJagC7ADDEvoAAP7p1D5xgT/Jzh7yRJA01QLOyhbxZHavQhrvJSp53Xjn3qlbegAAAA==",
-  "zycie": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAACwAQCdASoOAAgABABsJZACdAC2rhDAAMo3Y9N7m3xSysGDTezLjxzQolkcZRMsOaGS04wmkThS9wIAAAA=",
+  "zycie": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADwAQCdASoOAAkABABsJYgC7AD2N5LuLQAA/tz3x/mlb9ziAYgLiobuGuY6QYWT+9cXw7uatwG7ZO/gjXMlLxKbdFoXQtAA",
   "tour": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAAAQAgCdASoOAA4ABABsJQBOgCLXCkr/D0QAAP7lvR0mH+N4Pm9olMDnF3WI7wHQsjiD9PShjnPdB2nkM0Wl0OrNihCdxSRohVrgAA==",
   "estate": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAAAQAgCdASoOAAkABABsJYwAD4ixf9KovSQAAP7rkNcqPPPGXlNXTuflKQW3lHNSoWjlXRITPWH6rJe1Vfw75oe0L7Y/bmQAAAA=",
   "gal-balkony": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAADQAQCdASoOAA4ABABsJYgCdAECuxVSAAD+72Rysk9l3Z7Tq16Qt+JlAaGKwkDu4S2LaOlXO/94jo7DUJsAw5KZGzwN9MsGlYCIBNbj73VnsPKV9jU60dOTjCnAAA==",

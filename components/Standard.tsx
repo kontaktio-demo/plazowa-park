@@ -15,7 +15,7 @@ export default function Standard() {
               Energooszczędna technologia <span className="fg-accent">w standardzie</span>
             </>
           }
-          lead="Apartamenty powstają z materiałów wysokiej jakości, z pompą ciepła i ogrzewaniem podłogowym w cenie. Poddasze jest zawarte w cenie i gotowe do adaptacji według własnego pomysłu."
+          lead="Mieszkania powstają z materiałów wysokiej jakości, z pompą ciepła i ogrzewaniem podłogowym w cenie. Poddasze jest zawarte w cenie i gotowe do adaptacji według własnego pomysłu."
           className="max-w-3xl"
         />
 

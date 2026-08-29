@@ -146,7 +146,7 @@ export function HomeJsonLd() {
             position: i + 1,
             item: {
               "@type": "Apartment",
-              name: `Apartament ${u.name}`,
+              name: `Mieszkanie ${u.name}`,
               numberOfRoomsTotal: u.rooms,
               floorSize: { "@type": "QuantitativeValue", value: u.area, unitCode: "MTK" },
               offers: {

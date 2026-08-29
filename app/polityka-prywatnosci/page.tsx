@@ -33,7 +33,7 @@ export default function Page() {
       <p>Przetwarzamy dane, które podajesz dobrowolnie w formularzu kontaktowym lub podczas kontaktu telefonicznego:</p>
       <ul>
         <li><strong>Imię i nazwisko, telefon, adres e-mail</strong> - w celu obsługi zapytania, przedstawienia oferty i kontaktu handlowego.</li>
-        <li><strong>Treść wiadomości oraz wybrany apartament</strong> - w celu przygotowania odpowiedzi dopasowanej do Twoich potrzeb.</li>
+        <li><strong>Treść wiadomości oraz wybrane mieszkanie</strong> - w celu przygotowania odpowiedzi dopasowanej do Twoich potrzeb.</li>
         <li><strong>Dane techniczne</strong> (adres IP, pliki cookie, dane analityczne) - w celu zapewnienia działania i bezpieczeństwa Serwisu oraz analizy ruchu.</li>
       </ul>
 

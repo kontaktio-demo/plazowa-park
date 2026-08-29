@@ -26,7 +26,7 @@ export default function Osiedle() {
             Osiedle ukryte <span className="fg-accent">w lesie</span>
           </h2>
           <p className="t-body-l fg-muted mx-auto mt-5 max-w-2xl text-pretty sm:mt-6">
-            Sześć budynków i zaledwie {INVESTMENT.totalUnits} apartamentów. Narożne mieszczą po cztery lokale,
+            Sześć budynków i zaledwie {INVESTMENT.totalUnits} domów. Narożne mieszczą po cztery lokale,
             środkowe po dwa większe. Do każdego należy prywatny ogród, taras, dwa miejsca postojowe
             i poddasze w cenie.
           </p>

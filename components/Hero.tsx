@@ -5,7 +5,7 @@ import { BLUR } from "@/lib/blur";
 import { Icon } from "./Icons";
 
 const stats = [
-  { v: String(INVESTMENT.totalUnits), l: "apartamentów" },
+  { v: String(INVESTMENT.totalUnits), l: "domów" },
   { v: String(INVESTMENT.buildingsCount), l: "budynków" },
   { v: "82-133", l: "m² powierzchni" },
   { v: `od ${plnShort(INVESTMENT.priceMin)}`, l: "cena" },
@@ -17,7 +17,7 @@ export default function Hero() {
       <div className="absolute inset-0" data-parallax>
         <Image
           src="/renders/hero.webp"
-          alt="Apartamenty Plażowa Park w sosnowym lesie nad Zalewem Mrożyczka w Głownie"
+          alt="Domy Plażowa Park w sosnowym lesie nad Zalewem Mrożyczka w Głownie"
           fill
           priority
           quality={62}
@@ -42,7 +42,7 @@ export default function Hero() {
         <div className="max-w-5xl">
           <h1 className="t-display-xl [text-shadow:0_2px_28px_var(--color-abyss)]">
             <span className="rise-y block" style={{ animationDelay: "0ms" }}>
-              Apartamenty nad
+              Domy nad
             </span>
             <span className="rise-y block text-sun" style={{ animationDelay: "90ms" }}>
               Zalewem Mrożyczka
@@ -50,13 +50,13 @@ export default function Hero() {
           </h1>
 
           <p className="rise t-body-l fg-muted mt-5 max-w-xl text-pretty [text-shadow:0_1px_18px_var(--color-abyss)] sm:mt-7" style={{ animationDelay: "200ms" }}>
-            Kameralne osiedle {INVESTMENT.totalUnits} apartamentów z prywatnym ogrodem i tarasem, w ponad
+            Kameralne osiedle {INVESTMENT.totalUnits} domów z prywatnym ogrodem i tarasem, w ponad
             100-letnim lesie przy plaży i Central Wake Park.
           </p>
 
           <div className="rise mt-6 flex flex-wrap items-center gap-3 sm:mt-9" style={{ animationDelay: "300ms" }}>
             <a href="#mieszkania-i-domy" className="btn btn-sun">
-              Wybierz apartament <Icon.arrow width={18} height={18} />
+              Wybierz swój dom <Icon.arrow width={18} height={18} />
             </a>
             <a href="#kontakt" data-track="book_viewing" className="btn btn-ghost border-sand-50/40">
               Umów prezentację

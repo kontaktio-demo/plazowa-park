@@ -26,10 +26,10 @@ export default function Footer() {
             </p>
             <p className="t-meta-sm mt-3 text-lake-300/80">Głowno · Zalew Mrożyczka</p>
             <p className="t-body fg-muted mt-6 max-w-xs text-pretty">
-              Kameralne osiedle 20 apartamentów w lesie, bezpośrednio przy Zalewie Mrożyczka w Głownie.
+              Kameralne osiedle 20 domów w lesie, bezpośrednio przy Zalewie Mrożyczka w Głownie.
             </p>
             <a href="#mieszkania-i-domy" className="btn btn-ghost btn-sm mt-6">
-              Wybierz apartament <Icon.arrow width={16} height={16} />
+              Wybierz swój dom <Icon.arrow width={16} height={16} />
             </a>
           </div>
 
