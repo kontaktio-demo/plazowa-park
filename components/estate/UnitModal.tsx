@@ -30,6 +30,7 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
 
   const specs = [
     { l: "Powierzchnia", v: area(unit.area) },
+    { l: "Ogród prywatny", v: area(unit.garden) },
     { l: "Liczba pokoi", v: rooms(unit.rooms) },
     { l: "Kondygnacje", v: String(unit.floors) },
     { l: "Budynek", v: unit.buildingLabel },
