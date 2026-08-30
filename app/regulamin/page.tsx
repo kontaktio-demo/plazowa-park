@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import LegalShell from "@/components/LegalShell";
-import { DEVELOPER, SITE } from "@/lib/data/site";
+import { OPERATOR, SITE } from "@/lib/data/site";
 
 const description =
   "Regulamin korzystania z serwisu internetowego Plażowa Park - zasady świadczenia usług, prawa i obowiązki użytkownika oraz dane dewelopera KS Prestige Development.";
@@ -25,9 +25,9 @@ export default function Page() {
       <h2>§1. Postanowienia ogólne</h2>
       <p>
         Niniejszy Regulamin określa zasady korzystania z serwisu internetowego dostępnego pod adresem
-        {" "}<strong>plazowa-park.pl</strong> ("Serwis"), prowadzonego przez {DEVELOPER.name} z siedzibą
-        w Głownie, {DEVELOPER.street}, {DEVELOPER.postal} {DEVELOPER.city} (KRS {DEVELOPER.krs},
-        NIP {DEVELOPER.nip}) ("Usługodawca").
+        {" "}<strong>plazowa-park.pl</strong> ("Serwis"), prowadzonego przez {OPERATOR.name} z siedzibą
+        w Głownie, {OPERATOR.street}, {OPERATOR.postal} {OPERATOR.city} (KRS {OPERATOR.krs},
+        NIP {OPERATOR.nip}) ("Usługodawca").
       </p>
 
       <h2>§2. Zakres usług</h2>

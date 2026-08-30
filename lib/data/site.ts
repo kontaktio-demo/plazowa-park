@@ -32,6 +32,18 @@ export const DEVELOPER = {
   kapital: "10 000 zł", // odpis KRS, dział 1: wysokość kapitału zakładowego
 } as const;
 
+// Serwis prowadzi i danymi osobowymi administruje inna spółka z tej samej grupy.
+// Dane z odpisu KRS i Białej Listy MF, zweryfikowane wg NIP.
+export const OPERATOR = {
+  name: "KS Prestige Sp. z o.o.",
+  street: "ul. Mikołaja Kopernika 30A",
+  city: "Głowno",
+  postal: "95-015",
+  krs: "0000817877",
+  nip: "7331362953",
+  regon: "385038850",
+} as const;
+
 export type NavItem = { label: string; href: string };
 export const NAV: NavItem[] = [
   { label: "Osiedle", href: "#osiedle" },

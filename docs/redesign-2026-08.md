@@ -939,3 +939,70 @@ u którego ciemne są wyłącznie krańce strony.
 Spadek wyniku wydajności mobilnej z 86 do 83 to LCP tekstu nagłówka, blokowanego
 wczytywaniem krojów (84 + 48 + 37 KB woff2). Hero nie mieści się nawet w siódemce
 najcięższych zasobów strony.
+
+## 15. Wnętrza i rozdzielenie podmiotów (2026-08-30, druga część)
+
+### Wnętrza: ostatnia nieodpowiedziana uwaga
+
+Klient pytał wprost: *"spacer jest tylko po osiedlu, a co z wnętrzem? był a nie mam"*.
+Spaceru 360 po wnętrzach deweloper nie ma (sekcja 12) i nie da się tego obejść,
+ale samych wnętrz na stronie też praktycznie nie było - jeden render salonu na
+całą inwestycję. Osobno: **poddasze**, argument powtarzany w treści siedem razy
+("w cenie, poza metrażem, do adaptacji"), nie miało ani jednego obrazu.
+
+Dorobione cztery wizualizacje wnętrz, każda z renderem salonu dewelopera jako
+referencją obrazu, więc paleta i wykończenie są spójne (białe ściany, jodełka
+z jasnego dębu, czarne ramy okien, lniane tkaniny):
+
+| kadr | luminancja | dlaczego |
+|---|---|---|
+| poddasze po adaptacji | 164 | argument bez obrazu, powtarzany 7 razy w treści |
+| sypialnia z widokiem na las | 185 | pokazuje, co widać z okna |
+| kuchnia z wyspą i jadalnia | 161 | detal wykończenia |
+| pokój dziecięcy | 160 | osiedle sprzedaje się rodzinom |
+
+### Galeria z zakładkami
+
+Jedenaście kadrów nie mieści się w jednej czytelnej siatce, a wnętrza ginęłyby
+między elewacjami - to dokładnie ten problem, który klient zgłosił. Galeria
+dostała więc dwie zakładki, tak jak "Zobacz przestrzeń" u Camara:
+**Wnętrza (5)** i **Osiedle (6)**, przy czym wnętrza są domyślne. Uzasadnienie:
+elewacje są już w hero, w sekcji Osiedle, w Standardzie i w Życiu, a wnętrza
+nie występują nigdzie indziej na stronie.
+
+Obie siatki zostają w HTML - nieaktywna jest tylko `hidden`, więc kadry wnętrz
+widzi wyszukiwarka, a leniwe ładowanie i tak nie pobiera obrazów spoza ekranu.
+
+### Deweloper i operator to dwie różne spółki
+
+Klient potwierdził: **administratorem danych jest KS Prestige Sp. z o.o.**
+(NIP 7331362953, KRS 0000817877), a nie KS Prestige Development. Audyt
+(sekcja 13) wskazał tę rozbieżność między naszymi dokumentami a dokumentami
+na plazowa-park.pl; teraz jest rozstrzygnięta.
+
+W `lib/data/site.ts` są więc dwa podmioty:
+- `DEVELOPER` - KS Prestige Development Sp. z o.o., **deweloper inwestycji**
+  (potwierdzony niezależnie przez rynekpierwotny.pl, noweinwestycje.pl
+  i tabelaofert.pl). Występuje w sekcji o deweloperze, w FAQ i jako sprzedawca
+  w danych strukturalnych.
+- `OPERATOR` - KS Prestige Sp. z o.o., **prowadzi serwis i administruje danymi**.
+  Występuje w polityce prywatności, regulaminie i jako wydawca serwisu
+  (`WebSite.publisher`) w danych strukturalnych.
+
+**Terminu oddania nie podajemy nigdzie** - na wyraźne polecenie klienta, mimo
+że portale podają 4 kw. 2026. Zweryfikowane grepem: zero wzmianek w kodzie.
+
+### Pomiar
+
+| | przed uwagami | runda 1 | runda 2 | teraz |
+|---|---|---|---|---|
+| średnia luminancja | 140 | 176 | 180 | **181** |
+| wiersze L<90 | 41,6% | 18,9% | 15,7% | **16,8%** |
+| Lighthouse mobile | 86 | 85 | 83 | 82 |
+| dostępność / best practices / SEO | 100 | 100 | 100 | **100** |
+
+Wynik mobilny schodzi wraz z każdą partią zdjęć; wąskim gardłem pozostaje LCP
+tekstu nagłówka blokowany wczytywaniem trzech krojów (169 KB woff2 łącznie),
+a nie obrazy - hero nie mieści się w siódemce najcięższych zasobów. Jeśli
+klient uzna wynik za problem, najtańszą poprawą jest ograniczenie krojów
+do dwóch albo `font-display: optional` na kroju nagłówkowym.
