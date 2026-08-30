@@ -66,7 +66,7 @@ export default function Galeria() {
                 onClick={() => setOpen({ cat: k.id, index: i })}
                 style={{ transitionDelay: `${Math.min(i, 8) * 60}ms` }}
                 className={`bd group relative overflow-hidden border ${
-                  i === 0 ? "col-span-2 row-span-2 aspect-square" : "aspect-4/3"
+                  i === 0 ? "col-span-2 row-span-2 aspect-square lg:aspect-auto" : "aspect-4/3"
                 }`}
                 aria-label={`Powiększ: ${g.caption}`}
               >
@@ -79,7 +79,7 @@ export default function Galeria() {
                   blurDataURL={BLUR[`gal-${g.file}` as keyof typeof BLUR] ?? BLUR.zycie}
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
-                <span className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-gradient-to-t from-abyss/85 to-transparent p-3 pt-10 text-left sm:p-4 sm:pt-14">
+                <span className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-linear-to-t from-abyss/85 to-transparent p-3 pt-10 text-left sm:p-4 sm:pt-14">
                   <span className="t-meta-sm text-sand-50 normal-case">{g.caption}</span>
                   <span className="flex h-7 w-7 flex-none items-center justify-center border border-sand-50/35 text-sand-50 opacity-0 transition-opacity group-hover:opacity-100">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">

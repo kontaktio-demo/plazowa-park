@@ -1,4 +1,4 @@
-# Redesign 2026-08 — kierunek „zalew"
+# Redesign 2026-08 - kierunek "zalew"
 
 Notatka z autonomicznego przeprojektowania landinga. Zapisuje decyzje, odstępstwa
 od briefu i rzeczy zostawione do rozstrzygnięcia przez człowieka.
@@ -18,15 +18,15 @@ Wszystkie trzy kroje pierwszego wyboru przeszły, żaden fallback nie był potrz
 | Body / UI | Schibsted Grotesk (variable) | latin, latin-ext | |
 | Utility / dane | JetBrains Mono 400/500 | latin, latin-ext | `preload: false` |
 
-Polskie znaki zweryfikowane na zrzutach: „Zalew Mrożyczka", „Głowno", „ścieżki",
-„sześć", „ŻYCIE" (mono, wersaliki) renderują się poprawnie w każdym z trzech krojów.
+Polskie znaki zweryfikowane na zrzutach: "Zalew Mrożyczka", "Głowno", "ścieżki",
+"sześć", "ŻYCIE" (mono, wersaliki) renderują się poprawnie w każdym z trzech krojów.
 
 **Inter i Inter Tight nie występują w projekcie w żadnej roli.**
 
 Dwie decyzje wydajnościowe wokół krojów:
 
 - Fraunces ładowany **bez osi `SOFT`, `WONK`, `opsz`**. Nigdzie nie ustawiam
-  `font-variation-settings`, więc osie były czystym balastem: 602 KB → 307 KB
+  `font-variation-settings`, więc osie były czystym balastem: 602 KB -> 307 KB
   łącznego payloadu fontów.
 - JetBrains Mono z `preload: false`. Obsługuje wyłącznie drobne etykiety, nie musi
   blokować pierwszego malowania.
@@ -35,8 +35,8 @@ Dwie decyzje wydajnościowe wokół krojów:
 
 Prawdziwa kursywa Fraunces występuje **dokładnie w dwóch miejscach**:
 `Zalewem Mrożyczka` w H1 hero i `osiedla` w H2 sekcji kontaktu. Nigdzie indziej.
-Akcent w pozostałych nagłówkach jest robiony kolorem (`lake-300` na ciemnym,
-`lake-700` na jasnym). Żaden nagłówek nie kończy się kropką.
+Akcent w pozostałych nagłówkach jest robiony kolorem (`clay-300` na ciemnym,
+`clay-600` na jasnym). Żaden nagłówek nie kończy się kropką.
 
 ---
 
@@ -63,7 +63,7 @@ być wpięta w treść, a nie doklejona przy krawędzi.
 
 Najważniejsze odkrycie z danych: numer lokalu dewelopera koduje realną pozycję
 w bryle. `4.1A` to dom 4, segment 1, strona A. Segment plus strona dają dokładnie
-sześć powtarzalnych typów (1A, 1B, 2A, 2B, 3A, 3B) — tyle, ile jest rzutów, bez
+sześć powtarzalnych typów (1A, 1B, 2A, 2B, 3A, 3B) - tyle, ile jest rzutów, bez
 jednego wyjątku na dwudziestu lokalach.
 
 Zamiast udawać dwadzieścia różnych rzutów:
@@ -74,15 +74,15 @@ Zamiast udawać dwadzieścia różnych rzutów:
 - pod diagramem `DOM 7 · STRONA B`, obok metraż ogrodu, budynek i cena.
 
 Dwie karty tego samego typu rzutu przestają być kopiami, bo różnią się pozycją,
-ogrodem i ceną — i wszystko to są dane prawdziwe.
+ogrodem i ceną - i wszystko to są dane prawdziwe.
 
 **Odstępstwo od briefu:** brief chciał skalowania miniatur proporcjonalnie do
 metrażu (największy rzut wypełnia ~90% kadru, mniejsze proporcjonalnie mniej).
 Sprawdziłem to na źródłach i **nie da się tego zrobić uczciwie**: rzuty nie są
 renderowane we wspólnej skali. Największy lokal (133 m², typ 3A) ma po przycięciu
-bounding box 337×640 px, a mniejszy 94 m² (typ 1A) 571×640 px — czyli mniejszy
+bounding box 337×640 px, a mniejszy 94 m² (typ 1A) 571×640 px - czyli mniejszy
 lokal zajmuje więcej pikseli. Renderowano je kadrowane osobno, nie w jednej skali
-metrycznej. Skalowanie ich „proporcjonalnie do metrażu" sugerowałoby wspólną
+metrycznej. Skalowanie ich "proporcjonalnie do metrażu" sugerowałoby wspólną
 podziałkę, której nie ma, czyli wprowadzałoby klienta w błąd co do proporcji.
 
 Zamiast tego: wszystkie rzuty są przycięte do własnego obrysu (`trim`) i sprowadzone
@@ -91,7 +91,7 @@ jest komunikowana danymi (metraż, ogród, cena) i diagramem pozycji. Przy okazj
 proporcja przyciętego kadru niesie prawdziwą informację o kształcie lokalu:
 lokale środkowe są wyraźnie wąskie i głębokie (0,53), narożne prawie kwadratowe (0,89).
 
-Rzuty leżą na ciemnym panelu `lake-900` jako jasny „arkusz" — render przestał ginąć
+Rzuty leżą na ciemnym panelu `clay-900` jako jasny "arkusz" - render przestał ginąć
 na szarym, a ciemny panel jest zgodny z briefem.
 
 Na telefonie karta jest **poziomym wierszem katalogu** (miniatura 38% szerokości,
@@ -137,9 +137,9 @@ na `/lokalizacja`.
 | Sekwencja obrotu | 120 klatek / ~10 MB | **usunięta w całości** | ≤24 / ≤1,1 MB |
 | Wysokość strony, mobile 390 px | 25 775 px | **15 755 px** | ≤14 000 px |
 | Wysokość strony, desktop | 17 644 px | **11 934 px** | |
-| Lighthouse mobile: Performance | — | **85** | ≥85 |
-| Lighthouse mobile: Accessibility | — | **100** | ≥95 |
-| Lighthouse mobile: Best practices / SEO | — | **100 / 100** | |
+| Lighthouse mobile: Performance | - | **85** | ≥85 |
+| Lighthouse mobile: Accessibility | - | **100** | ≥95 |
+| Lighthouse mobile: Best practices / SEO | - | **100 / 100** | |
 | ESLint | 18 błędów, 2 ostrzeżenia | **10 błędów, 0 ostrzeżeń** | bez nowych |
 
 ### Czego nie udało się dowieźć
@@ -151,8 +151,7 @@ krótsze paddingi) i dokładając własne (pozioma karta lokalu na telefonie, po
 6 kart zamiast 20, mniejsze nagłówki na wąskich ekranach). Zejście do 14 000 px
 wymagałoby już wycięcia treści: przy jedenastu sekcjach same nagłówki, lidy
 i bloki merytoryczne dają ~13 300 px, zanim policzy się choć jedną kartę lokalu.
-Uznałem, że architektura informacji i copy — wprost wyłączone z modyfikacji —
-są ważniejsze niż domknięcie tej liczby. **Do decyzji człowieka:** jeśli 14 000 px
+Uznałem, że architektura informacji i copy - wprost wyłączone z modyfikacji - są ważniejsze niż domknięcie tej liczby. **Do decyzji człowieka:** jeśli 14 000 px
 ma być twarde, najtańsze cięcie to złączenie sekcji 05 (Życie) z 04 (Standard)
 albo rezygnacja z mapy satelitarnej na telefonie.
 
@@ -161,7 +160,7 @@ LCP jest wysokie. Pomiar jest z localhost przy symulowanym 4G; na Vercelu z CDN
 i HTTP/2 będzie wyraźnie lepiej. Warto zweryfikować na produkcji.
 
 **Baner cookie na telefonie.** Przy pierwszej wizycie zasłania etykiety drugiego
-rzędu statystyk hero (`m² POWIERZCHNI`, `CENA`) — same wartości `82-133`
+rzędu statystyk hero (`m² POWIERZCHNI`, `CENA`) - same wartości `82-133`
 i `od 633 000` są widoczne. Na desktopie baner jest kompaktowym paskiem
 w lewym dolnym rogu i nie dotyka statystyk. Domknięcie tego na telefonie
 wymagałoby albo skrócenia lidu hero poniżej sensownego minimum, albo przesunięcia
@@ -174,21 +173,21 @@ banera, co kłóci się z zapisem briefu o pozycji dolnej na całą szerokość.
 **Numeracja sekcji.** Wcześniej `01, 02, 03, 04, 05, 07` z brakującym 06 i railem
 pokazującym inne numery niż eyebrow. Teraz jedno źródło (`lib/sections.ts`) czytane
 przez eyebrow, skalę głębokości i nawigację, więc rozjazd jest strukturalnie
-niemożliwy. Numeracja 01–09 ciągła.
+niemożliwy. Numeracja 01-09 ciągła.
 
 **Pasma sekcji jako zmienne CSS.** Każda sekcja deklaruje jedno pasmo
-(`band-sand`, `band-sand-2`, `band-abyss`, `band-deep`, `band-lake`), a komponenty
+(`band-sand`, `band-sand-2`, `band-abyss`), a komponenty
 czytają `--band-fg`, `--band-line`, `--band-surface`, `--band-accent`, `--band-focus`.
 Dzięki temu karta, chip czy pole formularza same dopasowują się do jasnego albo
 ciemnego tła i **w komponentach nie ma ani jednego hexa ad hoc**.
 
 **Kontrast.** Sprawdzony liczbowo, nie na oko. Wnioski, które weszły do systemu:
-`lake-500` ma na `abyss` kontrast 4,40:1, więc jako tekst nie przechodzi — na
-ciemnym akcentem tekstowym jest `lake-300` (9,12:1), a `lake-500` służy tylko za
-obwódki i wypełnienia. Na jasnym tekstowym akcentem jest `lake-700` (7,75:1),
-nie `lake-500` (3,79:1). `sun` nigdy nie jest tekstem na jasnym (1,94:1), wyłącznie
+`sun` ma na `abyss` kontrast 4,40:1, więc jako tekst nie przechodzi - na
+ciemnym akcentem tekstowym jest `clay-300` (9,12:1), a `sun` służy tylko za
+obwódki i wypełnienia. Na jasnym tekstowym akcentem jest `clay-700` (7,75:1),
+nie `sun` (3,79:1). `sun` nigdy nie jest tekstem na jasnym (1,94:1), wyłącznie
 wypełnieniem pod ciemnym tekstem (8,87:1). Etykiety statusów są w kolorze tekstu
-pasma, a kolor niesie tylko kropka 8 px — inaczej zielony `ok` na piasku dawałby
+pasma, a kolor niesie tylko kropka 8 px - inaczej zielony `ok` na piasku dawałby
 2,87:1.
 
 **Białe tło renderów.** Sekwencja obrotu i plan osiedla to rendery na białym tle,
@@ -196,8 +195,8 @@ które na piaskowym paśmie odcinały się jako biały prostokąt. Rozwiązane p
 `mix-blend-mode: multiply` zamiast przerabiania assetów.
 
 **Obrót osiedla: zbudowany, dopracowany i usunięty.** Sekcja 01 przez trzy rundy
-pokazywała render osiedla obracany scrollem. Po kolejnych uwagach („słabe", „nie
-płynne", „nie siedzi mi to 360") makieta wypadła w całości razem z 48 klatkami
+pokazywała render osiedla obracany scrollem. Po kolejnych uwagach ("słabe", "nie
+płynne", "nie siedzi mi to 360") makieta wypadła w całości razem z 48 klatkami
 sekwencji. Po drodze zdiagnozowane rzeczy, które warto pamiętać przy podobnych
 sekwencjach: 24 klatki to 15 stopni na klatkę i widoczne skakanie; `mix-blend-multiply`
 nie posadzi renderu z białym tłem na kolorowym paśmie, bo warstwa reveal zakłada
@@ -228,7 +227,7 @@ LCP wyznacza H1, a Performance wzrósł z 80 na 85.
 
 **Lenis i GSAP (~200 KB) ładowane dopiero w `requestIdleCallback`**, a sekwencja
 obrotu startuje dopiero, gdy sekcja zbliża się do ekranu. Warstwa odsłaniania treści
-została natomiast natychmiastowa — gdyby czekała na idle, treść byłaby przez moment
+została natomiast natychmiastowa - gdyby czekała na idle, treść byłaby przez moment
 niewidoczna.
 
 **Zgoda RODO trafia teraz do payloadu leada** (`app/api/lead/route.ts`). Wcześniej
@@ -256,7 +255,7 @@ przez `Osiedle`), `Lifestyle` (zastąpiony przez `Zycie`).
 **`scripts/assets.mjs`** to jednorazowy pipeline assetów (przerzedzenie sekwencji
 obrotu, przycięcie i konwersja rzutów, kadr do sekcji Życie, placeholdery blur).
 Wynik jest zacommitowany, build nie zależy od skryptu. Uruchamiać tylko przy
-wymianie materiałów źródłowych — skrypt kasuje pliki wejściowe.
+wymianie materiałów źródłowych - skrypt kasuje pliki wejściowe.
 
 ---
 
@@ -265,7 +264,7 @@ wymianie materiałów źródłowych — skrypt kasuje pliki wejściowe.
 1. **Mapa okolicy** to schemat rysowany ręcznie z planu dewelopera, nie mapa
    geodezyjna. Proporcje i kształt zalewu są uproszczone. Jeśli ma być wierna,
    trzeba ją oprzeć na realnych konturach (OSM/geoportal).
-2. **Wysokość strony na telefonie** — patrz wyżej, decyzja co dalej należy do Ciebie.
+2. **Wysokość strony na telefonie** - patrz wyżej, decyzja co dalej należy do Ciebie.
 3. **Ceny, metraże i statusy** nadal wymagają potwierdzenia z biurem sprzedaży
    przed publikacją produkcyjną (to samo zastrzeżenie co w README).
 4. **Spacer 360 i rzuty PDF** wiszą na serwerze dewelopera
@@ -273,7 +272,7 @@ wymianie materiałów źródłowych — skrypt kasuje pliki wejściowe.
    redesignie, ale to pojedynczy punkt awarii dla dwóch funkcji naraz.
 5. **README** opisuje stan sprzed redesignu (wideo w hero, galeria z lightboxem,
    sekcja finansowania, `middleware.ts`). Nie aktualizowałem go, bo brief dotyczył
-   warstwy wizualnej — do zrobienia przy okazji.
+   warstwy wizualnej - do zrobienia przy okazji.
 
 ---
 
@@ -296,7 +295,7 @@ może się rozjechać z rzeczywistością. Uruchamiać przed każdą większą k
 
 Skrypt sprawdza też, czy plik rzutu faktycznie istnieje na CDN dewelopera:
 **dla 3.3A, 5.2A i 7.2A go nie ma** (API podaje adres, serwer zwraca 404). Bez tej
-weryfikacji przycisk „Rzut PDF" prowadziłby w pustkę; teraz dla tych trzech lokali
+weryfikacji przycisk "Rzut PDF" prowadziłby w pustkę; teraz dla tych trzech lokali
 po prostu się nie pokazuje. Do zgłoszenia deweloperowi.
 
 ### Spacer 360
@@ -324,7 +323,7 @@ lokalu, nie w standardzie). Siatka standardu ma teraz 10 kafli w dwóch rzędach
 pięć. Do punktów w okolicy doszły **wydmy śródlądowe**, które deweloper eksponuje
 jako unikalne w skali kraju.
 
-**Nie przenieśliśmy** promocji „10% rabatu na zakupy w CBG" z paska na ich stronie -
+**Nie przenieśliśmy** promocji "10% rabatu na zakupy w CBG" z paska na ich stronie -
 skrót CBG nie jest nigdzie rozwinięty i nie zgaduję, co znaczy. Do decyzji klienta.
 
 ### SEO i gotowość na domenę
@@ -334,7 +333,7 @@ Naprawione w tej rundzie:
 - **OG image** był jeszcze ze starej identyfikacji (Inter, złoty akcent). Nowy jest
   renderowany realnymi krojami strony, więc zgadza się z nią co do piksela.
 - **Manifest PWA** miał kolory starej palety (`#f4f4f2` / `#2b2e33`). Teraz `abyss`.
-- **Favicon** też był w starej palecie (grafit i mosiądz) - teraz abyss i `lake-300`.
+- **Favicon** też był w starej palecie (grafit i mosiądz) - teraz abyss i `clay-300`.
 - **Sitemap** miała `lastModified` zamrożone na 2026-08-03; teraz data builda.
 - **Dane strukturalne**: `FAQPage` i `ItemList` całej inwestycji leciały na *każdej*
   podstronie, także tam, gdzie tej treści nie ma. To naruszenie wytycznych Google dla
@@ -361,7 +360,7 @@ mobile wzrósł z 85 na 90**.
 | Lighthouse desktop | **74 / 100 / 100 / 100** |
 
 Desktop jest niżej niż mobile, bo Lighthouse ocenia tam LCP dużo ostrzej (próg
-„dobry" to ok. 1,2 s zamiast 2,5 s). Elementem LCP jest kursywa w H1, która lokalnie
+"dobry" to ok. 1,2 s zamiast 2,5 s). Elementem LCP jest kursywa w H1, która lokalnie
 maluje się w 136 ms, a w symulacji czeka na plik fontu. To nieodłączna cena serifu
 display w nagłówku; na CDN z HTTP/2 i cache fontów będzie wyraźnie lepiej.
 Warto zweryfikować na produkcji po przepięciu.
@@ -400,9 +399,9 @@ Zweryfikowane realnym zgłoszeniem, nie założeniem:
   (`success: true`), więc klucz **nie jest** zawężony wyłącznie do domeny
   docelowej i formularz działa już teraz, nie dopiero po przepięciu,
 - pełny test w przeglądarce: walidacja blokuje puste pola komunikatami po polsku,
-  komplet danych przechodzi i pokazuje ekran „Zgłoszenie przyjęte".
+  komplet danych przechodzi i pokazuje ekran "Zgłoszenie przyjęte".
 
-W panelu Web3Forms są **dwa zgłoszenia oznaczone „TEST TECHNICZNY"** z tej
+W panelu Web3Forms są **dwa zgłoszenia oznaczone "TEST TECHNICZNY"** z tej
 weryfikacji - do skasowania.
 
 Klucz dostępu siedzi w kodzie klienta, bo z założenia jest publiczny (Web3Forms
@@ -426,7 +425,7 @@ w nagłówkach i **Inter** w tekście. JetBrains Mono w warstwie danych zostaje.
 
 Konsekwencja, o której trzeba wiedzieć: **Inter Tight nie ma prawdziwej kursywy**.
 Akcenty w H1 hero i w nagłówku kontaktu były wcześniej złożone kursywą Fraunces;
-teraz niosą je wyłącznie kolorem (`lake-300` na ciemnym, `lake-700` na jasnym).
+teraz niosą je wyłącznie kolorem (`clay-300` na ciemnym, `clay-600` na jasnym).
 Klasa `.accent-italic` została usunięta, żeby nikt jej przypadkiem nie użył
 i nie wrócił do syntetycznej kursywy.
 
@@ -435,14 +434,14 @@ gęstszy, więc leading poszedł w górę (1,02 zamiast 0,95 w display-xl), a tr
 w dół (-0,035em). Rozmiary lekko zmniejszone, bo przy tej samej wartości Inter
 Tight wygląda okazalej niż serif.
 
-Koszt wydajnościowy: **Lighthouse mobile 90 → 88**. Inter to cięższa rodzina niż
+Koszt wydajnościowy: **Lighthouse mobile 90 -> 88**. Inter to cięższa rodzina niż
 statyczny Fraunces 600, fontów ładuje się 234 KB zamiast ~150 KB. Próg z briefu
 (≥85) nadal z zapasem. Waga 600 Intera została wycięta, bo występowała w jednym
 miejscu i dało się ją zastąpić 500; nagłówki i tak składa Inter Tight.
 
 ### Weryfikacja każdej informacji na stronie
 
-Przegląd zrobiony pod kątem „klient nie może znaleźć ani jednej nieścisłości".
+Przegląd zrobiony pod kątem "klient nie może znaleźć ani jednej nieścisłości".
 
 **Dane lokali - 20 lokali × 8 pól porównane z API konfiguratora:** cena, cena za
 m², metraż, ogród, pokoje, kondygnacje, status, przypisanie do budynku. Zero
@@ -450,11 +449,11 @@ rozbieżności. Agregaty (liczba lokali, dostępność, liczba budynków, min/ma
 metraży i pokoi) przeliczone niezależnie z danych i zgodne. To samo dla sześciu
 budynków: liczebność, dostępność, cena od, zakres metraży.
 
-**Skąd „18":** w konfiguratorze dewelopera **5.2A i 5.2B mają status `reserved`**.
-20 lokali, 18 wolnych. Licznik zmieniony na „18 z 20", bo samo „18" dawało się
+**Skąd "18":** w konfiguratorze dewelopera **5.2A i 5.2B mają status `reserved`**.
+20 lokali, 18 wolnych. Licznik zmieniony na "18 z 20", bo samo "18" dawało się
 odczytać jako liczbę apartamentów w inwestycji.
 
-**Typologia:** twierdzenie „budynki narożne (1 i 2, 4 i 5, 6 i 7, 9 i 10) po cztery
+**Typologia:** twierdzenie "budynki narożne (1 i 2, 4 i 5, 6 i 7, 9 i 10) po cztery
 apartamenty 82-94 m² na dwóch kondygnacjach, środkowe (3, 8) po dwa
 pięciopokojowe do 133 m²" sprawdzone lokal po lokalu. Zgadza się: 16 lokali
 w narożnych po 4 na budynek (82,05-94,42 m², 4 pokoje, 2 kondygnacje),
@@ -483,8 +482,8 @@ Park, wydmy śródlądowe) - każde odnalezione dosłownie na stronie dewelopera
 
 ### Co było nieprawdą i zostało poprawione
 
-Strona twierdziła: „do centrum Łodzi około **30 minut**", „do Warszawy około
-**godzinę**", „koleją aglomeracyjną **ŁKA** ze stacji Głowno". Żadnego z tych
+Strona twierdziła: "do centrum Łodzi około **30 minut**", "do Warszawy około
+**godzinę**", "koleją aglomeracyjną **ŁKA** ze stacji Głowno". Żadnego z tych
 zdań nie ma na stronie dewelopera - powstały wcześniej bez źródła.
 
 Sprawdzenie routingiem (OSRM, czas bez korków, czyli wariant optymistyczny):
@@ -506,12 +505,12 @@ PKP PLK) i leży **3 km od osiedla**; jest też przystanek Głowno Północne.
 Poprawki objęły `/lokalizacja` (meta description, kafle tematyczne, dwa akapity)
 oraz generator opisów lokali `lib/unitCopy.ts`, czyli wszystkie 20 podstron.
 
-## 11. Kategoria „mieszkania i domy" i poster spaceru (2026-08-27)
+## 11. Kategoria "mieszkania i domy" i poster spaceru (2026-08-27)
 
 ### Dlaczego zmiana nazewnictwa
 
 Inwestycja będzie reklamowana jako **mieszkania i domy**, nie jako
-„apartamenty". Copywriting zostaje bez zmian (nadal „apartament X" w nagłówkach
+"apartamenty". Copywriting zostaje bez zmian (nadal "apartament X" w nagłówkach
 i opisach - to termin sprzedażowy), zmienia się natomiast wszystko, co widzi
 robot i co trafia do reklam: tytuły stron, adresy, kotwice, etykiety linków,
 manifest i dane strukturalne.
@@ -527,8 +526,8 @@ manifest i dane strukturalne.
 | manifest `name` | ...apartamenty nad Zalewem... | ...mieszkania i domy nad Zalewem... |
 | `ItemList`, `RealEstateListing`, `BreadcrumbList` | Apartamenty / Wybierz dom | Mieszkania i domy |
 
-Słowa kluczowe przestawione: prowadzą teraz „mieszkania i domy Głowno",
-„mieszkania na sprzedaż Głowno", „domy na sprzedaż Głowno".
+Słowa kluczowe przestawione: prowadzą teraz "mieszkania i domy Głowno",
+"mieszkania na sprzedaż Głowno", "domy na sprzedaż Głowno".
 
 `robots.txt` i `proxy.ts` bez zmian - reguła indeksowania jest oparta o host,
 nie o ścieżki. Sitemapa generuje się z `UNITS`, więc dwadzieścia nowych adresów
@@ -542,7 +541,7 @@ Nagłówek przy 1280 px wychodził 6 px poza kontener po wydłużeniu etykiety m
 Ściągnięte odstępy między pozycjami (`gap-x-5`, pełne `gap-x-7` dopiero od
 `2xl`); odstęp telefon - żółty przycisk został zachowany (`xl:mr-5`).
 
-### Poster sekcji „Spacer 360"
+### Poster sekcji "Spacer 360"
 
 Wcześniej stał tam render wygenerowany przez nas - ładny, ale pokazujący
 architekturę, której w Plażowej nie ma. Zastąpiony **prawdziwym renderem
@@ -564,9 +563,9 @@ ignoruje pionowe skalowanie `object-cover`. Efekt: wariant 1024 px zamiast
 ### Znaleziona przy okazji nieprawda
 
 W `lib/unitCopy.ts` została jedna deklaracja czasu dojazdu, której nie złapała
-weryfikacja z 2026-08-23: „dojazdu do Łodzi w około **pół godziny**". Poprzedni
-przegląd szukał wzorca „30 min", a nie zapisu słownego. Zastąpione odległością
-(„w granicach 32 km"), zgodnie z ustaleniem z sekcji 10.
+weryfikacja z 2026-08-23: "dojazdu do Łodzi w około **pół godziny**". Poprzedni
+przegląd szukał wzorca "30 min", a nie zapisu słownego. Zastąpione odległością
+("w granicach 32 km"), zgodnie z ustaleniem z sekcji 10.
 
 ### Pomiary
 
@@ -579,7 +578,7 @@ Lighthouse, ten sam build, przed i po zmianach:
 | desktop przed | 99 | 100 | 100 | 100 | 0,9 s |
 | desktop po | **99** | 100 | 100 | 100 | 0,9 s |
 
-Uwaga do sekcji 5: podane tam „mobile 90" pochodziło z wersji na Fraunces.
+Uwaga do sekcji 5: podane tam "mobile 90" pochodziło z wersji na Fraunces.
 Po powrocie do Inter Tight punktem odniesienia jest 86.
 
 `gitleaks` zgłasza jedno trafienie - publiczny klucz Web3Forms w
@@ -680,7 +679,7 @@ Wynik pomiaru tą samą metodą co referencje:
 **Paleta.** Trzy poziomy ciemności były nierozróżnialne (kontrast 1,15:1 między
 `abyss` a `deep`) - rozsunięte do 1,50:1. Akcent na jasnych pasmach miał wobec
 tekstu kontrast 2,23:1, czyli wyróżnienia w nagłówkach były niewidoczne - nowy
-`--color-lake-600 #1d7180`. `--color-sun` i `--color-hold` były tym samym
+`--color-clay-600 #1d7180`. `--color-sun` i `--color-hold` były tym samym
 hexem, więc żółty znaczył naraz "kliknij" i "zajęte" - status rezerwacji zszedł
 na `#a86b12`. Status "dostępny" nie spełniał 3:1 na piasku - `#1f7a4d`.
 Doszły trzy tokeny zieleni (`pine`, `moss`), bo osiedle w lesie nie miało
@@ -886,7 +885,7 @@ prawnych w sitemapie.
 ## 14. Wizualizacje z życiem: druga runda uwag klienta (2026-08-30)
 
 Klient powtórzył zarzut: strona nadal za ciemna, "nie robi wow", "nie zainteresowała
-mnie". Pierwsza runda (sekcja 12) rozjaśniła interfejs - luminancja 140 → 176 -
+mnie". Pierwsza runda (sekcja 12) rozjaśniła interfejs - luminancja 140 -> 176 -
 ale nie ruszyła sedna, które wyszło z pomiaru referencji: **u Camara, Alei Drzew,
 LW i PB w każdej scenie są ludzie, słońce jest widoczne w kadrze, a kolor bierze
 się z roślin.** Naszego materiału to nie dotyczyło - wszystkie rendery dewelopera
@@ -900,16 +899,16 @@ została zachowana. Zmieniona jest pora dnia, zieleń i obecność ludzi.
 
 | kadr | gdzie | luminancja |
 |---|---|---|
-| osiedle w słońcu, łąka kwietna, rodzina na ścieżce | hero | 88 → 114 |
-| rodzina w ogrodzie przy palenisku | sekcja Życie | 95 → 132 |
-| salon z rodziną przy stole | galeria, pierwsza pozycja | 148 → 177 |
-| taras z hortensjami, lawendą i hamakiem | Standard + galeria | 89 → 132 |
+| osiedle w słońcu, łąka kwietna, rodzina na ścieżce | hero | 88 -> 114 |
+| rodzina w ogrodzie przy palenisku | sekcja Życie | 95 -> 132 |
+| salon z rodziną przy stole | galeria, pierwsza pozycja | 148 -> 177 |
+| taras z hortensjami, lawendą i hamakiem | Standard + galeria | 89 -> 132 |
 
 Galeria przestała otwierać się najciemniejszym renderem (elewacja frontowa, L=60)
 i prowadzi teraz kadrem tarasu z zielenią. Z zestawu wypadły dwa najciemniejsze
 ujęcia; rendery zmierzchowe dewelopera zostają jako akcent, nie jako podstawa.
 
-Hero dostał też łagodniejszy najazd Ken Burns (1,02 → 1,09 zamiast 1,06 → 1,16),
+Hero dostał też łagodniejszy najazd Ken Burns (1,02 -> 1,09 zamiast 1,06 -> 1,16),
 bo mocniejszy wycinał z kadru rodzinę i promienie słońca, oraz delikatny cień pod
 paskiem nawigacji - białe menu gubiło się na jasnym niebie.
 
@@ -1006,3 +1005,92 @@ tekstu nagłówka blokowany wczytywaniem trzech krojów (169 KB woff2 łącznie)
 a nie obrazy - hero nie mieści się w siódemce najcięższych zasobów. Jeśli
 klient uzna wynik za problem, najtańszą poprawą jest ograniczenie krojów
 do dwóch albo `font-display: optional` na kroju nagłówkowym.
+
+---
+
+## 16. Ciepła paleta: koniec z turkusem (2026-08-30, trzecia część)
+
+### Uwaga
+
+"Ten niebieski mi nie pasuje, on dodaje takiego ciemnego koloru. Idź w taki
+minimalistyczny ładny, typu ten pomarańczowy i biały i beż."
+
+Trafna diagnoza. Turkusowo-granatowa skala (`#06171b`, `#113a43`, `#1d7180`)
+ciągnęła cały układ w chłód niezależnie od tego, ile światła było na zdjęciach.
+Rozjaśnianie kadrów w poprzednich rundach walczyło ze skutkiem, nie z przyczyną.
+
+### Co się zmieniło
+
+Podmienione zostały **wartości**, nie struktura. System pasm, nazwy zmiennych
+`--band-*` i komponenty pozostały nietknięte - dlatego zmiana zeszła w kilkanaście
+linii CSS zamiast w kilkadziesiąt plików.
+
+| rola | było | jest |
+|---|---|---|
+| tło ciemnych pasm | `#06171b` granat | `#1c1714` ciepła czerń |
+| karta na ciemnym | `#1d5560` | `#3a322c` brąz |
+| obramowania | `#17545f` | `#6b6155` ciepła szarość |
+| akcent tekstowy | `#1d7180` turkus | `#96590f` bursztyn |
+| akcent na ciemnym | `#7cc3c6` | `#e8cfa8` krem |
+| tło jasne | `#f7f4ed` | `#faf8f4` ciepła biel |
+| tło beżowe | `#e6dfd1` | `#efe9df` beż |
+| tekst | `#0a1214` | `#1c1714` |
+| tekst przygaszony | `#4a5a5e` | `#6f6558` |
+
+Skala straciła nazwę `lake-*`, bo po zmianie nie opisywała już niczego - teraz
+to `clay-*`. Przy okazji `lake-500` (`#2a8894`) i `sun` po ociepleniu były tym
+samym bursztynem, więc został jeden token: `sun`.
+
+### Dlaczego akcent jest tak ciemny
+
+Pierwszy wybór, `#b5731a`, wyglądał lepiej, ale dawał 3,64:1 na bieli i 3,20:1
+na beżu - poniżej progu 4,5:1 dla tekstu. Akcent niesie eyebrow (12 px) i linki,
+więc musi przejść próg dla małego tekstu. `#96590f` daje 5,30:1 na bieli
+i 4,66:1 na beżu. Jasny bursztyn `sun` `#e9a43f` został tam, gdzie jest
+wypełnieniem pod ciemnym tekstem (przyciski CTA, 8,33:1) i akcentem na zdjęciach.
+
+Wąskim gardłem jest beż, nie biel. Każdy odcień bardziej pomarańczowy
+(`#a35a06`, `#ad5c00`) przechodzi na bieli, ale nie na `#efe9df`.
+
+### Usunięte przy okazji
+
+- `band-deep` i `band-lake` - zero użyć w kodzie, dwa martwe pasma.
+- `--color-deep` - token bez konsumenta.
+- Numeracja `01 /` przy nagłówkach sekcji. Pola `n` i `dark` w `SECTIONS`
+  karmiły wyłącznie eyebrow, więc cały moduł zszedł do mapy etykiet.
+- Klasa `.rise` i `@keyframes riseIn`. Wejście hero z zanikiem opóźniało LCP,
+  bo Chrome pomija elementy o zerowym kryciu. Wszystko jedzie na `.rise-y`,
+  które tylko przesuwa: LCP 5,0 s -> 4,6 s, mobile 81 -> 83.
+
+### Naprawione przy okazji
+
+- **Siatka galerii zostawiała dziury.** Kafel wiodący był `aspect-square`
+  na 2x2, a boczne `aspect-4/3` - rzędy nie domykały się i między kadrami
+  zostawał pusty pas. Kafel wiodący dostał `lg:aspect-auto` i rozciąga się
+  na wysokość rzędów wyznaczoną przez małe kadry.
+- **Lead hero gubił czytelność** na rozjaśnionym renderze. Wariant `fg-muted`
+  (74% krycia) ustąpił `text-sand-50/90`.
+- **Logo miało `aria-label` niezawierający widocznego tekstu** - Lighthouse
+  `label-content-name-mismatch`. Etykieta usunięta, nazwę niesie treść linku.
+- **Ikona i manifest** wciąż były granatowe.
+
+### Pomiar
+
+| | runda 2 | poprzednio | teraz |
+|---|---|---|---|
+| średnia luminancja | 180 | 181 | **195** |
+| wiersze L<90 | 15,7% | 16,8% | **14,8%** |
+| Lighthouse mobile | 83 | 82 | **83** |
+| Lighthouse desktop | - | - | **99** |
+| dostępność / best practices / SEO | 100 | 100 | **100** |
+
+Kontrast sprawdzony liczbowo dla dwunastu par, wszystkie przechodzą swój próg.
+Lighthouse potwierdza: dostępność 100 na mobile i desktopie, zero błędów
+kontrastu.
+
+LCP nadal wyznacza tekst hero czekający na kroje, nie obraz. Inter i Inter Tight
+w wariantach latin i latin-ext to cztery pliki woff2 z `preload` w head
+(JetBrains Mono ma `preload: false` i schodzi z tej ścieżki). Bez cięcia kroju
+nagłówkowego albo
+`font-display: optional` wynik mobilny nie ruszy się wyżej - to świadomy wybór
+na rzecz wyglądu, nie przeoczenie.

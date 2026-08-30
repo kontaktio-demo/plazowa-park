@@ -46,3 +46,10 @@ next-env.d.ts
 # paczki zrodlowe dollhouse dewelopera (odtwarzalne skryptami w scripts/)
 .dollhouse-src/
 .osiedle-src/
+
+# instrukcje dla narzedzi lokalnych - nie trafiaja do repozytorium klienta
+AGENTS.md
+CLAUDE.md
+
+# zrzuty robocze z katalogu glownego
+/*.png

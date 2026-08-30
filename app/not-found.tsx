@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className="band band-abyss flex min-h-[100svh] flex-col items-center justify-center px-6 text-center">
+    <main className="band band-abyss flex min-h-svh flex-col items-center justify-center px-6 text-center">
       <p className="t-meta fg-accent">Błąd 404</p>
       <h1 className="t-display-l mt-6 max-w-2xl text-balance">
         Ta ścieżka <span className="fg-accent">nie prowadzi nad wodę</span>

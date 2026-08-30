@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { NAV, SITE, DEVELOPER } from "@/lib/data/site";
 import { Icon } from "./Icons";
 import { LogoMark } from "./Logo";
@@ -21,16 +22,16 @@ export default function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr] lg:gap-12">
           <div>
             <p className="flex items-center gap-3">
-              <LogoMark width={26} height={26} className="text-lake-300" />
+              <LogoMark width={26} height={26} className="text-clay-300" />
               <span className="font-display text-2xl font-semibold">Plażowa Park</span>
             </p>
-            <p className="t-meta-sm mt-3 text-lake-300/80">Głowno · Zalew Mrożyczka</p>
+            <p className="t-meta-sm mt-3 text-clay-300/80">Głowno · Zalew Mrożyczka</p>
             <p className="t-body fg-muted mt-6 max-w-xs text-pretty">
               Kameralne osiedle 20 domów w lesie, bezpośrednio przy Zalewie Mrożyczka w Głownie.
             </p>
-            <a href="/#mieszkania-i-domy" className="btn btn-ghost btn-sm mt-6">
+            <Link href="/#mieszkania-i-domy" className="btn btn-ghost btn-sm mt-6">
               Wybierz swój dom <Icon.arrow width={16} height={16} />
-            </a>
+            </Link>
           </div>
 
           <nav>
@@ -38,7 +39,7 @@ export default function Footer() {
             <ul className="mt-5 flex flex-col gap-3">
               {NAV.map((n) => (
                 <li key={n.href}>
-                  <a href={`/${n.href}`} className="link-underline text-sm hover:text-lake-300">
+                  <a href={`/${n.href}`} className="link-underline text-sm hover:text-clay-300">
                     {n.label}
                   </a>
                 </li>
@@ -50,12 +51,12 @@ export default function Footer() {
             <p className="t-meta-sm fg-muted">Kontakt</p>
             <ul className="mt-5 flex flex-col gap-3 text-sm">
               <li>
-                <a href={`tel:${SITE.phone.tel}`} className="link-underline num hover:text-lake-300">
+                <a href={`tel:${SITE.phone.tel}`} className="link-underline num hover:text-clay-300">
                   {SITE.phone.display}
                 </a>
               </li>
               <li className="wrap-break-word">
-                <a href={`mailto:${SITE.email}`} className="link-underline hover:text-lake-300">
+                <a href={`mailto:${SITE.email}`} className="link-underline hover:text-clay-300">
                   {SITE.email}
                 </a>
               </li>
@@ -95,7 +96,7 @@ export default function Footer() {
             <p>© 2026 {DEVELOPER.name}</p>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
               {legal.map((l) => (
-                <a key={l.href} href={l.href} className="link-underline hover:text-lake-300">
+                <a key={l.href} href={l.href} className="link-underline hover:text-clay-300">
                   {l.label}
                 </a>
               ))}
@@ -103,7 +104,7 @@ export default function Footer() {
                 href="https://kontaktio.pl"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link-underline hover:text-lake-300"
+                className="link-underline hover:text-clay-300"
               >
                 Projekt i realizacja: Kontaktio
               </a>

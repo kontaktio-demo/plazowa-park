@@ -115,7 +115,7 @@ export default function SortMenu({ value, onChange }: { value: SortKey; onChange
             onClick={() => choose(i)}
             onPointerEnter={() => setActive(i)}
             className={`t-meta flex min-h-11 cursor-pointer items-center gap-2 whitespace-nowrap px-4 py-3 ${
-              i === active ? "bg-lake-700 text-sand-50" : ""
+              i === active ? "bg-clay-600 text-sand-50" : ""
             }`}
           >
             <span className={`h-1.5 w-1.5 rounded-full ${o.key === value ? "bg-sun" : "bg-transparent"}`} />

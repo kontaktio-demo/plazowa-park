@@ -22,7 +22,7 @@ export default function UnitPosition({ unit, className = "" }: { unit: Unit; cla
                 <span
                   key={u.id}
                   className={`h-4 flex-1 border ${
-                    u.id === unit.id ? "border-sun bg-sun" : "border-lake-500/40"
+                    u.id === unit.id ? "border-sun bg-sun" : "border-sun/40"
                   }`}
                 />
               ))}

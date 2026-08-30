@@ -1,0 +1,10 @@
+# Klucz Web3Forms jest publiczny z założenia: usługa na darmowym planie przyjmuje
+# wyłącznie wywołania z przeglądarki, więc musi trafić do bundle. Szczegóły przy
+# stałej WEB3FORMS_KEY w components/Contact.tsx.
+[extend]
+useDefault = true
+
+[[rules]]
+id = "generic-api-key"
+[rules.allowlist]
+paths = ["components/Contact.tsx"]

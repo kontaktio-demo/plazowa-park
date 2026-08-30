@@ -97,6 +97,19 @@ export const POI = [
   },
 ] as const;
 
+// Punkty na planie poglądowym okolicy (public/map/okolica-3d.webp). Współrzędne
+// w procentach szerokości i wysokości obrazu, odczytane z samego planu.
+// Opisujemy wyłącznie to, co deweloper sam na tym planie podpisał.
+export const MAPA_PUNKTY = [
+  { x: 84, y: 55, name: "Plażowa Park", desc: "Osiedle: sześć budynków i dwadzieścia domów przy ul. Plażowej.", tu: true },
+  { x: 45, y: 41, name: "Zalew Mrożyczka", desc: "Trzydzieści hektarów wody z piaszczystą plażą i strzeżonym kąpieliskiem." },
+  { x: 72, y: 45, name: "Central Wake Park", desc: "Najważniejsze miejsce na wakeboardowej mapie Polski, w sąsiedztwie osiedla." },
+  { x: 28, y: 64, name: "Plaża i molo", desc: "Piaszczysta plaża z molo po zachodniej stronie zalewu." },
+  { x: 15, y: 47, name: "Przystań", desc: "Przystań przy zachodnim brzegu zbiornika." },
+  { x: 62, y: 58, name: "Park linowy", desc: "Park linowy przy brzegu zalewu." },
+  { x: 40, y: 82, name: "Wydmy śródlądowe", desc: "Unikalny w województwie łódzkim zespół wydm śródlądowych." },
+] as const;
+
 // Odległości zweryfikowane routingiem (OSRM) i w OpenStreetMap. Podajemy
 // kilometry, nie minuty: czas zależy od korków i szybko robi się nieprawdą.
 export const DOJAZD = [

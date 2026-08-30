@@ -114,7 +114,7 @@ export default function Contact() {
           />
 
           <div className="mt-8 flex flex-col sm:mt-10">
-            <a href={`tel:${SITE.phone.tel}`} className="bd flex items-center gap-5 border-t py-5 transition-colors hover:text-lake-300">
+            <a href={`tel:${SITE.phone.tel}`} className="bd flex items-center gap-5 border-t py-5 transition-colors hover:text-clay-300">
               <span className="glyph-box">
                 <Icon.phone width={20} height={20} />
               </span>
@@ -123,7 +123,7 @@ export default function Contact() {
                 <span className="num font-display mt-1 block text-xl font-semibold">{SITE.phone.display}</span>
               </span>
             </a>
-            <a href={`mailto:${SITE.email}`} className="bd flex items-center gap-5 border-t py-5 transition-colors hover:text-lake-300">
+            <a href={`mailto:${SITE.email}`} className="bd flex items-center gap-5 border-t py-5 transition-colors hover:text-clay-300">
               <span className="glyph-box">
                 <Icon.mail width={20} height={20} />
               </span>
@@ -148,7 +148,7 @@ export default function Contact() {
 
         {/* formularz - najjaśniejszy punkt najciemniejszej sekcji */}
         <div
-          className="border border-lake-700 bg-lake-900 p-6 shadow-[0_0_80px_-20px_var(--color-lake-500)] sm:p-9"
+          className="border border-clay-700 bg-clay-900 p-6 shadow-[0_0_80px_-20px_var(--color-sun)] sm:p-9"
           data-reveal
         >
           {state === "ok" ? (

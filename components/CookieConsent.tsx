@@ -31,7 +31,7 @@ export default function CookieConsent() {
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-70 p-3 sm:inset-x-auto sm:bottom-5 sm:left-5 sm:max-w-xl sm:p-0">
-      <div className="band band-abyss flex flex-col gap-4 border border-lake-700 p-4 sm:flex-row sm:items-center sm:gap-6 sm:py-3.5 sm:pl-5 sm:pr-4">
+      <div className="band band-abyss flex flex-col gap-4 border border-clay-700 p-4 sm:flex-row sm:items-center sm:gap-6 sm:py-3.5 sm:pl-5 sm:pr-4">
         <p className="t-body fg-muted text-sm text-pretty">
           Używamy cookies, aby strona działała i abyśmy mogli analizować ruch.{" "}
           <Link href="/polityka-cookies" className="link-underline fg-accent">

@@ -1,9 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { DOJAZD, POI, SITE } from "@/lib/data/site";
 import SectionHeader from "./SectionHeader";
 import MapLibreMap from "./MapLibreMap";
-import WaveEdge from "./WaveEdge";
+import PlanOkolicy from "./PlanOkolicy";
 import { Icon } from "./Icons";
 
 const mapsHref = `https://www.google.com/maps/search/?api=1&query=${SITE.geo.lat},${SITE.geo.lng}`;
@@ -52,22 +51,12 @@ export default function Okolica() {
           </ul>
         </div>
 
-        {/* Mapa poglądowa dewelopera: jednym obrazem tłumaczy, co gdzie leży wokół
-            zalewu. Zdjęcie satelitarne niżej pokazuje ten sam teren naprawdę. */}
-        <figure className="bd mt-12 overflow-hidden border bg-sand-200 sm:mt-16" data-reveal>
-          <div className="relative aspect-4/3 w-full sm:aspect-3/2 lg:aspect-video">
-            <Image
-              src="/map/okolica-3d.webp"
-              alt="Plan okolicy: Zalew Mrożyczka, plaża i molo, przystań, Central Wake Park, park linowy, wydmy i położenie osiedla Plażowa Park"
-              fill
-              sizes="(max-width: 1280px) 100vw, 1200px"
-              className="object-cover"
-            />
-          </div>
-          <figcaption className="t-meta-sm fg-muted border-t border-(--band-line) px-4 py-3 normal-case">
-            Plan poglądowy okolicy Zalewu Mrożyczka
-          </figcaption>
-        </figure>
+        {/* Plan poglądowy dewelopera z klikalnymi punktami: jednym obrazem tłumaczy,
+            co gdzie leży wokół zalewu. Zdjęcie satelitarne niżej pokazuje ten sam
+            teren naprawdę. */}
+        <div className="mt-12 sm:mt-16">
+          <PlanOkolicy />
+        </div>
 
         <div className="bd mt-6 h-80 overflow-hidden border sm:h-115" data-reveal>
           <MapLibreMap zoom={14} />
