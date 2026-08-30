@@ -41,9 +41,9 @@ export default function Page() {
       <p>
         Informacje zawarte w Serwisie - w tym wizualizacje, animacje, plany, metraże, ceny i statusy dostępności -
         mają charakter <strong>poglądowy i informacyjny i nie stanowią oferty</strong> w rozumieniu art. 66 i nast.
-        Kodeksu cywilnego. Wizualizacje budynków i wnętrz, rzuty lokali oraz plan osiedla pochodzą od dewelopera
-        inwestycji; zdjęcie na pierwszym ekranie jest wizualizacją poglądową. Wszystkie mogą różnić się od stanu
-        faktycznego. Wiążące warunki
+        Kodeksu cywilnego. Wizualizacje architektury, rzuty lokali i plan osiedla pochodzą od dewelopera inwestycji.
+        Część wizualizacji pokazujących aranżację, zieleń i otoczenie przygotowaliśmy na ich podstawie w celach
+        poglądowych. Wszystkie mogą różnić się od stanu faktycznego. Wiążące warunki
         zakupu określa umowa zawierana w formie aktu notarialnego, a aktualne ceny i dostępność potwierdza biuro
         sprzedaży.
       </p>

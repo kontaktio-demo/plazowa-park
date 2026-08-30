@@ -17,14 +17,14 @@ export default function Hero() {
       <div className="absolute inset-0" data-parallax>
         <Image
           src="/renders/hero.webp"
-          alt="Domy Plażowa Park w sosnowym lesie nad Zalewem Mrożyczka w Głownie"
+          alt="Dom Plażowa Park w sosnowym lesie, rodzina na ścieżce prowadzącej do wejścia"
           fill
           priority
           quality={62}
           sizes="100vw"
           placeholder="blur"
           blurDataURL={BLUR.hero}
-          className="ken-burns object-cover object-[68%_42%] sm:object-[70%_center]"
+          className="ken-burns object-cover object-[62%_center] sm:object-center"
         />
       </div>
       {/* Scrim tylko pod kolumną tekstu. Wcześniej dwie pełnoekranowe nakładki
@@ -34,9 +34,12 @@ export default function Hero() {
       {/* na wąskim ekranie skos zjadałby cały kadr, więc tam scrim jest pionowy */}
       <div
         aria-hidden
-        className="absolute inset-0 hidden bg-[linear-gradient(100deg,var(--color-abyss)_0%,color-mix(in_srgb,var(--color-abyss)_42%,transparent)_32%,transparent_64%)] sm:block"
+        className="absolute inset-0 hidden bg-[linear-gradient(100deg,var(--color-abyss)_0%,color-mix(in_srgb,var(--color-abyss)_58%,transparent)_34%,transparent_66%)] sm:block"
       />
-      <div aria-hidden className="absolute inset-x-0 bottom-0 h-[82%] bg-gradient-to-t from-abyss/96 via-abyss/50 to-transparent sm:h-[36%] sm:via-transparent sm:from-abyss/72" />
+      {/* delikatny cień pod paskiem nawigacji - na jasnym niebie białe menu
+          traciło czytelność */}
+      <div aria-hidden className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-abyss/60 to-transparent" />
+      <div aria-hidden className="absolute inset-x-0 bottom-0 h-[82%] bg-gradient-to-t from-abyss/96 via-abyss/50 to-transparent sm:h-[42%] sm:via-transparent sm:from-abyss/78" />
 
       <div className="wrap relative flex min-h-[100svh] flex-col justify-end pb-[clamp(150px,18vh,176px)] pt-(--nav-h)">
         <div className="max-w-5xl">

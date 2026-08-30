@@ -441,8 +441,8 @@ body.motion-ready [data-reveal="stagger"].is-in > * { opacity: 1; transform: non
 
 
 @keyframes kenBurns {
-  from { transform: scale(1.06); }
-  to { transform: scale(1.16); }
+  from { transform: scale(1.02); }
+  to { transform: scale(1.09); }
 }
 
 @layer utilities {
