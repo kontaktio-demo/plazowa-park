@@ -342,21 +342,62 @@
   .link-underline:hover { background-size: 100% 1px; }
 
   /* pola formularza */
+  /* Pole musi być wyraźnie wgłębione względem karty formularza - przy tle
+     zbliżonym do niej krawędzie ginęły i nie było widać, gdzie się klika. */
   .field {
     width: 100%;
     font-family: var(--font-sans);
     font-size: 1rem; /* min 16px - iOS nie zoomuje przy focusie */
     line-height: 1.5;
     padding: 0.85rem 1rem;
-    border-radius: 12px;
-    background: color-mix(in srgb, var(--color-abyss) 40%, transparent);
-    border: 1px solid var(--color-clay-700);
+    border-radius: var(--radius-card);
+    background: color-mix(in srgb, var(--color-abyss) 78%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-sand-50) 17%, transparent);
     color: var(--color-sand-50);
-    transition: border-color 180ms ease;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
   }
-  .field::placeholder { color: color-mix(in srgb, var(--color-sand-50) 40%, transparent); }
-  .field:focus { outline: none; border-color: var(--color-clay-300); }
+  .field::placeholder { color: color-mix(in srgb, var(--color-sand-50) 52%, transparent); }
+  .field:hover { border-color: color-mix(in srgb, var(--color-sand-50) 30%, transparent); }
+  .field:focus {
+    outline: none;
+    border-color: var(--color-sun);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-sun) 22%, transparent);
+  }
   .field[aria-invalid="true"] { border-color: var(--color-gone); }
+  .field[aria-invalid="true"]:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-gone) 24%, transparent); }
+
+  /* Natywny checkbox renderuje się na ciemnym tle jako biały kafelek,
+     którego nie da się dopasować do reszty - stąd własny. */
+  .checkbox {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    flex: none;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 1px solid color-mix(in srgb, var(--color-sand-50) 30%, transparent);
+    background: color-mix(in srgb, var(--color-abyss) 78%, transparent);
+    transition: background-color 150ms ease, border-color 150ms ease;
+  }
+  .checkbox:hover { border-color: color-mix(in srgb, var(--color-sand-50) 46%, transparent); }
+  .checkbox:checked {
+    background-color: var(--color-sun);
+    border-color: var(--color-sun);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231c1714' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 15px 15px;
+  }
+  .checkbox[aria-invalid="true"] { border-color: var(--color-gone); }
+
+  /* Komunikat walidacji to całe zdanie, więc bez wersalików i monospace.
+     Bazowy gone daje na karcie formularza 2,79:1, stąd rozjaśniony wariant. */
+  .field-error {
+    display: block;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: color-mix(in srgb, var(--color-gone) 65%, var(--color-sand-50));
+  }
 }
 
 @layer utilities {

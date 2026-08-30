@@ -148,7 +148,7 @@ export default function Contact() {
 
         {/* formularz - najjaśniejszy punkt najciemniejszej sekcji */}
         <div
-          className="border border-clay-700 bg-clay-900 p-6 shadow-[0_0_80px_-20px_var(--color-sun)] sm:p-9"
+          className="bd-strong rounded-(--radius-card) border bg-clay-900 p-6 shadow-[0_30px_70px_-40px_rgba(0,0,0,.85)] sm:p-9"
           data-reveal
         >
           {state === "ok" ? (
@@ -195,7 +195,7 @@ export default function Contact() {
                     type="checkbox"
                     name="rodo"
                     aria-invalid={Boolean(errors.rodo)}
-                    className="mt-1 h-5 w-5 flex-none accent-[var(--color-sun)]"
+                    className="checkbox mt-0.5"
                   />
                   <span className="t-body fg-muted">
                     Wyrażam zgodę na przetwarzanie moich danych osobowych w celu kontaktu handlowego zgodnie z{" "}
@@ -205,10 +205,10 @@ export default function Contact() {
                     .
                   </span>
                 </label>
-                {errors.rodo && <p className="t-meta-sm mt-2 text-gone">{errors.rodo}</p>}
+                {errors.rodo && <p className="field-error mt-2">{errors.rodo}</p>}
               </div>
 
-              {state === "error" && <p className="t-meta-sm text-gone">{failed}</p>}
+              {state === "error" && <p className="field-error">{failed}</p>}
 
               <button type="submit" disabled={state === "sending"} className="btn btn-sun w-full disabled:opacity-60">
                 {state === "sending" ? "Wysyłanie" : "Wyślij zapytanie"}
@@ -265,7 +265,7 @@ function Field({
         className="field"
       />
       {error && (
-        <span id={`${name}-err`} className="t-meta-sm mt-2 block text-gone">
+        <span id={`${name}-err`} className="field-error mt-2">
           {error}
         </span>
       )}
