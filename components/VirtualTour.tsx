@@ -151,7 +151,7 @@ export default function VirtualTour() {
             alt="Budynek osiedla Plażowa Park o zmierzchu w sosnowym lesie"
             fill
             sizes="(max-width: 767px) 200vw, 100vw"
-            quality={68}
+            quality={75}
             placeholder="blur"
             blurDataURL={BLUR.tour}
             className="object-cover object-[center_38%]"

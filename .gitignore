@@ -53,3 +53,6 @@ CLAUDE.md
 
 # zrzuty robocze z katalogu glownego
 /*.png
+
+# zrodla renderu hero (oryginal dewelopera i wycinka rodziny)
+.hero-src/
