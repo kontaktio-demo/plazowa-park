@@ -20,7 +20,7 @@ export default function Hero() {
           alt="Dom Plażowa Park w sosnowym lesie, rodzina na ścieżce prowadzącej do wejścia"
           fill
           priority
-          quality={62}
+          quality={80}
           sizes="100vw"
           placeholder="blur"
           blurDataURL={BLUR.hero}
