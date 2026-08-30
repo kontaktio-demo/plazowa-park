@@ -25,9 +25,9 @@ export default function Page() {
       <h2>§1. Postanowienia ogólne</h2>
       <p>
         Niniejszy Regulamin określa zasady korzystania z serwisu internetowego dostępnego pod adresem
-        {" "}<strong>plazowa-park.pl</strong> ("Serwis"), prowadzonego przez {OPERATOR.name} z siedzibą
+        {" "}<strong>plazowa-park.pl</strong> (&quot;Serwis&quot;), prowadzonego przez {OPERATOR.name} z siedzibą
         w Głownie, {OPERATOR.street}, {OPERATOR.postal} {OPERATOR.city} (KRS {OPERATOR.krs},
-        NIP {OPERATOR.nip}) ("Usługodawca").
+        NIP {OPERATOR.nip}) (&quot;Usługodawca&quot;).
       </p>
 
       <h2>§2. Zakres usług</h2>

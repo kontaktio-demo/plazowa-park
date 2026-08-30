@@ -233,7 +233,7 @@ function Ctl({
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className="flex h-11 w-11 flex-none items-center justify-center border border-sand-50/20 transition-colors hover:border-lake-300 disabled:opacity-35"
+      className="flex h-11 w-11 flex-none items-center justify-center border border-sand-50/20 transition-colors hover:border-clay-300 disabled:opacity-35"
     >
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         {children}

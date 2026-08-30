@@ -44,7 +44,7 @@ export default function Osiedle() {
                 type="button"
                 onClick={() => selectBuilding(b.stageId)}
                 aria-label={`Budynek ${b.label}: ${b.count} lokali, ${b.available} dostępnych, od ${plnShort(b.priceFrom)}. Pokaż na liście`}
-                className="group bd overflow-hidden border text-left transition-colors hover:border-lake-600"
+                className="group bd overflow-hidden border text-left transition-colors hover:border-clay-600"
                 style={{ transitionDelay: `${Math.min(i, 6) * 60}ms` }}
               >
                 <span className="relative block aspect-4/3 overflow-hidden bg-sand-200">

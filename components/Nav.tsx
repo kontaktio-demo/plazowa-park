@@ -37,7 +37,7 @@ export default function Nav() {
         }`}
       >
         <div className="wrap flex h-(--nav-h) items-center gap-4 2xl:gap-5">
-          <a href="#top" aria-label="Plażowa Park - strona główna" className="flex flex-none items-center gap-3">
+          <a href="#top" className="flex flex-none items-center gap-3">
             <LogoMark width={26} height={26} className="fg-accent" />
             <span className="flex flex-col leading-none">
               <span className="font-display text-[1.2rem] font-semibold tracking-tight">
@@ -123,7 +123,7 @@ export default function Nav() {
                   className="t-display-m flex items-center justify-between py-4"
                 >
                   {n.label}
-                  <Icon.arrow width={20} height={20} className="text-lake-300" />
+                  <Icon.arrow width={20} height={20} className="text-clay-300" />
                 </a>
               </li>
             ))}

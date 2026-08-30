@@ -174,11 +174,11 @@ export default function EstateMap({
                 }}
                 style={{
                   cursor: "pointer",
-                  fill: "var(--color-lake-500)",
+                  fill: "var(--color-sun)",
                   fillOpacity: active ? 0.44 : 0.16,
                   stroke: active
-                    ? "var(--color-lake-900)"
-                    : "color-mix(in srgb, var(--color-lake-700) 45%, transparent)",
+                    ? "var(--color-clay-900)"
+                    : "color-mix(in srgb, var(--color-clay-700) 45%, transparent)",
                   strokeWidth: 1.6,
                   transition: "fill-opacity 160ms ease, stroke 160ms ease",
                 }}
@@ -209,7 +209,7 @@ export default function EstateMap({
               <span
                 className={`t-meta-sm flex items-center gap-1.5 whitespace-nowrap border px-2 py-1 normal-case transition-colors ${
                   active
-                    ? "border-lake-900 bg-lake-900 text-sand-50"
+                    ? "border-clay-900 bg-clay-900 text-sand-50"
                     : "border-ink/15 bg-sand-50/95 text-ink"
                 }`}
               >
@@ -226,7 +226,7 @@ export default function EstateMap({
         {!ready && (
           <div className="absolute inset-x-0 bottom-0 h-0.5 bg-ink/10">
             <div
-              className="h-full bg-lake-700 transition-[width] duration-200"
+              className="h-full bg-clay-600 transition-[width] duration-200"
               style={{ width: `${(loaded / COUNT) * 100}%` }}
             />
           </div>
@@ -252,7 +252,7 @@ export default function EstateMap({
             onClick={() => spin(-2)}
             disabled={!ready}
             aria-label="Obróć plan w lewo"
-            className="bd flex h-10 w-10 items-center justify-center border transition-colors hover:border-lake-700 disabled:opacity-40"
+            className="bd flex h-10 w-10 items-center justify-center border transition-colors hover:border-clay-700 disabled:opacity-40"
           >
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M9 14L4 9l5-5" />
@@ -264,7 +264,7 @@ export default function EstateMap({
             onClick={() => spin(2)}
             disabled={!ready}
             aria-label="Obróć plan w prawo"
-            className="bd flex h-10 w-10 items-center justify-center border transition-colors hover:border-lake-700 disabled:opacity-40"
+            className="bd flex h-10 w-10 items-center justify-center border transition-colors hover:border-clay-700 disabled:opacity-40"
           >
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M15 14l5-5-5-5" />

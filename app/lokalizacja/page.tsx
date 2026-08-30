@@ -80,7 +80,7 @@ export default function LokalizacjaPage() {
       <main className="band band-sand">
         <div className="wrap py-10 sm:py-14">
           <nav className="t-meta-sm fg-muted flex items-center gap-2" aria-label="breadcrumb">
-            <Link href="/" className="hover:text-lake-700">
+            <Link href="/" className="hover:text-clay-600">
               Strona główna
             </Link>
             <span aria-hidden>/</span>

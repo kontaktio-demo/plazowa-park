@@ -90,7 +90,7 @@ export default function VirtualTour() {
   }, []);
 
   return (
-    <section id="spacer" ref={wrapRef} className="band band-abyss relative min-h-[100svh] w-full overflow-hidden">
+    <section id="spacer" ref={wrapRef} className="band band-abyss relative min-h-svh w-full overflow-hidden">
       <WaveEdge from="var(--color-sand-50)" />
 
       {active ? (
@@ -109,7 +109,7 @@ export default function VirtualTour() {
               type="button"
               onClick={fullscreen}
               aria-label="Pełny ekran"
-              className="pointer-events-auto absolute right-5 top-[calc(var(--nav-h)+16px)] flex h-11 w-11 items-center justify-center border border-sand-50/25 bg-abyss/40 backdrop-blur-md transition-colors hover:border-lake-300"
+              className="pointer-events-auto absolute right-5 top-[calc(var(--nav-h)+16px)] flex h-11 w-11 items-center justify-center border border-sand-50/25 bg-abyss/40 backdrop-blur-md transition-colors hover:border-clay-300"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3" />
@@ -122,7 +122,7 @@ export default function VirtualTour() {
                   type="button"
                   onClick={() => goTo(-1)}
                   aria-label="Poprzednie ujęcie"
-                  className="flex h-11 w-11 items-center justify-center transition-colors hover:text-lake-300"
+                  className="flex h-11 w-11 items-center justify-center transition-colors hover:text-clay-300"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
                 </button>
@@ -136,7 +136,7 @@ export default function VirtualTour() {
                   type="button"
                   onClick={() => goTo(1)}
                   aria-label="Następne ujęcie"
-                  className="flex h-11 w-11 items-center justify-center transition-colors hover:text-lake-300"
+                  className="flex h-11 w-11 items-center justify-center transition-colors hover:text-clay-300"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
                 </button>
@@ -163,9 +163,9 @@ export default function VirtualTour() {
             aria-hidden
             className="absolute inset-0 bg-[radial-gradient(62%_46%_at_50%_50%,color-mix(in_srgb,var(--color-abyss)_74%,transparent)_0%,transparent_100%)]"
           />
-          <div aria-hidden className="absolute inset-x-0 bottom-0 h-[30%] bg-gradient-to-t from-abyss/75 to-transparent" />
+          <div aria-hidden className="absolute inset-x-0 bottom-0 h-[30%] bg-linear-to-t from-abyss/75 to-transparent" />
 
-          <div className="wrap relative flex min-h-[100svh] flex-col items-center justify-center py-20 text-center sm:py-24">
+          <div className="wrap relative flex min-h-svh flex-col items-center justify-center py-20 text-center sm:py-24">
             <p className="eyebrow [text-shadow:0_1px_14px_var(--color-abyss)]">{sectionEyebrow("spacer")}</p>
             <h2 className="t-display-l mt-6 max-w-3xl text-balance [text-shadow:0_2px_26px_var(--color-abyss)]">
               Przejdź się osiedlem <span className="fg-accent">zanim powstanie</span>

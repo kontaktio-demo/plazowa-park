@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "20 mieszkań i domów 82-133 m² w 100-letnim lesie przy Zalewie Mrożyczka w Głownie. Ceny od 633 000 zł.",
     start_url: "/",
     display: "standalone",
-    background_color: "#06171b",
-    theme_color: "#06171b",
+    background_color: "#faf8f4",
+    theme_color: "#faf8f4",
     lang: "pl-PL",
     icons: [
       { src: "/icon.svg", type: "image/svg+xml", sizes: "any" },

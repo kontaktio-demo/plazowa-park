@@ -24,7 +24,7 @@ export default function Page() {
     <LegalShell title="Polityka prywatności" updated="29 sierpnia 2026">
       <p>
         Niniejsza Polityka prywatności opisuje zasady przetwarzania danych osobowych osób korzystających z serwisu
-        internetowego <strong>plazowa-park.pl</strong> ("Serwis") oraz kontaktujących się z nami w sprawie inwestycji
+        internetowego <strong>plazowa-park.pl</strong> (&quot;Serwis&quot;) oraz kontaktujących się z nami w sprawie inwestycji
         Plażowa Park w Głownie. Dbamy o Twoją prywatność i przetwarzamy dane zgodnie z Rozporządzeniem (UE) 2016/679
         (RODO).
       </p>
@@ -33,7 +33,7 @@ export default function Page() {
       <p>
         Administratorem danych osobowych jest <strong>{OPERATOR.name}</strong> z siedzibą w Głownie,
         {" "}{OPERATOR.street}, {OPERATOR.postal} {OPERATOR.city}, wpisana do rejestru przedsiębiorców KRS pod
-        numerem {OPERATOR.krs}, NIP {OPERATOR.nip} ("Administrator").
+        numerem {OPERATOR.krs}, NIP {OPERATOR.nip} (&quot;Administrator&quot;).
       </p>
       <p>
         W sprawach dotyczących danych osobowych możesz kontaktować się z nami: e-mail{" "}

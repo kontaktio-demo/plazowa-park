@@ -52,7 +52,7 @@ export default function ScrollProgress() {
     >
       <div
         ref={barRef}
-        className="h-full origin-left bg-gradient-to-r from-lake-500 to-lake-300"
+        className="h-full origin-left bg-linear-to-r from-sun to-clay-300"
         style={{ transform: "scaleX(0)" }}
       />
     </div>

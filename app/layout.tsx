@@ -37,8 +37,8 @@ const jetbrains = JetBrains_Mono({
 const description =
   "Nowe mieszkania i domy 82-133 m² z ogrodem i tarasem nad Zalewem Mrożyczka w Głownie. Blisko lasu i Central Wake Park. Ceny od 633 000 zł. Sprawdź dostępne lokale.";
 
-// Preview/branch deploys (VERCEL_ENV=preview) stay out of the index; the
-// production alias *.vercel.app is handled by middleware (X-Robots-Tag).
+// Deploye preview i branchowe (VERCEL_ENV=preview) zostają poza indeksem;
+// aliasem produkcyjnym *.vercel.app zajmuje się middleware (X-Robots-Tag).
 const isPreview = process.env.VERCEL_ENV === "preview";
 
 export const metadata: Metadata = {
@@ -98,8 +98,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#06171b",
-  colorScheme: "dark light",
+  themeColor: "#faf8f4",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };

@@ -38,7 +38,7 @@ export default function CountUp({ to, duration = 1400, className }: { to: number
     <span
       ref={ref}
       className={className}
-      // Reserve the final width so counting 0 -> N never shifts siblings (CLS).
+      // Rezerwujemy docelową szerokość, żeby liczenie 0 -> N nie przesuwało sąsiadów (CLS).
       style={{ display: "inline-block", minWidth: `${String(to).length}ch` }}
     >
       {v}

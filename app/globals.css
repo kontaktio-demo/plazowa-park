@@ -7,31 +7,26 @@
    ============================================================ */
 
 @theme {
-  /* woda */
-  --color-abyss: #06171b;
-  --color-deep: #113a43;
-  --color-lake-900: #1d5560;
-  --color-lake-700: #17545f;
-  --color-lake-600: #1d7180;
-  --color-lake-500: #2a8894;
-  --color-lake-300: #7cc3c6;
+  /* baza: ciepła czerń, brąz i bursztyn */
+  --color-abyss: #1c1714;
+  --color-clay-900: #3a322c;
+  --color-clay-700: #6b6155;
+  --color-clay-600: #96590f;
+  --color-clay-300: #e8cfa8;
 
-  /* brzeg */
-  --color-sand-50: #f7f4ed;
-  --color-sand-200: #e6dfd1;
-  --color-sand-500: #b6a98d;
+  /* piasek */
+  --color-sand-50: #faf8f4;
+  --color-sand-200: #efe9df;
 
-  /* las */
-  --color-pine-700: #2b4a33;
+  /* zieleń - wyłącznie ptaszki na liście udogodnień */
   --color-pine-500: #4a7a4f;
-  --color-moss-300: #8fae7a;
 
   /* światło */
   --color-sun: #e9a43f;
 
   /* tekst na jasnym */
-  --color-ink: #0a1214;
-  --color-ink-muted: #4a5a5e;
+  --color-ink: #1c1714;
+  --color-ink-muted: #6f6558;
 
   /* statusy - mocne, rozróżnialne z odległości */
   --color-ok: #1f7a4d;
@@ -63,51 +58,31 @@
     --band-bg: var(--color-sand-50);
     --band-fg: var(--color-ink);
     --band-fg-muted: var(--color-ink-muted);
-    --band-accent: var(--color-lake-600);
+    --band-accent: var(--color-clay-600);
     --band-line: color-mix(in srgb, var(--color-ink) 20%, transparent);
     --band-line-strong: color-mix(in srgb, var(--color-ink) 26%, transparent);
     --band-surface: #ffffff;
-    --band-focus: var(--color-lake-700);
+    --band-focus: var(--color-clay-600);
   }
   .band-sand-2 {
     --band-bg: var(--color-sand-200);
     --band-fg: var(--color-ink);
     --band-fg-muted: var(--color-ink-muted);
-    --band-accent: var(--color-lake-600);
+    --band-accent: var(--color-clay-600);
     --band-line: color-mix(in srgb, var(--color-ink) 22%, transparent);
     --band-line-strong: color-mix(in srgb, var(--color-ink) 28%, transparent);
     --band-surface: var(--color-sand-50);
-    --band-focus: var(--color-lake-700);
+    --band-focus: var(--color-clay-600);
   }
   .band-abyss {
     --band-bg: var(--color-abyss);
     --band-fg: var(--color-sand-50);
-    --band-fg-muted: color-mix(in srgb, var(--color-sand-50) 72%, transparent);
-    --band-accent: var(--color-lake-300);
-    --band-line: color-mix(in srgb, var(--color-lake-700) 85%, transparent);
-    --band-line-strong: color-mix(in srgb, var(--color-lake-500) 70%, transparent);
-    --band-surface: color-mix(in srgb, var(--color-lake-700) 42%, transparent);
-    --band-focus: var(--color-lake-300);
-  }
-  .band-deep {
-    --band-bg: var(--color-deep);
-    --band-fg: var(--color-sand-50);
-    --band-fg-muted: color-mix(in srgb, var(--color-sand-50) 72%, transparent);
-    --band-accent: var(--color-lake-300);
-    --band-line: color-mix(in srgb, var(--color-lake-700) 88%, transparent);
-    --band-line-strong: color-mix(in srgb, var(--color-lake-500) 70%, transparent);
-    --band-surface: color-mix(in srgb, var(--color-lake-700) 46%, transparent);
-    --band-focus: var(--color-lake-300);
-  }
-  .band-lake {
-    --band-bg: var(--color-lake-900);
-    --band-fg: var(--color-sand-50);
     --band-fg-muted: color-mix(in srgb, var(--color-sand-50) 74%, transparent);
-    --band-accent: var(--color-lake-300);
-    --band-line: color-mix(in srgb, var(--color-lake-500) 65%, transparent);
-    --band-line-strong: color-mix(in srgb, var(--color-lake-500) 62%, transparent);
-    --band-surface: color-mix(in srgb, var(--color-lake-700) 62%, transparent);
-    --band-focus: var(--color-lake-300);
+    --band-accent: var(--color-clay-300);
+    --band-line: color-mix(in srgb, var(--color-sand-50) 16%, transparent);
+    --band-line-strong: color-mix(in srgb, var(--color-sand-50) 30%, transparent);
+    --band-surface: color-mix(in srgb, var(--color-sand-50) 8%, transparent);
+    --band-focus: var(--color-sun);
   }
 }
 
@@ -117,11 +92,11 @@
     /* domyślne pasmo dla elementów poza sekcjami (modal, banery) */
     --band-fg: var(--color-ink);
     --band-fg-muted: var(--color-ink-muted);
-    --band-accent: var(--color-lake-700);
+    --band-accent: var(--color-clay-600);
     --band-line: color-mix(in srgb, var(--color-ink) 13%, transparent);
     --band-line-strong: color-mix(in srgb, var(--color-ink) 26%, transparent);
     --band-surface: #ffffff;
-    --band-focus: var(--color-lake-700);
+    --band-focus: var(--color-clay-600);
   }
   html {
     -webkit-text-size-adjust: 100%;
@@ -140,8 +115,8 @@
     overflow-x: clip;
   }
   ::selection {
-    background: color-mix(in srgb, var(--color-lake-500) 45%, transparent);
-    color: var(--color-sand-50);
+    background: color-mix(in srgb, var(--color-sun) 45%, transparent);
+    color: var(--color-ink);
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
@@ -164,7 +139,7 @@
   ::-webkit-scrollbar { width: 10px; height: 10px; }
   ::-webkit-scrollbar-track { background: var(--color-abyss); }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-lake-700);
+    background: var(--color-clay-700);
     border-radius: 999px;
     border: 3px solid var(--color-abyss);
   }
@@ -259,7 +234,6 @@
     opacity: 0.55;
   }
 
-  .rule { height: 1px; background: var(--band-line); border: 0; }
 
   /* skróty do zmiennych pasma - komponent nie zna swojego tła */
   .fg { color: var(--band-fg); }
@@ -297,11 +271,12 @@
     border: 1px solid var(--band-line-strong);
   }
   .btn-ghost:hover { border-color: var(--band-accent); color: var(--band-accent); transform: translateY(-2px); }
+  /* wypelniony w gleboszym bursztynie - dla akcji na jasnych pasmach */
   .btn-solid {
-    background: var(--color-lake-700);
+    background: var(--color-clay-600);
     color: var(--color-sand-50);
   }
-  .btn-solid:hover { background: var(--color-lake-500); transform: translateY(-2px); }
+  .btn-solid:hover { background: var(--color-sun); color: var(--color-ink); transform: translateY(-2px); }
   .btn-sm { padding: 0.7rem 1.1rem; font-size: 0.875rem; min-height: 44px; }
 
   /* --------------------------------------------- powierzchnie */
@@ -315,7 +290,7 @@
   }
   .card-hover:hover {
     transform: translateY(-4px);
-    border-color: var(--color-lake-500);
+    border-color: var(--band-accent);
   }
 
   /* chip / pigułka - jedyne miejsce na promień 999px */
@@ -338,8 +313,8 @@
   }
   .chip:hover { border-color: var(--band-accent); }
   .chip[aria-pressed="true"], .chip.is-active {
-    background: var(--color-lake-700);
-    border-color: var(--color-lake-700);
+    background: var(--color-clay-600);
+    border-color: var(--color-clay-600);
     color: var(--color-sand-50);
   }
   .status-dot { width: 10px; height: 10px; border-radius: 999px; flex: none; }
@@ -375,12 +350,12 @@
     padding: 0.85rem 1rem;
     border-radius: 12px;
     background: color-mix(in srgb, var(--color-abyss) 40%, transparent);
-    border: 1px solid var(--color-lake-700);
+    border: 1px solid var(--color-clay-700);
     color: var(--color-sand-50);
     transition: border-color 180ms ease;
   }
   .field::placeholder { color: color-mix(in srgb, var(--color-sand-50) 40%, transparent); }
-  .field:focus { outline: none; border-color: var(--color-lake-300); }
+  .field:focus { outline: none; border-color: var(--color-clay-300); }
   .field[aria-invalid="true"] { border-color: var(--color-gone); }
 }
 
@@ -403,20 +378,13 @@
 .legal p { margin-bottom: 1rem; }
 .legal ul { margin: 0.5rem 0 1.2rem; padding-left: 1.2rem; list-style: disc; }
 .legal li { margin-bottom: 0.4rem; }
-.legal a { color: var(--color-lake-700); text-decoration: underline; text-underline-offset: 2px; }
+.legal a { color: var(--color-clay-600); text-decoration: underline; text-underline-offset: 2px; }
 .legal strong { color: var(--color-ink); font-weight: 600; }
 
 /* --------------------------------------------- ruch */
-/* sekwencja wejścia hero: eyebrow, linia 1, linia 2, lead, CTA, statystyki */
-@keyframes riseIn {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.rise { opacity: 0; animation: riseIn 700ms var(--ease-out-expo) forwards; }
-
-/* Wariant bez zaniku: element jest widoczny od pierwszego malowania, więc liczy
-   się jako kandydat na LCP. Używany na H1 hero, który jest największym blokiem
-   na stronie i musi wyznaczać LCP zamiast oddawać go elementom montowanym później. */
+/* Sekwencja wejścia hero. Bez zaniku - elementy są widoczne od pierwszego
+   malowania, więc każdy z nich może wyznaczyć LCP. Wariant z opacity opóźniał
+   LCP o czas animacji, bo Chrome pomija elementy o zerowym kryciu. */
 @keyframes riseSlide {
   from { transform: translateY(18px); }
   to { transform: translateY(0); }
@@ -449,7 +417,7 @@ body.motion-ready [data-reveal="stagger"].is-in > * { opacity: 1; transform: non
   .ken-burns { animation: kenBurns 26s ease-out both; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .rise, .rise-y { animation: none !important; opacity: 1 !important; transform: none !important; }
+  .rise-y { animation: none !important; transform: none !important; }
   .ken-burns { animation: none !important; }
   body.motion-ready [data-reveal],
   body.motion-ready [data-reveal="stagger"] > * { opacity: 1 !important; transform: none !important; }

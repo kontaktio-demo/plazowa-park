@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import { track } from "@/lib/track";
 
-// Fires a GA4 view_lokal event when a unit subpage mounts (server component
-// can't call track directly). Analogous to GA4 view_item.
+// Wysyła zdarzenie GA4 view_lokal przy wejściu na podstronę lokalu (komponent
+// serwerowy nie może wywołać track bezpośrednio). Odpowiednik GA4 view_item.
 export default function TrackUnitView({
   unit,
   price,

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { UNITS, BUILDINGS } from "@/lib/data/units";
@@ -116,11 +115,11 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
       <main className="band band-sand">
         <div className="wrap py-10 sm:py-14">
           <nav className="t-meta-sm fg-muted flex flex-wrap items-center gap-2" aria-label="breadcrumb">
-            <Link href="/" className="hover:text-lake-700">
+            <Link href="/" className="hover:text-clay-600">
               Strona główna
             </Link>
             <span aria-hidden>/</span>
-            <Link href="/#mieszkania-i-domy" className="hover:text-lake-700">
+            <Link href="/#mieszkania-i-domy" className="hover:text-clay-600">
               Mieszkania i domy
             </Link>
             <span aria-hidden>/</span>
