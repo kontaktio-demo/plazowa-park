@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 const galleryImgs = [
   { src: "/renders/tour-poster.webp", alt: "Budynek osiedla Plażowa Park o zmierzchu w sosnowym lesie", caption: "Budynek o zmierzchu" },
-  { src: "/renders/zycie.webp", alt: "Strefa wypoczynku w ogrodzie z paleniskiem", caption: "Ogród i strefa wypoczynku" },
+  { src: "/renders/zycie.webp", alt: "Rodzina w prywatnym ogrodzie przy strefie wypoczynku", caption: "Ogród i strefa wypoczynku" },
   { src: "/dollhouse/f00.webp", alt: "Plan osiedla Plażowa Park z lotu ptaka", caption: "Plan osiedla" },
 ];
 

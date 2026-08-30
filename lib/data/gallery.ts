@@ -1,8 +1,20 @@
-// Wizualizacje dewelopera z plazowa-park.pl. Podpisy opisują wyłącznie to, co
-// realnie widać na renderze - żadnych obietnic, których nie potwierdza obraz.
+// Wizualizacje inwestycji. Architektura, rzuty i plan osiedla pochodzą od
+// dewelopera (plazowa-park.pl); kadry pokazujące aranżację i zieleń powstały
+// na ich podstawie, w celach poglądowych - tak też opisuje to regulamin.
+// Podpisy opisują wyłącznie to, co realnie widać na kadrze.
 export type Shot = { file: string; alt: string; caption: string };
 
 export const GALLERY: Shot[] = [
+  {
+    file: "taras-ogrod",
+    alt: "Taras i prywatny ogród od strony południowej, nasadzenia, hamak między sosnami",
+    caption: "Taras i ogród od południa",
+  },
+  {
+    file: "salon-rodzina",
+    alt: "Salon z aneksem kuchennym i schodami na piętro, rodzina przy stole",
+    caption: "Salon z aneksem i schodami",
+  },
   {
     file: "elewacja-frontowa",
     alt: "Elewacja frontowa budynku Plażowa Park o zmierzchu, podświetlone okna i podjazd",
@@ -14,24 +26,14 @@ export const GALLERY: Shot[] = [
     caption: "Wejścia do lokali i podjazd",
   },
   {
-    file: "salon",
-    alt: "Salon z aneksem kuchennym, jadalnią i schodami na piętro",
-    caption: "Salon i schody na piętro",
+    file: "szczyt-od-lasu",
+    alt: "Szczyt budynku z cegłą elewacyjną i tynkiem, widziany od strony lasu",
+    caption: "Szczyt budynku od strony lasu",
   },
   {
     file: "balkony",
     alt: "Elewacja z balkonami i szklanymi balustradami, miejsca postojowe pod wiatą",
     caption: "Balkony i miejsca postojowe",
-  },
-  {
-    file: "taras",
-    alt: "Taras ze szklaną balustradą wzdłuż elewacji, w tle sosnowy las",
-    caption: "Taras ze szklaną balustradą",
-  },
-  {
-    file: "szczyt-od-lasu",
-    alt: "Szczyt budynku z cegłą elewacyjną i tynkiem, widziany od strony lasu",
-    caption: "Szczyt budynku od strony lasu",
   },
   {
     file: "elewacja-ogrodowa",

@@ -45,12 +45,12 @@ export default function Standard() {
 
           <figure className="bd relative aspect-4/3 overflow-hidden border lg:aspect-3/4">
             <Image
-              src="/galeria/elewacja-ogrodowa.webp"
-              alt="Elewacja ogrodowa z tarasami, elastyczną cegłą i blachą na rąbek"
+              src="/galeria/taras-ogrod.webp"
+              alt="Taras i ogród od strony południowej: nasadzenia, hamak i sosnowy las za trawnikiem"
               fill
               sizes="(max-width: 1024px) 100vw, 46vw"
               placeholder="blur"
-              blurDataURL={BLUR["gal-elewacja-ogrodowa"]}
+              blurDataURL={BLUR["gal-taras-ogrod"]}
               className="object-cover"
             />
           </figure>

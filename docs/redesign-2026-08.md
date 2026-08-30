@@ -882,3 +882,60 @@ prawnych w sitemapie.
    z prawnikiem klienta.
 7. **Sąd rejestrowy** do bloku danych rejestrowych (art. 206 KSH) - nie ma go
    w odpisie z API, więc nie wpisujemy go zgadując.
+
+## 14. Wizualizacje z życiem: druga runda uwag klienta (2026-08-30)
+
+Klient powtórzył zarzut: strona nadal za ciemna, "nie robi wow", "nie zainteresowała
+mnie". Pierwsza runda (sekcja 12) rozjaśniła interfejs - luminancja 140 → 176 -
+ale nie ruszyła sedna, które wyszło z pomiaru referencji: **u Camara, Alei Drzew,
+LW i PB w każdej scenie są ludzie, słońce jest widoczne w kadrze, a kolor bierze
+się z roślin.** Naszego materiału to nie dotyczyło - wszystkie rendery dewelopera
+są puste, o zmierzchu i bez ani jednej kwitnącej rośliny. Tego nie da się
+naprawić kadrowaniem ani gradientem.
+
+Za zgodą na duże roszady wygenerowaliśmy brakujące kadry, każdy **na podstawie
+prawdziwego renderu dewelopera podanego jako referencja obrazu**, więc architektura
+(tynk, cegła na szczycie, ciemny parter, szklane balustrady, blacha na rąbek)
+została zachowana. Zmieniona jest pora dnia, zieleń i obecność ludzi.
+
+| kadr | gdzie | luminancja |
+|---|---|---|
+| osiedle w słońcu, łąka kwietna, rodzina na ścieżce | hero | 88 → 114 |
+| rodzina w ogrodzie przy palenisku | sekcja Życie | 95 → 132 |
+| salon z rodziną przy stole | galeria, pierwsza pozycja | 148 → 177 |
+| taras z hortensjami, lawendą i hamakiem | Standard + galeria | 89 → 132 |
+
+Galeria przestała otwierać się najciemniejszym renderem (elewacja frontowa, L=60)
+i prowadzi teraz kadrem tarasu z zielenią. Z zestawu wypadły dwa najciemniejsze
+ujęcia; rendery zmierzchowe dewelopera zostają jako akcent, nie jako podstawa.
+
+Hero dostał też łagodniejszy najazd Ken Burns (1,02 → 1,09 zamiast 1,06 → 1,16),
+bo mocniejszy wycinał z kadru rodzinę i promienie słońca, oraz delikatny cień pod
+paskiem nawigacji - białe menu gubiło się na jasnym niebie.
+
+### Uczciwość materiału
+
+Regulamin (§3) rozróżnia teraz dwa źródła: **wizualizacje architektury, rzuty
+lokali i plan osiedla pochodzą od dewelopera**, a **kadry pokazujące aranżację,
+zieleń i otoczenie przygotowaliśmy na ich podstawie w celach poglądowych**.
+Żadna z wygenerowanych scen nie przedstawia realnego miejsca publicznego -
+zalew, plaża i wakepark pozostają pokazane wyłącznie zdjęciem satelitarnym
+i mapą, bez generowanych "fotografii" istniejących obiektów.
+
+### Pomiar
+
+| | przed uwagami | po rundzie 1 | po rundzie 2 |
+|---|---|---|---|
+| średnia luminancja | 140 | 176 | **180** |
+| wiersze L<90 | 41,6% | 18,9% | **15,7%** |
+| piksele zielone | 3,8% | 6,0% | **6,5%** |
+| Lighthouse mobile / desktop | 86 / 99 | 85 / 99 | 83 / 99 |
+| dostępność / best practices / SEO | 100 | 100 | **100** |
+
+Dla porównania: Camar 196, Aleja Drzew 210. Zostajemy niżej świadomie - hero
+i sekcja spaceru pozostają fotograficznie ciemne, tak jak u PB Developera,
+u którego ciemne są wyłącznie krańce strony.
+
+Spadek wyniku wydajności mobilnej z 86 do 83 to LCP tekstu nagłówka, blokowanego
+wczytywaniem krojów (84 + 48 + 37 KB woff2). Hero nie mieści się nawet w siódemce
+najcięższych zasobów strony.

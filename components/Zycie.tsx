@@ -17,7 +17,7 @@ export default function Zycie() {
           <figure className="relative aspect-16/10 w-full sm:aspect-7/5 lg:aspect-3/2" data-reveal>
             <Image
               src="/renders/zycie.webp"
-              alt="Strefa wypoczynku w ogrodzie: trawnik, żywopłot i palenisko na tle sosnowego lasu"
+              alt="Rodzina w prywatnym ogrodzie: trawnik, strefa wypoczynku z paleniskiem i sosnowy las za żywopłotem"
               fill
               sizes="(max-width: 1024px) 100vw, 60vw"
               placeholder="blur"
