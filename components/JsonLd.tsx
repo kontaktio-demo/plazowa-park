@@ -1,4 +1,4 @@
-import { SITE, DEVELOPER, FAQ } from "@/lib/data/site";
+import { SITE, DEVELOPER, OPERATOR, FAQ } from "@/lib/data/site";
 import { INVESTMENT, UNITS } from "@/lib/data/units";
 
 const availabilityUrl = (s: string) =>
@@ -63,12 +63,30 @@ export default function SiteJsonLd() {
           ],
         },
         {
+          "@type": "Organization",
+          "@id": `${SITE.url}/#operator`,
+          name: OPERATOR.name,
+          url: SITE.url,
+          taxID: OPERATOR.nip,
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: OPERATOR.street,
+            addressLocality: OPERATOR.city,
+            postalCode: OPERATOR.postal,
+            addressCountry: "PL",
+          },
+          identifier: [
+            { "@type": "PropertyValue", propertyID: "KRS", value: OPERATOR.krs },
+            { "@type": "PropertyValue", propertyID: "NIP", value: OPERATOR.nip },
+          ],
+        },
+        {
           "@type": "WebSite",
           "@id": `${SITE.url}/#website`,
           url: SITE.url,
           name: "Plażowa Park",
           inLanguage: "pl-PL",
-          publisher: { "@id": `${SITE.url}/#developer` },
+          publisher: { "@id": `${SITE.url}/#operator` },
         },
         {
           "@type": "LocalBusiness",

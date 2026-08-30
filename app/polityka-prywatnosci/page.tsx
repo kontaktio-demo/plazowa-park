@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import LegalShell from "@/components/LegalShell";
-import { DEVELOPER, SITE } from "@/lib/data/site";
+import { OPERATOR, SITE } from "@/lib/data/site";
 
 const description =
   "Zasady przetwarzania danych osobowych (RODO) w serwisie Plażowa Park w Głownie: administrator, cele i podstawy prawne przetwarzania oraz prawa użytkownika.";
@@ -31,9 +31,9 @@ export default function Page() {
 
       <h2>1. Administrator danych</h2>
       <p>
-        Administratorem danych osobowych jest <strong>{DEVELOPER.name}</strong> z siedzibą w Głownie,
-        {" "}{DEVELOPER.street}, {DEVELOPER.postal} {DEVELOPER.city}, wpisana do rejestru przedsiębiorców KRS pod
-        numerem {DEVELOPER.krs}, NIP {DEVELOPER.nip} ("Administrator").
+        Administratorem danych osobowych jest <strong>{OPERATOR.name}</strong> z siedzibą w Głownie,
+        {" "}{OPERATOR.street}, {OPERATOR.postal} {OPERATOR.city}, wpisana do rejestru przedsiębiorców KRS pod
+        numerem {OPERATOR.krs}, NIP {OPERATOR.nip} ("Administrator").
       </p>
       <p>
         W sprawach dotyczących danych osobowych możesz kontaktować się z nami: e-mail{" "}
