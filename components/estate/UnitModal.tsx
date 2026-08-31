@@ -50,7 +50,7 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
           <div className="relative aspect-4/3 bg-sand-50 sm:aspect-auto sm:min-h-[420px]">
             <Image
               src={planImage(unit)}
-              alt={`Rzut mieszkania ${unit.name}, typ ${place.type}`}
+              alt={`Rzut parteru mieszkania ${unit.name}, typ ${place.type}`}
               fill
               sizes="(max-width: 640px) 100vw, 384px"
               className="object-contain p-6"

@@ -2,9 +2,14 @@ import { DEVELOPER, SITE, FINANCE_STEPS } from "@/lib/data/site";
 import { sectionEyebrow } from "@/lib/sections";
 import { Icon } from "./Icons";
 
+// Trzy sprawdzalne fakty. Wczesniej byly tu dwa twierdzenia bez pokrycia:
+// zgodnosc z ustawa deweloperska (nie potwierdzona zadnym zrodlem - nie wiadomo,
+// czy jest rachunek powierniczy i skladki na DFG) oraz dziennik budowy jako
+// rzekoma usluga dla nabywcy, podczas gdy to dokument urzedowy, a strona nie
+// pokazuje ani jednego zdjecia z budowy.
 const trust = [
-  { title: "Umowa u notariusza", desc: "Bezpieczeństwo transakcji zgodne z ustawą deweloperską." },
-  { title: "Dziennik budowy", desc: "Bieżąca dokumentacja postępu prac na osiedlu." },
+  { title: "Umowa u notariusza", desc: "Przeniesienie własności w formie aktu notarialnego." },
+  { title: "Deweloper z Głowna", desc: "Spółka z siedzibą w Głownie, dane rejestrowe poniżej." },
   { title: "Standard premium w cenie", desc: "Pompy ciepła, ogrzewanie podłogowe i materiały najwyższej jakości." },
 ];
 

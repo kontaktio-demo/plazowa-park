@@ -3,10 +3,13 @@
 import Script from "next/script";
 import { useEffect } from "react";
 import { track } from "@/lib/track";
+import { useConsent } from "@/lib/consent";
 
 const GA = process.env.NEXT_PUBLIC_GA_ID;
 
 export default function Analytics() {
+  const zgoda = useConsent();
+
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       const el = e.target as HTMLElement;
@@ -23,7 +26,8 @@ export default function Analytics() {
     return () => document.removeEventListener("click", onClick);
   }, []);
 
-  if (!GA) return null;
+  // Bez zgody na analitykę nie ładujemy niczego - polityka cookies to obiecuje.
+  if (!GA || zgoda !== "all") return null;
   return (
     <>
       <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA}`} strategy="afterInteractive" />

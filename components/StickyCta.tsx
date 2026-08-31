@@ -3,14 +3,18 @@
 import { useEffect, useState } from "react";
 import { SITE } from "@/lib/data/site";
 import { Icon } from "./Icons";
+import { useConsent } from "@/lib/consent";
 
 /**
  * Pasek pojawia się po opuszczeniu hero i znika w sekcji kontaktu, żeby nie
  * dublował formularza. Treść inna niż w headerze: header zaprasza do listy
- * lokali, pasek prowadzi wprost do zapytania.
+ * lokali, pasek prowadzi wprost do zapytania. Na telefonie baner cookies zajmuje
+ * ten sam dol ekranu, wiec do czasu decyzji pasek sie nie pokazuje - inaczej
+ * przy pierwszej wizycie glowne CTA lezalo pod banerem i bylo nieklikalne.
  */
 export default function StickyCta() {
   const [show, setShow] = useState(false);
+  const zgoda = useConsent();
 
   useEffect(() => {
     const onScroll = () => {
@@ -31,7 +35,7 @@ export default function StickyCta() {
   return (
     <div
       className={`fixed inset-x-3 bottom-0 z-50 flex gap-2.5 pb-[calc(12px+env(safe-area-inset-bottom))] transition-[opacity,transform] duration-300 lg:hidden ${
-        show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
+        show && zgoda ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
       }`}
     >
       <a

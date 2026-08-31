@@ -3,9 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { UNITS, BUILDINGS } from "@/lib/data/units";
 import { unitSlug, unitBySlug } from "@/lib/slug";
-import { pln, plnShort, area, rooms, STATUS_META } from "@/lib/format";
+import { pln, plnShort, area, rooms, STATUS_META, odmien } from "@/lib/format";
 import { schemaAvailability, unitDescription, unitMetaDescription } from "@/lib/unitCopy";
-import { planImage, unitPlace } from "@/lib/unitType";
+import { planImage, unitPlace, garageArea, livingArea } from "@/lib/unitType";
 import { SITE } from "@/lib/data/site";
 import PageHeader from "@/components/PageHeader";
 import Footer from "@/components/Footer";
@@ -133,8 +133,8 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                 shots={[
                   {
                     src: planImage(u),
-                    alt: `Rzut mieszkania ${u.name}, typ ${place.type}`,
-                    caption: `Rzut mieszkania ${u.name}`,
+                    alt: `Rzut parteru mieszkania ${u.name}, typ ${place.type}`,
+                    caption: `Rzut, parter - pełny rzut obu kondygnacji w PDF`,
                   },
                   ...galleryImgs,
                 ]}
@@ -154,7 +154,11 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
 
               <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5">
                 {[
-                  { l: "Powierzchnia", v: area(u.area) },
+                  {
+                    l: "Powierzchnia",
+                    v: garageArea(u) ? `${area(u.area)} (w tym garaż ${area(garageArea(u))})` : area(u.area),
+                  },
+                  ...(garageArea(u) ? [{ l: "Powierzchnia mieszkalna", v: area(livingArea(u)) }] : []),
                   { l: "Ogród prywatny", v: area(u.garden) },
                   { l: "Liczba pokoi", v: rooms(u.rooms) },
                   { l: "Kondygnacje", v: String(u.floors) },
@@ -188,8 +192,9 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
               )}
               {building && (
                 <p className="card t-body fg-muted mt-7 p-4 text-sm">
-                  W budynku <strong className="fg font-medium">{u.buildingLabel}</strong>: {building.count} lokali,
-                  dostępnych {building.available}, od {plnShort(building.priceFrom)}.
+                  W budynku <strong className="fg font-medium">{u.buildingLabel}</strong>:{" "}
+                  {building.count} {odmien(building.count, ["lokal", "lokale", "lokali"])}, w tym {building.available}{" "}
+                  {odmien(building.available, ["dostępny", "dostępne", "dostępnych"])}, od {plnShort(building.priceFrom)}.
                 </p>
               )}
             </div>

@@ -28,7 +28,7 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
       >
         <Image
           src={planImage(unit)}
-          alt={`Rzut mieszkania ${unit.name}, typ ${place.type}`}
+          alt={`Rzut parteru mieszkania ${unit.name}, typ ${place.type}`}
           fill
           sizes="(max-width: 640px) 40vw, (max-width: 1280px) 50vw, 30vw"
           className="object-contain p-3 sm:p-5"

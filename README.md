@@ -26,7 +26,7 @@ Podstrony: polityka prywatności, polityka cookies, regulamin. Baner cookie, JSO
 Dane lokali (metraż, cena, cena/m², liczba pokoi, status, rzuty) pochodzą z rzeczywistego konfiguratora
 dewelopera (SenseVR / Qupto, investment 214) i są zapisane w [`lib/data/units.ts`](lib/data/units.ts).
 Geometria interaktywnej mapy osiedla (obrysy i pozycje budynków) pochodzi z tego samego źródła
-([`public/estate-map.json`](public/estate-map.json)). Treści i fakty: [`lib/data/site.ts`](lib/data/site.ts).
+([`lib/data/estate-orbit.json`](lib/data/estate-orbit.json)). Treści i fakty: [`lib/data/site.ts`](lib/data/site.ts).
 
 Od dewelopera pochodzą: obrotowy plan osiedla (`public/dollhouse`), kadry budynków
 (`public/osiedle`), rzuty lokali (`public/unit-views`), mapka okolicy (`public/map`) i spacer 360.
@@ -44,18 +44,15 @@ npm run build && npm run start
 
 ### Formularz leadów
 
-`POST /api/lead` waliduje i loguje zgłoszenia. Aby włączyć wysyłkę e-mail, ustaw zmienne środowiskowe:
+Formularz wysyła zgłoszenie **prosto z przeglądarki** do **Web3Forms**, który przekazuje je
+na skrzynkę biura sprzedaży. Nie ma własnego endpointu po stronie serwera - katalog `app/api`
+nie istnieje. Klucz dostępu jest z założenia publiczny (Web3Forms podaje go we własnych
+przykładach po stronie klienta), więc siedzi w kodzie i **przepięcie domeny nie wymaga żadnej
+zmiennej środowiskowej**. Odbiorcę, ochronę antyspamową i autorespondera ustawia się w panelu
+Web3Forms.
 
-Zgłoszenia z `POST /api/lead` idą do **Web3Forms**, który przekazuje je na skrzynkę
-biura sprzedaży. Klucz dostępu jest z założenia publiczny (Web3Forms podaje go we
-własnych przykładach po stronie klienta), więc siedzi w kodzie i **przepięcie domeny
-nie wymaga żadnej zmiennej środowiskowej**. Odbiorcę, ochronę antyspamową
-i autorespondera ustawia się w panelu Web3Forms.
-
-Endpoint zachowuje własną warstwę zabezpieczeń przed przekazaniem dalej: limit pięciu
-zgłoszeń na adres IP w oknie dziesięciu minut, honeypot, walidację pól i zapis zgody
-RODO. Każdy lead trafia dodatkowo do logów serwera, więc nie ginie nawet gdy dostawca
-odmówi.
+Po stronie strony zostaje honeypot, walidacja pól i wymagana zgoda RODO. Nie ma limitu zgłoszeń
+na adres IP ani drugiej kopii leada w logach serwera - jedynym rejestrem jest panel Web3Forms.
 
 Opcjonalne zmienne:
 

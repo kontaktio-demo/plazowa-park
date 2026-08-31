@@ -91,7 +91,7 @@ export default function VirtualTour() {
 
   return (
     <section id="spacer" ref={wrapRef} className="band band-abyss relative min-h-svh w-full overflow-hidden">
-      <WaveEdge from="var(--color-sand-50)" />
+      <WaveEdge from="var(--color-sand-200)" />
 
       {active ? (
         <>

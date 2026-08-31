@@ -120,7 +120,7 @@ export function unitDescription(u: Unit): string[] {
   ];
 
   const valueV = [
-    `Poddasze jest wliczone w cenę, ale nie w metraż, więc realnie zyskujesz przestrzeń ponad ${A} do własnej aranżacji. Ogród i taras stają się przedłużeniem salonu wiosną i latem, a ${R} rozłożone na ${u.floors} kondygnacjach daje wygodny podział na strefę dzienną i prywatną.`,
+    `Poddasze jest wliczone w cenę, ale nie w metraż, więc realnie zyskujesz przestrzeń ponad ${A} do własnej aranżacji. Ogród i taras stają się przedłużeniem salonu wiosną i latem, a rozkład na ${u.floors} kondygnacjach oddziela strefę dzienną od prywatnej.`,
     `W cenie ${P} otrzymujesz nie tylko ${A} i ${R}, ale też adaptowalne poddasze poza metrażem oraz prywatny ogród ${G} - to wymierna wartość względem mieszkań bez własnej zieleni, a dwa miejsca postojowe rozwiązują codzienny problem parkowania.`,
     `Przy cenie ${PM}/m² mieszkanie ${u.name} łączy prywatny ogród, taras i poddasze w cenie z energooszczędnym standardem, dzięki czemu koszty utrzymania pozostają niskie. To rzadkie połączenie metrażu ${A}, zieleni na wyłączność i dojazdu do centrum Łodzi w granicach 32 km.`,
   ];

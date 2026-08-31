@@ -1,18 +1,20 @@
 /**
  * Podmiana rodziny na renderze hero.
  *
- * W oryginale od dewelopera postacie mają zepsutą anatomię - dziecku wyrasta
- * z głowy czerwony kształt, a dłonie rodziców zlewają się w jedną plamę - i są
- * wyraźnie bardziej rozmyte niż architektura. Bryła budynku musi zostać
- * nietknięta, więc nie da się przepuścić całego kadru przez generator: każdy
- * model przekomponowuje scenę. Stąd ta operacja:
+ * Wejściowy kadr hero jest naszą wcześniejszą wersją (commit 49e7c22), wygenerowaną
+ * z renderu dewelopera jako referencji obrazu - sam deweloper nie ma renderów z ludźmi.
+ * W tamtej wersji dziecku wyrastał z głowy czerwony kształt, dłonie rodziców zlewały
+ * się w plamę, a postacie były wyraźnie bardziej rozmyte niż architektura.
+ *
+ * Bryły budynku nie da się puścić przez generator: każdy model przekomponowuje scenę
+ * i podmienia projekt. Stąd ta operacja:
  *
  *   1. tło po starych postaciach łatamy materiałem z tego samego kadru
  *      (pas elewacji i kwiatów z lewej, żwir z dołu),
  *   2. wklejamy wycięte sylwetki w skali i na linii gruntu oryginału,
  *   3. dokładamy miękkie cienie kontaktowe, bo wycinanie tła je zabrało.
  *
- * Wejście: .hero-src/ (oryginał dewelopera i wycięta rodzina, poza repozytorium).
+ * Wejście: .hero-src/ (poprzednia wersja kadru i wycięta rodzina, poza repozytorium).
  * Wyjście: public/renders/hero.webp
  */
 import sharp from "sharp";
