@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 /**
  * Jedno źródło decyzji o cookies. Wcześniej klucz znał wyłącznie baner, a
@@ -32,16 +32,24 @@ export function saveConsent(value: Exclude<Zgoda, null>) {
   window.dispatchEvent(new CustomEvent(CONSENT_EVENT, { detail: value }));
 }
 
-/** null dopóki użytkownik nie zdecydował; `undefined` przed pierwszym odczytem. */
+function subskrybuj(powiadom: () => void) {
+  window.addEventListener(CONSENT_EVENT, powiadom);
+  window.addEventListener("storage", powiadom);
+  return () => {
+    window.removeEventListener(CONSENT_EVENT, powiadom);
+    window.removeEventListener("storage", powiadom);
+  };
+}
+
+/**
+ * null dopóki użytkownik nie zdecydował; `undefined` na serwerze i w hydracji.
+ * Zgoda jest stanem spoza Reacta, więc czyta ją useSyncExternalStore - dzięki
+ * temu decyzja z jednej karty dociera też do pozostałych.
+ */
 export function useConsent(): Zgoda | undefined {
-  const [zgoda, setZgoda] = useState<Zgoda | undefined>(undefined);
-
-  useEffect(() => {
-    setZgoda(readConsent());
-    const onZmiana = (e: Event) => setZgoda((e as CustomEvent<Zgoda>).detail ?? readConsent());
-    window.addEventListener(CONSENT_EVENT, onZmiana);
-    return () => window.removeEventListener(CONSENT_EVENT, onZmiana);
-  }, []);
-
-  return zgoda;
+  return useSyncExternalStore(
+    subskrybuj,
+    readConsent,
+    () => undefined
+  );
 }

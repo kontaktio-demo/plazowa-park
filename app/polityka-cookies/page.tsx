@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <LegalShell title="Polityka cookies" updated="29 sierpnia 2026">
+    <LegalShell title="Polityka cookies" updated="31 sierpnia 2026">
       <p>
         Serwis <strong>plazowa-park.pl</strong> korzysta z plików cookie i podobnych technologii, w tym z pamięci
         lokalnej przeglądarki. Sam Serwis nie zapisuje na Twoim urządzeniu plików cookie; w pamięci lokalnej

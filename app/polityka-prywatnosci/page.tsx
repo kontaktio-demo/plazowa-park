@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <LegalShell title="Polityka prywatności" updated="29 sierpnia 2026">
+    <LegalShell title="Polityka prywatności" updated="31 sierpnia 2026">
       <p>
         Niniejsza Polityka prywatności opisuje zasady przetwarzania danych osobowych osób korzystających z serwisu
         internetowego <strong>plazowa-park.pl</strong> (&quot;Serwis&quot;) oraz kontaktujących się z nami w sprawie inwestycji

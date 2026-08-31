@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <LegalShell title="Regulamin serwisu" updated="29 sierpnia 2026">
+    <LegalShell title="Regulamin serwisu" updated="31 sierpnia 2026">
       <h2>§1. Postanowienia ogólne</h2>
       <p>
         Niniejszy Regulamin określa zasady korzystania z serwisu internetowego dostępnego pod adresem
