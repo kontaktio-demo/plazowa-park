@@ -48,7 +48,6 @@ export type NavItem = { label: string; href: string };
 export const NAV: NavItem[] = [
   { label: "Osiedle", href: "#osiedle" },
   { label: "Mieszkania i domy", href: "#mieszkania-i-domy" },
-  { label: "Galeria", href: "#galeria" },
   { label: "Spacer 360", href: "#spacer" },
   { label: "Standard", href: "#standard" },
   { label: "Okolica", href: "#okolica" },

@@ -28,10 +28,11 @@ dewelopera (SenseVR / Qupto, investment 214) i są zapisane w [`lib/data/units.t
 Geometria interaktywnej mapy osiedla (obrysy i pozycje budynków) pochodzi z tego samego źródła
 ([`public/estate-map.json`](public/estate-map.json)). Treści i fakty: [`lib/data/site.ts`](lib/data/site.ts).
 
-Deweloper ma wyłącznie zmierzchowe rendery elewacji i jeden render salonu, więc kadry z zielenią,
-ludźmi i wnętrzami powstały z jego renderów użytych jako referencja obrazu. Pochodzenie każdego kadru
-trzyma pole `zrodlo` w `lib/data/gallery.ts`; użytkownik widzi je w nocie nad siatką galerii, w podpisie
-po powiększeniu oraz w klauzuli w stopce i regulaminie.
+Od dewelopera pochodzą: obrotowy plan osiedla (`public/dollhouse`), kadry budynków
+(`public/osiedle`), rzuty lokali (`public/unit-views`), mapka okolicy (`public/map`) i spacer 360.
+Trzy kadry powstały z jego renderów użytych jako referencja obrazu, bo deweloper ma wyłącznie
+zmierzchowe ujęcia bez zieleni i bez ludzi: `renders/hero.webp`, `renders/zycie.webp` oraz
+`galeria/taras-ogrod.webp`. Mają charakter poglądowy, co mówi klauzula w stopce i regulamin.
 
 ## Uruchomienie
 
