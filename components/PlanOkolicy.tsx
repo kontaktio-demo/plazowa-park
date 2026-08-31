@@ -60,7 +60,7 @@ export default function PlanOkolicy() {
                     doLewej ? "right-3" : "left-3"
                   }`}
                 >
-                  <p className="t-meta-sm fg-accent normal-case">{p.name}</p>
+                  <p className="t-meta-sm fg-accent">{p.name}</p>
                   <p className="t-body fg-muted mt-1 text-pretty">{p.desc}</p>
                 </div>
               )}
@@ -69,7 +69,7 @@ export default function PlanOkolicy() {
         })}
       </div>
 
-      <figcaption className="t-meta-sm fg-muted border-t border-(--band-line) px-4 py-3 normal-case">
+      <figcaption className="t-meta-sm fg-muted border-t border-(--band-line) px-4 py-3">
         Plan poglądowy okolicy Zalewu Mrożyczka. Najedź na punkt albo go dotknij, żeby zobaczyć opis.
       </figcaption>
     </figure>

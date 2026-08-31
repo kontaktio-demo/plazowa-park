@@ -57,7 +57,7 @@ export default function Osiedle() {
                   />
                   <span className="bd absolute left-3 top-3 flex items-center gap-1.5 border bg-sand-50/95 px-2 py-1">
                     <span className="status-dot" style={{ background: STATUS_META[s].color }} />
-                    <span className="t-meta-sm normal-case">Budynek {b.label}</span>
+                    <span className="t-meta-sm">Budynek {b.label}</span>
                   </span>
                 </span>
 
@@ -67,7 +67,7 @@ export default function Osiedle() {
                       {b.count} {b.count >= 2 && b.count <= 4 ? "lokale" : "lokali"} ·{" "}
                       {b.areaFrom.toLocaleString("pl-PL")}-{b.areaTo.toLocaleString("pl-PL")} m²
                     </span>
-                    <span className="t-meta-sm fg-muted mt-1 block normal-case">
+                    <span className="t-meta-sm fg-muted mt-1 block">
                       {b.available} {b.available === 1 ? "wolny" : "wolnych"}
                     </span>
                   </span>

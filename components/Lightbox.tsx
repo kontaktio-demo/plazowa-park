@@ -141,7 +141,7 @@ export default function Lightbox({
           <span className="num">
             {index + 1} / {shots.length}
           </span>
-          {shot.caption ? <span className="fg ml-3 normal-case">{shot.caption}</span> : null}
+          {shot.caption ? <span className="fg ml-3">{shot.caption}</span> : null}
         </p>
         <div className="flex flex-none items-center gap-1">
           <Ctl label="Pomniejsz" onClick={() => zoomAt(1 / 1.4, innerWidth / 2, innerHeight / 2)} disabled={z.s <= MIN}>
