@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
       {
         // Długi cache dla stabilnych assetów (klatki obrotu, rendery, rzuty
         // lokali, mapy) - powstają raz i praktycznie się nie zmieniają.
-        source: "/:folder(orbit|renders|unit-views|map|brand)/:path*",
+        source: "/:folder(dollhouse|osiedle|galeria|renders|unit-views|map|brand)/:path*",
         headers: [
           { key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" },
         ],

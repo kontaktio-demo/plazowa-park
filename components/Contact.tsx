@@ -99,7 +99,7 @@ export default function Contact() {
 
   return (
     <section id="kontakt" className="band band-abyss sec relative">
-      <WaveEdge from="var(--color-sand-200)" />
+      <WaveEdge from="var(--color-sand-50)" />
 
       <div className="wrap grid gap-12 lg:grid-cols-[45fr_55fr] lg:gap-16">
         <div>

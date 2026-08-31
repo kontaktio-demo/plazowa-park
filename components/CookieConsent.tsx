@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-
-const KEY = "pp-cookie-consent-v1";
+import { readConsent, saveConsent } from "@/lib/consent";
 
 export default function CookieConsent() {
   const [show, setShow] = useState(false);
@@ -11,7 +10,7 @@ export default function CookieConsent() {
   useEffect(() => {
     let t = 0;
     try {
-      if (!localStorage.getItem(KEY)) t = window.setTimeout(() => setShow(true), 800);
+      if (!readConsent()) t = window.setTimeout(() => setShow(true), 800);
     } catch {
       /* ignore */
     }
@@ -19,11 +18,7 @@ export default function CookieConsent() {
   }, []);
 
   const decide = (value: "all" | "essential") => {
-    try {
-      localStorage.setItem(KEY, JSON.stringify({ value, ts: Date.now() }));
-    } catch {
-      /* ignore */
-    }
+    saveConsent(value);
     setShow(false);
   };
 

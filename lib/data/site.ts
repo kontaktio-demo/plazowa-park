@@ -105,7 +105,7 @@ export const MAPA_PUNKTY = [
   { x: 72, y: 45, name: "Central Wake Park", desc: "Najważniejsze miejsce na wakeboardowej mapie Polski, w sąsiedztwie osiedla." },
   { x: 28, y: 64, name: "Plaża i molo", desc: "Piaszczysta plaża z molo po zachodniej stronie zalewu." },
   { x: 15, y: 47, name: "Przystań", desc: "Przystań przy zachodnim brzegu zbiornika." },
-  { x: 62, y: 58, name: "Park linowy", desc: "Park linowy przy brzegu zalewu." },
+  { x: 62, y: 58, name: "Park linowy", desc: "Park linowy przy brzegu zalewu. Status na bieżący sezon potwierdza operator obiektu." },
   { x: 40, y: 82, name: "Wydmy śródlądowe", desc: "Unikalny w województwie łódzkim zespół wydm śródlądowych." },
 ] as const;
 

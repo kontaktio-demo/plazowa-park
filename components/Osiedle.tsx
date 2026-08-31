@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { BUILDINGS, INVESTMENT } from "@/lib/data/units";
-import { plnShort, STATUS_META } from "@/lib/format";
+import { plnShort, STATUS_META, odmien } from "@/lib/format";
 import { selectBuilding } from "@/lib/selectUnit";
 import { sectionEyebrow } from "@/lib/sections";
 
@@ -64,11 +64,11 @@ export default function Osiedle() {
                 <span className="flex items-end justify-between gap-4 p-4 sm:p-5">
                   <span>
                     <span className="block font-medium">
-                      {b.count} {b.count >= 2 && b.count <= 4 ? "lokale" : "lokali"} ·{" "}
+                      {b.count} {odmien(b.count, ["lokal", "lokale", "lokali"])} ·{" "}
                       {b.areaFrom.toLocaleString("pl-PL")}-{b.areaTo.toLocaleString("pl-PL")} m²
                     </span>
                     <span className="t-meta-sm fg-muted mt-1 block">
-                      {b.available} {b.available === 1 ? "wolny" : "wolnych"}
+                      {b.available} {odmien(b.available, ["wolny", "wolne", "wolnych"])}
                     </span>
                   </span>
                   <span className="t-meta-sm fg-accent num flex-none">od {plnShort(b.priceFrom)}</span>
