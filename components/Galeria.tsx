@@ -15,7 +15,11 @@ export default function Galeria() {
 
   const grupa = (id: Kategoria) => GALLERY.filter((g) => g.cat === id);
   const shots = open
-    ? grupa(open.cat).map((g) => ({ src: shotSrc(g.file), alt: g.alt, caption: g.caption }))
+    ? grupa(open.cat).map((g) => ({
+        src: shotSrc(g.file),
+        alt: g.alt,
+        caption: g.zrodlo === "na-podstawie" ? `${g.caption} · na podstawie renderu dewelopera` : g.caption,
+      }))
     : [];
 
   return (
@@ -48,6 +52,15 @@ export default function Galeria() {
             </button>
           ))}
         </div>
+
+        {/* Kupujący ogląda galerię, a nie regulamin, więc zakres tego, co widzi,
+            musi być napisany przy samych kadrach. Wnętrza pokazują aranżację
+            spoza zakresu sprzedaży - bez tej noty obiecywałyby wykończenie. */}
+        {KATEGORIE.map((k) => (
+          <p key={`${k.id}-nota`} hidden={cat !== k.id} className="t-body fg-muted mt-5 max-w-2xl text-pretty">
+            {k.nota}
+          </p>
+        ))}
 
         {/* obie siatki zostają w HTML - nieaktywna jest tylko ukryta, więc kadry
             wnętrz są widoczne dla wyszukiwarek, a leniwe ładowanie i tak nie
