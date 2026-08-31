@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
+import { Newsreader, Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import { SITE } from "@/lib/data/site";
 import SiteMotion from "@/components/SiteMotion";
@@ -7,33 +7,23 @@ import CookieConsent from "@/components/CookieConsent";
 import JsonLd from "@/components/JsonLd";
 import Analytics from "@/components/Analytics";
 
-// Inter Tight w nagłówkach - twardy, wąski grotesk z pierwszej wersji strony.
-// Pinujemy wagi: zmienny krój ciągnąłby cały zakres 100-900, a używamy 600.
-const interTight = Inter_Tight({
-  variable: "--font-inter-tight",
+// Nagłówki: editorialny szeryf. Wagi przypięte - krój zmienny ciągnąłby cały
+// zakres 200-900 (128 kB na subset), a nagłówki używają wyłącznie 600.
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin", "latin-ext"],
   weight: ["600"],
   display: "swap",
 });
 
-// 400 i 500 wystarczaja: waga 600 wystepuje wylacznie na nagłówkach, a te sa
-// skladane Inter Tight, nie Interem
-const inter = Inter({
-  variable: "--font-inter",
+// Tekst, etykiety i liczby. Wcześniej etykiety szły monospaced JetBrains Mono -
+// wygląd narzędzia deweloperskiego, do tego trzeci krój na ścieżce krytycznej.
+const instrument = Instrument_Sans({
+  variable: "--font-instrument",
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
-
-// mono obsługuje wyłącznie drobne etykiety, więc nie wchodzi na ścieżkę krytyczną
-const jetbrains = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin", "latin-ext"],
-  weight: ["400", "500"],
-  display: "swap",
-  preload: false,
-});
-
 const description =
   "Nowe mieszkania i domy 82-133 m² z ogrodem i tarasem nad Zalewem Mrożyczka w Głownie. Blisko lasu i Central Wake Park. Ceny od 633 000 zł. Sprawdź dostępne lokale.";
 
@@ -106,7 +96,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pl" className={`${interTight.variable} ${inter.variable} ${jetbrains.variable}`}>
+    <html lang="pl" className={`${newsreader.variable} ${instrument.variable}`}>
       <body>
         <JsonLd />
         <Analytics />
