@@ -45,7 +45,7 @@ export default function Okolica() {
               <li key={d.name} className="bd border-b py-4">
                 <span className="t-display-m num block leading-none">{d.value}</span>
                 <span className="mt-2 block font-medium">{d.name}</span>
-                <span className="t-meta-sm fg-muted mt-1 block normal-case">{d.note}</span>
+                <span className="t-meta-sm fg-muted mt-1 block">{d.note}</span>
               </li>
             ))}
           </ul>

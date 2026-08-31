@@ -207,7 +207,7 @@ export default function EstateMap({
               tabIndex={-1}
             >
               <span
-                className={`t-meta-sm flex items-center gap-1.5 whitespace-nowrap border px-2 py-1 normal-case transition-colors ${
+                className={`t-meta-sm flex items-center gap-1.5 whitespace-nowrap border px-2 py-1 transition-colors ${
                   active
                     ? "border-clay-900 bg-clay-900 text-sand-50"
                     : "border-ink/15 bg-sand-50/95 text-ink"

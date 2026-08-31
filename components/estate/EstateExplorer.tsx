@@ -107,7 +107,7 @@ export default function EstateExplorer() {
                     type="button"
                     aria-pressed={building === b.stageId}
                     onClick={() => onMapSelect(building === b.stageId ? null : b.stageId)}
-                    className="chip flex-none snap-start normal-case"
+                    className="chip flex-none snap-start"
                     aria-label={`Budynek ${b.label}, ${b.available} dostępnych`}
                   >
                     Budynek {b.label}

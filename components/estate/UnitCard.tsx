@@ -42,7 +42,11 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
           <span className="status-dot" style={{ background: s.color }} />
           {s.label}
         </span>
-        <h3 className="t-title mt-1.5 text-[1.15rem] sm:text-[1.375rem]">Mieszkanie {unit.name}</h3>
+        <h3 className="t-title mt-1.5 text-[1.15rem] sm:text-[1.375rem]">
+          <Link href={`/mieszkania-i-domy/${unitSlug(unit.name)}`} className="hover:text-(--band-accent)">
+            Mieszkanie {unit.name}
+          </Link>
+        </h3>
 
         <UnitPosition unit={unit} className="mt-3 max-w-40 sm:mt-4 sm:max-w-none" />
 
@@ -64,11 +68,14 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
           </div>
         </div>
 
+        {/* Wyrozniony jest podglad lokalu, nie zapytanie: zapytanie przewija na
+            formularz na koncu strony, wiec jako dominujaca akcja karty wygladalo
+            jak wyrzucenie uzytkownika z listy. */}
         <div className="mt-3 flex gap-2.5 sm:mt-4">
-          <button onClick={() => onOpen(unit)} className="btn btn-ghost btn-sm flex-1">
+          <button onClick={() => onOpen(unit)} className="btn btn-solid btn-sm flex-1">
             Szczegóły
           </button>
-          <button onClick={() => selectUnit(`Mieszkanie ${unit.name}`)} className="btn btn-solid btn-sm flex-1">
+          <button onClick={() => selectUnit(`Mieszkanie ${unit.name}`)} className="btn btn-ghost btn-sm flex-1">
             Zapytaj <Icon.arrow width={16} height={16} className="hidden sm:block" />
           </button>
         </div>
