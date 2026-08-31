@@ -28,8 +28,10 @@ dewelopera (SenseVR / Qupto, investment 214) i są zapisane w [`lib/data/units.t
 Geometria interaktywnej mapy osiedla (obrysy i pozycje budynków) pochodzi z tego samego źródła
 ([`public/estate-map.json`](public/estate-map.json)). Treści i fakty: [`lib/data/site.ts`](lib/data/site.ts).
 
-Wizualizacje wnętrz i część ujęć zewnętrznych wygenerowano narzędziami Higgsfield **na podstawie realnych
-renderów inwestycji** - mają charakter poglądowy (oznaczone w stopce i galerii).
+Deweloper ma wyłącznie zmierzchowe rendery elewacji i jeden render salonu, więc kadry z zielenią,
+ludźmi i wnętrzami powstały z jego renderów użytych jako referencja obrazu. Pochodzenie każdego kadru
+trzyma pole `zrodlo` w `lib/data/gallery.ts`; użytkownik widzi je w nocie nad siatką galerii, w podpisie
+po powiększeniu oraz w klauzuli w stopce i regulaminie.
 
 ## Uruchomienie
 
