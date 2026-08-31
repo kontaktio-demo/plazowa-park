@@ -41,7 +41,7 @@ export default function VirtualTour() {
       if (disposed || !stageRef.current) return;
 
       const viewer = new Marzipano.Viewer(stageRef.current, {
-        controls: { mouseViewMode: "drag" },
+        controls: { mouseViewMode: "drag", scrollZoom: false },
         stage: { progressive: true },
       });
       viewerRef.current = viewer;
@@ -82,6 +82,20 @@ export default function VirtualTour() {
     setIndex(n);
   }, []);
 
+  const zamknij = useCallback(() => {
+    if (document.fullscreenElement) document.exitFullscreen?.();
+    setActive(false);
+    setReady(false);
+  }, []);
+
+  // bez tego spacer był pułapką: po wejściu nie było ani przycisku, ani skrótu
+  useEffect(() => {
+    if (!active) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") zamknij(); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [active, zamknij]);
+
   const fullscreen = useCallback(() => {
     const el = wrapRef.current;
     if (!el) return;
@@ -113,6 +127,17 @@ export default function VirtualTour() {
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M8 21H5a2 2 0 0 1-2-2v-3M16 21h3a2 2 0 0 0 2-2v-3" />
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              onClick={zamknij}
+              aria-label="Zakończ spacer"
+              className="pointer-events-auto absolute right-5 top-[calc(var(--nav-h)+72px)] flex h-11 w-11 items-center justify-center border border-sand-50/25 bg-abyss/40 backdrop-blur-md transition-colors hover:border-clay-300"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+                <path d="M18 6 6 18M6 6l12 12" />
               </svg>
             </button>
 
