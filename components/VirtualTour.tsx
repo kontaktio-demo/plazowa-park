@@ -182,9 +182,6 @@ export default function VirtualTour() {
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M8 5.5v13l11-6.5z" /></svg>
                 Rozpocznij spacer 360
               </button>
-              <a href="#galeria" className="btn btn-ghost border-sand-50/40 px-8 py-5 text-base">
-                Zobacz wnętrze
-              </a>
             </div>
             <p className="t-meta-sm fg-muted mt-6 [text-shadow:0_1px_14px_var(--color-abyss)]">
               {SCENES.length} ujęć · przejdź uliczką osiedla i wejdź do własnego ogrodu

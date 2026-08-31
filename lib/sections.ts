@@ -2,7 +2,6 @@
 const ETYKIETY: Record<string, string> = {
   osiedle: "Osiedle",
   "mieszkania-i-domy": "Mieszkania i domy",
-  galeria: "Galeria",
   spacer: "Spacer 360",
   standard: "Standard",
   zycie: "Życie",

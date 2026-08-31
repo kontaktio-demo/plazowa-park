@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Newsreader, Instrument_Sans } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { SITE } from "@/lib/data/site";
 import SiteMotion from "@/components/SiteMotion";
@@ -7,23 +7,23 @@ import CookieConsent from "@/components/CookieConsent";
 import JsonLd from "@/components/JsonLd";
 import Analytics from "@/components/Analytics";
 
-// Nagłówki: editorialny szeryf. Wagi przypięte - krój zmienny ciągnąłby cały
-// zakres 200-900 (128 kB na subset), a nagłówki używają wyłącznie 600.
-const newsreader = Newsreader({
-  variable: "--font-newsreader",
+// Space Grotesk w nagłówkach i w drobnych etykietach, Inter w tekście ciągłym.
+// Etykiety szły wcześniej monospaced JetBrains Mono - wersaliki w kroju o stałej
+// szerokości robiły się ciasne i techniczne, a był to trzeci krój w projekcie.
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin", "latin-ext"],
-  weight: ["600"],
+  weight: ["500", "600"],
   display: "swap",
 });
 
-// Tekst, etykiety i liczby. Wcześniej etykiety szły monospaced JetBrains Mono -
-// wygląd narzędzia deweloperskiego, do tego trzeci krój na ścieżce krytycznej.
-const instrument = Instrument_Sans({
-  variable: "--font-instrument",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500"],
   display: "swap",
 });
+
 const description =
   "Nowe mieszkania i domy 82-133 m² z ogrodem i tarasem nad Zalewem Mrożyczka w Głownie. Blisko lasu i Central Wake Park. Ceny od 633 000 zł. Sprawdź dostępne lokale.";
 
@@ -96,7 +96,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pl" className={`${newsreader.variable} ${instrument.variable}`}>
+    <html lang="pl" className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <body>
         <JsonLd />
         <Analytics />
