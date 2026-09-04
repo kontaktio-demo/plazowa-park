@@ -77,8 +77,7 @@ export default function EstateExplorer() {
 
           <div className="flex min-w-0 flex-col justify-between gap-9">
             <p className="t-body-l fg-muted max-w-xl text-pretty">
-              Kliknij budynek na planie osiedla albo filtruj po metrażu i liczbie pokoi. Ceny i dostępność
-              pochodzą z bieżącego konfiguratora dewelopera.
+              Kliknij budynek na planie osiedla albo filtruj po metrażu i liczbie pokoi.
             </p>
 
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">

@@ -276,10 +276,6 @@ export default function VirtualTour() {
                 Spacer po osiedlu
               </button>
             </div>
-            <p className="t-meta-sm fg-muted mt-6 [text-shadow:0_1px_14px_var(--color-abyss)]">
-              {WNETRZA[typ]?.scenes.length ?? 0} ujęć wewnątrz lokalu i {OSIEDLE.scenes.length} na osiedlu ·
-              {" "}materiał dewelopera, sześć układów do wyboru
-            </p>
           </div>
         </>
       )}
