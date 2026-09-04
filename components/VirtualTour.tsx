@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import tour from "@/lib/data/tour360.json";
+import wnetrza from "@/lib/data/tour-wnetrza.json";
+import { UNITS } from "@/lib/data/units";
 import { sectionEyebrow } from "@/lib/sections";
 import { BLUR } from "@/lib/blur";
 import { track } from "@/lib/track";
@@ -16,9 +18,38 @@ type SceneCfg = {
   initialViewParameters: { yaw: number; pitch: number; fov: number };
 };
 
-const SCENES = tour.scenes as SceneCfg[];
+type Tour = { base: string; scenes: SceneCfg[] };
+
+const OSIEDLE = tour as Tour;
+const WNETRZA = wnetrza as Record<string, Tour>;
+
+/**
+ * Deweloper ma osobny spacer po wnętrzu dla każdego z sześciu typów lokalu.
+ * Podpisujemy je metrażem i liczbą pokoi, bo sam kod typu nic nabywcy nie mówi.
+ */
+const TYPY = Object.keys(WNETRZA)
+  .sort()
+  .map((typ) => {
+    const u = UNITS.find((x) => {
+      const reszta = x.name.split(".")[1] ?? "";
+      return reszta.slice(0, -1) + reszta.slice(-1) === typ;
+    });
+    return {
+      typ,
+      opis: u ? `${Math.round(u.area)} m², ${u.rooms} pokoje` : "",
+    };
+  });
+
+// nazwy scen przychodzą od dewelopera z niedomkniętymi spacjami i prefiksem
+// [WIZ] przy ujęciach z aranżacją - prostujemy je, ale nic nie ukrywamy
+const etykieta = (s: SceneCfg) => {
+  const czysta = s.name.replace(/^\[WIZ\]\s*/, "").trim();
+  return s.name.includes("[WIZ]") ? `${czysta} · aranżacja` : czysta;
+};
 
 export default function VirtualTour() {
+  const [tryb, setTryb] = useState<"osiedle" | "wnetrze">("wnetrze");
+  const [typ, setTyp] = useState(TYPY[0]?.typ ?? "1A");
   const [active, setActive] = useState(false);
   const [ready, setReady] = useState(false);
   const [index, setIndex] = useState(0);
@@ -29,6 +60,9 @@ export default function VirtualTour() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const sceneObjsRef = useRef<any[]>([]);
   const indexRef = useRef(0);
+
+  const aktywny = tryb === "osiedle" ? OSIEDLE : (WNETRZA[typ] ?? OSIEDLE);
+  const SCENES = aktywny.scenes;
 
   useEffect(() => {
     if (!active || !stageRef.current) return;
@@ -48,8 +82,8 @@ export default function VirtualTour() {
 
       sceneObjsRef.current = SCENES.map((data) => {
         const source = Marzipano.ImageUrlSource.fromString(
-          `${tour.base}/tiles/${data.id}/{z}/{f}/{y}/{x}.jpg`,
-          { cubeMapPreviewUrl: `${tour.base}/tiles/${data.id}/preview.jpg` }
+          `${aktywny.base}/tiles/${data.id}/{z}/{f}/{y}/{x}.jpg`,
+          { cubeMapPreviewUrl: `${aktywny.base}/tiles/${data.id}/preview.jpg` }
         );
         const geometry = new Marzipano.CubeGeometry(data.levels);
         const limiter = Marzipano.RectilinearView.limit.traditional(data.faceSize, (100 * Math.PI) / 180);
@@ -58,6 +92,8 @@ export default function VirtualTour() {
         return { scene, view };
       });
 
+      indexRef.current = 0;
+      setIndex(0);
       sceneObjsRef.current[0].scene.switchTo();
       setReady(true);
     })();
@@ -70,7 +106,7 @@ export default function VirtualTour() {
       viewerRef.current = null;
       sceneObjsRef.current = [];
     };
-  }, [active]);
+  }, [active, aktywny]);
 
   const goTo = useCallback((delta: number) => {
     const n = (indexRef.current + delta + SCENES.length) % SCENES.length;
@@ -80,7 +116,7 @@ export default function VirtualTour() {
     obj.view.setParameters(SCENES[n].initialViewParameters);
     obj.scene.switchTo({ transitionDuration: 900 });
     setIndex(n);
-  }, []);
+  }, [SCENES]);
 
   const zamknij = useCallback(() => {
     if (document.fullscreenElement) document.exitFullscreen?.();
@@ -141,6 +177,26 @@ export default function VirtualTour() {
               </svg>
             </button>
 
+            {tryb === "wnetrze" && (
+              <div className="pointer-events-auto absolute inset-x-0 top-[calc(var(--nav-h)+16px)] flex justify-center px-5">
+                <div className="no-scrollbar flex max-w-full items-center gap-1 overflow-x-auto border border-sand-50/20 bg-abyss/55 p-1 backdrop-blur-md">
+                  {TYPY.map((t) => (
+                    <button
+                      key={t.typ}
+                      type="button"
+                      onClick={() => setTyp(t.typ)}
+                      aria-pressed={typ === t.typ}
+                      className={`flex-none px-3 py-2 text-sm transition-colors ${
+                        typ === t.typ ? "bg-sun text-ink" : "hover:text-clay-300"
+                      }`}
+                    >
+                      {t.typ}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div className="pointer-events-auto absolute inset-x-0 bottom-6 flex justify-center px-5">
               <div className="flex items-center gap-1 border border-sand-50/20 bg-abyss/55 p-1 backdrop-blur-md">
                 <button
@@ -152,7 +208,7 @@ export default function VirtualTour() {
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
                 </button>
                 <div className="min-w-[10rem] px-3 text-center sm:min-w-[14rem]">
-                  <div className="truncate text-sm font-medium">{SCENES[index].name}</div>
+                  <div className="truncate text-sm font-medium">{etykieta(SCENES[index])}</div>
                   <div className="t-meta-sm fg-muted num mt-1">
                     {index + 1} / {SCENES.length}
                   </div>
@@ -193,23 +249,36 @@ export default function VirtualTour() {
           <div className="wrap relative flex min-h-svh flex-col items-center justify-center py-20 text-center sm:py-24">
             <p className="eyebrow [text-shadow:0_1px_14px_var(--color-abyss)]">{sectionEyebrow("spacer")}</p>
             <h2 className="t-display-l mt-6 max-w-3xl text-balance [text-shadow:0_2px_26px_var(--color-abyss)]">
-              Przejdź się osiedlem <span className="fg-accent">zanim powstanie</span>
+              Wejdź do środka <span className="fg-accent">zanim powstanie</span>
             </h2>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
               <button
                 type="button"
                 onClick={() => {
+                  setTryb("wnetrze");
                   setActive(true);
                   track("view_360");
                 }}
                 className="btn btn-sun px-8 py-5 text-base"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M8 5.5v13l11-6.5z" /></svg>
-                Rozpocznij spacer 360
+                Spacer po wnętrzu
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setTryb("osiedle");
+                  setActive(true);
+                  track("view_360");
+                }}
+                className="btn btn-ghost border-sand-50/40 px-8 py-5 text-base"
+              >
+                Spacer po osiedlu
               </button>
             </div>
             <p className="t-meta-sm fg-muted mt-6 [text-shadow:0_1px_14px_var(--color-abyss)]">
-              {SCENES.length} ujęć · przejdź uliczką osiedla i wejdź do własnego ogrodu
+              {WNETRZA[typ]?.scenes.length ?? 0} ujęć wewnątrz lokalu i {OSIEDLE.scenes.length} na osiedlu ·
+              {" "}materiał dewelopera, sześć układów do wyboru
             </p>
           </div>
         </>

@@ -1,0 +1,2816 @@
+{
+  "1A": {
+    "base": "https://quptos-web-data.sensevr.pl/ver_2_3/C1/I214/units/units_tour_360/v1/L_0001/app-files",
+    "scenes": [
+      {
+        "id": "0-salon-z-aneksem-kuchennym",
+        "name": "Salon z aneksem kuchennym",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -1.395270870694164,
+          "pitch": 0.08807147637590163,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "1-aneks-kuchenny",
+        "name": "Aneks kuchenny",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 3.0109411733639337,
+          "pitch": 0.34333357430947054,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "2-sypialnia",
+        "name": "Sypialnia",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 2.3549084398970255,
+          "pitch": 0.13863820922674464,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "3-pokj-1",
+        "name": "Pokój 1",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -1.6018140233759173,
+          "pitch": 0.04648783796965539,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "4-pokj-2",
+        "name": "Pokój 2",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 0.4210816079779338,
+          "pitch": 0.20775781845538077,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "5-azienka",
+        "name": "Łazienka",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -1.5151332577723444,
+          "pitch": 0.07145993725889355,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "6-wc",
+        "name": "WC",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -2.588219993767634,
+          "pitch": 0.3299990839729361,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "7-wnka-kuchenna",
+        "name": "Wnęka kuchenna",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -2.8958470510548597,
+          "pitch": 0.09631208772605859,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "8-pomieszczenie-gospodarcze",
+        "name": "Pomieszczenie gospodarcze",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 2.3662969490721064,
+          "pitch": 0.04876570933418023,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "9-korytarz-",
+        "name": "Korytarz ",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -2.617774499269565,
+          "pitch": 0.05861016400737107,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "10-korytarz-",
+        "name": "Korytarz ",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -2.4236976695778054,
+          "pitch": 0.06571697579560443,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "11-komunikacja",
+        "name": "Komunikacja",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -0.6356613564248867,
+          "pitch": -0.03169160499439094,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "12-hol",
+        "name": "Hol",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -0.050283472810953356,
+          "pitch": 0.05279483095156223,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "13-wiz-salon-z-aneksem-kuchennym",
+        "name": "[WIZ] Salon z aneksem kuchennym",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -0.13639377860091706,
+          "pitch": 0.019780648715768123,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "14-wiz-aneks-kuchenny",
+        "name": "[WIZ] Aneks kuchenny",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -2.017745534066604,
+          "pitch": -0.06925202572848121,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "15-wiz-sypialnia",
+        "name": "[WIZ] Sypialnia",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 2.3171769566210525,
+          "pitch": 0.08198182875173998,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "16-wiz-azienka",
+        "name": "[WIZ] Łazienka",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -0.8197719270849806,
+          "pitch": -0.014865619012953246,
+          "fov": 1.3955976429365986
+        }
+      }
+    ]
+  },
+  "1B": {
+    "base": "https://quptos-web-data.sensevr.pl/ver_2_3/C1/I214/units/units_tour_360/v1/L_0002/app-files",
+    "scenes": [
+      {
+        "id": "0-salon-z-aneksem-kuchennym",
+        "name": "Salon z aneksem kuchennym",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -2.312939022132685,
+          "pitch": 0.10147715942649072,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "1-aneks-kuchenny",
+        "name": "Aneks kuchenny",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 0.9848643636253698,
+          "pitch": 0.2020947406438296,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "2-sypialnia",
+        "name": "Sypialnia",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -2.174879557841532,
+          "pitch": 0.13491534958262008,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "3-azienka",
+        "name": "Łazienka",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -2.956655136293378,
+          "pitch": 0.2012785842227096,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "4-wc",
+        "name": "WC",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -0.682329616378837,
+          "pitch": -0.09307152294995902,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "5-pralnia",
+        "name": "Pralnia",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 0.37335085478719954,
+          "pitch": 0.25867998464932285,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "6-garderoba",
+        "name": "Garderoba",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "pitch": 0,
+          "yaw": 0,
+          "fov": 1.5707963267948966
+        }
+      },
+      {
+        "id": "7-pomieszczenie-gospodarcze",
+        "name": "Pomieszczenie gospodarcze",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "pitch": 0,
+          "yaw": 0,
+          "fov": 1.5707963267948966
+        }
+      },
+      {
+        "id": "8-korytarz-",
+        "name": "Korytarz ",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 2.3910649250609843,
+          "pitch": 0.030471143401175738,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "9-wiatroap",
+        "name": "Wiatrołap",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -1.7945431967410386,
+          "pitch": 0.0829434848661652,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "10-wiz-salon-z-aneksem-kuchennym",
+        "name": "[WIZ] Salon z aneksem kuchennym",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 0.7202946119341718,
+          "pitch": -0.022185357463470723,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "11-wiz-aneks-kuchenny",
+        "name": "[WIZ] Aneks kuchenny",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 0.7770870717212865,
+          "pitch": -0.02096086191345492,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "12-wiz-sypialnia",
+        "name": "[WIZ] Sypialnia",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -2.151323021932999,
+          "pitch": -3.552713678800501e-15,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "13-wiz-azienka",
+        "name": "[WIZ] Łazienka",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -1.4647255946775282,
+          "pitch": -0.0324428677481059,
+          "fov": 1.3955976429365986
+        }
+      }
+    ]
+  },
+  "2A": {
+    "base": "https://quptos-web-data.sensevr.pl/ver_2_3/C1/I214/units/units_tour_360/v1/L_0003/app-files",
+    "scenes": [
+      {
+        "id": "0-salon-z-aneksem-kuchennym",
+        "name": "Salon z aneksem kuchennym",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 0.21622581938087393,
+          "pitch": 0.2679613900147242,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "1-aneks-kuchenny",
+        "name": "Aneks kuchenny",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -2.9870125079245895,
+          "pitch": 0.3879154876768549,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "2-sypialnia",
+        "name": "Sypialnia",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -2.1096368610993643,
+          "pitch": 0.07413268145114849,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "3-pokj-1",
+        "name": "Pokój 1",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 1.637530174252582,
+          "pitch": 0.08973952794708673,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "4-pokj-2",
+        "name": "Pokój 2",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -0.39524205032054915,
+          "pitch": 0.28052939235776186,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "5-azienka",
+        "name": "Łazienka",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 1.6469943318723512,
+          "pitch": 0.08450065959953434,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "6-wc",
+        "name": "WC",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 2.7070444065250356,
+          "pitch": 0.2734868134701145,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "7-wnka-kuchenna",
+        "name": "Wnęka kuchenna",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 1.9134502839946244,
+          "pitch": 0.06464149808433461,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "8-pomieszczenie-gospodarcze",
+        "name": "Pomieszczenie gospodarcze",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -2.8846074142577507,
+          "pitch": -0.004696707224786323,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "9-korytarz-",
+        "name": "Korytarz ",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "pitch": 0,
+          "yaw": 0,
+          "fov": 1.5707963267948966
+        }
+      },
+      {
+        "id": "10-korytarz-",
+        "name": "Korytarz ",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 2.272473895952155,
+          "pitch": 0.036083750967332406,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "11-komunikacja",
+        "name": "Komunikacja",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 0.6091382395734879,
+          "pitch": 0.09976986757493478,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "12-hol",
+        "name": "Hol",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "pitch": 0,
+          "yaw": 0,
+          "fov": 1.5707963267948966
+        }
+      },
+      {
+        "id": "13-wiz-salon-z-aneksem-kuchennym",
+        "name": "[WIZ] Salon z aneksem kuchennym",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 0.2908826387622536,
+          "pitch": 0.003521289443822795,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "14-wiz-aneks-kuchenny",
+        "name": "[WIZ] Aneks kuchenny",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 2.1411653633943466,
+          "pitch": 0.0393647358301763,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "15-wiz-sypialnia",
+        "name": "[WIZ] Sypialnia",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -2.3050557007669283,
+          "pitch": 0.030141563975185193,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "16-wiz-azienka",
+        "name": "[WIZ] Łazienka",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 0.7357660960603223,
+          "pitch": -0.019953973514986956,
+          "fov": 1.406232441404775
+        }
+      }
+    ]
+  },
+  "2B": {
+    "base": "https://quptos-web-data.sensevr.pl/ver_2_3/C1/I214/units/units_tour_360/v1/L_0004/app-files",
+    "scenes": [
+      {
+        "id": "0-salon-z-aneksem-kuchennym",
+        "name": "Salon z aneksem kuchennym",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -0.8439485329436351,
+          "pitch": 0.022194794070152568,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "1-aneks-kuchenny",
+        "name": "Aneks kuchenny",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 2.226198598824146,
+          "pitch": 0.2986609911399718,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "2-sypialnia",
+        "name": "Sypialnia",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -1.186169669291381,
+          "pitch": 0.1449716110825996,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "3-azienka",
+        "name": "Łazienka",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -0.13521145380066457,
+          "pitch": 0.0480476994383956,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "4-wc",
+        "name": "WC",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -2.878094227790829,
+          "pitch": 0.10822975149768865,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "5-garderoba",
+        "name": "Garderoba",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 0.5102354605995778,
+          "pitch": -0.007789239629495626,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "6-pralnia",
+        "name": "Pralnia",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 2.181639162511763,
+          "pitch": 0.23586868069202538,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "7-pomieszczenie-gospodarcze",
+        "name": "Pomieszczenie gospodarcze",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -3.0642826116965445,
+          "pitch": 0.033790758000119325,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "8-korytarz-1",
+        "name": "Korytarz 1",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 0.5101823509484031,
+          "pitch": 0.025017985395706432,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "9-wiatroap",
+        "name": "Wiatrołap",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -1.5218759889078477,
+          "pitch": 0.013859834108327362,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "10-wiz-salon-z-aneksem-kuchennym",
+        "name": "[WIZ] Salon z aneksem kuchennym",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -0.6806666647733248,
+          "pitch": -0.01835301364937081,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "11-wiz-aneks-kuchenny",
+        "name": "[WIZ] Aneks kuchenny",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 2.3679458753279228,
+          "pitch": 0.005369753286455392,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "12-wiz-sypialnia",
+        "name": "[WIZ] Sypialnia",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -1.148223573415482,
+          "pitch": 0.021171439052254826,
+          "fov": 1.3955976429365986
+        }
+      },
+      {
+        "id": "13-wiz-azienka",
+        "name": "[WIZ] Łazienka",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -1.4828905494508628,
+          "pitch": -0.03182478862097682,
+          "fov": 1.3955976429365986
+        }
+      }
+    ]
+  },
+  "3A": {
+    "base": "https://quptos-web-data.sensevr.pl/ver_2_3/C1/I214/units/units_tour_360/v1/L_0005/app-files",
+    "scenes": [
+      {
+        "id": "0-salon-z-aneksem-kuchennym",
+        "name": "Salon z aneksem kuchennym",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 2.4031459809879037,
+          "pitch": 0.1008358618241445,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "1-aneks-kuchenny",
+        "name": "Aneks kuchenny",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 3.1270520503205974,
+          "pitch": 0.5518281959607716,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "2-sypialnia",
+        "name": "Sypialnia",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -0.5782361568566508,
+          "pitch": 0.08451094665171865,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "3-pokj-1",
+        "name": "Pokój 1",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "pitch": 0,
+          "yaw": 0,
+          "fov": 1.5707963267948966
+        }
+      },
+      {
+        "id": "4-azienka-",
+        "name": "Łazienka ",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -1.7420827346018317,
+          "pitch": -0.018317408672817947,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "5-azienka",
+        "name": "Łazienka",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -3.0383321930281095,
+          "pitch": 0.1357290682656398,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "6-pralnia",
+        "name": "Pralnia",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -2.960511334784732,
+          "pitch": 0.030550960602425903,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "7-garderoba",
+        "name": "Garderoba",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 1.7097894278286851,
+          "pitch": 0.03771675388843043,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "8-wnka-kuchenna",
+        "name": "Wnęka kuchenna",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "pitch": 0,
+          "yaw": 0,
+          "fov": 1.5707963267948966
+        }
+      },
+      {
+        "id": "9-gara",
+        "name": "Garaż",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 2.0738826202479075,
+          "pitch": 0.07572231532691553,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "10-komunikacja-",
+        "name": "Komunikacja ",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "pitch": 0,
+          "yaw": 0,
+          "fov": 1.5707963267948966
+        }
+      },
+      {
+        "id": "11-komunikacja",
+        "name": "Komunikacja",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -1.6120482159893452,
+          "pitch": 0.014930962516162438,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "12-wiatroap",
+        "name": "Wiatrołap",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "pitch": 0,
+          "yaw": 0,
+          "fov": 1.5707963267948966
+        }
+      },
+      {
+        "id": "13-wiz-salon-z-aneksem-kuchennym",
+        "name": "[WIZ] Salon z aneksem kuchennym",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 2.337035205321518,
+          "pitch": -0.044571247705667005,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "14-wiz-aneks-kuchenny",
+        "name": "[WIZ] Aneks kuchenny",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 2.7822487633474893,
+          "pitch": -0.02782601727748535,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "15-wiz-sypialnia",
+        "name": "[WIZ] Sypialnia",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 0.6707567785196566,
+          "pitch": -0.10681244646257682,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "16-wiz-azienka",
+        "name": "[WIZ] Łazienka",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -2.7320816547773834,
+          "pitch": -0.021063828431728382,
+          "fov": 1.406232441404775
+        }
+      }
+    ]
+  },
+  "3B": {
+    "base": "https://quptos-web-data.sensevr.pl/ver_2_3/C1/I214/units/units_tour_360/v1/L_0006/app-files",
+    "scenes": [
+      {
+        "id": "0-salon-z-aneksem-kuchennym",
+        "name": "Salon z aneksem kuchennym",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -0.6339530450671536,
+          "pitch": 0.06690449943260468,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "1-aneks-kuchenny",
+        "name": "Aneks kuchenny",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -3.068156710467406,
+          "pitch": 0.38676329670823506,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "2-sypialnia",
+        "name": "Sypialnia",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 0.5817652775245072,
+          "pitch": -0.031691604994385614,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "3-pokj-1",
+        "name": "Pokój 1",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 0.22705562533917423,
+          "pitch": 0.13100399843426125,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "4-azienka",
+        "name": "Łazienka",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -3.044724343744207,
+          "pitch": 0.031178476072398098,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "5-azienka",
+        "name": "Łazienka",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 2.15314536647304,
+          "pitch": 0.26610612761199803,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "6-pralnia",
+        "name": "Pralnia",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 2.3785262401564182,
+          "pitch": 0.04362793678655663,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "7-garderoba",
+        "name": "Garderoba",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 0.38659528969110113,
+          "pitch": -0.0030003143567736146,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "8-wnka-kuchenna",
+        "name": "Wnęka kuchenna",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "pitch": 0,
+          "yaw": 0,
+          "fov": 1.5707963267948966
+        }
+      },
+      {
+        "id": "9-gara",
+        "name": "Garaż",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -1.7349402643300635,
+          "pitch": 0.12313143302343477,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "10-komunikacja",
+        "name": "Komunikacja",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 1.6606856225685869,
+          "pitch": 0.009390105183522124,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "11-komunikacja-",
+        "name": "Komunikacja ",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -3.121950506221806,
+          "pitch": 0.07303578496759577,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "12-wiatroap",
+        "name": "Wiatrołap",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 1.4476332036391328,
+          "pitch": 0.11855007794198613,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "13-wiz-salon-z-aneksem-kuchennym",
+        "name": "[WIZ] Salon z aneksem kuchennym",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -2.3296408034432687,
+          "pitch": 0.034766260299202045,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "14-wiz-aneks-kuchenny",
+        "name": "[WIZ] Aneks kuchenny",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -2.3425071075653126,
+          "pitch": -0.003548377926781754,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "15-wiz-sypialnia",
+        "name": "[WIZ] Sypialnia",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": -0.8974584942988368,
+          "pitch": -0.011737631479403987,
+          "fov": 1.406232441404775
+        }
+      },
+      {
+        "id": "16-wiz-azienka",
+        "name": "[WIZ] Łazienka",
+        "faceSize": 1536,
+        "levels": [
+          {
+            "tileSize": 256,
+            "size": 256,
+            "fallbackOnly": true
+          },
+          {
+            "tileSize": 512,
+            "size": 512
+          },
+          {
+            "tileSize": 512,
+            "size": 1024
+          },
+          {
+            "tileSize": 512,
+            "size": 2048
+          }
+        ],
+        "initialViewParameters": {
+          "yaw": 2.968512686856446,
+          "pitch": -0.03279632325127402,
+          "fov": 1.406232441404775
+        }
+      }
+    ]
+  }
+}
