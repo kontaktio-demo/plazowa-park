@@ -9,6 +9,18 @@ const nextConfig: NextConfig = {
   },
   poweredByHeader: false,
   compress: true,
+  // Adresy, ktore zyly na starej stronie WordPress pod ta domena i sa zaindeksowane.
+  // Bez tego po przepieciu domeny wpadlyby na 404 i zabraly ze soba historie w wyszukiwarce.
+  async redirects() {
+    return [
+      { source: "/privacy-policy", destination: "/polityka-prywatnosci", permanent: true },
+      { source: "/strona-glowna", destination: "/", permanent: true },
+      { source: "/global-styles", destination: "/", permanent: true },
+      { source: "/feed", destination: "/", permanent: true },
+      { source: "/comments/feed", destination: "/", permanent: true },
+    ];
+  },
+
   async headers() {
     return [
       {

@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   // dokumenty prawne nosza wlasna date aktualizacji i nie zmieniaja sie
   // z kazdym wdrozeniem
-  const LEGAL_UPDATED = new Date("2026-07-03");
+  const LEGAL_UPDATED = new Date("2026-08-31");
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: base, lastModified: now, changeFrequency: "weekly", priority: 1 },
