@@ -56,3 +56,6 @@ CLAUDE.md
 
 # zrodla renderu hero (poprzednia nasza wersja kadru i wycieta rodzina)
 .hero-src/
+
+# klucz konta uslugowego do raportow GA4 (nigdy do repozytorium)
+.ga-key.json

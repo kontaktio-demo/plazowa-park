@@ -122,6 +122,25 @@ z dziewięciu CTA realnie konwertuje, `zrodlo` rozdziela oglądanie lokalu w mod
 wejścia na jego stronę (większość ruchu idzie przez modal), a `tryb` przy spacerze pokazuje,
 czy ktokolwiek korzysta ze spaceru po wnętrzu, za który klient zapłacił osobno.
 
+#### Odczyt statystyk z linii polecen
+
+GA4 nie ma konektora, wiec `scripts/ruch.mjs` odpytuje Data API i drukuje podsumowanie:
+zrodla ruchu, najczesciej ogladane strony, zdarzenia, ogladane mieszkania, ktore CTA klikane,
+uruchomienia spaceru i urzadzenia.
+
+Konfiguracja jednorazowa (opisana tez w naglowku skryptu):
+
+1. Google Cloud Console - wlacz **Google Analytics Data API**
+2. utworz konto uslugowe i pobierz klucz JSON
+3. w GA4: Administracja -> Zarzadzanie dostepem do uslugi -> dodaj adres konta uslugowego
+   jako **Czytelnik**
+4. zapisz klucz jako `.ga-key.json` w katalogu projektu (jest w `.gitignore`)
+
+
+
+Identyfikator uslugi (nie mylic z identyfikatorem pomiaru `G-...`) jest w GA4:
+Administracja -> Szczegoly uslugi.
+
 ## SEO i wygaszanie
 
 - **Domena docelowa**: `https://plazowa-park.pl` (stała w `lib/data/site.ts`). Indeksowanie jest
