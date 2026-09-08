@@ -4,6 +4,7 @@ import Script from "next/script";
 import { useEffect } from "react";
 import { track } from "@/lib/track";
 import { useConsent } from "@/lib/consent";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 
 const GA = process.env.NEXT_PUBLIC_GA_ID;
 
@@ -20,20 +21,38 @@ export default function Analytics() {
       const wa = el?.closest?.('a[href*="wa.me"]') as HTMLAnchorElement | null;
       if (wa) track("click_whatsapp", { href: wa.getAttribute("href") || "" });
       const dt = el?.closest?.("[data-track]") as HTMLElement | null;
-      if (dt) track(dt.getAttribute("data-track") || "cta_click");
+      if (dt) {
+        // bez sekcji i etykiety nie wiadomo, które z dziewięciu CTA realnie konwertuje
+        const sekcja =
+          dt.closest("section")?.id ||
+          (dt.closest("header") ? "nawigacja" : dt.closest("footer") ? "stopka" : "");
+        // licznik dostępnych lokali klei się do tekstu przycisku ("Sprawdź dostępność18")
+        const etykieta = (dt.getAttribute("aria-label") || dt.textContent || "")
+          .replace(/\s+/g, " ")
+          .replace(/\s*\d+$/, "")
+          .trim()
+          .slice(0, 60);
+        track(dt.getAttribute("data-track") || "cta_click", { sekcja, etykieta });
+      }
     };
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);
   }, []);
 
   // Bez zgody na analitykę nie ładujemy niczego - polityka cookies to obiecuje.
-  if (!GA || zgoda !== "all") return null;
+  // Dotyczy obu narzędzi: Google Analytics i bezcookiowej analityki Vercela.
+  if (zgoda !== "all") return null;
   return (
     <>
-      <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA}`} strategy="afterInteractive" />
-      <Script id="ga4-init" strategy="afterInteractive">
-        {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA}',{anonymize_ip:true});`}
-      </Script>
+      {GA && (
+        <>
+          <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA}`} strategy="afterInteractive" />
+          <Script id="ga4-init" strategy="afterInteractive">
+            {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA}',{anonymize_ip:true});`}
+          </Script>
+        </>
+      )}
+      <VercelAnalytics />
     </>
   );
 }

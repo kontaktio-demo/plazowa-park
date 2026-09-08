@@ -9,10 +9,23 @@ import { SITE } from "@/lib/data/site";
 import { unitSlug } from "@/lib/slug";
 import { selectUnit } from "@/lib/selectUnit";
 import { planImage, unitPlace } from "@/lib/unitType";
+import { track } from "@/lib/track";
 import UnitPosition from "./UnitPosition";
 import { Icon } from "../Icons";
 
 export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClose: () => void }) {
+  // Większość oglądania lokali idzie przez modal, a nie przez ich strony - bez tego
+  // statystyka popularności mieszkań pokazywałaby ułamek rzeczywistego zainteresowania.
+  useEffect(() => {
+    if (!unit) return;
+    track("view_lokal", {
+      unit: unit.name,
+      price: unit.price,
+      status: unit.status,
+      zrodlo: "modal",
+    });
+  }, [unit]);
+
   useEffect(() => {
     if (!unit) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();

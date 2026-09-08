@@ -79,6 +79,12 @@ export default function Page() {
         Mapa okolicy pobiera kafle satelitarne od zewnętrznego dostawcy (Esri ArcGIS Online), któremu przy
         wyświetleniu mapy przekazywany jest adres IP Twojego urządzenia.
       </p>
+      <p>
+        Statystyki odwiedzin prowadzimy w Google Analytics oraz w analityce Vercel Inc., czyli dostawcy
+        hostingu Serwisu. Oba narzędzia uruchamiamy dopiero po wyrażeniu przez Ciebie zgody na statystyki.
+        Analityka Vercel nie zapisuje plików cookie ani żadnych danych w pamięci Twojej przeglądarki
+        i nie profiluje pojedynczych osób.
+      </p>
 
       <h2>6. Twoje prawa</h2>
       <p>Przysługuje Ci prawo do:</p>

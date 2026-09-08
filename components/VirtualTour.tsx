@@ -184,7 +184,10 @@ export default function VirtualTour() {
                     <button
                       key={t.typ}
                       type="button"
-                      onClick={() => setTyp(t.typ)}
+                      onClick={() => {
+                        setTyp(t.typ);
+                        track("zmiana_ukladu", { typ: t.typ });
+                      }}
                       aria-pressed={typ === t.typ}
                       className={`flex-none px-3 py-2 text-sm transition-colors ${
                         typ === t.typ ? "bg-sun text-ink" : "hover:text-clay-300"
@@ -257,7 +260,7 @@ export default function VirtualTour() {
                 onClick={() => {
                   setTryb("wnetrze");
                   setActive(true);
-                  track("view_360");
+                  track("view_360", { tryb: "wnetrze", typ });
                 }}
                 className="btn btn-sun px-8 py-5 text-base"
               >
@@ -269,7 +272,7 @@ export default function VirtualTour() {
                 onClick={() => {
                   setTryb("osiedle");
                   setActive(true);
-                  track("view_360");
+                  track("view_360", { tryb: "osiedle", typ: "" });
                 }}
                 className="btn btn-ghost border-sand-50/40 px-8 py-5 text-base"
               >

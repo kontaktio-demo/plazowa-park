@@ -1,25 +1,25 @@
 # Plażowa Park - landing page inwestycji
 
 Awwwards-grade, konwersyjny one-page dla inwestycji deweloperskiej **Plażowa Park** w Głownie
-(20 apartamentów w 6 budynkach, bezpośrednio przy Zalewie Mrożyczka). Celem strony jest maksymalizacja
+(20 mieszkań i domów w 6 budynkach, bezpośrednio przy Zalewie Mrożyczka). Celem strony jest maksymalizacja
 konwersji (twarde CTA, lead capture, jawne ceny i statusy, interaktywna mapa osiedla) oraz dominacja
 lokalnego SEO.
 
 ## Stack
 
 - **Next.js 16 (App Router) + TypeScript**
-- **Tailwind CSS v4** - design system (pine / limestone / brass, Inter Tight + Inter)
+- **Tailwind CSS v4** - design system (ciepła paleta: bursztyn, biel, beż; Space Grotesk + Inter)
 - **GSAP + ScrollTrigger + Lenis** - scroll-driven storytelling, scrubowany obrót osiedla, reveals (z pełnym `prefers-reduced-motion`)
-- **MapLibre GL** - interaktywna mapa okolicy (zdjęcia satelitarne + POI)
-- **Higgsfield** (Veo 3.1 / Kling 3.0 / Nano Banana Pro) - filmowe wideo i wizualizacje wnętrz na bazie realnych renderów inwestycji
+- **Marzipano** - spacery 360 po osiedlu i po wnętrzach lokali (materiał dewelopera)
+- **sharp** - potok obrazów: kadry osiedla, plan obrotowy, placeholdery blur, obraz OG
 
 ## Sekcje
 
-Hero (wideo) · pasek zaufania · **obracane 360° osiedle** (scroll) · lifestyle · **interaktywna mapa osiedla
-z klikalnymi budynkami** + eksplorator lokali (filtry, karty, modal z rzutem) · **wirtualny spacer po wnętrzach**
-(wideo + przełączanie pomieszczeń) · standard i technologia · galeria (lightbox) · **okolica** (mapa satelitarna
-+ POI + wideo Central Wake Park) · finansowanie · deweloper · FAQ · formularz kontaktowy · stopka.
-Podstrony: polityka prywatności, polityka cookies, regulamin. Baner cookie, JSON-LD, sitemap, robots.
+Hero · osiedle (obrotowy plan z klikalnymi budynkami) · eksplorator lokali (filtry, karty, modal
+z rzutem) · **spacer 360 po wnętrzu i po osiedlu** · standard i technologia · życie · okolica
+(plan 3D z punktami) · deweloper i finansowanie · FAQ · formularz kontaktowy · stopka.
+Podstrony: lokalizacja, 20 stron lokali, polityka prywatności, polityka cookies, regulamin.
+Baner cookie, JSON-LD, sitemap, robots.
 
 ## Dane
 
@@ -59,26 +59,80 @@ Opcjonalne zmienne:
 ```
 WEB3FORMS_KEY=...               # nadpisuje klucz w kodzie (rotacja)
 NEXT_PUBLIC_GA_ID=G-XXXXXXX     # GA4 - bez tego analityka jest wyłączona
-GOOGLE_SITE_VERIFICATION=...    # token weryfikacji Google Search Console
+GOOGLE_SITE_VERIFICATION=...    # niepotrzebne: domena zweryfikowana rekordem TXT w DNS
 ```
 
 **Uwaga:** klucz Web3Forms jest ograniczony do domeny docelowej, więc pełny test
 formularza ma sens dopiero po przepięciu `plazowa-park.pl`.
 
-Analityka (jeśli `NEXT_PUBLIC_GA_ID` ustawione) śledzi konwersje: `generate_lead` (wysłany formularz),
-`click_to_call` (telefon), `click_to_email` (e-mail), `click_whatsapp`, `book_viewing` (Umów prezentację /
-Sprawdź dostępność / Zapytaj o apartament), `view_360` (start spaceru) oraz `view_lokal` (wejście na
-podstronę lokalu). IP anonimizowane. W GA4 oznacz `generate_lead` i `book_viewing` jako key events.
+### Analityka
+
+W Vercelu na środowisku Production ustawione jest `NEXT_PUBLIC_GA_ID = G-B5EDBZ8H7S`.
+To usługa GA4 Plażowa Park, strumień `plazowa`, identyfikator strumienia 15736305615.
+
+Zmienna jest wkompilowywana przy budowaniu, więc **po każdej jej zmianie trzeba przebudować**
+deploy. Samo zapisanie wartości w panelu nic nie daje.
+
+Skrypt GA ładuje się **wyłącznie po zgodzie na cookies** (`lib/consent.ts`). Kto wybierze
+"Tylko niezbędne", nie zostanie policzony. Jest to zamierzone i wymagane przez politykę cookies
+tej strony, więc liczby w GA będą niższe niż realny ruch.
+
+Zweryfikowane na produkcji 8 września 2026:
+
+| test | wynik |
+| --- | --- |
+| przed decyzją o cookies | zero zapytań do Google |
+| po "Akceptuję" | ładuje się `gtag/js?id=G-B5EDBZ8H7S`, hit `page_view` przyjęty (204) |
+| zdarzenia własne | `book_viewing` i `click_to_call` trafiają do dataLayer i na serwer |
+| po "Tylko niezbędne" | brak skryptu, `gtag` niezdefiniowany, zero zapytań |
+
+Weryfikacja w Search Console idzie przez rekord TXT w DNS domeny, a nie przez zmienną
+środowiskową, dlatego `GOOGLE_SITE_VERIFICATION` nie jest potrzebne.
+
+#### Analityka Vercel
+
+Obok GA4 działa bezcookiowa analityka Vercela (`@vercel/analytics`), ładowana za tą samą
+bramką zgody. Powód jest praktyczny: jej dane są dostępne przez API, więc statystyki ruchu
+można odpytywać bez logowania się do panelu GA.
+
+**Wymaga jednorazowego włączenia w panelu Vercela** (zakładka Analytics w projekcie). Do tego
+czasu skrypt się ładuje, ale dane nie są zbierane.
+
+Narzędzie jest ujawnione w polityce prywatności i w polityce cookies jako drugi podmiot
+przetwarzający dane statystyczne.
+
+Zdarzenia wysyłane do GA4 (wszystkie dopiero po zgodzie na statystyki):
+
+| zdarzenie | kiedy | parametry |
+| --- | --- | --- |
+| `generate_lead` | wysłany formularz | `unit` |
+| `book_viewing` | kliknięcie CTA (9 miejsc) | `sekcja`, `etykieta` |
+| `view_lokal` | otwarcie lokalu | `unit`, `price`, `status`, `zrodlo` (modal/strona) |
+| `view_360` | start spaceru | `tryb` (wnetrze/osiedle), `typ` |
+| `zmiana_ukladu` | przełączenie układu w spacerze | `typ` |
+| `click_to_call` | kliknięcie w telefon | `phone` |
+| `click_to_email` | kliknięcie w e-mail | `href` |
+| `click_whatsapp` | kliknięcie w WhatsApp | `href` |
+
+IP jest anonimizowane. W GA4 warto oznaczyć `generate_lead` i `click_to_call` jako
+kluczowe zdarzenia - to one odpowiadają realnemu kontaktowi z biurem sprzedaży.
+
+Parametry są dobrane pod jedno pytanie: **gdzie tracimy ludzi**. `sekcja` mówi, które
+z dziewięciu CTA realnie konwertuje, `zrodlo` rozdziela oglądanie lokalu w modalu od
+wejścia na jego stronę (większość ruchu idzie przez modal), a `tryb` przy spacerze pokazuje,
+czy ktokolwiek korzysta ze spaceru po wnętrzu, za który klient zapłacił osobno.
 
 ## SEO i wygaszanie
 
-- **Domena docelowa**: `https://plazowa-park.pl` (stała w `lib/data/site.ts`). Kopie `*.vercel.app`
-  (alias produkcyjny i deploye preview) są trzymane poza indeksem: `middleware.ts` dodaje nagłówek
-  `X-Robots-Tag: noindex, nofollow` dla hostów `*.vercel.app`, a deploye preview (`VERCEL_ENV=preview`)
-  dostają dodatkowo `robots: noindex` z `app/layout.tsx`. Canonical zawsze wskazuje domenę docelową.
-- **Google Search Console**: ustaw `GOOGLE_SITE_VERIFICATION` (token z GSC) w env - wstrzyknie
-  `<meta name="google-site-verification">`. Po wdrożeniu zgłoś własność domeny w GSC i wyślij
-  `https://plazowa-park.pl/sitemap.xml`.
+- **Domena docelowa**: `https://plazowa-park.pl` (stała w `lib/data/site.ts`). Indeksowanie jest
+  na białej liście: `proxy.ts` przepuszcza wyłącznie `plazowa-park.pl` i `www`, a każdy inny host
+  (alias produkcyjny `*.vercel.app`, deploye preview, gołe IP) dostaje `X-Robots-Tag: noindex, nofollow`.
+  Canonical zawsze wskazuje domenę docelową.
+- **Google Search Console**: domena jest zweryfikowana rekordem TXT w DNS, więc zmienna
+  `GOOGLE_SITE_VERIFICATION` nie jest potrzebna. Po zmianach w strukturze warto zgłosić
+  `https://plazowa-park.pl/sitemap.xml` ponownie.
+- **Przekierowania po starej stronie**: `next.config.ts` przekierowuje adresy poprzedniego
+  WordPressa (`/privacy-policy`, `/strona-glowna`, `/global-styles`, `/feed`, `/comments/feed`).
 - **Strona lokalizacji**: `/lokalizacja` - dedykowany, indeksowalny URL pod long-tail (Zalew Mrożyczka,
   Central Wake Park, dojazd do Łodzi / ŁKA), linkowany z sekcji Okolica i z podstron lokali.
 - **Status lokali**: zmiana pola `status` w `lib/data/units.ts` (`available` / `reserved` / `sold`)
@@ -86,8 +140,8 @@ podstronę lokalu). IP anonimizowane. W GA4 oznacz `generate_lead` i `book_viewi
   URL-e lokali zostają - nie usuwaj ich, aby nie tworzyć soft 404.
 - **Wygaszanie po sprzedaży** (przygotować, nie aktywować): gdy wszystkie lokale są sprzedane, albo
   (a) zamień stronę główną na statyczną „Inwestycja sprzedana" z danymi dewelopera i CTA do przyszłych
-  projektów, albo (b) dodaj w `middleware.ts` przekierowanie 301 na stronę dewelopera. Sitemap i canonical
-  zostaw do czasu deindeksacji.
+  projektów, albo (b) dodaj w `proxy.ts` przekierowanie 301 na stronę dewelopera. Sitemap
+  i canonical zostaw do czasu deindeksacji.
 
 ## Uwagi
 

@@ -38,7 +38,7 @@ export default function Page() {
       <h2>2. Rodzaje wykorzystywanych plików cookie</h2>
       <ul>
         <li><strong>Niezbędne</strong> - zapamiętanie Twojej decyzji dotyczącej zgody. Przechowujemy ją w pamięci lokalnej przeglądarki, nie w pliku cookie. Nie wymaga zgody.</li>
-        <li><strong>Analityczne / statystyczne</strong> - pomagają zrozumieć, jak użytkownicy korzystają z Serwisu (Google Analytics). Uruchamiamy je wyłącznie po wyrażeniu zgody; bez zgody żadne narzędzie analityczne się nie ładuje.</li>
+        <li><strong>Analityczne / statystyczne</strong> - pomagają zrozumieć, jak użytkownicy korzystają z Serwisu (Google Analytics oraz bezcookiowa analityka Vercel). Uruchamiamy je wyłącznie po wyrażeniu zgody; bez zgody żadne narzędzie analityczne się nie ładuje.</li>
       </ul>
 
       <h2>3. Zarządzanie zgodą i cookie</h2>
@@ -52,8 +52,10 @@ export default function Page() {
 
       <h2>4. Dane analityczne</h2>
       <p>
-        Jeśli wyrazisz zgodę na statystyki, korzystamy z Google Analytics i przetwarzamy dane w sposób
-        zanonimizowany, aby doskonalić Serwis. Dane te nie służą do identyfikacji konkretnej osoby.
+        Jeśli wyrazisz zgodę na statystyki, korzystamy z Google Analytics oraz z analityki Vercel
+        i przetwarzamy dane w sposób zanonimizowany, aby doskonalić Serwis. Analityka Vercel nie zapisuje
+        plików cookie ani niczego w pamięci Twojej przeglądarki. Dane te nie służą do identyfikacji
+        konkretnej osoby.
         Mapa okolicy pobiera kafle satelitarne od zewnętrznego dostawcy (Esri ArcGIS Online), co wiąże się
         z przekazaniem mu adresu IP Twojego urządzenia.
       </p>

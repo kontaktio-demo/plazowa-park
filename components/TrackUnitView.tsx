@@ -15,7 +15,7 @@ export default function TrackUnitView({
   status: string;
 }) {
   useEffect(() => {
-    track("view_lokal", { unit, price, status });
+    track("view_lokal", { unit, price, status, zrodlo: "strona" });
   }, [unit, price, status]);
   return null;
 }
