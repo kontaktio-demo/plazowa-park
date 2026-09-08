@@ -123,6 +123,9 @@ export default function EstateMap({
         onPointerUp={onUp}
         onPointerCancel={onUp}
       >
+        {/* Obie warstwy mnożą się z tłem, więc klatka zerowa zostawiona pod obróconym
+            renderem przebijała przez jego jasne partie i na planie widać było drugi,
+            przekrzywiony obrys osiedla. Przy obrocie klatka bazowa musi zniknąć. */}
         <Image
           src={SRC(0)}
           alt="Plan osiedla Plażowa Park - sześć budynków wśród drzew"
@@ -130,7 +133,7 @@ export default function EstateMap({
           sizes="(max-width: 1024px) 100vw, 55vw"
           placeholder="blur"
           blurDataURL={BLUR.estate}
-          className="object-cover mix-blend-multiply"
+          className={`object-cover mix-blend-multiply ${index !== 0 ? "invisible" : ""}`}
           draggable={false}
         />
         {index !== 0 && (
