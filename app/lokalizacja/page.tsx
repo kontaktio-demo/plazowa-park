@@ -191,10 +191,10 @@ export default function LokalizacjaPage() {
               <span className="num fg font-medium">{INVESTMENT.priceMin.toLocaleString("pl-PL")} zł</span>.
             </p>
             <div className="flex flex-none flex-col gap-2.5 sm:flex-row">
-              <Link href="/#mieszkania-i-domy" data-track="book_viewing" className="btn btn-sun">
+              <Link href="/#mieszkania-i-domy" data-track="book_viewing" data-miejsce="strona-lokalizacja" className="btn btn-sun">
                 Zobacz mieszkania i domy <Icon.arrow width={18} height={18} />
               </Link>
-              <Link href="/#kontakt" data-track="book_viewing" className="btn btn-ghost">
+              <Link href="/#kontakt" data-track="book_viewing" data-miejsce="strona-lokalizacja" className="btn btn-ghost">
                 Umów prezentację
               </Link>
             </div>

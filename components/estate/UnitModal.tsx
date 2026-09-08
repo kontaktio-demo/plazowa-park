@@ -109,6 +109,7 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
             <div className="mt-7 flex flex-col gap-2.5">
               <button
                 data-track="book_viewing"
+                data-miejsce="modal-lokalu"
                 onClick={() => {
                   selectUnit(`Mieszkanie ${unit.name}`);
                   onClose();

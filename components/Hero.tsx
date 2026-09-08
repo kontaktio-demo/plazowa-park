@@ -62,7 +62,7 @@ export default function Hero() {
             <a href="#mieszkania-i-domy" className="btn btn-sun">
               Wybierz swój dom <Icon.arrow width={18} height={18} />
             </a>
-            <a href="#kontakt" data-track="book_viewing" className="btn btn-ghost border-sand-50/40">
+            <a href="#kontakt" data-track="book_viewing" data-miejsce="hero" className="btn btn-ghost border-sand-50/40">
               Umów prezentację
             </a>
           </div>

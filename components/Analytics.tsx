@@ -22,10 +22,15 @@ export default function Analytics() {
       if (wa) track("click_whatsapp", { href: wa.getAttribute("href") || "" });
       const dt = el?.closest?.("[data-track]") as HTMLElement | null;
       if (dt) {
-        // bez sekcji i etykiety nie wiadomo, które z dziewięciu CTA realnie konwertuje
+        // Bez sekcji i etykiety nie wiadomo, które z dziewięciu CTA realnie konwertuje.
+        // Cztery z nich nie leżą w żadnej sekcji z id - pasek mobilny i menu mobilne są
+        // poza headerem, modal i podstrony też - więc samo drzewo DOM dawało pustą
+        // wartość. Jawny atrybut ma pierwszeństwo, reszta to zapas, a na końcu i tak
+        // pada konkretna nazwa zamiast pustki.
         const sekcja =
+          dt.getAttribute("data-miejsce") ||
           dt.closest("section")?.id ||
-          (dt.closest("header") ? "nawigacja" : dt.closest("footer") ? "stopka" : "");
+          (dt.closest("header") ? "nawigacja" : dt.closest("footer") ? "stopka" : "inne");
         // licznik dostępnych lokali klei się do tekstu przycisku ("Sprawdź dostępność18")
         const etykieta = (dt.getAttribute("aria-label") || dt.textContent || "")
           .replace(/\s+/g, " ")

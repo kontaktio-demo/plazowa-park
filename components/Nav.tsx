@@ -66,7 +66,7 @@ export default function Nav() {
               <Icon.phone width={18} height={18} className="fg-accent" />
               <span className="num hidden 2xl:inline">{SITE.phone.display}</span>
             </a>
-            <a href="#mieszkania-i-domy" data-track="book_viewing" className="btn btn-sun btn-sm hidden sm:inline-flex">
+            <a href="#mieszkania-i-domy" data-track="book_viewing" data-miejsce="nawigacja" className="btn btn-sun btn-sm hidden sm:inline-flex">
               Sprawdź dostępność
               <span className="num ml-0.5 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-ink/15 px-1.5 text-[0.75rem] font-medium">
                 {INVESTMENT.available}
@@ -129,7 +129,7 @@ export default function Nav() {
             ))}
           </ul>
           <div className="mt-auto flex flex-col gap-3 pt-8">
-            <a href="#mieszkania-i-domy" data-track="book_viewing" onClick={() => setOpen(false)} tabIndex={open ? 0 : -1} className="btn btn-sun">
+            <a href="#mieszkania-i-domy" data-track="book_viewing" data-miejsce="menu-mobilne" onClick={() => setOpen(false)} tabIndex={open ? 0 : -1} className="btn btn-sun">
               Sprawdź dostępność ({INVESTMENT.available})
             </a>
             <a href={`tel:${SITE.phone.tel}`} tabIndex={open ? 0 : -1} className="btn btn-ghost">

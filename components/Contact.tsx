@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { SITE } from "@/lib/data/site";
 import { SELECT_UNIT_EVENT } from "@/lib/selectUnit";
 import { track } from "@/lib/track";
+import { UNITS } from "@/lib/data/units";
 import SectionHeader from "./SectionHeader";
 import WaveEdge from "./WaveEdge";
 import { Icon } from "./Icons";
@@ -12,6 +13,21 @@ type State = "idle" | "sending" | "ok" | "error";
 type Errors = Partial<Record<"name" | "phone" | "email" | "rodo", string>>;
 
 const RE_MAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/**
+ * Pole "Wybrane mieszkanie" jest tekstowe i domyślnie zawiera "Mieszkanie 2.2B",
+ * podczas gdy zdarzenie view_lokal wysyła samą nazwę "2.2B". Bez sprowadzenia do
+ * jednej postaci ten sam lokal rozpadłby się w raporcie na dwie wartości i nie dało
+ * się zestawić oglądalności z zapytaniami - a to jest jedyne zestawienie, które
+ * odpowiada na pytanie, które mieszkania realnie sprzedają.
+ *
+ * Wpisy spoza listy lądują jako "inne", żeby wymiar nie zbierał losowego tekstu.
+ */
+function nazwaLokalu(wpis: string): string {
+  const czysty = wpis.replace(/^\s*mieszkanie\s+/i, "").trim();
+  if (!czysty) return "";
+  return UNITS.some((u) => u.name === czysty) ? czysty : "inne";
+}
 
 /**
  * Web3Forms odbiera zgłoszenie i przekazuje je na skrzynkę biura sprzedaży.
@@ -87,7 +103,7 @@ export default function Contact() {
       });
       const out = (await res.json().catch(() => ({}))) as { success?: boolean };
       if (!res.ok || !out.success) throw new Error("provider");
-      track("generate_lead", { unit: String(data.unit || "") });
+      track("generate_lead", { unit: nazwaLokalu(String(data.unit || "")) });
       setState("ok");
       form.reset();
       setUnit("");

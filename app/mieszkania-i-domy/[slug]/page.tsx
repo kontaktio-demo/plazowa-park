@@ -173,7 +173,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
               <p className="t-body fg-muted mt-8 text-pretty">{paras[0]}</p>
 
               <div className="mt-8 flex flex-col gap-2.5 sm:flex-row">
-                <Link href={inquireHref} data-track="book_viewing" className="btn btn-sun flex-1">
+                <Link href={inquireHref} data-track="book_viewing" data-miejsce="strona-lokalu" className="btn btn-sun flex-1">
                   Zapytaj o to mieszkanie <Icon.arrow width={18} height={18} />
                 </Link>
                 <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost">

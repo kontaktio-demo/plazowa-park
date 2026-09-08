@@ -66,7 +66,7 @@ export default function Developer() {
             <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost btn-sm">
               <Icon.phone width={16} height={16} /> {SITE.phone.display}
             </a>
-            <a href="#kontakt" data-track="book_viewing" className="btn btn-sun btn-sm">
+            <a href="#kontakt" data-track="book_viewing" data-miejsce="deweloper" className="btn btn-sun btn-sm">
               Umów spotkanie
             </a>
           </div>
