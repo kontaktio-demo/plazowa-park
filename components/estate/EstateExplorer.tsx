@@ -10,8 +10,18 @@ import UnitCard from "./UnitCard";
 import UnitModal from "./UnitModal";
 import SortMenu, { type SortKey } from "./SortMenu";
 import { SELECT_BUILDING_EVENT } from "@/lib/selectUnit";
+import { track } from "@/lib/track";
 
 const PREVIEW = 6;
+
+// w raporcie ma stać nazwa, którą klientka zrozumie, a nie klucz z kodu
+const OPIS_SORTOWANIA: Record<SortKey, string> = {
+  "price-asc": "cena rosnąco",
+  "price-desc": "cena malejąco",
+  "area-desc": "metraż od największego",
+};
+
+const etykietaBudynku = (id: number) => BUILDINGS.find((b) => b.stageId === id)?.label ?? String(id);
 
 export default function EstateExplorer() {
   const [building, setBuilding] = useState<number | null>(null);
@@ -24,12 +34,24 @@ export default function EstateExplorer() {
   // klik w budynek w sekcji Osiedle ustawia filtr tutaj
   useEffect(() => {
     const onPick = (e: Event) => {
-      setBuilding((e as CustomEvent<number>).detail);
+      const id = (e as CustomEvent<number>).detail;
+      setBuilding(id);
       setExpanded(true);
+      track("uzyj_filtra", { sekcja: "osiedle", etykieta: `budynek: ${etykietaBudynku(id)}` });
     };
     window.addEventListener(SELECT_BUILDING_EVENT, onPick);
     return () => window.removeEventListener(SELECT_BUILDING_EVENT, onPick);
   }, []);
+
+  // Filtry mówią, czego ludzie szukają: metrażu, liczby pokoi czy najtańszego lokalu.
+  // Etykieta idzie w istniejącym wymiarze, żeby nie mnożyć wymiarów niestandardowych w GA4.
+  const uzytoFiltra = (etykieta: string) => track("uzyj_filtra", { sekcja: "mieszkania-i-domy", etykieta });
+
+  const wybierzPokoje = (n: 4 | 5) => {
+    const v = roomsF === n ? "all" : n;
+    setRoomsF(v);
+    uzytoFiltra(`pokoje: ${v === "all" ? "wszystkie" : v}`);
+  };
 
   const filtered = useMemo(() => {
     let list = UNITS.slice();
@@ -50,10 +72,12 @@ export default function EstateExplorer() {
     setBuilding(null);
     setStatus("all");
     setRoomsF("all");
+    uzytoFiltra("wyczyszczone");
   };
 
   const onMapSelect = (id: number | null) => {
     setBuilding(id);
+    uzytoFiltra(`budynek: ${id ? etykietaBudynku(id) : "wszystkie"}`);
     if (id) {
       setExpanded(true);
       setTimeout(() => document.getElementById("lista-lokali")?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
@@ -97,7 +121,7 @@ export default function EstateExplorer() {
             <div className="min-w-0">
               <p className="t-meta-sm fg-muted">Budynki</p>
               <div className="no-scrollbar edge-fade -mx-1 mt-3 flex min-w-0 snap-x snap-mandatory gap-2 overflow-x-auto px-1 pb-1 sm:flex-wrap sm:overflow-visible">
-                <button type="button" aria-pressed={building === null} onClick={() => setBuilding(null)} className="chip flex-none snap-start">
+                <button type="button" aria-pressed={building === null} onClick={() => onMapSelect(null)} className="chip flex-none snap-start">
                   Wszystkie
                 </button>
                 {BUILDINGS.map((b) => (
@@ -130,16 +154,16 @@ export default function EstateExplorer() {
           data-reveal
         >
           <div className="no-scrollbar edge-fade -mx-1 flex w-full min-w-0 snap-x gap-2 overflow-x-auto px-1 sm:mx-0 sm:w-auto sm:flex-wrap sm:overflow-visible">
-            <button type="button" aria-pressed={status === "all"} onClick={() => setStatus("all")} className="chip flex-none snap-start">
+            <button type="button" aria-pressed={status === "all"} onClick={() => { setStatus("all"); uzytoFiltra("status: wszystkie"); }} className="chip flex-none snap-start">
               Wszystkie
             </button>
-            <button type="button" aria-pressed={status === "available"} onClick={() => setStatus("available")} className="chip flex-none snap-start">
+            <button type="button" aria-pressed={status === "available"} onClick={() => { setStatus("available"); uzytoFiltra("status: dostępne"); }} className="chip flex-none snap-start">
               Dostępne
             </button>
-            <button type="button" aria-pressed={roomsF === 4} onClick={() => setRoomsF(roomsF === 4 ? "all" : 4)} className="chip flex-none snap-start">
+            <button type="button" aria-pressed={roomsF === 4} onClick={() => wybierzPokoje(4)} className="chip flex-none snap-start">
               4 pokoje
             </button>
-            <button type="button" aria-pressed={roomsF === 5} onClick={() => setRoomsF(roomsF === 5 ? "all" : 5)} className="chip flex-none snap-start">
+            <button type="button" aria-pressed={roomsF === 5} onClick={() => wybierzPokoje(5)} className="chip flex-none snap-start">
               5 pokoi
             </button>
             {(building || status !== "all" || roomsF !== "all") && (
@@ -154,7 +178,7 @@ export default function EstateExplorer() {
               {buildingLabel ? `Budynek ${buildingLabel} · ` : ""}
               <span className="num fg">{filtered.length}</span> z {INVESTMENT.totalUnits}
             </span>
-            <SortMenu value={sort} onChange={setSort} />
+            <SortMenu value={sort} onChange={(v) => { setSort(v); uzytoFiltra(`sortowanie: ${OPIS_SORTOWANIA[v]}`); }} />
           </div>
         </div>
 
@@ -172,7 +196,14 @@ export default function EstateExplorer() {
             </div>
             {hidden > 0 && (
               <div className="mt-9 flex justify-center">
-                <button type="button" onClick={() => setExpanded(true)} className="btn btn-ghost">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setExpanded(true);
+                    track("pokaz_wszystkie", { sekcja: "mieszkania-i-domy", etykieta: String(filtered.length) });
+                  }}
+                  className="btn btn-ghost"
+                >
                   Pokaż wszystkie {filtered.length} mieszkań
                 </button>
               </div>

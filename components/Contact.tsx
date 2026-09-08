@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SITE } from "@/lib/data/site";
 import { SELECT_UNIT_EVENT } from "@/lib/selectUnit";
 import { track } from "@/lib/track";
@@ -53,6 +53,7 @@ export default function Contact() {
   const [state, setState] = useState<State>("idle");
   const [errors, setErrors] = useState<Errors>({});
   const [failed, setFailed] = useState("");
+  const zaczete = useRef(false);
 
   useEffect(() => {
     const onSelect = (e: Event) => setUnit((e as CustomEvent<string>).detail || "");
@@ -75,6 +76,8 @@ export default function Contact() {
     const found = validate(data);
     setErrors(found);
     if (Object.keys(found).length) {
+      // Same pola, na których ludzie się zacinają - to one decydują, czy formularz skrócić.
+      track("blad_formularza", { etykieta: Object.keys(found).join(", ") });
       form.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
       return;
     }
@@ -103,7 +106,9 @@ export default function Contact() {
       });
       const out = (await res.json().catch(() => ({}))) as { success?: boolean };
       if (!res.ok || !out.success) throw new Error("provider");
-      track("generate_lead", { unit: nazwaLokalu(String(data.unit || "")) });
+      const nazwa = nazwaLokalu(String(data.unit || ""));
+      const cena = UNITS.find((u) => u.name === nazwa)?.price;
+      track("generate_lead", { unit: nazwa, ...(cena ? { value: cena, currency: "PLN" } : {}) });
       setState("ok");
       form.reset();
       setUnit("");
@@ -181,7 +186,18 @@ export default function Contact() {
               </button>
             </div>
           ) : (
-            <form onSubmit={onSubmit} noValidate className="flex flex-col gap-4 sm:gap-5">
+            <form
+              onSubmit={onSubmit}
+              noValidate
+              // Różnica między start_formularza a generate_lead to odsetek porzuceń -
+              // bez niej nie wiadomo, czy formularz nie dowozi, czy nikt go nie otwiera.
+              onFocusCapture={() => {
+                if (zaczete.current) return;
+                zaczete.current = true;
+                track("start_formularza");
+              }}
+              className="flex flex-col gap-4 sm:gap-5"
+            >
               <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
 
               <Field label="Imię i nazwisko" name="name" placeholder="Jan Kowalski" error={errors.name} autoComplete="name" />

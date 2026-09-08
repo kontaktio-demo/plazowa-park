@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <LegalShell title="Polityka prywatności" updated="31 sierpnia 2026">
+    <LegalShell title="Polityka prywatności" updated="8 września 2026">
       <p>
         Niniejsza Polityka prywatności opisuje zasady przetwarzania danych osobowych osób korzystających z serwisu
         internetowego <strong>plazowa-park.pl</strong> (&quot;Serwis&quot;) oraz kontaktujących się z nami w sprawie inwestycji
@@ -81,9 +81,12 @@ export default function Page() {
       </p>
       <p>
         Statystyki odwiedzin prowadzimy w Google Analytics oraz w analityce Vercel Inc., czyli dostawcy
-        hostingu Serwisu. Oba narzędzia uruchamiamy dopiero po wyrażeniu przez Ciebie zgody na statystyki.
-        Analityka Vercel nie zapisuje plików cookie ani żadnych danych w pamięci Twojej przeglądarki
-        i nie profiluje pojedynczych osób.
+        hostingu Serwisu. Google Analytics zapisuje pliki cookie, dlatego uruchamiamy je dopiero po
+        wyrażeniu przez Ciebie zgody na statystyki. Analityka Vercel nie zapisuje plików cookie ani
+        żadnych danych w pamięci Twojej przeglądarki i nie profiluje pojedynczych osób, dlatego liczy
+        odwiedziny niezależnie od zgody, na podstawie prawnie uzasadnionego interesu Administratora
+        (art. 6 ust. 1 lit. f RODO), jakim jest poznanie skali ruchu w Serwisie. Możesz zgłosić sprzeciw
+        wobec tego przetwarzania na adres podany w punkcie 1.
       </p>
 
       <h2>6. Twoje prawa</h2>

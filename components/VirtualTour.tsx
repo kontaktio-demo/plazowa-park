@@ -272,7 +272,7 @@ export default function VirtualTour() {
                 onClick={() => {
                   setTryb("osiedle");
                   setActive(true);
-                  track("view_360", { tryb: "osiedle", typ: "" });
+                  track("view_360", { tryb: "osiedle" });
                 }}
                 className="btn btn-ghost border-sand-50/40 px-8 py-5 text-base"
               >

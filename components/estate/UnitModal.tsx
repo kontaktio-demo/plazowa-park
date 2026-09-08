@@ -20,7 +20,8 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
     if (!unit) return;
     track("view_lokal", {
       unit: unit.name,
-      price: unit.price,
+      value: unit.price,
+      currency: "PLN",
       status: unit.status,
       zrodlo: "modal",
     });
@@ -110,6 +111,7 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
               <button
                 data-track="book_viewing"
                 data-miejsce="modal-lokalu"
+                data-lokal={unit.name}
                 onClick={() => {
                   selectUnit(`Mieszkanie ${unit.name}`);
                   onClose();
@@ -123,7 +125,15 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
                   <Icon.phone width={16} height={16} /> Zadzwoń
                 </a>
                 {unit.planUrl && (
-                  <a href={unit.planUrl} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-sm flex-1">
+                  <a
+                    href={unit.planUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-track="pobranie_rzutu"
+                    data-miejsce="modal-lokalu"
+                    data-lokal={unit.name}
+                    className="btn btn-ghost btn-sm flex-1"
+                  >
                     Rzut PDF
                   </a>
                 )}

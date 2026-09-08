@@ -73,54 +73,96 @@ To usługa GA4 Plażowa Park, strumień `plazowa`, identyfikator strumienia 1573
 Zmienna jest wkompilowywana przy budowaniu, więc **po każdej jej zmianie trzeba przebudować**
 deploy. Samo zapisanie wartości w panelu nic nie daje.
 
-Skrypt GA ładuje się **wyłącznie po zgodzie na cookies** (`lib/consent.ts`). Kto wybierze
-"Tylko niezbędne", nie zostanie policzony. Jest to zamierzone i wymagane przez politykę cookies
-tej strony, więc liczby w GA będą niższe niż realny ruch.
+#### Dwa narzędzia, dwie różne bramki
 
-Zweryfikowane na produkcji 8 września 2026:
+| narzędzie | kiedy działa | co daje |
+| --- | --- | --- |
+| Google Analytics 4 | dopiero po kliknięciu "Akceptuję" | pełne zachowanie: sekcje, filtry, lokale, leady |
+| analityka Vercel | zawsze | ilu ludzi weszło, skąd i na jakie podstrony |
 
-| test | wynik |
-| --- | --- |
-| przed decyzją o cookies | zero zapytań do Google |
-| po "Akceptuję" | ładuje się `gtag/js?id=G-B5EDBZ8H7S`, hit `page_view` przyjęty (204) |
-| zdarzenia własne | `book_viewing` i `click_to_call` trafiają do dataLayer i na serwer |
-| po "Tylko niezbędne" | brak skryptu, `gtag` niezdefiniowany, zero zapytań |
+Podział wynika z prawa, nie z wygody. Zgody wymaga zapis lub odczyt na urządzeniu
+użytkownika, a Google Analytics zapisuje pliki cookie. Analityka Vercel nie zapisuje
+ani nie odczytuje niczego: ani cookie, ani pamięci lokalnej. Dlatego liczy cały ruch
+i to ona podaje **mianownik**: bez niej niska liczba użytkowników w GA4 jest nie do
+odróżnienia od małego ruchu. Iloraz obu liczb to odsetek zgód.
 
-Weryfikacja w Search Console idzie przez rekord TXT w DNS domeny, a nie przez zmienną
-środowiskową, dlatego `GOOGLE_SITE_VERIFICATION` nie jest potrzebne.
+Obie polityki (cookies i prywatności) opisują ten podział wprost.
 
-#### Analityka Vercel
+#### Kolejka zdarzeń
 
-Obok GA4 działa bezcookiowa analityka Vercela (`@vercel/analytics`), ładowana za tą samą
-bramką zgody. Powód jest praktyczny: jej dane są dostępne przez API, więc statystyki ruchu
-można odpytywać bez logowania się do panelu GA.
+Skrypt Google ładuje się asynchronicznie i dopiero po zgodzie, więc zdarzenia z pierwszych
+sekund wizyty trafiały wcześniej w niezdefiniowane `gtag` i ginęły - w tym `view_lokal`
+przy wejściu wprost na stronę lokalu, czyli dokładnie ten ruch, który przychodzi z Google.
+`lib/track.ts` trzyma je w kolejce (do 60 sztuk) i wysyła, gdy analityka wstanie.
 
-**Wymaga jednorazowego włączenia w panelu Vercela** (zakładka Analytics w projekcie). Do tego
-czasu skrypt się ładuje, ale dane nie są zbierane.
+Dotyczy to też decyzji o cookies: wszystko, co odwiedzający zrobił, zanim kliknął
+"Akceptuję", zostaje wysłane po kliknięciu. Zweryfikowane w przeglądarce - przewinięcie
+czterech sekcji przed zgodą dało po zgodzie cztery zdarzenia `sekcja_widoczna`.
 
-Narzędzie jest ujawnione w polityce prywatności i w polityce cookies jako drugi podmiot
-przetwarzający dane statystyczne.
-
-Zdarzenia wysyłane do GA4 (wszystkie dopiero po zgodzie na statystyki):
+#### Zdarzenia wysyłane do GA4
 
 | zdarzenie | kiedy | parametry |
 | --- | --- | --- |
-| `generate_lead` | wysłany formularz | `unit` |
-| `book_viewing` | kliknięcie CTA (9 miejsc) | `sekcja`, `etykieta` |
-| `view_lokal` | otwarcie lokalu | `unit`, `price`, `status`, `zrodlo` (modal/strona) |
-| `view_360` | start spaceru | `tryb` (wnetrze/osiedle), `typ` |
+| `sekcja_widoczna` | odwiedzający dotarł do sekcji (raz na wejście) | `sekcja` |
+| `uzyj_filtra` | filtr, budynek lub sortowanie na liście lokali | `sekcja`, `etykieta` |
+| `pokaz_wszystkie` | rozwinięcie pełnej listy lokali | `sekcja`, `etykieta` |
+| `view_lokal` | otwarcie lokalu | `unit`, `value`, `currency`, `status`, `zrodlo` (modal/strona) |
+| `pobranie_rzutu` | pobranie rzutu PDF | `sekcja`, `etykieta`, `unit` |
+| `book_viewing` | kliknięcie CTA (9 miejsc) | `sekcja`, `etykieta`, `unit` przy lokalu |
+| `start_formularza` | pierwsze kliknięcie w pole formularza | brak |
+| `blad_formularza` | walidacja zatrzymała wysyłkę | `etykieta` (lista pól) |
+| `generate_lead` | wysłany formularz | `unit`, `value`, `currency` |
+| `view_360` | start spaceru | `tryb` (wnetrze/osiedle), `typ` przy wnętrzu |
 | `zmiana_ukladu` | przełączenie układu w spacerze | `typ` |
 | `click_to_call` | kliknięcie w telefon | `phone` |
 | `click_to_email` | kliknięcie w e-mail | `href` |
 | `click_whatsapp` | kliknięcie w WhatsApp | `href` |
 
-IP jest anonimizowane. W GA4 warto oznaczyć `generate_lead` i `click_to_call` jako
-kluczowe zdarzenia - to one odpowiadają realnemu kontaktowi z biurem sprzedaży.
+Do tego GA4 sam liczy `page_view` (także przy przejściach bez przeładowania strony),
+`scroll`, `click` na linkach wychodzących i `file_download`.
 
-Parametry są dobrane pod jedno pytanie: **gdzie tracimy ludzi**. `sekcja` mówi, które
-z dziewięciu CTA realnie konwertuje, `zrodlo` rozdziela oglądanie lokalu w modalu od
-wejścia na jego stronę (większość ruchu idzie przez modal), a `tryb` przy spacerze pokazuje,
-czy ktokolwiek korzysta ze spaceru po wnętrzu, za który klient zapłacił osobno.
+Parametry są dobrane pod cztery pytania sprzedażowe:
+
+1. **Gdzie ludzie odpadają.** `sekcja_widoczna` daje lejek od hero do formularza:
+   dziesięć sekcji, każda raz na wejście. Wbudowany pomiar przewijania w GA4 zgłasza
+   tylko próg 90%, co na tak długiej stronie nie mówi nic.
+2. **Czego szukają.** `uzyj_filtra` pokazuje, czy klikają metraż, liczbę pokoi, czy od razu
+   sortują po cenie rosnąco. To wprost mówi, co wyeksponować wyżej.
+3. **Które lokale sprzedają.** `view_lokal` i `generate_lead` wysyłają **tę samą** nazwę
+   lokalu, więc da się zestawić oglądalność z zapytaniami. Oba mają też `value` w złotych,
+   więc GA4 sam policzy wartość obejrzanych i zapytanych mieszkań.
+4. **Czy formularz nie odstrasza.** `start_formularza` minus `generate_lead` to porzucenia,
+   a `blad_formularza` mówi, na którym polu ludzie się zacinają.
+
+`value` i `currency` to standardowe pola GA4, więc kwoty widać bez konfigurowania
+własnych metryk. `anonymize_ip` zostało usunięte: w GA4 nie robi nic (adres IP jest
+skracany zawsze), a doklejało się jako parametr do każdego zdarzenia.
+
+#### Co trzeba ustawić w panelu GA4
+
+Parametry własne nie pojawią się w raportach, dopóki nie zostaną zarejestrowane jako
+wymiary niestandardowe (Administracja -> Definicje niestandardowe -> Wymiary
+niestandardowe, zakres **Zdarzenie**). Wystarczy pięć, bo zdarzenia celowo używają
+tych samych nazw parametrów:
+
+| nazwa wymiaru | parametr |
+| --- | --- |
+| Sekcja | `sekcja` |
+| Etykieta | `etykieta` |
+| Lokal | `unit` |
+| Zrodlo | `zrodlo` |
+| Typ lokalu | `typ` |
+
+Pozostałe do zrobienia raz, w panelu:
+
+- **Kluczowe zdarzenia**: `generate_lead` i `click_to_call` - to one odpowiadają realnemu
+  kontaktowi z biurem sprzedaży.
+- **Przechowywanie danych**: Administracja -> Zbieranie i modyfikowanie danych ->
+  Przechowywanie danych -> **14 miesięcy**. Domyślne 2 miesiące ucinają porównanie
+  rok do roku. Wydłużenie działa wstecz.
+- **Ruch wewnętrzny**: filtry danych w GA4 **nie działają wstecz**, więc własne wizyty
+  policzą się jako ruch, dopóki filtr nie powstanie. Przy kilkudziesięciu wejściach
+  miesięcznie to przekłamuje wszystko.
 
 #### Odczyt statystyk z linii polecen
 
@@ -143,6 +185,10 @@ GA_PROPERTY_ID=123456789 node scripts/ruch.mjs 7    # ostatnie 7 dni
 
 Identyfikator uslugi (nie mylic z identyfikatorem pomiaru `G-...`) jest w GA4:
 Administracja -> Szczegoly uslugi.
+
+Weryfikacja w Search Console idzie przez rekord TXT w DNS domeny, a nie przez zmienną
+środowiskową, dlatego `GOOGLE_SITE_VERIFICATION` nie jest potrzebne.
+
 
 ## SEO i wygaszanie
 
