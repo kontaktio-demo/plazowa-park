@@ -136,7 +136,10 @@ Konfiguracja jednorazowa (opisana tez w naglowku skryptu):
    jako **Czytelnik**
 4. zapisz klucz jako `.ga-key.json` w katalogu projektu (jest w `.gitignore`)
 
-
+```bash
+GA_PROPERTY_ID=123456789 node scripts/ruch.mjs      # ostatnie 28 dni
+GA_PROPERTY_ID=123456789 node scripts/ruch.mjs 7    # ostatnie 7 dni
+```
 
 Identyfikator uslugi (nie mylic z identyfikatorem pomiaru `G-...`) jest w GA4:
 Administracja -> Szczegoly uslugi.
