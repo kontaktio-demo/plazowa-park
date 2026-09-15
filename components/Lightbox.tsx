@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export type Shot = { src: string; alt: string; caption?: string };
+/** `fit` ustawia każde ujęcie osobno: rzut przycięty do kadru gubi ściany. */
+export type Shot = { src: string; alt: string; caption?: string; fit?: "contain" | "cover" };
 
 const MAX = 5;
 const MIN = 1;
@@ -19,6 +20,8 @@ export default function Lightbox({
   onClose: () => void;
 }) {
   const [z, setZ] = useState({ s: 1, x: 0, y: 0 });
+  // palec na ekranie: przez czas gestu obraz idzie 1:1 za dłonią, bez animacji
+  const [dragging, setDragging] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
   const pointers = useRef(new Map<number, { x: number; y: number }>());
   const gesture = useRef<{ dist: number; s: number; x: number; y: number; cx: number; cy: number } | null>(null);
@@ -72,6 +75,7 @@ export default function Lightbox({
   const onDown = (e: React.PointerEvent) => {
     (e.target as Element).setPointerCapture?.(e.pointerId);
     pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    setDragging(true);
     if (pointers.current.size === 2) {
       const [a, b] = [...pointers.current.values()];
       gesture.current = {
@@ -124,7 +128,10 @@ export default function Lightbox({
     }
     pointers.current.delete(e.pointerId);
     if (pointers.current.size < 2) gesture.current = null;
-    if (pointers.current.size === 0) pan.current = null;
+    if (pointers.current.size === 0) {
+      pan.current = null;
+      setDragging(false);
+    }
   };
 
   const shot = shots[index];
@@ -136,8 +143,9 @@ export default function Lightbox({
       aria-modal="true"
       aria-label={shot.caption ?? shot.alt}
     >
-      <div className="flex flex-none items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <p className="t-meta-sm fg-muted min-w-0 truncate">
+      <div className="flex flex-none items-start justify-between gap-4 px-4 py-3 sm:items-center sm:px-6">
+        {/* podpis się zawija: ucięty na telefonie gubił to, co właśnie tłumaczy */}
+        <p className="t-meta-sm fg-muted min-w-0">
           <span className="num">
             {index + 1} / {shots.length}
           </span>
@@ -177,7 +185,7 @@ export default function Lightbox({
           className="absolute left-1/2 top-1/2 max-h-full max-w-full object-contain"
           style={{
             transform: `translate(-50%, -50%) translate(${z.x}px, ${z.y}px) scale(${z.s})`,
-            transition: pan.current || gesture.current ? "none" : "transform 160ms ease-out",
+            transition: dragging ? "none" : "transform 160ms ease-out",
           }}
         />
       </div>
@@ -203,7 +211,12 @@ export default function Lightbox({
                 }`}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={s.src} alt="" className="h-full w-full object-cover" draggable={false} />
+                <img
+                  src={s.src}
+                  alt=""
+                  className={`h-full w-full ${s.fit === "contain" ? "object-contain" : "object-cover"}`}
+                  draggable={false}
+                />
               </button>
             ))}
           </div>

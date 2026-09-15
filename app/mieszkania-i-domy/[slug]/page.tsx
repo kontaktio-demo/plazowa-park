@@ -5,7 +5,7 @@ import { UNITS, BUILDINGS } from "@/lib/data/units";
 import { unitSlug, unitBySlug } from "@/lib/slug";
 import { pln, plnShort, area, rooms, STATUS_META, odmien } from "@/lib/format";
 import { schemaAvailability, unitDescription, unitMetaDescription } from "@/lib/unitCopy";
-import { planImage, unitPlace, garageArea, livingArea } from "@/lib/unitType";
+import { ODMIANA, unitKind, unitLabel, unitFloors, garageArea, livingArea } from "@/lib/unitType";
 import { SITE } from "@/lib/data/site";
 import PageHeader from "@/components/PageHeader";
 import Footer from "@/components/Footer";
@@ -22,10 +22,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const u = unitBySlug(slug);
   if (!u) return { title: "Lokal nie znaleziony" };
+  const label = unitLabel(u);
   const desc = unitMetaDescription(u);
-  const ogTitle = `Mieszkanie ${u.name} - Plażowa Park Głowno`;
+  const ogTitle = `${label} - Plażowa Park Głowno`;
   return {
-    title: `Mieszkanie ${u.name} - ${area(u.area)} z ogrodem i tarasem`,
+    title: `${label} - ${area(u.area)} z prywatnym ogrodem`,
     description: desc,
     alternates: { canonical: `/mieszkania-i-domy/${slug}` },
     openGraph: {
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: "Plażowa Park",
       title: ogTitle,
       description: desc,
-      images: [{ url: "/og.jpg", width: 1200, height: 630, alt: `Mieszkanie ${u.name} - Plażowa Park w Głownie` }],
+      images: [{ url: "/og.jpg", width: 1200, height: 630, alt: `${label} - Plażowa Park w Głownie` }],
     },
     twitter: { card: "summary_large_image", title: ogTitle, description: desc, images: ["/og.jpg"] },
   };
@@ -47,18 +48,25 @@ const galleryImgs = [
   { src: "/dollhouse/f00.webp", alt: "Plan osiedla Plażowa Park z lotu ptaka", caption: "Plan osiedla" },
 ];
 
+// Wykaz dewelopera jest pisany małymi literami, a "Wc" wyglądałoby na błąd.
+const nazwaPomieszczenia = (n: string) => (n === "wc" ? "WC" : `${n[0].toUpperCase()}${n.slice(1)}`);
+
 export default async function UnitPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const u = unitBySlug(slug);
   if (!u) notFound();
 
   const s = STATUS_META[u.status];
-  const place = unitPlace(u);
+  const kind = unitKind(u);
+  const o = ODMIANA[kind];
+  const label = unitLabel(u);
+  const floors = unitFloors(u);
+  const garage = garageArea(u);
   const building = BUILDINGS.find((b) => b.stageId === u.stageId);
   const sameBuilding = UNITS.filter((x) => x.stageId === u.stageId && x.id !== u.id);
   const others = UNITS.filter((x) => x.stageId !== u.stageId && x.id !== u.id);
   const rel = [...sameBuilding, ...others].slice(0, 3);
-  const inquireHref = `/?lokal=${encodeURIComponent(`Mieszkanie ${u.name}`)}#kontakt`;
+  const inquireHref = `/?lokal=${encodeURIComponent(label)}#kontakt`;
   const paras = unitDescription(u);
 
   const unitUrl = `${SITE.url}/mieszkania-i-domy/${slug}`;
@@ -76,13 +84,13 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
     "@graph": [
       {
         "@type": "RealEstateListing",
-        name: `Mieszkanie ${u.name} - Plażowa Park Głowno`,
+        name: `${label} - Plażowa Park Głowno`,
         url: unitUrl,
         description: metaDesc,
         image: `${SITE.url}/og.jpg`,
         mainEntity: {
-          "@type": "Apartment",
-          name: `Mieszkanie ${u.name}`,
+          "@type": kind === "dom" ? "SingleFamilyResidence" : "Apartment",
+          name: label,
           numberOfRoomsTotal: u.rooms,
           floorSize: { "@type": "QuantitativeValue", value: u.area, unitCode: "MTK" },
           address,
@@ -101,7 +109,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Strona główna", item: SITE.url },
           { "@type": "ListItem", position: 2, name: "Mieszkania i domy", item: `${SITE.url}/#mieszkania-i-domy` },
-          { "@type": "ListItem", position: 3, name: `Mieszkanie ${u.name}`, item: unitUrl },
+          { "@type": "ListItem", position: 3, name: label, item: unitUrl },
         ],
       },
     ],
@@ -123,22 +131,12 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
               Mieszkania i domy
             </Link>
             <span aria-hidden>/</span>
-            <span className="fg">Mieszkanie {u.name}</span>
+            <span className="fg">{label}</span>
           </nav>
 
           <div className="mt-10 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-14">
             <div>
-              <ZoomShots
-                plan
-                shots={[
-                  {
-                    src: planImage(u),
-                    alt: `Rzut parteru mieszkania ${u.name}, typ ${place.type}`,
-                    caption: `Rzut, parter - pełny rzut obu kondygnacji w PDF`,
-                  },
-                  ...galleryImgs,
-                ]}
-              />
+              <ZoomShots priority shots={galleryImgs} />
             </div>
 
             <div>
@@ -146,8 +144,9 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                 <span className="status-dot" style={{ background: s.color }} />
                 {s.label} · budynek {u.buildingLabel}
               </p>
-              <h1 className="t-display-l mt-5">Mieszkanie {u.name}</h1>
-              <div className="t-display-m num mt-6">{pln(u.price)}</div>
+              <h1 className="t-display-l mt-5">{label}</h1>
+              <p className="t-label fg-muted mt-6">Cena</p>
+              <div className="t-display-m num mt-1">{pln(u.price)}</div>
               <div className="t-meta-sm fg-muted num mt-2">{plnShort(u.pricePerM)}/m²</div>
 
               <UnitPosition unit={u} className="mt-8 max-w-52" />
@@ -156,15 +155,20 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                 {[
                   {
                     l: "Powierzchnia",
-                    v: garageArea(u) ? `${area(u.area)} (w tym garaż ${area(garageArea(u))})` : area(u.area),
+                    v: garage ? `${area(u.area)} (w tym garaż ${area(garage)})` : area(u.area),
                   },
-                  ...(garageArea(u) ? [{ l: "Powierzchnia mieszkalna", v: area(livingArea(u)) }] : []),
+                  ...(garage ? [{ l: "Powierzchnia mieszkalna", v: area(livingArea(u)) }] : []),
                   { l: "Ogród prywatny", v: area(u.garden) },
                   { l: "Liczba pokoi", v: rooms(u.rooms) },
-                  { l: "Kondygnacje", v: String(u.floors) },
+                  {
+                    l: "Kondygnacje",
+                    v: floors.length
+                      ? `${u.floors} (${floors.map((f) => f.nazwa.toLowerCase()).join(" i ")})`
+                      : String(u.floors),
+                  },
                 ].map((sp) => (
                   <div key={sp.l} className="bd min-w-0 border-t pt-3">
-                    <dt className="t-meta-sm fg-muted">{sp.l}</dt>
+                    <dt className="t-label fg-muted">{sp.l}</dt>
                     <dd className="mt-1.5 font-medium">{sp.v}</dd>
                   </div>
                 ))}
@@ -180,23 +184,15 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                   data-lokal={u.name}
                   className="btn btn-sun flex-1"
                 >
-                  Zapytaj o to mieszkanie <Icon.arrow width={18} height={18} />
+                  Zapytaj o {o.wskazujacy} <Icon.arrow width={18} height={18} />
                 </Link>
                 <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost">
                   <Icon.phone width={16} height={16} /> {SITE.phone.display}
                 </a>
               </div>
-              {u.planUrl && (
-                <a
-                  href={u.planUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-track="pobranie_rzutu"
-                  data-miejsce="strona-lokalu"
-                  data-lokal={u.name}
-                  className="link-underline t-meta fg-accent mt-5 inline-flex items-center gap-2"
-                >
-                  Pobierz rzut lokalu (PDF) <Icon.arrow width={15} height={15} />
+              {floors.length > 0 && (
+                <a href="#rzuty" className="link-underline t-meta fg-accent mt-5 inline-flex items-center gap-2">
+                  Zobacz rzuty i wykaz pomieszczeń <Icon.arrowDown width={15} height={15} />
                 </a>
               )}
               {building && (
@@ -209,8 +205,100 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
             </div>
           </div>
 
+          {floors.length > 0 && (
+            <section id="rzuty" className="bd mt-16 border-t pt-12">
+              <h2 className="t-display-m">
+                Rzuty {o.dopelniacz} {u.name}
+              </h2>
+              <p className="t-body fg-muted mt-4 max-w-3xl text-pretty">
+                Obie kondygnacje: widok izometryczny, który od razu pokazuje układ, oraz rysunek techniczny z wymiarami.
+                Kliknij dowolny obraz, żeby go powiększyć.
+              </p>
+
+              <div className="mt-10 grid gap-12 lg:grid-cols-2">
+                {floors.map((f) => (
+                  <div key={f.nazwa}>
+                    <h3 className="t-title mb-4">{f.nazwa}</h3>
+                    <ZoomShots
+                      shots={[
+                        {
+                          src: f.render,
+                          alt: `${label}, ${f.nazwa.toLowerCase()}: widok izometryczny rzutu`,
+                          caption: `${f.nazwa} - widok izometryczny`,
+                          fit: "contain",
+                        },
+                        {
+                          src: f.techniczny,
+                          alt: `${label}, ${f.nazwa.toLowerCase()}: rysunek techniczny rzutu z wymiarami`,
+                          caption: `${f.nazwa} - rysunek techniczny z wymiarami`,
+                          fit: "contain",
+                        },
+                      ]}
+                    />
+                    <dl className="mt-6">
+                      {f.pomieszczenia.map((p) => (
+                        <div key={p.nazwa} className="bd flex items-baseline justify-between gap-4 border-t py-2.5">
+                          <dt className="t-body min-w-0">{nazwaPomieszczenia(p.nazwa)}</dt>
+                          <dd className="t-body fg-muted num flex-none">{area(p.m2)}</dd>
+                        </div>
+                      ))}
+                      <div className="bd-strong flex items-baseline justify-between gap-4 border-t py-3">
+                        <dt className="t-label">Razem {f.nazwa.toLowerCase()}</dt>
+                        <dd className="t-label num flex-none">{area(f.suma)}</dd>
+                      </div>
+                    </dl>
+                  </div>
+                ))}
+              </div>
+
+              <div className="card mt-12 p-5 sm:p-7">
+                <h3 className="t-title">Co jeszcze warto wiedzieć</h3>
+                <dl className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                  <div>
+                    <dt className="t-label">Poddasze</dt>
+                    <dd className="t-body fg-muted mt-1.5 text-pretty">
+                      Jest w cenie {o.dopelniacz}, ale poza metrażem i deweloper nie rysuje go na rzutach. Metraż{" "}
+                      <span className="num">{area(u.area)}</span> obejmuje parter i piętro.
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="t-label">Miejsca postojowe</dt>
+                    <dd className="t-body fg-muted mt-1.5 text-pretty">
+                      Do {o.dopelniacz} należą dwa miejsca postojowe.
+                    </dd>
+                  </div>
+                  {garage > 0 && (
+                    <div>
+                      <dt className="t-label">Garaż</dt>
+                      <dd className="t-body fg-muted mt-1.5 text-pretty">
+                        Garaż <span className="num">{area(garage)}</span> jest w bryle {o.dopelniacz} i wlicza się do
+                        metrażu. Bez niego powierzchnia mieszkalna to <span className="num">{area(livingArea(u))}</span>.
+                      </dd>
+                    </div>
+                  )}
+                </dl>
+              </div>
+
+              {u.planUrl && (
+                <a
+                  href={u.planUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-track="pobranie_rzutu"
+                  data-miejsce="strona-lokalu"
+                  data-lokal={u.name}
+                  className="link-underline t-meta fg-accent mt-8 inline-flex items-center gap-2"
+                >
+                  Pobierz rzut {o.dopelniacz} w PDF <Icon.arrow width={15} height={15} />
+                </a>
+              )}
+            </section>
+          )}
+
           <section className="bd mt-16 border-t pt-12">
-            <h2 className="t-display-m">O mieszkaniu {u.name}</h2>
+            <h2 className="t-display-m">
+              O {o.miejscownik} {u.name}
+            </h2>
             <div className="t-body fg-muted mt-6 max-w-3xl space-y-4 text-pretty">
               {paras.slice(1).map((p, i) => (
                 <p key={i}>{p}</p>
@@ -226,7 +314,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
             <div className="mt-8 grid gap-5 sm:grid-cols-3">
               {rel.map((r) => (
                 <Link key={r.id} href={`/mieszkania-i-domy/${unitSlug(r.name)}`} className="card card-hover p-5">
-                  <span className="t-title block">Mieszkanie {r.name}</span>
+                  <span className="t-title block">{unitLabel(r)}</span>
                   <span className="t-meta-sm fg-muted num mt-3 block">
                     {area(r.area)} · ogród {area(r.garden)}
                   </span>

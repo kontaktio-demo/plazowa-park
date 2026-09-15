@@ -69,42 +69,6 @@ async function orbit() {
   console.log(`orbit: 48 klatek desktop ${kb(total)} (${kb(total / 48)}/klatka), 12 mobile ${kb(totalM)}`);
 }
 
-/** Numer lokalu koduje typ: segment + strona. Sześć rzutów, sześć typów. */
-const PLANS = {
-  "L_0001_B1.jpg": "1A",
-  "L_0002_B2.jpg": "1B",
-  "L_0003_B3.jpg": "2A",
-  "L_0004_B4.jpg": "2B",
-  "L_0005_B5.jpg": "3A",
-  "L_0006_B6.jpg": "3B",
-};
-
-async function plans() {
-  const dir = join(PUB, "unit-views");
-  // krok jest jednorazowy: po konwersji zrodlowe JPEG-i juz nie istnieja
-  try {
-    await access(join(dir, Object.keys(PLANS)[0]));
-  } catch {
-    return console.log("rzuty: brak zrodlowych JPEG, pomijam");
-  }
-  let total = 0;
-  const dims = {};
-  for (const [file, type] of Object.entries(PLANS)) {
-    const out = join(dir, `typ-${type}.webp`);
-    // trim zdejmuje szeroki, pusty margines renderu - po nim kadr to sam rzut,
-    // a jego proporcja niesie realny kształt lokalu (wąski i głęboki vs kwadratowy)
-    const info = await (await load(join(dir, file)))
-      .trim({ threshold: 18 })
-      .resize(640, 640, { fit: "inside" })
-      .webp({ quality: 80, effort: 6 })
-      .toFile(out);
-    dims[type] = `${info.width}x${info.height}`;
-    total += await sizeOf(out);
-    await unlink(join(dir, file));
-  }
-  console.log(`rzuty: 6 typów ${kb(total)} ${JSON.stringify(dims)}`);
-}
-
 async function renders() {
   try {
     await access(join(PUB, "lifestyle", "rodzina.webp"));
@@ -170,6 +134,5 @@ async function blur() {
 }
 
 await orbit();
-await plans();
 await renders();
 await blur();
