@@ -1,8 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <rect width="64" height="64" rx="14" fill="#1c1714"/>
-  <g fill="none" stroke="#faf8f4" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M14 34 38 14 55 26" stroke="#e9a43f"/>
-    <path d="M13 44q7-5 14 0t14 0 14 0"/>
-    <path d="M13 53q7-5 14 0t14 0 14 0" opacity="0.4"/>
+  <g transform="translate(11.82 9.00) scale(0.2255)" fill="none" stroke="#faf8f4" stroke-width="12">
+      <path d="M54.5 46.0V195"/>
+      <path d="M72.5 25.0V195"/>
+      <path d="M89.5 5.0V195"/>
+      <path d="M106.5 25.0V195"/>
+      <path d="M124.0 46.0V195"/>
+      <path d="M0 201h179"/>
   </g>
 </svg>

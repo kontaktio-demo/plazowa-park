@@ -8,7 +8,7 @@ export default function PageHeader() {
     <header className="band band-sand bd sticky top-0 z-50 border-b bg-sand-50/94 backdrop-blur-md">
       <div className="wrap flex h-(--nav-h) items-center justify-between gap-5">
         <Link href="/" className="flex items-center gap-3">
-          <LogoMark width={24} height={24} className="fg-accent" />
+          <LogoMark width={25} height={29} className="fg-accent" />
           <span className="flex flex-col leading-none">
             <span className="font-display text-[1.15rem] font-semibold tracking-tight">Plażowa Park</span>
             <span className="t-meta-sm fg-muted mt-1.5">Głowno · Zalew Mrożyczka</span>

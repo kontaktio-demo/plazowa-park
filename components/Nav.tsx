@@ -38,7 +38,7 @@ export default function Nav() {
       >
         <div className="wrap flex h-(--nav-h) items-center gap-4 2xl:gap-5">
           <a href="#top" className="flex flex-none items-center gap-3">
-            <LogoMark width={26} height={26} className="fg-accent" />
+            <LogoMark width={28} height={32} className="fg-accent" />
             <span className="flex flex-col leading-none">
               <span className="font-display text-[1.2rem] font-semibold tracking-tight">
                 Plażowa Park

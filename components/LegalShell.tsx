@@ -17,7 +17,7 @@ export default function LegalShell({
       <header className="band band-sand bd border-b">
         <div className="wrap flex h-(--nav-h) items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-3">
-            <LogoMark width={22} height={22} className="fg-accent" />
+            <LogoMark width={23} height={26} className="fg-accent" />
             <span className="font-display text-lg font-semibold">Plażowa Park</span>
           </Link>
           <Link href="/" className="btn btn-ghost btn-sm">
