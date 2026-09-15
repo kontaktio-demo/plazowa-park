@@ -5,6 +5,10 @@
  * Ceny, metraze i rzuty zmieniaja sie rzadko, ale statusy sprzedazy zmieniaja sie
  * ciagle - to jedyne miejsce, w ktorym strona moze sie rozjechac z rzeczywistoscia.
  * Skrypt nadpisuje wylacznie dane; ukladu pliku i typow nie rusza.
+ *
+ * Przy okazji dopisuje kazda zmiane ceny do lib/data/historia-cen.json. API dewelopera
+ * historii nie prowadzi (price_history_count = 0), a cennik publikowany dla
+ * dane.gov.pl musi pokazywac date, od ktorej cena obowiazuje.
  */
 import { writeFile, readFile } from "node:fs/promises";
 
@@ -106,9 +110,33 @@ const body =
   `export const INVESTMENT = ${JSON.stringify(investment, null, 2)} as const;\n`;
 await writeFile("lib/data/units.ts", head + body, "utf8");
 
+const HISTORIA = "lib/data/historia-cen.json";
+const dzis = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Warsaw" }).format(new Date());
+const surowa = await readFile(HISTORIA, "utf8");
+const historia = JSON.parse(surowa);
+const zmiany = [];
+
+for (const u of units) {
+  const wpisy = (historia.lokale[u.name] ??= []);
+  const ostatni = wpisy.at(-1);
+  if (ostatni && ostatni.cena === u.price && ostatni.cenaM2 === u.pricePerM) continue;
+  const wpis = { od: dzis, cena: u.price, cenaM2: u.pricePerM };
+  // druga zmiana tego samego dnia zastepuje pierwsza: w cenniku liczy sie cena z konca dnia
+  if (ostatni?.od === dzis) wpisy[wpisy.length - 1] = wpis;
+  else wpisy.push(wpis);
+  zmiany.push(`${u.name}: ${ostatni ? `${ostatni.cena} -> ` : ""}${u.price}`);
+}
+
+historia.lokale = Object.fromEntries(
+  Object.entries(historia.lokale).sort(([a], [b]) => a.localeCompare(b, "pl", { numeric: true }))
+);
+const nowa = JSON.stringify(historia, null, 2) + "\n";
+if (nowa !== surowa) await writeFile(HISTORIA, nowa, "utf8");
+
 const byStatus = units.reduce((a, u) => ({ ...a, [u.status]: (a[u.status] || 0) + 1 }), {});
 console.log(`spacer 360 wg API: ${inv.virtual_walkthrough_url ?? "brak"}`);
 console.log(`lokali: ${units.length}, ${JSON.stringify(byStatus)}`);
 console.log(`ceny: ${investment.priceMin.toLocaleString("pl-PL")} - ${investment.priceMax.toLocaleString("pl-PL")} zl`);
+console.log(zmiany.length ? `zmiany cen ${dzis}: ${zmiany.join(", ")}` : `bez zmian cen (${dzis})`);
 const missing = units.filter((u) => !u.planUrl).map((u) => u.name);
 if (missing.length) console.log(`UWAGA: brak rzutu PDF na CDN dewelopera dla: ${missing.join(", ")}`);

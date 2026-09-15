@@ -1,0 +1,41 @@
+name: ceny
+
+on:
+  schedule:
+    # 04:30 UTC, czyli 05:30 czasu polskiego zima i 06:30 latem
+    - cron: "30 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  synchronizacja:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - run: node scripts/sync-units.mjs
+
+      # Push na main wywoluje deploy na Vercelu, wiec cennik na stronie
+      # i pliki dla dane.gov.pl nadazaja za panelem dewelopera.
+      - name: Commit zmian
+        run: |
+          if git diff --quiet lib/data/units.ts lib/data/historia-cen.json; then
+            echo "Bez zmian w danych lokali."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lib/data/units.ts lib/data/historia-cen.json
+          git commit -m "cennik: aktualizacja danych lokali z panelu dewelopera"
+          git push

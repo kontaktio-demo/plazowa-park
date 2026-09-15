@@ -1,7 +1,7 @@
 # Plażowa Park - landing page inwestycji
 
 Awwwards-grade, konwersyjny one-page dla inwestycji deweloperskiej **Plażowa Park** w Głownie
-(20 mieszkań i domów w 6 budynkach, bezpośrednio przy Zalewie Mrożyczka). Celem strony jest maksymalizacja
+(16 mieszkań i 4 domy w 6 budynkach, bezpośrednio przy Zalewie Mrożyczka). Celem strony jest maksymalizacja
 konwersji (twarde CTA, lead capture, jawne ceny i statusy, interaktywna mapa osiedla) oraz dominacja
 lokalnego SEO.
 
@@ -15,9 +15,10 @@ lokalnego SEO.
 
 ## Sekcje
 
-Hero · osiedle (obrotowy plan z klikalnymi budynkami) · eksplorator lokali (filtry, karty, modal
-z rzutem) · **spacer 360 po wnętrzu i po osiedlu** · standard i technologia · życie · okolica
-(plan 3D z punktami) · deweloper i finansowanie · FAQ · formularz kontaktowy · stopka.
+Hero · osiedle (obrotowy plan z klikalnymi budynkami) · eksplorator lokali (filtry mieszkania/domy,
+karty, modal z rzutem parteru i piętra) · **cennik wszystkich lokali** · **spacer 360 po wnętrzu
+i po osiedlu** · standard i technologia · życie · okolica (plan 3D z punktami) · deweloper, proces
+zakupu i partnerzy · FAQ · formularz kontaktowy · stopka.
 Podstrony: lokalizacja, 20 stron lokali, polityka prywatności, polityka cookies, regulamin.
 Baner cookie, JSON-LD, sitemap, robots.
 
@@ -28,8 +29,19 @@ dewelopera (SenseVR / Qupto, investment 214) i są zapisane w [`lib/data/units.t
 Geometria interaktywnej mapy osiedla (obrysy i pozycje budynków) pochodzi z tego samego źródła
 ([`lib/data/estate-orbit.json`](lib/data/estate-orbit.json)). Treści i fakty: [`lib/data/site.ts`](lib/data/site.ts).
 
+Podział na 16 mieszkań i 4 domy wyprowadza `unitKind()` w [`lib/unitType.ts`](lib/unitType.ts):
+domy to lokale z budynków środkowych (segment 3), czyli 3.3A, 3.3B, 8.3A i 8.3B. Konfigurator
+dewelopera oznacza wszystkie dwadzieścia lokali jednakowo jako `flat`, więc rodzaju nie da się
+z niego odczytać.
+
 Od dewelopera pochodzą: obrotowy plan osiedla (`public/dollhouse`), kadry budynków
-(`public/osiedle`), rzuty lokali (`public/unit-views`), mapka okolicy (`public/map`) i spacer 360.
+(`public/osiedle`), mapka okolicy (`public/map`) i spacer 360. Rzuty obu kondygnacji
+(`public/rzuty`) oraz wykazy pomieszczeń z metrażami ([`lib/data/rzuty.ts`](lib/data/rzuty.ts))
+buduje [`scripts/rzuty.py`](scripts/rzuty.py) z PDF-ów rzutów dewelopera: sześć typów rzutu
+obsługuje wszystkie dwadzieścia lokali. Suma pomieszczeń każdego typu zgadza się co do setnej
+z metrażem z `units.ts`. Logo osiedla w [`components/Logo.tsx`](components/Logo.tsx) to wektor
+odtworzony z oryginału (`public/brand/logo-orig.png`), a grafikę Open Graph składa
+[`scripts/og.py`](scripts/og.py).
 Trzy kadry powstały z jego renderów użytych jako referencja obrazu, bo deweloper ma wyłącznie
 zmierzchowe ujęcia bez zieleni i bez ludzi: `renders/hero.webp`, `renders/zycie.webp` oraz
 `galeria/taras-ogrod.webp`. Mają charakter poglądowy, co mówi klauzula w stopce i regulamin.
@@ -108,7 +120,7 @@ czterech sekcji przed zgodą dało po zgodzie cztery zdarzenia `sekcja_widoczna`
 | `pokaz_wszystkie` | rozwinięcie pełnej listy lokali | `sekcja`, `etykieta` |
 | `view_lokal` | otwarcie lokalu | `unit`, `value`, `currency`, `status`, `zrodlo` (modal/strona) |
 | `pobranie_rzutu` | pobranie rzutu PDF | `sekcja`, `etykieta`, `unit` |
-| `book_viewing` | kliknięcie CTA (9 miejsc) | `sekcja`, `etykieta`, `unit` przy lokalu |
+| `book_viewing` | kliknięcie CTA (10 miejsc, doszedł cennik) | `sekcja`, `etykieta`, `unit` przy lokalu |
 | `start_formularza` | pierwsze kliknięcie w pole formularza | brak |
 | `blad_formularza` | walidacja zatrzymała wysyłkę | `etykieta` (lista pól) |
 | `generate_lead` | wysłany formularz | `unit`, `value`, `currency` |
@@ -117,6 +129,8 @@ czterech sekcji przed zgodą dało po zgodzie cztery zdarzenia `sekcja_widoczna`
 | `click_to_call` | kliknięcie w telefon | `phone` |
 | `click_to_email` | kliknięcie w e-mail | `href` |
 | `click_whatsapp` | kliknięcie w WhatsApp | `href` |
+| `klik_facebook` | kliknięcie w profil osiedla | `sekcja`, `etykieta` |
+| `klik_partner` | kliknięcie w partnera (MWW, CBG) | `sekcja`, `etykieta` |
 
 Do tego GA4 sam liczy `page_view` (także przy przejściach bez przeładowania strony),
 `scroll`, `click` na linkach wychodzących i `file_download`.
@@ -124,7 +138,7 @@ Do tego GA4 sam liczy `page_view` (także przy przejściach bez przeładowania s
 Parametry są dobrane pod cztery pytania sprzedażowe:
 
 1. **Gdzie ludzie odpadają.** `sekcja_widoczna` daje lejek od hero do formularza:
-   dziesięć sekcji, każda raz na wejście. Wbudowany pomiar przewijania w GA4 zgłasza
+   jedenaście sekcji (od 16 września 2026 doszedł cennik), każda raz na wejście. Wbudowany pomiar przewijania w GA4 zgłasza
    tylko próg 90%, co na tak długiej stronie nie mówi nic.
 2. **Czego szukają.** `uzyj_filtra` pokazuje, czy klikają metraż, liczbę pokoi, czy od razu
    sortują po cenie rosnąco. To wprost mówi, co wyeksponować wyżej.
@@ -189,6 +203,66 @@ Administracja -> Szczegoly uslugi.
 Weryfikacja w Search Console idzie przez rekord TXT w DNS domeny, a nie przez zmienną
 środowiskową, dlatego `GOOGLE_SITE_VERIFICATION` nie jest potrzebne.
 
+
+## Ceny dla dane.gov.pl
+
+Deweloper ma obowiązek publikować ceny lokali na własnej stronie i raz na dobę przekazywać te same
+dane ministrowi do spraw informatyzacji, który wystawia je na dane.gov.pl. Strona robi obie rzeczy sama.
+
+| adres | co zwraca |
+| --- | --- |
+| `/ceny-ofertowe.csv` | dzisiejszy cennik, 58 kolumn wzorcowego pliku Ministerstwa Cyfryzacji |
+| `/ceny-ofertowe/...-2026-09-16.csv` | ten sam cennik według stanu na wskazany dzień |
+| `/dane-gov.xml` | manifest dla harvestera portalu: jeden zasób na każdą dobę |
+
+Wszystko liczy [`lib/cennik.ts`](lib/cennik.ts) z `lib/data/units.ts` i
+[`lib/data/historia-cen.json`](lib/data/historia-cen.json). Trasy mają `revalidate = 3600`, bo
+odpowiedź zależy od bieżącej daty i musi przeskoczyć na nowy dzień zaraz po północy, a nie po dobie.
+
+### Skąd się bierze historia cen
+
+Konfigurator dewelopera nie przechowuje historii (`price_history_count` = 0 dla każdego z dwudziestu
+lokali), a przepis wymaga publikowania zmiany ceny z datą i bez kasowania wcześniejszych informacji.
+Historię prowadzimy więc u siebie: plik startuje cenami z 16 września 2026, a `scripts/sync-units.mjs`
+dopisuje każdą kolejną zmianę z datą dnia, w którym API dewelopera podało inną kwotę. Skrypt jest
+idempotentny: dwa przebiegi tego samego dnia bez zmian w API nie ruszają pliku. Ceny sprzed
+16 września 2026, o ile się zmieniały, może dostarczyć wyłącznie deweloper.
+
+`.github/workflows/ceny.yml` uruchamia synchronizację codziennie o 04:30 UTC (05:30 czasu polskiego
+zimą, 06:30 latem) oraz ręcznie. Jeśli cokolwiek się zmieniło, robot commituje `lib/data/units.ts`
+i `lib/data/historia-cen.json` na `main`, a push wywołuje deploy na Vercelu. Cennik na stronie
+i pliki dla portalu nadążają za panelem dewelopera bez ręcznej pracy.
+
+### Co musi zrobić człowiek
+
+Portal nie wykryje plików sam. Trzeba raz wysłać maila na **kontakt@dane.gov.pl** z konta, które jest
+edytorem profilu dostawcy (KS Prestige Development, instytucja 4908 na dane.gov.pl), i podać:
+
+- adres pliku XML: `https://plazowa-park.pl/dane-gov.xml`
+- częstotliwość pobierania: **codziennie**
+
+Profil istnieje od 1 października 2025 i ma dziś zero zbiorów danych oraz zero źródeł XML, czyli dane
+nie płyną. Po uruchomieniu harvestera zbiór pojawia się na dane.gov.pl sam i odświeża się co dobę.
+
+### Czego brakuje w danych
+
+Kolumny, których deweloper nie podał, wychodzą w CSV jako znak umowny `X` - tak każe instrukcja
+portalu, pustych komórek zostawiać nie wolno. Do uzupełnienia przez dewelopera:
+
+- adres lokalu, w którym prowadzona jest sprzedaż, i dodatkowe lokalizacje sprzedaży
+- rodzaj, oznaczenie i ceny części nieruchomości, na przykład miejsc postojowych
+- pomieszczenia przynależne i ich ceny
+- prawa niezbędne do korzystania z lokalu i ich wartość
+- inne świadczenia pieniężne na rzecz dewelopera
+- adres strony, pod którym dostępny jest prospekt informacyjny
+- data rozpoczęcia sprzedaży, bo od niej zależy, od kiedy obowiązek biegnie
+
+### Terminy
+
+Od 11 listopada 2026 dane trzeba przekazywać w formie dokumentu elektronicznego zgodnego ze strukturą,
+którą ma określić rozporządzenie ministra do spraw informatyzacji. Rozporządzenia ani wzorcowych
+dokumentów elektronicznych jeszcze nie ma. Do tego czasu obowiązuje układ CSV i XML opisany wyżej,
+a po ogłoszeniu struktury trzeba będzie przerobić `lib/cennik.ts`.
 
 ## SEO i wygaszanie
 

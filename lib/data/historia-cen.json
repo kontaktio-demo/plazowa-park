@@ -1,0 +1,146 @@
+{
+  "uwaga": "Ceny z dnia uruchomienia mechanizmu. Konfigurator dewelopera nie przechowuje historii (price_history_count = 0 dla kazdego lokalu), wiec wczesniejsze zmiany cen, o ile byly, moze dostarczyc wylacznie deweloper. Kolejne wpisy dopisuje scripts/sync-units.mjs w dniu, w ktorym API dewelopera poda inna cene.",
+  "start": "2026-09-16",
+  "lokale": {
+    "1.1A": [
+      {
+        "od": "2026-09-16",
+        "cena": 749000,
+        "cenaM2": 7933
+      }
+    ],
+    "1.1B": [
+      {
+        "od": "2026-09-16",
+        "cena": 674000,
+        "cenaM2": 7843
+      }
+    ],
+    "2.2A": [
+      {
+        "od": "2026-09-16",
+        "cena": 725000,
+        "cenaM2": 7819
+      }
+    ],
+    "2.2B": [
+      {
+        "od": "2026-09-16",
+        "cena": 633000,
+        "cenaM2": 7715
+      }
+    ],
+    "3.3A": [
+      {
+        "od": "2026-09-16",
+        "cena": 925000,
+        "cenaM2": 6953
+      }
+    ],
+    "3.3B": [
+      {
+        "od": "2026-09-16",
+        "cena": 891000,
+        "cenaM2": 7000
+      }
+    ],
+    "4.1A": [
+      {
+        "od": "2026-09-16",
+        "cena": 738000,
+        "cenaM2": 7816
+      }
+    ],
+    "4.1B": [
+      {
+        "od": "2026-09-16",
+        "cena": 664000,
+        "cenaM2": 7726
+      }
+    ],
+    "5.2A": [
+      {
+        "od": "2026-09-16",
+        "cena": 751000,
+        "cenaM2": 8098
+      }
+    ],
+    "5.2B": [
+      {
+        "od": "2026-09-16",
+        "cena": 666000,
+        "cenaM2": 8117
+      }
+    ],
+    "6.1A": [
+      {
+        "od": "2026-09-16",
+        "cena": 764000,
+        "cenaM2": 8092
+      }
+    ],
+    "6.1B": [
+      {
+        "od": "2026-09-16",
+        "cena": 694000,
+        "cenaM2": 8075
+      }
+    ],
+    "7.2A": [
+      {
+        "od": "2026-09-16",
+        "cena": 725000,
+        "cenaM2": 7818
+      }
+    ],
+    "7.2B": [
+      {
+        "od": "2026-09-16",
+        "cena": 634000,
+        "cenaM2": 7727
+      }
+    ],
+    "8.3A": [
+      {
+        "od": "2026-09-16",
+        "cena": 926000,
+        "cenaM2": 6961
+      }
+    ],
+    "8.3B": [
+      {
+        "od": "2026-09-16",
+        "cena": 888000,
+        "cenaM2": 6977
+      }
+    ],
+    "9.1A": [
+      {
+        "od": "2026-09-16",
+        "cena": 738000,
+        "cenaM2": 7816
+      }
+    ],
+    "9.1B": [
+      {
+        "od": "2026-09-16",
+        "cena": 662000,
+        "cenaM2": 7703
+      }
+    ],
+    "10.2A": [
+      {
+        "od": "2026-09-16",
+        "cena": 735000,
+        "cenaM2": 7925
+      }
+    ],
+    "10.2B": [
+      {
+        "od": "2026-09-16",
+        "cena": 646000,
+        "cenaM2": 7873
+      }
+    ]
+  }
+}
