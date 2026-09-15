@@ -15,7 +15,7 @@ export default function Standard() {
               Energooszczędna technologia <span className="fg-accent">w standardzie</span>
             </>
           }
-          lead="Mieszkania powstają z materiałów wysokiej jakości, z pompą ciepła i ogrzewaniem podłogowym w standardzie. Poddasze jest zawarte w cenie i gotowe do adaptacji według własnego pomysłu."
+          lead="Mieszkania i domy powstają z materiałów wysokiej jakości, z pompą ciepła i ogrzewaniem podłogowym w standardzie. Poddasze jest zawarte w cenie i gotowe do adaptacji według własnego pomysłu."
           className="max-w-3xl"
         />
 
@@ -24,13 +24,13 @@ export default function Standard() {
             <p>
               Osiedle powstaje w technologii energooszczędnej. Źródłem ciepła jest pompa ciepła, a ciepło
               rozprowadza ogrzewanie podłogowe - bez widocznych grzejników, więc ściany zostają wolne pod
-              aranżację. Rekuperację i fotowoltaikę montujemy na życzenie, na etapie budowy.
+              aranżację. Rekuperację i fotowoltaikę montujemy na życzenie i za dopłatą, na etapie budowy.
             </p>
             <p>
               Elewacje łączą tynk najwyższej klasy z elastyczną cegłą i blachą na rąbek. Panoramiczne okna
-              sięgają od podłogi po sam sufit i otwierają wnętrze na prywatny ogród i taras. Każde
-              mieszkanie ma własne, niezależne wejście i dwa miejsca postojowe, a cztery lokale
-              w osiedlu - własny garaż.
+              sięgają od podłogi po sam sufit i otwierają wnętrze na prywatny ogród i taras. Każdy
+              lokal ma własne, niezależne wejście i dwa miejsca postojowe, a cztery domy
+              w budynkach środkowych - własny garaż.
             </p>
             <p>
               Poddasze jest zawarte w cenie nieruchomości i nie wlicza się do metrażu - możesz je
@@ -63,8 +63,8 @@ export default function Standard() {
                 <span className="glyph-box">
                   <FeatureIcon name={f.icon} width={22} height={22} />
                 </span>
-                {"optional" in f && f.optional && (
-                  <span className="t-meta-sm fg-muted bd border px-2 py-1">Opcja</span>
+                {"tag" in f && f.tag && (
+                  <span className="t-meta fg-muted bd border px-2 py-1">{f.tag}</span>
                 )}
               </div>
               <h3 className="t-title mt-4 text-balance sm:mt-5">{f.title}</h3>

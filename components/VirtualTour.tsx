@@ -4,7 +4,6 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import tour from "@/lib/data/tour360.json";
 import wnetrza from "@/lib/data/tour-wnetrza.json";
-import { UNITS } from "@/lib/data/units";
 import { sectionEyebrow } from "@/lib/sections";
 import { BLUR } from "@/lib/blur";
 import { track } from "@/lib/track";
@@ -23,22 +22,8 @@ type Tour = { base: string; scenes: SceneCfg[] };
 const OSIEDLE = tour as Tour;
 const WNETRZA = wnetrza as Record<string, Tour>;
 
-/**
- * Deweloper ma osobny spacer po wnętrzu dla każdego z sześciu typów lokalu.
- * Podpisujemy je metrażem i liczbą pokoi, bo sam kod typu nic nabywcy nie mówi.
- */
-const TYPY = Object.keys(WNETRZA)
-  .sort()
-  .map((typ) => {
-    const u = UNITS.find((x) => {
-      const reszta = x.name.split(".")[1] ?? "";
-      return reszta.slice(0, -1) + reszta.slice(-1) === typ;
-    });
-    return {
-      typ,
-      opis: u ? `${Math.round(u.area)} m², ${u.rooms} pokoje` : "",
-    };
-  });
+/** Deweloper ma osobny spacer po wnętrzu dla każdego z sześciu typów lokalu. */
+const TYPY = Object.keys(WNETRZA).sort();
 
 // nazwy scen przychodzą od dewelopera z niedomkniętymi spacjami i prefiksem
 // [WIZ] przy ujęciach z aranżacją - prostujemy je, ale nic nie ukrywamy
@@ -49,7 +34,7 @@ const etykieta = (s: SceneCfg) => {
 
 export default function VirtualTour() {
   const [tryb, setTryb] = useState<"osiedle" | "wnetrze">("wnetrze");
-  const [typ, setTyp] = useState(TYPY[0]?.typ ?? "1A");
+  const [typ, setTyp] = useState(TYPY[0] ?? "1A");
   const [active, setActive] = useState(false);
   const [ready, setReady] = useState(false);
   const [index, setIndex] = useState(0);
@@ -182,18 +167,18 @@ export default function VirtualTour() {
                 <div className="no-scrollbar flex max-w-full items-center gap-1 overflow-x-auto border border-sand-50/20 bg-abyss/55 p-1 backdrop-blur-md">
                   {TYPY.map((t) => (
                     <button
-                      key={t.typ}
+                      key={t}
                       type="button"
                       onClick={() => {
-                        setTyp(t.typ);
-                        track("zmiana_ukladu", { typ: t.typ });
+                        setTyp(t);
+                        track("zmiana_ukladu", { typ: t });
                       }}
-                      aria-pressed={typ === t.typ}
+                      aria-pressed={typ === t}
                       className={`flex-none px-3 py-2 text-sm transition-colors ${
-                        typ === t.typ ? "bg-sun text-ink" : "hover:text-clay-300"
+                        typ === t ? "bg-sun text-ink" : "hover:text-clay-300"
                       }`}
                     >
-                      {t.typ}
+                      {t}
                     </button>
                   ))}
                 </div>

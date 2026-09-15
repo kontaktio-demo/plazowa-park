@@ -39,13 +39,19 @@ export default function Page() {
 
       <h2>§3. Charakter prezentowanych informacji</h2>
       <p>
-        Informacje zawarte w Serwisie - w tym wizualizacje, animacje, plany, metraże, ceny i statusy dostępności -
-        mają charakter <strong>poglądowy i informacyjny i nie stanowią oferty</strong> w rozumieniu art. 66 i nast.
-        Kodeksu cywilnego. Wizualizacje architektury, rzuty lokali i plan osiedla pochodzą od dewelopera inwestycji.
-        Część wizualizacji pokazujących aranżację, zieleń i otoczenie przygotowaliśmy na ich podstawie w celach
-        poglądowych. Wszystkie mogą różnić się od stanu faktycznego. Wiążące warunki
-        zakupu określa umowa zawierana w formie aktu notarialnego, a aktualne ceny i dostępność potwierdza biuro
-        sprzedaży.
+        Zawartość Serwisu ma charakter informacyjny i <strong>nie stanowi oferty</strong> w rozumieniu art. 66
+        i nast. Kodeksu cywilnego. Wiążące warunki zakupu określa umowa zawierana w formie aktu notarialnego.
+      </p>
+      <p>
+        Charakter <strong>poglądowy</strong> mają wizualizacje, animacje i plan osiedla: pokazują zamierzony
+        efekt i mogą różnić się od stanu faktycznego. Wizualizacje architektury, rzuty lokali i plan osiedla
+        pochodzą od dewelopera inwestycji, a część wizualizacji pokazujących aranżację, zieleń i otoczenie
+        przygotowaliśmy na ich podstawie.
+      </p>
+      <p>
+        Ceny lokali podane w Serwisie są <strong>aktualnymi cenami ofertowymi brutto</strong> i aktualizujemy
+        je przy każdej zmianie. Metraże, liczba pokoi i statusy dostępności pochodzą z systemu sprzedaży
+        dewelopera; dostępność lokalu przed podpisaniem umowy potwierdza biuro sprzedaży.
       </p>
 
       <h2>§4. Warunki techniczne</h2>

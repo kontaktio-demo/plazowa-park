@@ -1,12 +1,14 @@
 import Image from "next/image";
 import { INVESTMENT } from "@/lib/data/units";
 import { plnShort } from "@/lib/format";
+import { OFERTA } from "@/lib/unitType";
+import { lokaleSlowo, OFERTA_TEKST } from "@/lib/unitCopy";
 import { BLUR } from "@/lib/blur";
 import { Icon } from "./Icons";
 
 const stats = [
-  { v: String(INVESTMENT.totalUnits), l: "domów" },
-  { v: String(INVESTMENT.buildingsCount), l: "budynków" },
+  { v: String(OFERTA.mieszkania), l: lokaleSlowo("mieszkanie", OFERTA.mieszkania) },
+  { v: String(OFERTA.domy), l: lokaleSlowo("dom", OFERTA.domy) },
   { v: "82-133", l: "m² powierzchni" },
   { v: `od ${plnShort(INVESTMENT.priceMin)}`, l: "cena" },
 ];
@@ -17,7 +19,7 @@ export default function Hero() {
       <div className="absolute inset-0" data-parallax>
         <Image
           src="/renders/hero.webp"
-          alt="Dom Plażowa Park w sosnowym lesie, rodzina na ścieżce prowadzącej do wejścia"
+          alt="Budynek osiedla Plażowa Park w sosnowym lesie, rodzina na ścieżce prowadzącej do wejścia"
           fill
           priority
           quality={80}
@@ -43,24 +45,27 @@ export default function Hero() {
 
       <div className="wrap relative flex min-h-svh flex-col justify-end pb-[clamp(150px,18vh,176px)] pt-(--nav-h)">
         <div className="max-w-5xl">
-          <h1 className="t-display-xl [text-shadow:0_2px_28px_var(--color-abyss)]">
+          {/* Nagłówek musi objąć mieszkania i domy, ale na telefonie nie może urosnąć
+              o kolejny wiersz - to on wyznacza LCP i spycha CTA poniżej pierwszego
+              ekranu. Stąd mniejszy stopień do 640 px, wyżej clamp z .t-display-xl. */}
+          <h1 className="t-display-xl max-sm:text-[2.35rem] [text-shadow:0_2px_28px_var(--color-abyss)]">
             <span className="rise-y block" style={{ animationDelay: "0ms" }}>
-              Domy nad
+              Mieszkania i domy
             </span>
             <span className="rise-y block text-sun" style={{ animationDelay: "90ms" }}>
-              Zalewem Mrożyczka
+              nad Zalewem Mrożyczka
             </span>
           </h1>
 
           {/* nad rozjaśnionym renderem przygaszony wariant tekstu gubił czytelność */}
           <p className="rise-y t-body-l mt-5 max-w-xl text-pretty text-sand-50/90 [text-shadow:0_1px_18px_var(--color-abyss)] sm:mt-7" style={{ animationDelay: "200ms" }}>
-            Kameralne osiedle {INVESTMENT.totalUnits} domów z prywatnym ogrodem i tarasem, w ponad
-            100-letnim lesie przy plaży i Central Wake Park.
+            Kameralne osiedle w ponad 100-letnim lesie przy plaży i Central Wake Park:{" "}
+            {OFERTA_TEKST} z prywatnym ogrodem i tarasem.
           </p>
 
           <div className="rise-y mt-6 flex flex-wrap items-center gap-3 sm:mt-9" style={{ animationDelay: "300ms" }}>
             <a href="#mieszkania-i-domy" className="btn btn-sun">
-              Wybierz swój dom <Icon.arrow width={18} height={18} />
+              Zobacz mieszkania i domy <Icon.arrow width={18} height={18} />
             </a>
             <a href="#kontakt" data-track="book_viewing" data-miejsce="hero" className="btn btn-ghost border-sand-50/40">
               Umów prezentację
@@ -73,8 +78,8 @@ export default function Hero() {
           >
             {stats.map((s, i) => (
               <li key={s.l} className={i > 0 ? "sm:border-l sm:border-clay-700 sm:pl-8 sm:ml-8" : ""}>
-                <span className="t-display-m num block leading-none whitespace-nowrap text-[1.55rem] sm:text-[unset]">{s.v}</span>
-                <span className="t-meta-sm fg-muted mt-2.5 block">{s.l}</span>
+                <span className="t-display-m num block leading-none whitespace-nowrap max-sm:text-[1.55rem]">{s.v}</span>
+                <span className="t-label fg-muted mt-2.5 block">{s.l}</span>
               </li>
             ))}
           </ul>

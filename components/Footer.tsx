@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { NAV, SITE, DEVELOPER } from "@/lib/data/site";
+import { OFERTA_TEKST } from "@/lib/unitCopy";
 import { Icon } from "./Icons";
 import { LogoMark } from "./Logo";
 
@@ -22,15 +23,16 @@ export default function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr] lg:gap-12">
           <div>
             <p className="flex items-center gap-3">
-              <LogoMark width={26} height={26} className="text-clay-300" />
+              <LogoMark width={28} height={32} className="text-clay-300" />
               <span className="font-display text-2xl font-semibold">Plażowa Park</span>
             </p>
             <p className="t-meta-sm mt-3 text-clay-300/80">Głowno · Zalew Mrożyczka</p>
             <p className="t-body fg-muted mt-6 max-w-xs text-pretty">
-              Kameralne osiedle 20 domów w lesie, bezpośrednio przy Zalewie Mrożyczka w Głownie.
+              Kameralne osiedle w lesie, bezpośrednio przy Zalewie Mrożyczka w Głownie:{" "}
+              {OFERTA_TEKST} z prywatnym ogrodem.
             </p>
             <Link href="/#mieszkania-i-domy" className="btn btn-ghost btn-sm mt-6">
-              Wybierz swój dom <Icon.arrow width={16} height={16} />
+              Zobacz mieszkania i domy <Icon.arrow width={16} height={16} />
             </Link>
           </div>
 
@@ -65,6 +67,19 @@ export default function Footer() {
                 <br />
                 {SITE.address.postal} {SITE.address.city}
               </li>
+              <li>
+                <a
+                  href={SITE.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-track="klik_facebook"
+                  data-miejsce="stopka"
+                  className="link-underline inline-flex items-center gap-2 hover:text-clay-300"
+                >
+                  <Icon.facebook width={16} height={16} />
+                  Facebook
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -89,8 +104,9 @@ export default function Footer() {
 
         <div className="bd mt-10 border-t pt-6 sm:mt-14 sm:pt-7">
           <p className="t-body fg-muted max-w-3xl text-sm text-pretty">
-            Wizualizacje i ceny mają charakter poglądowy i nie stanowią oferty w rozumieniu art. 66 Kodeksu
-            cywilnego. Wiążące dane, ceny i dostępność potwierdza biuro sprzedaży.
+            Wizualizacje i plan osiedla mają charakter poglądowy i nie stanowią oferty w rozumieniu
+            art. 66 Kodeksu cywilnego. Podane ceny są aktualnymi cenami ofertowymi brutto i aktualizujemy
+            je przy każdej zmianie. Dostępność lokali potwierdza biuro sprzedaży.
           </p>
           <div className="t-meta-sm fg-muted mt-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p>© 2026 {DEVELOPER.name}</p>

@@ -59,3 +59,7 @@ CLAUDE.md
 
 # klucz konta uslugowego do raportow GA4 (nigdy do repozytorium)
 .ga-key.json
+
+# zrodla assetow: PDF-y rzutow dewelopera i logotypy partnerow
+.rzuty-src/
+.partner-src/

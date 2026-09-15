@@ -206,6 +206,16 @@
     font-weight: 400;
     line-height: 1.4;
   }
+  /* Etykieta nad wartością: cena, metraż, dane kontaktowe, pola formularza.
+     Wcześniej wszystkie stały w .t-meta-sm (13 px, waga 400) i na telefonie ginęły
+     obok dużych liczb. Osobna klasa, bo .t-meta-sm niesie też piny planu osiedla
+     i stopkę, których powiększać nie chcemy. */
+  .t-label {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1.35;
+  }
   .num { font-variant-numeric: tabular-nums; }
 
   /* etykieta nad nagłówkiem sekcji */

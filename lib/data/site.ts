@@ -4,7 +4,6 @@
 
 export const SITE = {
   name: "Plażowa Park",
-  tagline: "Luksusowe osiedle domów blisko natury",
   url: "https://plazowa-park.pl",
   locale: "pl-PL",
   address: {
@@ -18,6 +17,8 @@ export const SITE = {
   geo: { lat: 51.9593, lng: 19.7255 }, // ul. Plażowa, Głowno (ULDK parcel 102001_1.0011.209/1)
   phone: { display: "515 488 951", tel: "+48515488951" },
   email: "biuro@plazowa-park.pl",
+  // Fanpage osiedla. Uwaga: facebook.com/plazowapark to inna inwestycja (Międzywodzie).
+  facebook: "https://www.facebook.com/profile.php?id=61577832736826",
 } as const;
 
 export const DEVELOPER = {
@@ -48,6 +49,7 @@ export type NavItem = { label: string; href: string };
 export const NAV: NavItem[] = [
   { label: "Osiedle", href: "#osiedle" },
   { label: "Mieszkania i domy", href: "#mieszkania-i-domy" },
+  { label: "Cennik", href: "#cennik" },
   { label: "Spacer 360", href: "#spacer" },
   { label: "Standard", href: "#standard" },
   { label: "Okolica", href: "#okolica" },
@@ -100,7 +102,7 @@ export const POI = [
 // w procentach szerokości i wysokości obrazu, odczytane z samego planu.
 // Opisujemy wyłącznie to, co deweloper sam na tym planie podpisał.
 export const MAPA_PUNKTY = [
-  { x: 84, y: 55, name: "Plażowa Park", desc: "Osiedle: sześć budynków i dwadzieścia domów przy ul. Plażowej.", tu: true },
+  { x: 84, y: 55, name: "Plażowa Park", desc: "Osiedle: sześć budynków, 16 mieszkań i 4 domy przy ul. Plażowej.", tu: true },
   { x: 45, y: 41, name: "Zalew Mrożyczka", desc: "Trzydzieści hektarów wody z piaszczystą plażą i strzeżonym kąpieliskiem." },
   { x: 72, y: 45, name: "Central Wake Park", desc: "Najważniejsze miejsce na wakeboardowej mapie Polski, w sąsiedztwie osiedla." },
   { x: 28, y: 64, name: "Plaża i molo", desc: "Piaszczysta plaża z molo po zachodniej stronie zalewu." },
@@ -118,42 +120,76 @@ export const DOJAZD = [
   { name: "Warszawa", value: "104 km", note: "trasą przez A2" },
 ] as const;
 
-// Standard: heat pumps + underfloor heating are standard; recuperation and
-// photovoltaics are optional (installed on request during construction).
-// `optional: true` znaczy montaż na życzenie na etapie budowy. Wcześniej ta sama
-// informacja siedziała w nawiasie w tytule; teraz jest osobnym polem i tagiem w UI.
+// Pompa ciepła i ogrzewanie podłogowe są w standardzie. Rekuperacja i fotowoltaika
+// nie: montujemy je na życzenie i za dopłatą, dlatego niosą tag "Za dopłatą".
+// Wykończenie pod klucz zostaje zwykłą opcją - zakres i koszt ustala biuro sprzedaży.
 export const STANDARD = [
   { title: "Pompy ciepła", desc: "Ekonomiczne, ekologiczne źródło ogrzewania w standardzie osiedla.", icon: "heat" },
   { title: "Ogrzewanie podłogowe", desc: "Równomierne ciepło i swoboda aranżacji bez widocznych grzejników.", icon: "floor" },
-  { title: "Rekuperacja", desc: "Wentylacja z odzyskiem ciepła, montaż na etapie budowy.", icon: "air", optional: true },
-  { title: "Fotowoltaika", desc: "Własna energia i niższe rachunki, montaż na życzenie.", icon: "solar", optional: true },
+  { title: "Rekuperacja", desc: "Wentylacja z odzyskiem ciepła. Opcja dodatkowo płatna, montaż na etapie budowy.", icon: "air", tag: "Za dopłatą" },
+  { title: "Fotowoltaika", desc: "Własna energia i niższe rachunki. Opcja dodatkowo płatna, montaż na życzenie.", icon: "solar", tag: "Za dopłatą" },
   { title: "Panoramiczne okna", desc: "Przeszklenia od podłogi do sufitu z widokiem na las.", icon: "window" },
   { title: "Materiały premium", desc: "Elastyczna cegła, tynk najwyższej klasy i blacha na rąbek.", icon: "brick" },
-  { title: "Prywatny ogród i taras", desc: "Własna zielona przestrzeń przy każdym mieszkaniu.", icon: "garden" },
-  { title: "2 miejsca postojowe", desc: "Dwa miejsca na lokal; cztery lokale z własnym garażem.", icon: "car" },
-  { title: "Prywatne wejście", desc: "Każde mieszkanie ma własne, niezależne wejście.", icon: "door" },
-  { title: "Wykończenie pod klucz", desc: "Personalizacja projektu i wykończenia na etapie budowy.", icon: "pencil", optional: true },
+  { title: "Prywatny ogród i taras", desc: "Własna zielona przestrzeń przy każdym lokalu.", icon: "garden" },
+  { title: "2 miejsca postojowe", desc: "Dwa miejsca na lokal; cztery domy mają własny garaż.", icon: "car" },
+  { title: "Prywatne wejście", desc: "Każdy lokal ma własne, niezależne wejście.", icon: "door" },
+  { title: "Wykończenie pod klucz", desc: "Personalizacja projektu i wykończenia na etapie budowy.", icon: "pencil", tag: "Opcja" },
 ] as const;
 
-export const FINANCE_STEPS = [
-  { step: "01", title: "Rezerwacja", desc: "Wybór mieszkania i podpisanie umowy rezerwacyjnej." },
-  { step: "02", title: "Umowa deweloperska", desc: "Akt notarialny i wpłaty zgodne z harmonogramem." },
-  { step: "03", title: "Etapy budowy", desc: "Transze powiązane z postępem prac na osiedlu." },
-  { step: "04", title: "Odbiór i akt", desc: "Odbiór techniczny i przeniesienie własności." },
+// Pięć kroków w kolejności, w jakiej przechodzi je nabywca. Bez kwot i terminów:
+// opłatę rezerwacyjną, harmonogram transz i daty potwierdza prospekt informacyjny.
+export const KROKI_ZAKUPU = [
+  { title: "Oferta", desc: "Wybierasz lokal z aktualnej listy dostępności i cen na tej stronie." },
+  { title: "Oględziny", desc: "Umawiasz termin i oglądasz osiedle oraz wybrany lokal z biurem sprzedaży." },
+  { title: "Umowa rezerwacyjna", desc: "Lokal zostaje czasowo wyłączony z oferty na warunkach zapisanych w umowie." },
+  { title: "Umowa deweloperska", desc: "Akt notarialny, wpłaty na rachunek powierniczy zgodnie z harmonogramem." },
+  { title: "Przeniesienie własności", desc: "Po odbiorze technicznym, aktem notarialnym, z wpisem do księgi wieczystej." },
 ] as const;
+
+// Partnerzy wymienieni przez dewelopera. MWW Mieszkanie prowadzi sprzedaż osiedla
+// (numer telefonu na stronie to numer biura), CBG Głowno to skład budowlany z Głowna.
+export const PARTNERZY = [
+  {
+    name: "MWW Mieszkanie",
+    role: "Biuro sprzedaży osiedla",
+    url: "https://mwwmieszkanie.pl",
+    logo: "/brand/mww-mieszkanie.webp",
+    width: 320,
+    height: 310,
+  },
+  {
+    name: "CBG Głowno",
+    role: "Skład budowlany w Głownie",
+    url: "https://cbgglowno.pl",
+    logo: "/brand/cbg-glowno.webp",
+    width: 420,
+    height: 196,
+  },
+] as const;
+
+export const RABAT_CBG =
+  "Kupującym lokal w Plażowa Park przysługuje 10% rabatu na zakupy w Centrum Budowlanym Głowno. Warunki rabatu potwierdza biuro sprzedaży.";
 
 export const FAQ = [
   {
-    q: "Ile mieszkań liczy osiedle Plażowa Park?",
-    a: "Osiedle to 20 domów w 6 budynkach, o powierzchni od 82 do 133 m². Budynki narożne mieszczą po cztery mieszkania, a środkowe po dwa większe.",
+    q: "Ile mieszkań i domów liczy osiedle Plażowa Park?",
+    a: "Osiedle to 16 mieszkań i 4 domy w 6 budynkach, o powierzchni od 82 do 133 m². Cztery budynki narożne mieszczą po cztery mieszkania czteropokojowe, a dwa budynki środkowe po dwa pięciopokojowe domy z garażem.",
   },
   {
-    q: "Jakie są ceny i czy są dostępne mieszkania?",
-    a: "Ceny zaczynają się od 633 000 zł. Bieżącą dostępność i cenę każdego mieszkania prezentujemy w sekcji Mieszkania i domy; wiążące dane potwierdza biuro sprzedaży.",
+    q: "Gdzie dokładnie leży osiedle?",
+    a: "Przy ul. Plażowej 5 i 7 w Głownie (95-015), w powiecie zgierskim w województwie łódzkim. Osiedle stoi bezpośrednio przy Zalewie Mrożyczka, w ponad 100-letnim sosnowym lesie.",
+  },
+  {
+    q: "Jak daleko jest do Łodzi, Strykowa i Warszawy?",
+    a: "Do centrum Łodzi jest 32 km drogą krajową 14 przez Stryków, do Strykowa z węzłem autostrad A1 i A2 - 11 km, a do Warszawy 104 km trasą przez A2. Stacja kolejowa Głowno z połączeniami regionalnymi jest 4 km od osiedla.",
+  },
+  {
+    q: "Jakie są ceny i czy są dostępne mieszkania i domy?",
+    a: "Ceny zaczynają się od 633 000 zł. Cenę, cenę za m² i status każdego lokalu podajemy w sekcji Cennik oraz na jego podstronie; te same dane są w kartach lokali.",
   },
   {
     q: "Czy poddasze jest wliczone w cenę?",
-    a: "Tak. Każde mieszkanie ma parter, piętro oraz poddasze. Poddasze jest zawarte w cenie nieruchomości i nie jest wliczone w metraż, więc możesz je zaadaptować według własnego pomysłu.",
+    a: "Tak. Każdy lokal ma parter, piętro oraz poddasze. Poddasze jest zawarte w cenie nieruchomości i nie jest wliczone w metraż, więc możesz je zaadaptować według własnego pomysłu.",
   },
   {
     q: "Co znajduje się w okolicy osiedla?",
@@ -161,14 +197,18 @@ export const FAQ = [
   },
   {
     q: "Jaki jest standard wykończenia i technologia?",
-    a: "Mieszkania powstają w oparciu o pompy ciepła i ogrzewanie podłogowe, z opcją rekuperacji i fotowoltaiki. Standard obejmuje panoramiczne okna oraz elewację z tynku najwyższej klasy, elastycznej cegły i blachy na rąbek. Możliwa jest personalizacja wykończenia pod klucz.",
+    a: "Lokale powstają w oparciu o pompy ciepła i ogrzewanie podłogowe. Rekuperacja i fotowoltaika są opcją dodatkowo płatną, montowaną na etapie budowy. Standard obejmuje panoramiczne okna oraz elewację z tynku najwyższej klasy, elastycznej cegły i blachy na rąbek. Możliwa jest personalizacja wykończenia pod klucz.",
   },
   {
-    q: "Czy do mieszkania należy ogród i miejsce postojowe?",
-    a: "Tak. Każde mieszkanie ma prywatny ogród i taras z panoramicznymi oknami oraz dwa miejsca postojowe; cztery lokale dysponują własnym garażem.",
+    q: "Czy do lokalu należy ogród i miejsce postojowe?",
+    a: "Tak. Każdy lokal ma prywatny ogród i taras z panoramicznymi oknami oraz dwa miejsca postojowe; cztery domy w budynkach środkowych mają dodatkowo własny garaż.",
+  },
+  {
+    q: "Czy nabywcy mają zniżki u partnerów inwestycji?",
+    a: "Tak. Kupującym lokal w Plażowa Park przysługuje 10% rabatu na zakupy w Centrum Budowlanym Głowno, czyli w składzie budowlanym przy ul. Kopernika 30a. Warunki rabatu potwierdza biuro sprzedaży.",
   },
   {
     q: "Kto jest deweloperem inwestycji?",
-    a: "Inwestorem i deweloperem jest KS Prestige Development Sp. z o.o. z siedzibą w Głownie (KRS 0001031916, NIP 7331366052).",
+    a: "Inwestorem i deweloperem jest KS Prestige Development Sp. z o.o. z siedzibą w Głownie (KRS 0001031916, NIP 7331366052). Sprzedaż prowadzi biuro MWW Mieszkanie.",
   },
 ] as const;

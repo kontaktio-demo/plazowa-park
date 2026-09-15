@@ -1,14 +1,11 @@
-import { DEVELOPER, SITE, FINANCE_STEPS } from "@/lib/data/site";
+import Image from "next/image";
+import { DEVELOPER, SITE, KROKI_ZAKUPU, PARTNERZY, RABAT_CBG } from "@/lib/data/site";
 import { sectionEyebrow } from "@/lib/sections";
 import { Icon } from "./Icons";
 
-// Trzy sprawdzalne fakty. Wczesniej byly tu dwa twierdzenia bez pokrycia:
-// zgodnosc z ustawa deweloperska (nie potwierdzona zadnym zrodlem - nie wiadomo,
-// czy jest rachunek powierniczy i skladki na DFG) oraz dziennik budowy jako
-// rzekoma usluga dla nabywcy, podczas gdy to dokument urzedowy, a strona nie
-// pokazuje ani jednego zdjecia z budowy.
+// Dwa sprawdzalne fakty. Trzecia karta mówiła o przeniesieniu własności aktem
+// notarialnym, czyli dokładnie to samo, co ostatni krok zakupu niżej.
 const trust = [
-  { title: "Umowa u notariusza", desc: "Przeniesienie własności w formie aktu notarialnego." },
   { title: "Deweloper z Głowna", desc: "Spółka z siedzibą w Głownie, dane rejestrowe poniżej." },
   { title: "Standard premium w cenie", desc: "Pompy ciepła, ogrzewanie podłogowe i materiały najwyższej jakości." },
 ];
@@ -20,6 +17,8 @@ const registry = [
   { label: "Status VAT", value: DEVELOPER.statusVat },
   { label: "Kapitał zakładowy", value: DEVELOPER.kapital },
 ];
+
+const ostatniKrok = KROKI_ZAKUPU.length - 1;
 
 export default function Developer() {
   return (
@@ -36,7 +35,10 @@ export default function Developer() {
           </p>
         </header>
 
-        <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-3 sm:gap-6" data-reveal="stagger">
+        <div
+          className="mx-auto mt-10 grid max-w-[720px] gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:max-w-[1040px]"
+          data-reveal="stagger"
+        >
           {trust.map((t, i) => (
             <div key={t.title} className="card p-5 sm:p-6" style={{ transitionDelay: `${i * 60}ms` }}>
               <span className="glyph-box">
@@ -48,12 +50,12 @@ export default function Developer() {
           ))}
         </div>
 
-        <div className="bd mx-auto mt-10 max-w-[720px] border-t pt-8 sm:mt-14" data-reveal>
-          <p className="t-meta-sm fg-muted">Dane rejestrowe</p>
+        <div className="bd mx-auto mt-10 max-w-[720px] border-t pt-8 sm:mt-14 lg:max-w-[1040px]" data-reveal>
+          <p className="t-label fg-muted">Dane rejestrowe</p>
           <dl className="mt-5 grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-4">
             {registry.map((r) => (
               <div key={r.label} className="min-w-0">
-                <dt className="t-meta-sm fg-muted">{r.label}</dt>
+                <dt className="t-label fg-muted">{r.label}</dt>
                 <dd className="num mt-1.5 font-medium wrap-break-word">{r.value}</dd>
               </div>
             ))}
@@ -72,23 +74,53 @@ export default function Developer() {
           </div>
         </div>
 
-        {/* FINANCE_STEPS leżały w danych i nie były nigdzie renderowane, a to
-            pierwsze pytanie kupującego z rynku pierwotnego: co się dzieje po
-            kliknięciu "Zapytaj". */}
-        <div className="bd mx-auto mt-12 max-w-[720px] border-t pt-8 sm:mt-16" data-reveal="stagger">
-          <p className="t-meta-sm fg-muted">Jak przebiega zakup</p>
-          <ol className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-            {FINANCE_STEPS.map((s, i) => (
-              <li key={s.step} style={{ transitionDelay: `${i * 60}ms` }}>
-                <span className="t-meta-sm fg-accent num">{s.step}</span>
-                <h3 className="t-title mt-2">{s.title}</h3>
-                <p className="t-body fg-muted mt-1.5 text-pretty">{s.desc}</p>
+        <div className="bd mx-auto mt-12 max-w-[720px] border-t pt-8 sm:mt-16 lg:max-w-[1040px]" data-reveal>
+          <h3 className="t-title">Jak przebiega zakup</h3>
+          <ol className="mt-7 lg:grid lg:grid-cols-5 lg:gap-6">
+            {KROKI_ZAKUPU.map((k, i) => (
+              <li key={k.title} className="relative pb-7 pl-8 last:pb-0 lg:pt-7 lg:pb-0 lg:pl-0">
+                {i < ostatniKrok && (
+                  <span
+                    aria-hidden
+                    className="bd-strong absolute top-5 bottom-0 left-[5px] border-l lg:top-[5px] lg:-right-6 lg:bottom-auto lg:left-0 lg:border-l-0 lg:border-t"
+                  />
+                )}
+                <span aria-hidden className="fg-accent absolute top-2 left-0 size-[11px] rounded-full bg-current lg:top-0" />
+                <h4 className="leading-snug">{k.title}</h4>
+                <p className="t-body fg-muted mt-1.5 text-pretty">{k.desc}</p>
               </li>
             ))}
           </ol>
-          <p className="t-meta-sm fg-muted mt-7">
+          <p className="t-body fg-muted mt-8 text-pretty">
             Harmonogram transz, prospekt informacyjny i wzór umowy deweloperskiej udostępnia biuro sprzedaży.
           </p>
+        </div>
+
+        <div className="bd mx-auto mt-12 max-w-[720px] border-t pt-8 sm:mt-16 lg:max-w-[1040px]" data-reveal>
+          <h3 className="t-title">Partnerzy inwestycji</h3>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 sm:gap-6">
+            {PARTNERZY.map((p) => (
+              <a
+                key={p.name}
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={p.name}
+                data-track="klik_partner"
+                data-miejsce="deweloper"
+                className="card card-hover flex items-center gap-4 p-4 sm:gap-5 sm:p-5"
+              >
+                <Image src={p.logo} alt="" width={p.width} height={p.height} className="h-12 w-auto flex-none sm:h-14" />
+                <span className="min-w-0">
+                  <span className="block font-medium">{p.name}</span>
+                  <span className="t-body fg-muted mt-0.5 block text-pretty">{p.role}</span>
+                </span>
+              </a>
+            ))}
+          </div>
+          {/* Rabat jest korzyścią u partnera, nie obniżką ceny lokalu - stąd zwykły
+              akapit obok logotypów, bez wyróżnienia i z dala od jakiejkolwiek ceny. */}
+          <p className="t-body fg-muted mt-6 text-pretty">{RABAT_CBG}</p>
         </div>
       </div>
     </section>

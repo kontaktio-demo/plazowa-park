@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { SITE } from "@/lib/data/site";
+import { OFERTA_TEKST } from "@/lib/unitCopy";
 import SiteMotion from "@/components/SiteMotion";
 import CookieConsent from "@/components/CookieConsent";
 import JsonLd from "@/components/JsonLd";
@@ -24,8 +25,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const description =
-  "Nowe mieszkania i domy 82-133 m² z ogrodem i tarasem nad Zalewem Mrożyczka w Głownie. Blisko lasu i Central Wake Park. Ceny od 633 000 zł. Sprawdź dostępne lokale.";
+const description = `Nowe mieszkania i domy nad Zalewem Mrożyczka w Głownie: ${OFERTA_TEKST} 82-133 m² z ogrodem i tarasem, blisko lasu i Central Wake Park. Ceny od 633 000 zł.`;
 
 // Deploye preview i branchowe (VERCEL_ENV=preview) zostają poza indeksem;
 // aliasem produkcyjnym *.vercel.app zajmuje się middleware (X-Robots-Tag).
@@ -42,17 +42,20 @@ export const metadata: Metadata = {
   authors: [{ name: "KS Prestige Development" }],
   keywords: [
     "mieszkania i domy Głowno",
+    "nowe mieszkania Głowno",
+    "nowe domy Głowno",
     "mieszkania na sprzedaż Głowno",
     "domy na sprzedaż Głowno",
     "nowe mieszkania nad Zalewem Mrożyczka",
     "domy nad wodą łódzkie",
+    "domy z ogrodem pod Łodzią",
+    "mieszkania i domy blisko Strykowa",
+    "nowe domy powiat zgierski",
     "Plażowa Park",
     "nowa inwestycja Głowno",
     "mieszkania z ogrodem i tarasem Głowno",
     "domy w lesie Głowno",
-    "osiedle Głowno powiat zgierski",
     "nieruchomości nad zalewem łódzkie",
-    "apartamenty Głowno",
     "KS Prestige Development",
   ],
   alternates: { canonical: "/" },

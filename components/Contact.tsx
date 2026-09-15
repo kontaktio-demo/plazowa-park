@@ -15,16 +15,16 @@ type Errors = Partial<Record<"name" | "phone" | "email" | "rodo", string>>;
 const RE_MAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /**
- * Pole "Wybrane mieszkanie" jest tekstowe i domyślnie zawiera "Mieszkanie 2.2B",
- * podczas gdy zdarzenie view_lokal wysyła samą nazwę "2.2B". Bez sprowadzenia do
- * jednej postaci ten sam lokal rozpadłby się w raporcie na dwie wartości i nie dało
- * się zestawić oglądalności z zapytaniami - a to jest jedyne zestawienie, które
- * odpowiada na pytanie, które mieszkania realnie sprzedają.
+ * Pole "Wybrany lokal" jest tekstowe i domyślnie zawiera "Mieszkanie 2.2B" albo
+ * "Dom 3.3A", podczas gdy zdarzenie view_lokal wysyła samą nazwę "2.2B". Bez
+ * sprowadzenia do jednej postaci ten sam lokal rozpadłby się w raporcie na dwie
+ * wartości i nie dało się zestawić oglądalności z zapytaniami - a to jest jedyne
+ * zestawienie, które odpowiada na pytanie, które lokale realnie sprzedają.
  *
  * Wpisy spoza listy lądują jako "inne", żeby wymiar nie zbierał losowego tekstu.
  */
 function nazwaLokalu(wpis: string): string {
-  const czysty = wpis.replace(/^\s*mieszkanie\s+/i, "").trim();
+  const czysty = wpis.replace(/^\s*(mieszkanie|dom)\s+/i, "").trim();
   if (!czysty) return "";
   return UNITS.some((u) => u.name === czysty) ? czysty : "inne";
 }
@@ -99,7 +99,7 @@ export default function Contact() {
           "Imię i nazwisko": data.name,
           Telefon: data.phone,
           "E-mail": data.email,
-          Mieszkanie: data.unit || "nie wskazano",
+          Lokal: data.unit || "nie wskazano",
           Wiadomość: data.message || "brak",
           "Zgoda RODO": data.rodo ? "tak" : "nie",
         }),
@@ -140,7 +140,7 @@ export default function Contact() {
                 <Icon.phone width={20} height={20} />
               </span>
               <span>
-                <span className="t-meta-sm fg-muted block">Telefon</span>
+                <span className="t-label fg-muted block">Telefon</span>
                 <span className="num font-display mt-1 block text-xl font-semibold">{SITE.phone.display}</span>
               </span>
             </a>
@@ -149,21 +149,37 @@ export default function Contact() {
                 <Icon.mail width={20} height={20} />
               </span>
               <span className="min-w-0">
-                <span className="t-meta-sm fg-muted block">E-mail</span>
+                <span className="t-label fg-muted block">E-mail</span>
                 <span className="mt-1 block font-medium wrap-break-word">{SITE.email}</span>
               </span>
             </a>
-            <div className="bd flex items-center gap-5 border-y py-5">
+            <div className="bd flex items-center gap-5 border-t py-5">
               <span className="glyph-box">
                 <Icon.pin width={20} height={20} />
               </span>
               <span>
-                <span className="t-meta-sm fg-muted block">Adres inwestycji</span>
+                <span className="t-label fg-muted block">Adres inwestycji</span>
                 <span className="mt-1 block font-medium">
                   {SITE.address.street}, {SITE.address.postal} {SITE.address.city}
                 </span>
               </span>
             </div>
+            <a
+              href={SITE.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-track="klik_facebook"
+              data-miejsce="kontakt"
+              className="bd flex items-center gap-5 border-y py-5 transition-colors hover:text-clay-300"
+            >
+              <span className="glyph-box">
+                <Icon.facebook width={20} height={20} />
+              </span>
+              <span>
+                <span className="t-label fg-muted block">Facebook</span>
+                <span className="mt-1 block font-medium">Fanpage osiedla</span>
+              </span>
+            </a>
           </div>
         </div>
 
@@ -206,16 +222,16 @@ export default function Contact() {
                 <Field label="E-mail" name="email" type="email" placeholder="jan@example.com" error={errors.email} autoComplete="email" />
               </div>
               <Field
-                label="Wybrane mieszkanie"
+                label="Wybrany lokal"
                 name="unit"
-                placeholder="np. Mieszkanie 3.3A"
+                placeholder="np. Mieszkanie 2.2B albo Dom 3.3A"
                 optional
                 value={unit}
                 onChange={setUnit}
               />
 
               <label className="block">
-                <span className="t-meta-sm fg-muted mb-2 block">
+                <span className="t-label fg-muted mb-2 block">
                   Wiadomość <span className="opacity-60">opcjonalnie</span>
                 </span>
                 <textarea name="message" rows={3} placeholder="Interesuje mnie prezentacja i cennik" className="field resize-none" />
@@ -283,7 +299,7 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="t-meta-sm fg-muted mb-2 block">
+      <span className="t-label fg-muted mb-2 block">
         {label} {optional && <span className="opacity-60">opcjonalnie</span>}
       </span>
       <input

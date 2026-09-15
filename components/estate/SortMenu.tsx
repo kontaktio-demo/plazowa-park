@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
-export type SortKey = "price-asc" | "price-desc" | "area-desc";
+export type SortKey = "price-asc" | "price-desc" | "area-asc" | "area-desc";
 
 const OPTIONS: { key: SortKey; label: string }[] = [
   { key: "price-asc", label: "Cena rosnąco" },
   { key: "price-desc", label: "Cena malejąco" },
+  { key: "area-asc", label: "Metraż od najmniejszego" },
   { key: "area-desc", label: "Metraż od największego" },
 ];
 
@@ -20,6 +21,8 @@ export default function SortMenu({ value, onChange }: { value: SortKey; onChange
   const [active, setActive] = useState(() => Math.max(0, OPTIONS.findIndex((o) => o.key === value)));
   const rootRef = useRef<HTMLDivElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
+  // lista i opcje muszą mieć unikalne id, bo menu stoi na stronie więcej niż raz
+  const listId = useId();
 
   useEffect(() => {
     if (!open) return;
@@ -74,8 +77,8 @@ export default function SortMenu({ value, onChange }: { value: SortKey; onChange
         role="combobox"
         aria-haspopup="listbox"
         aria-expanded={open}
-        aria-controls="sortowanie-lista"
-        aria-activedescendant={open ? `sortowanie-opcja-${active}` : undefined}
+        aria-controls={listId}
+        aria-activedescendant={open ? `${listId}-${active}` : undefined}
         aria-label={`Sortowanie: ${current.label}`}
         onClick={() => setOpen((v) => !v)}
         onKeyDown={onKeyDown}
@@ -99,7 +102,7 @@ export default function SortMenu({ value, onChange }: { value: SortKey; onChange
       </button>
 
       <div
-        id="sortowanie-lista"
+        id={listId}
         role="listbox"
         aria-label="Sortowanie"
         className={`bd-strong bg-surface absolute right-0 z-30 mt-2 min-w-full origin-top overflow-hidden rounded-[12px] border transition-[opacity,transform] duration-150 ${
@@ -109,7 +112,7 @@ export default function SortMenu({ value, onChange }: { value: SortKey; onChange
         {OPTIONS.map((o, i) => (
           <div
             key={o.key}
-            id={`sortowanie-opcja-${i}`}
+            id={`${listId}-${i}`}
             role="option"
             aria-selected={o.key === value}
             onClick={() => choose(i)}

@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import { BUILDINGS, INVESTMENT } from "@/lib/data/units";
-import { plnShort, STATUS_META, odmien } from "@/lib/format";
+import { plnShort, STATUS_META } from "@/lib/format";
+import { buildingUnits, unitKind } from "@/lib/unitType";
+import { lokaleSlowo, OFERTA_TEKST } from "@/lib/unitCopy";
 import { selectBuilding } from "@/lib/selectUnit";
 import { sectionEyebrow } from "@/lib/sections";
 
@@ -16,6 +18,10 @@ import { sectionEyebrow } from "@/lib/sections";
 const status = (available: number, count: number) =>
   available === 0 ? "sold" : available < count ? "reserved" : "available";
 
+// Budynek jest jednorodny: narożny mieści cztery mieszkania, środkowy dwa domy.
+const skladBudynku = (stageId: number, count: number) =>
+  `${count} ${lokaleSlowo(unitKind(buildingUnits(stageId)[0]), count)}`;
+
 export default function Osiedle() {
   return (
     <section id="osiedle" className="band band-sand sec">
@@ -26,9 +32,9 @@ export default function Osiedle() {
             Osiedle ukryte <span className="fg-accent">w lesie</span>
           </h2>
           <p className="t-body-l fg-muted mx-auto mt-5 max-w-2xl text-pretty sm:mt-6">
-            Sześć budynków i zaledwie {INVESTMENT.totalUnits} domów. Narożne mieszczą po cztery lokale,
-            środkowe po dwa większe. Do każdego należy prywatny ogród, taras, dwa miejsca postojowe
-            i poddasze w cenie.
+            Osiedle to {OFERTA_TEKST} w {INVESTMENT.buildingsCount} budynkach. Narożne mieszczą po
+            cztery mieszkania, środkowe po dwa domy z garażem. Do każdego lokalu należy prywatny
+            ogród, taras, dwa miejsca postojowe i poddasze w cenie.
           </p>
         </header>
 
@@ -43,7 +49,7 @@ export default function Osiedle() {
                 key={b.stageId}
                 type="button"
                 onClick={() => selectBuilding(b.stageId)}
-                aria-label={`Budynek ${b.label}: ${b.count} lokali, ${b.available} dostępnych, od ${plnShort(b.priceFrom)}. Pokaż na liście`}
+                aria-label={`Budynek ${b.label}: ${skladBudynku(b.stageId, b.count)}, wolne: ${b.available}, od ${plnShort(b.priceFrom)}. Pokaż na liście`}
                 className="group bd overflow-hidden border text-left transition-colors hover:border-clay-600"
                 style={{ transitionDelay: `${Math.min(i, 6) * 60}ms` }}
               >
@@ -64,12 +70,10 @@ export default function Osiedle() {
                 <span className="flex items-end justify-between gap-4 p-4 sm:p-5">
                   <span>
                     <span className="block font-medium">
-                      {b.count} {odmien(b.count, ["lokal", "lokale", "lokali"])} ·{" "}
+                      {skladBudynku(b.stageId, b.count)} ·{" "}
                       {b.areaFrom.toLocaleString("pl-PL")}-{b.areaTo.toLocaleString("pl-PL")} m²
                     </span>
-                    <span className="t-meta-sm fg-muted mt-1 block">
-                      {b.available} {odmien(b.available, ["wolny", "wolne", "wolnych"])}
-                    </span>
+                    <span className="t-meta-sm fg-muted mt-1 block">Wolne: {b.available}</span>
                   </span>
                   <span className="t-meta-sm fg-accent num flex-none">od {plnShort(b.priceFrom)}</span>
                 </span>

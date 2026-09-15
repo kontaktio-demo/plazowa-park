@@ -1,4 +1,5 @@
 import { UNITS, type Unit } from "./data/units";
+import { RZUTY, type Kondygnacja } from "./data/rzuty";
 
 /**
  * Numer lokalu dewelopera koduje realną pozycję w bryle: `4.1A` to dom 4,
@@ -24,9 +25,61 @@ export function unitPlace(unit: Unit): UnitPlace {
   return { house, segment, side, type: `${segment}${side}` };
 }
 
-/** Rzut typu, do którego należy lokal. Sześć rzutów obsługuje dwadzieścia lokali. */
+export type UnitKind = "mieszkanie" | "dom";
+
+/**
+ * Budynki środkowe (segment 3) to cztery domy: pięć pokoi, garaż w bryle i dwa
+ * razy większy metraż niż lokale w budynkach narożnych. Deweloper nazywa w API
+ * wszystkie dwadzieścia lokali "flat", więc rodzaj wyprowadzamy tak samo jak
+ * garaż - z numeru lokalu, a nie z pola, którego w danych nie ma.
+ */
+export function unitKind(unit: Unit): UnitKind {
+  return unitPlace(unit).segment === "3" ? "dom" : "mieszkanie";
+}
+
+/** Formy, których potrzebują teksty: "Dom 3.3A", "Zapytaj o ten dom", "O domu". */
+export const ODMIANA: Record<UnitKind, { mianownik: string; dopelniacz: string; miejscownik: string; wskazujacy: string }> = {
+  mieszkanie: { mianownik: "mieszkanie", dopelniacz: "mieszkania", miejscownik: "mieszkaniu", wskazujacy: "to mieszkanie" },
+  dom: { mianownik: "dom", dopelniacz: "domu", miejscownik: "domu", wskazujacy: "ten dom" },
+};
+
+/** "Mieszkanie 2.2B" albo "Dom 3.3A" - używane też jako wpis w formularzu kontaktu. */
+export function unitLabel(unit: Unit): string {
+  const n = ODMIANA[unitKind(unit)].mianownik;
+  return `${n[0].toUpperCase()}${n.slice(1)} ${unit.name}`;
+}
+
+const policz = (kind: UnitKind) => UNITS.filter((u) => unitKind(u) === kind);
+
+/** Liczby do nagłówków i statystyk - z danych, nie wpisane w tekst. */
+export const OFERTA = {
+  mieszkania: policz("mieszkanie").length,
+  domy: policz("dom").length,
+  mieszkaniaDostepne: policz("mieszkanie").filter((u) => u.status === "available").length,
+  domyDostepne: policz("dom").filter((u) => u.status === "available").length,
+} as const;
+
+/** Podgląd lokalu na listach: izometryczny render parteru. */
 export function planImage(unit: Unit): string {
-  return `/unit-views/typ-${unitPlace(unit).type}.webp`;
+  return `/rzuty/typ-${unitPlace(unit).type}-parter-render.webp`;
+}
+
+export type RzutKondygnacji = Kondygnacja & { render: string; techniczny: string };
+
+/**
+ * Obie kondygnacje lokalu: render izometryczny, rysunek techniczny i wykaz
+ * pomieszczeń. Strona pokazywała wcześniej sam parter i odsyłała po resztę do PDF.
+ */
+export function unitFloors(unit: Unit): RzutKondygnacji[] {
+  const typ = unitPlace(unit).type;
+  return (RZUTY[typ] ?? []).map((k) => {
+    const plik = k.nazwa === "Parter" ? "parter" : "pietro";
+    return {
+      ...k,
+      render: `/rzuty/typ-${typ}-${plik}-render.webp`,
+      techniczny: `/rzuty/typ-${typ}-${plik}-techniczny.webp`,
+    };
+  });
 }
 
 /**

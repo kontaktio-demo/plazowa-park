@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { POI, SITE } from "@/lib/data/site";
 import { INVESTMENT } from "@/lib/data/units";
+import { OFERTA_TEKST } from "@/lib/unitCopy";
 import PageHeader from "@/components/PageHeader";
 import Footer from "@/components/Footer";
 import MapLibreMap from "@/components/MapLibreMap";
@@ -187,7 +188,7 @@ export default function LokalizacjaPage() {
 
           <div className="card mt-16 flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
             <p className="t-body-l fg-muted max-w-md text-pretty">
-              W tej lokalizacji powstaje {INVESTMENT.totalUnits} domów z prywatnym ogrodem, od{" "}
+              W tej lokalizacji powstaje osiedle Plażowa Park: {OFERTA_TEKST} z prywatnym ogrodem, od{" "}
               <span className="num fg font-medium">{INVESTMENT.priceMin.toLocaleString("pl-PL")} zł</span>.
             </p>
             <div className="flex flex-none flex-col gap-2.5 sm:flex-row">

@@ -1,5 +1,7 @@
 import { SITE, DEVELOPER, OPERATOR, FAQ } from "@/lib/data/site";
 import { INVESTMENT, UNITS } from "@/lib/data/units";
+import { unitKind, unitLabel } from "@/lib/unitType";
+import { OFERTA_TEKST } from "@/lib/unitCopy";
 
 const availabilityUrl = (s: string) =>
   s === "available"
@@ -50,6 +52,7 @@ export default function SiteJsonLd() {
           telephone: SITE.phone.tel,
           email: SITE.email,
           taxID: DEVELOPER.nip,
+          sameAs: [SITE.facebook],
           address: {
             "@type": "PostalAddress",
             streetAddress: DEVELOPER.street,
@@ -114,8 +117,7 @@ export function HomeJsonLd() {
           "@type": "ApartmentComplex",
           "@id": `${SITE.url}/#osiedle`,
           name: "Plażowa Park",
-          description:
-            "Osiedle 20 mieszkań i domów 82-133 m² z prywatnymi ogrodami nad Zalewem Mrożyczka w Głownie.",
+          description: `Kameralne osiedle nad Zalewem Mrożyczka w Głownie: ${OFERTA_TEKST} 82-133 m² z prywatnymi ogrodami.`,
           url: SITE.url,
           numberOfAccommodationUnits: INVESTMENT.totalUnits,
           address,
@@ -153,8 +155,9 @@ export function HomeJsonLd() {
             "@type": "ListItem",
             position: i + 1,
             item: {
-              "@type": "Apartment",
-              name: `Mieszkanie ${u.name}`,
+              // Budynki środkowe to domy jednorodzinne, a nie mieszkania w bryle.
+              "@type": unitKind(u) === "dom" ? "SingleFamilyResidence" : "Apartment",
+              name: unitLabel(u),
               numberOfRoomsTotal: u.rooms,
               floorSize: { "@type": "QuantitativeValue", value: u.area, unitCode: "MTK" },
               offers: {

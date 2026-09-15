@@ -2,9 +2,9 @@ import type { Unit } from "@/lib/data/units";
 import { buildingUnits, unitPlace } from "@/lib/unitType";
 
 /**
- * Pozycja lokalu w bryle. Rysowana z realnej numeracji dewelopera: budynek dzieli
- * się na domy, dom na strony A i B. Dwie karty tego samego typu rzutu dostają
- * dzięki temu inny obrazek, bo faktycznie stoją gdzie indziej.
+ * Pozycja lokalu w budynku, rysowana z realnej numeracji dewelopera. Podpis mówi
+ * o budynku, a nie o segmencie bryły: "Dom 4" znaczyło tu czwarty segment, więc
+ * po rozdzieleniu mieszkań i domów czytałoby się jako rodzaj lokalu.
  */
 export default function UnitPosition({ unit, className = "" }: { unit: Unit; className?: string }) {
   const units = buildingUnits(unit.stageId);
@@ -29,9 +29,10 @@ export default function UnitPosition({ unit, className = "" }: { unit: Unit; cla
           </div>
         ))}
       </div>
-      <p className="t-meta-sm fg-muted mt-2">
-        Dom {place.house} · strona {place.side}
+      <p className="t-label mt-2">
+        Budynek {unit.buildingLabel} · strona {place.side}
       </p>
+      <p className="t-meta-sm fg-muted mt-1">Wypełniony kwadrat to ten lokal, obrys to sąsiedzi.</p>
     </div>
   );
 }

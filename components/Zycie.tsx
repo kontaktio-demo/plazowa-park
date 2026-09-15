@@ -1,12 +1,13 @@
 import Image from "next/image";
 import SectionHeader from "./SectionHeader";
 import { BLUR } from "@/lib/blur";
+import { OFERTA_TEKST } from "@/lib/unitCopy";
 import { Icon } from "./Icons";
 
 const points = [
-  { t: "Kameralne osiedle", d: "Zaledwie 20 domów w cichym, zielonym otoczeniu." },
+  { t: "Kameralne osiedle", d: `Zaledwie ${OFERTA_TEKST} w cichym, zielonym otoczeniu.` },
   { t: "Las i woda za progiem", d: "Ponad 100-letni las i Zalew Mrożyczka w zasięgu spaceru." },
-  { t: "Przestrzeń dla dzieci", d: "Prywatny ogród i taras przy każdym mieszkaniu." },
+  { t: "Przestrzeń dla dzieci", d: "Prywatny ogród i taras przy każdym lokalu." },
 ];
 
 export default function Zycie() {
@@ -31,7 +32,7 @@ export default function Zycie() {
               id="zycie"
               title={
                 <>
-                  Dom nad wodą <span className="fg-accent">na co dzień</span>
+                  Nad wodą <span className="fg-accent">na co dzień</span>
                 </>
               }
             />
@@ -53,7 +54,7 @@ export default function Zycie() {
             </ul>
 
             <a href="#mieszkania-i-domy" className="btn btn-ghost mt-8">
-              Wybierz swój dom <Icon.arrow width={18} height={18} />
+              Zobacz mieszkania i domy <Icon.arrow width={18} height={18} />
             </a>
           </div>
         </div>
