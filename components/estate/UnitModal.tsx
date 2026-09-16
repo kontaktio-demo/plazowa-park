@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
 import type { Unit } from "@/lib/data/units";
@@ -18,6 +19,8 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
   // efektem przy zmianie lokalu wymuszałoby drugie renderowanie modala.
   const [wybor, setWybor] = useState({ id: "", i: 0 });
   const kondygnacja = wybor.id === unit?.id ? wybor.i : 0;
+  const oknoRef = useRef<HTMLDivElement>(null);
+  const zamknijRef = useRef<HTMLButtonElement>(null);
 
   // Większość oglądania lokali idzie przez modal, a nie przez ich strony - bez tego
   // statystyka popularności mieszkań pokazywałaby ułamek rzeczywistego zainteresowania.
@@ -32,14 +35,38 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
     });
   }, [unit]);
 
+  /**
+   * Modal deklarował aria-modal, ale focus zostawał na karcie pod nakładką: Tab
+   * wędrował po tle, a po zamknięciu przepadał na body. Tło dostaje inert (modal
+   * idzie przez portal do body, żeby nie wyłączyć samego siebie), Tab krąży
+   * wewnątrz, a focus wraca na przycisk, który modal otworzył - chyba że w
+   * międzyczasie sam poszedł dalej, na pole formularza kontaktowego.
+   */
   useEffect(() => {
     if (!unit) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    const okno = oknoRef.current;
+    const wrocDo = document.activeElement as HTMLElement | null;
+    const tlo = Array.from(document.body.children).filter((el) => el !== okno && !el.hasAttribute("inert"));
+    tlo.forEach((el) => el.setAttribute("inert", ""));
+    zamknijRef.current?.focus();
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") return onClose();
+      if (e.key !== "Tab" || !okno) return;
+      const f = okno.querySelectorAll<HTMLElement>('a[href], button:not([disabled]):not([tabindex="-1"])');
+      if (!f.length) return;
+      const brzeg = e.shiftKey ? f[0] : f[f.length - 1];
+      if (document.activeElement !== brzeg) return;
+      e.preventDefault();
+      (e.shiftKey ? f[f.length - 1] : f[0]).focus();
+    };
     document.addEventListener("keydown", onKey);
     document.documentElement.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKey);
       document.documentElement.style.overflow = "";
+      tlo.forEach((el) => el.removeAttribute("inert"));
+      if (document.activeElement === document.body) wrocDo?.focus({ preventScroll: true });
     };
   }, [unit, onClose]);
 
@@ -63,14 +90,17 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
     { l: "Cena za m²", v: plnShort(unit.pricePerM) },
   ];
 
-  return (
+  return createPortal(
     <div
+      ref={oknoRef}
       className="fixed inset-0 z-80 flex items-end justify-center sm:items-center"
       role="dialog"
       aria-modal="true"
       aria-label={label}
     >
-      <button type="button" aria-label="Zamknij" onClick={onClose} className="absolute inset-0 bg-abyss/70 backdrop-blur-sm" />
+      {/* nakładka zamyka modal myszą, ale nie jest przystankiem w kolejności Tab:
+          jej obwódka focusu i tak leżałaby poza ekranem */}
+      <button type="button" tabIndex={-1} aria-hidden onClick={onClose} className="absolute inset-0 bg-abyss/70 backdrop-blur-sm" />
       <div className="band band-sand relative z-10 max-h-[92svh] w-full max-w-3xl overflow-y-auto rounded-t-[12px] sm:rounded-[12px]">
         <div className="grid sm:grid-cols-2">
           <div className="relative aspect-4/3 bg-sand-50 sm:aspect-auto sm:min-h-[420px]">
@@ -111,6 +141,7 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
                 <h3 className="t-display-m mt-3">{label}</h3>
               </div>
               <button
+                ref={zamknijRef}
                 onClick={onClose}
                 aria-label="Zamknij"
                 className="bd-strong flex h-11 w-11 flex-none items-center justify-center border"
@@ -179,6 +210,7 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

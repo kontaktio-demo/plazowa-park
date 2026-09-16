@@ -32,8 +32,13 @@ export function rooms(n: number): string {
   return `${n} pokoi`;
 }
 
+/**
+ * Etykiety są bez rodzaju gramatycznego, bo stoją raz przy mieszkaniu, raz przy
+ * domu. Wcześniej karta mieszkania mówiła "Dostępny", a karta domu "Sprzedany"
+ * i przy mieszkaniu było to po prostu błędem.
+ */
 export const STATUS_META = {
-  available: { label: "Dostępny", color: "var(--color-ok)" },
+  available: { label: "W sprzedaży", color: "var(--color-ok)" },
   reserved: { label: "Rezerwacja", color: "var(--color-hold)" },
-  sold: { label: "Sprzedany", color: "var(--color-gone)" },
+  sold: { label: "Sprzedano", color: "var(--color-gone)" },
 } as const;

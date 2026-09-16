@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { NAV, SITE } from "@/lib/data/site";
 import { INVESTMENT } from "@/lib/data/units";
 import { Icon } from "./Icons";
@@ -9,6 +9,9 @@ import { LogoMark } from "./Logo";
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const naglowek = useRef<HTMLElement>(null);
+  const nakladka = useRef<HTMLDivElement>(null);
+  const hamburger = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -22,12 +25,25 @@ export default function Nav() {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    const przycisk = hamburger.current;
+    // Bez inert Tab wychodzi z nakładki na treść leżącą pod spodem, a czytnik ekranu
+    // czyta całą stronę. Nagłówek zostaje aktywny, bo trzyma przycisk zamykania;
+    // baner cookies leży nad menu, więc też musi zostać klikalny.
+    const tlo = Array.from(document.body.children).filter(
+      (el) => el !== naglowek.current && el !== nakladka.current && !el.hasAttribute("data-nad-menu")
+    );
+    tlo.forEach((el) => el.setAttribute("inert", ""));
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      tlo.forEach((el) => el.removeAttribute("inert"));
+      przycisk?.focus();
+    };
   }, [open]);
 
   return (
     <>
       <header
+        ref={naglowek}
         className={`fixed inset-x-0 top-0 z-60 transition-[background-color,backdrop-filter,box-shadow] duration-200 ${
           open
             ? "band band-abyss bg-abyss/95 backdrop-blur-md"
@@ -47,7 +63,7 @@ export default function Nav() {
             </span>
           </a>
 
-          <nav className="hidden flex-1 items-center justify-center gap-x-5 xl:flex 2xl:gap-x-7">
+          <nav aria-label="Menu główne" className="hidden flex-1 items-center justify-center gap-x-5 xl:flex 2xl:gap-x-7">
             {NAV.map((n) => (
               <a key={n.href} href={n.href} className="link-underline t-meta whitespace-nowrap hover:text-(--band-accent)">
                 {n.label}
@@ -73,6 +89,7 @@ export default function Nav() {
               </span>
             </a>
             <button
+              ref={hamburger}
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? "Zamknij menu" : "Otwórz menu"}
               aria-expanded={open}
@@ -92,19 +109,17 @@ export default function Nav() {
 
       {/* pełnoekranowe menu - poza headerem, żeby backdrop-filter nie uwięził pozycji fixed */}
       <div
+        ref={nakladka}
         className={`band band-abyss fixed inset-0 z-55 transition-opacity duration-300 xl:hidden ${
           open ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
         aria-hidden={!open}
+        inert={!open}
       >
-        <button
-          type="button"
-          tabIndex={open ? 0 : -1}
-          aria-label="Zamknij menu"
-          onClick={() => setOpen(false)}
-          className="absolute inset-0 h-full w-full cursor-default"
-        />
-        <nav className="wrap relative flex h-full flex-col pt-[calc(var(--nav-h)+24px)] pb-8">
+        {/* zamykanie klikiem w tło; jako <button> było pełnoekranowym przystankiem
+            Tab bez widocznej obwódki focusu */}
+        <div onClick={() => setOpen(false)} className="absolute inset-0" />
+        <nav aria-label="Menu mobilne" className="wrap relative flex h-full flex-col pt-[calc(var(--nav-h)+24px)] pb-8">
           <ul className="flex flex-col">
             {NAV.map((n, i) => (
               <li
@@ -119,7 +134,6 @@ export default function Nav() {
                 <a
                   href={n.href}
                   onClick={() => setOpen(false)}
-                  tabIndex={open ? 0 : -1}
                   className="t-display-m flex items-center justify-between py-4"
                 >
                   {n.label}
@@ -129,10 +143,15 @@ export default function Nav() {
             ))}
           </ul>
           <div className="mt-auto flex flex-col gap-3 pt-8">
-            <a href="#mieszkania-i-domy" data-track="book_viewing" data-miejsce="menu-mobilne" onClick={() => setOpen(false)} tabIndex={open ? 0 : -1} className="btn btn-sun">
-              Sprawdź dostępność ({INVESTMENT.available})
+            {/* licznik w osobnym elemencie, tak jak w nagłówku: inaczej wchodzi do
+                etykiety zdarzenia GA4 i po sprzedaży lokalu rozbija ją na dwa wiersze */}
+            <a href="#mieszkania-i-domy" data-track="book_viewing" data-miejsce="menu-mobilne" onClick={() => setOpen(false)} className="btn btn-sun">
+              Sprawdź dostępność
+              <span className="num inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-ink/15 px-1.5 text-[0.75rem] font-medium">
+                {INVESTMENT.available}
+              </span>
             </a>
-            <a href={`tel:${SITE.phone.tel}`} tabIndex={open ? 0 : -1} className="btn btn-ghost">
+            <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost">
               <Icon.phone width={17} height={17} /> {SITE.phone.display}
             </a>
           </div>

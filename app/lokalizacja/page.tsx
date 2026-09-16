@@ -95,15 +95,15 @@ export default function LokalizacjaPage() {
             </h1>
             <div className="t-body-l fg-muted mt-7 space-y-4 text-pretty">
               <p>
-                Plażowa Park powstaje w Głownie, bezpośrednio w sąsiedztwie Zalewu Mrożyczka, ponad
+                Plażowa Park powstaje w Głownie, bezpośrednio w sąsiedztwie Zalewu Mrożyczka,
                 30-hektarowego zbiornika z piaszczystą plażą, molo i strzeżonym kąpieliskiem. Tuż obok działa
                 Central Wake Park, jedno z najważniejszych miejsc na wakeboardowej mapie Polski. Osiedle otacza
                 sosnowy las, a woda i zieleń są na wyciągnięcie ręki przez cały rok.
               </p>
               <p>
-                To lokalizacja, która łączy spokój i rekreację z wygodnym dojazdem do aglomeracji łódzkiej.
-                Do centrum Łodzi jest około 32 km drogą krajową 14, a Stryków z węzłem autostrad A1 i A2 leży 11 km od osiedla.
-                Stacja kolejowa Głowno znajduje się 4 km dalej. Do Warszawy około 104 km.
+                To lokalizacja, która łączy spokój i rekreację z wygodnym dojazdem do aglomeracji łódzkiej:
+                do centrum Łodzi jest około 32 km drogą krajową 14 przez Stryków, gdzie krzyżują się autostrady
+                A1 i A2.
               </p>
               <p>
                 Plażowa Park to propozycja zarówno na całoroczne mieszkanie blisko natury, jak i na dom
@@ -143,9 +143,9 @@ export default function LokalizacjaPage() {
                 a sieć ścieżek rowerowych łączy osiedle z okolicznymi atrakcjami i brzegiem zbiornika.
               </p>
               <p>
-                Bliskość Łodzi, około 32 km drogą krajową 14 przez Stryków, sprawia, że
-                Plażowa Park to atrakcyjny adres nie tylko na całoroczne mieszkanie, ale też na dom
-                rekreacyjny czy drugi dom nad wodą w zasięgu aglomeracji łódzkiej. Do Warszawy około 104 km.
+                W okolicy jest też coś, czego nie znajdziesz w innych częściach województwa: zespół wydm
+                śródlądowych, jedna z przyrodniczych osobliwości okolic Głowna. Razem z sosnowym lasem i
+                brzegiem zalewu tworzy teren na długie spacery o każdej porze roku.
               </p>
             </div>
           </section>

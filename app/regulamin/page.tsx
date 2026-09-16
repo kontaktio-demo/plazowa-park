@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import LegalShell from "@/components/LegalShell";
-import { OPERATOR, SITE } from "@/lib/data/site";
+import { dataPl, LEGAL_UPDATED, OPERATOR, SITE } from "@/lib/data/site";
 
 const description =
-  "Regulamin korzystania z serwisu internetowego Plażowa Park - zasady świadczenia usług, prawa i obowiązki użytkownika oraz dane dewelopera KS Prestige Development.";
+  "Regulamin korzystania z serwisu internetowego Plażowa Park - zasady świadczenia usług, prawa i obowiązki użytkownika oraz dane usługodawcy prowadzącego serwis.";
 
 export const metadata: Metadata = {
   title: "Regulamin serwisu",
@@ -16,12 +16,14 @@ export const metadata: Metadata = {
     siteName: "Plażowa Park",
     title: "Regulamin serwisu - Plażowa Park",
     description,
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Plażowa Park - osiedle nad Zalewem Mrożyczka w Głownie" }],
   },
+  twitter: { card: "summary_large_image", title: "Regulamin serwisu - Plażowa Park", description, images: ["/og.jpg"] },
 };
 
 export default function Page() {
   return (
-    <LegalShell title="Regulamin serwisu" updated="31 sierpnia 2026">
+    <LegalShell title="Regulamin serwisu" updated={dataPl(LEGAL_UPDATED.regulamin)}>
       <h2>§1. Postanowienia ogólne</h2>
       <p>
         Niniejszy Regulamin określa zasady korzystania z serwisu internetowego dostępnego pod adresem

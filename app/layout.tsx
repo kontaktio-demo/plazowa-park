@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import SkipLink from "@/components/SkipLink";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { SITE } from "@/lib/data/site";
@@ -25,7 +26,8 @@ const inter = Inter({
   display: "swap",
 });
 
-const description = `Nowe mieszkania i domy nad Zalewem Mrożyczka w Głownie: ${OFERTA_TEKST} 82-133 m² z ogrodem i tarasem, blisko lasu i Central Wake Park. Ceny od 633 000 zł.`;
+// Cena na początku, bo końcówkę opisu wyszukiwarka ucina na desktopie.
+const description = `Nowe mieszkania i domy nad Zalewem Mrożyczka w Głownie, ceny od 633 000 zł: ${OFERTA_TEKST} 82-133 m² z ogrodem, tarasem i poddaszem w cenie.`;
 
 // Deploye preview i branchowe (VERCEL_ENV=preview) zostają poza indeksem;
 // aliasem produkcyjnym *.vercel.app zajmuje się middleware (X-Robots-Tag).
@@ -34,7 +36,7 @@ const isPreview = process.env.VERCEL_ENV === "preview";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: "Mieszkania i domy nad Zalewem Mrożyczka w Głownie | Plażowa Park",
+    default: "Mieszkania i domy w Głownie nad Mrożyczką | Plażowa Park",
     template: "%s | Plażowa Park",
   },
   description,
@@ -101,6 +103,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pl" className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <body>
+        <SkipLink />
         <JsonLd />
         <Analytics />
         <SiteMotion />

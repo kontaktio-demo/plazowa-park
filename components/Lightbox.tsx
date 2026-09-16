@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /** `fit` ustawia każde ujęcie osobno: rzut przycięty do kadru gubi ściany. */
@@ -23,6 +24,7 @@ export default function Lightbox({
   // palec na ekranie: przez czas gestu obraz idzie 1:1 za dłonią, bez animacji
   const [dragging, setDragging] = useState(false);
   const boxRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const pointers = useRef(new Map<number, { x: number; y: number }>());
   const gesture = useRef<{ dist: number; s: number; x: number; y: number; cx: number; cy: number } | null>(null);
   const pan = useRef<{ x: number; y: number; tx: number; ty: number; moved: boolean } | null>(null);
@@ -36,19 +38,37 @@ export default function Lightbox({
     [index, shots.length, onIndex, reset]
   );
 
+  // osobny efekt od obsługi klawiszy: tamten przebiega przy każdej zmianie ujęcia
+  // i zabierałby focus miniaturze, którą użytkownik właśnie kliknął
   useEffect(() => {
+    const powrot = document.activeElement as HTMLElement | null;
     document.documentElement.style.overflow = "hidden";
+    dialogRef.current?.focus({ preventScroll: true });
+    return () => {
+      document.documentElement.style.overflow = "";
+      powrot?.focus?.({ preventScroll: true });
+    };
+  }, []);
+
+  useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
       if (e.key === "ArrowRight") go(1);
       if (e.key === "ArrowLeft") go(-1);
       if (e.key === "0") reset();
+      // bez pętli Tab wychodzi na stronę zasłoniętą nakładką, gdzie obwódki focusu nie widać
+      if (e.key === "Tab" && dialogRef.current) {
+        const root = dialogRef.current;
+        const pola = [...root.querySelectorAll<HTMLElement>("button:not([disabled])")];
+        const el = document.activeElement;
+        const kraniec = e.shiftKey ? pola[0] : pola[pola.length - 1];
+        if (!pola.length || (el !== kraniec && el !== root && root.contains(el))) return;
+        e.preventDefault();
+        (e.shiftKey ? pola[pola.length - 1] : pola[0]).focus();
+      }
     };
     document.addEventListener("keydown", onKey);
-    return () => {
-      document.documentElement.style.overflow = "";
-      document.removeEventListener("keydown", onKey);
-    };
+    return () => document.removeEventListener("keydown", onKey);
   }, [onClose, go, reset]);
 
   // zoom trzyma punkt pod kursorem w miejscu - inaczej przy większym powiększeniu
@@ -138,6 +158,8 @@ export default function Lightbox({
 
   return (
     <div
+      ref={dialogRef}
+      tabIndex={-1}
       className="band band-abyss fixed inset-0 z-90 flex flex-col bg-abyss/97 backdrop-blur-xl"
       role="dialog"
       aria-modal="true"
@@ -177,14 +199,17 @@ export default function Lightbox({
           z.s > 1 ? "cursor-grab active:cursor-grabbing" : "cursor-zoom-in"
         }`}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        {/* sizes="100vw" trafia w ten sam wariant, który kafel galerii ma już
+            w cache na telefonie - okno otwiera się bez pobierania oryginału */}
+        <Image
           src={shot.src}
           alt={shot.alt}
+          fill
+          sizes="100vw"
           draggable={false}
-          className="absolute left-1/2 top-1/2 max-h-full max-w-full object-contain"
+          className="object-contain"
           style={{
-            transform: `translate(-50%, -50%) translate(${z.x}px, ${z.y}px) scale(${z.s})`,
+            transform: `translate(${z.x}px, ${z.y}px) scale(${z.s})`,
             transition: dragging ? "none" : "transform 160ms ease-out",
           }}
         />
@@ -210,10 +235,12 @@ export default function Lightbox({
                   i === index ? "border-sun opacity-100" : "border-sand-50/20 opacity-55 hover:opacity-90"
                 }`}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                {/* bez sizes Next generuje srcset 64w i 128w zamiast ciągnąć oryginał */}
+                <Image
                   src={s.src}
                   alt=""
+                  width={64}
+                  height={48}
                   className={`h-full w-full ${s.fit === "contain" ? "object-contain" : "object-cover"}`}
                   draggable={false}
                 />

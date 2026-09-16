@@ -44,7 +44,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 const galleryImgs = [
   { src: "/renders/tour-poster.webp", alt: "Budynek osiedla Plażowa Park o zmierzchu w sosnowym lesie", caption: "Budynek o zmierzchu" },
-  { src: "/renders/zycie.webp", alt: "Rodzina w prywatnym ogrodzie przy strefie wypoczynku", caption: "Ogród i strefa wypoczynku" },
+  // Render jest wspólny dla wszystkich lokali, a ogrody różnią się trzykrotnie,
+  // więc podpis nie może sugerować, że to ogród akurat tego mieszkania albo domu.
+  {
+    src: "/renders/zycie.webp",
+    alt: "Wizualizacja poglądowa: rodzina w prywatnym ogrodzie przy strefie wypoczynku",
+    caption: "Ogród i strefa wypoczynku - wizualizacja poglądowa",
+  },
   { src: "/dollhouse/f00.webp", alt: "Plan osiedla Plażowa Park z lotu ptaka", caption: "Plan osiedla" },
 ];
 
@@ -66,6 +72,10 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
   const sameBuilding = UNITS.filter((x) => x.stageId === u.stageId && x.id !== u.id);
   const others = UNITS.filter((x) => x.stageId !== u.stageId && x.id !== u.id);
   const rel = [...sameBuilding, ...others].slice(0, 3);
+  const pomieszczenia = floors.flatMap((f) => f.pomieszczenia);
+  const nazwanePokoje = pomieszczenia.filter((p) => /^(salon|sypialnia|pokój)/.test(p.nazwa)).length;
+  const doAdaptacji = pomieszczenia.filter((p) => p.nazwa === "pralnia" || p.nazwa === "garderoba");
+  const sumaRzutu = Math.round(floors.reduce((a, f) => a + f.suma, 0) * 100) / 100;
   const inquireHref = `/?lokal=${encodeURIComponent(label)}#kontakt`;
   const paras = unitDescription(u);
 
@@ -91,7 +101,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
         mainEntity: {
           "@type": kind === "dom" ? "SingleFamilyResidence" : "Apartment",
           name: label,
-          numberOfRoomsTotal: u.rooms,
+          numberOfRooms: u.rooms,
           floorSize: { "@type": "QuantitativeValue", value: u.area, unitCode: "MTK" },
           address,
         },
@@ -267,6 +277,26 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                       Do {o.dopelniacz} należą dwa miejsca postojowe.
                     </dd>
                   </div>
+                  {nazwanePokoje < u.rooms && doAdaptacji.length > 0 && (
+                    <div>
+                      <dt className="t-label">Liczba pokoi</dt>
+                      <dd className="t-body fg-muted mt-1.5 text-pretty">
+                        Do liczby pokoi deweloper wlicza także pomieszczenia opisane na rzucie jako{" "}
+                        {doAdaptacji.map((p) => p.nazwa).join(" i ")}; ich metraż jest zbliżony do sypialni. Nazwy z
+                        rzutu nie przesądzają o sposobie użytkowania.
+                      </dd>
+                    </div>
+                  )}
+                  {sumaRzutu !== u.area && (
+                    <div>
+                      <dt className="t-label">Powierzchnia na rzucie</dt>
+                      <dd className="t-body fg-muted mt-1.5 text-pretty">
+                        Pomieszczenia z rzutu sumują się do <span className="num">{area(sumaRzutu)}</span> i różnią się
+                        o <span className="num">{area(Math.abs(sumaRzutu - u.area))}</span> od metrażu w cenniku
+                        dewelopera. Wiążącą powierzchnię potwierdza biuro sprzedaży.
+                      </dd>
+                    </div>
+                  )}
                   {garage > 0 && (
                     <div>
                       <dt className="t-label">Garaż</dt>
@@ -279,7 +309,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                 </dl>
               </div>
 
-              {u.planUrl && (
+              {u.planUrl ? (
                 <a
                   href={u.planUrl}
                   target="_blank"
@@ -291,6 +321,8 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                 >
                   Pobierz rzut {o.dopelniacz} w PDF <Icon.arrow width={15} height={15} />
                 </a>
+              ) : (
+                <p className="t-meta fg-muted mt-8">Rzut {o.dopelniacz} w PDF wydaje biuro sprzedaży.</p>
               )}
             </section>
           )}

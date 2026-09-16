@@ -1,6 +1,7 @@
 import { SITE, DEVELOPER, OPERATOR, FAQ } from "@/lib/data/site";
 import { INVESTMENT, UNITS } from "@/lib/data/units";
 import { unitKind, unitLabel } from "@/lib/unitType";
+import { unitSlug } from "@/lib/slug";
 import { OFERTA_TEKST } from "@/lib/unitCopy";
 
 const availabilityUrl = (s: string) =>
@@ -151,15 +152,23 @@ export function HomeJsonLd() {
           "@type": "ItemList",
           name: "Mieszkania i domy - Plażowa Park",
           numberOfItems: UNITS.length,
+          // Pozycją listy jest ogłoszenie, a nie samo miejsce: Place nie ma w schema.org
+          // właściwości offers, więc cena zagnieżdżona w Apartment była pomijana.
+          // Ten sam układ mają podstrony lokali.
           itemListElement: UNITS.map((u, i) => ({
             "@type": "ListItem",
             position: i + 1,
             item: {
-              // Budynki środkowe to domy jednorodzinne, a nie mieszkania w bryle.
-              "@type": unitKind(u) === "dom" ? "SingleFamilyResidence" : "Apartment",
+              "@type": "RealEstateListing",
               name: unitLabel(u),
-              numberOfRoomsTotal: u.rooms,
-              floorSize: { "@type": "QuantitativeValue", value: u.area, unitCode: "MTK" },
+              url: `${SITE.url}/mieszkania-i-domy/${unitSlug(u.name)}`,
+              mainEntity: {
+                // Budynki środkowe to domy jednorodzinne, a nie mieszkania w bryle.
+                "@type": unitKind(u) === "dom" ? "SingleFamilyResidence" : "Apartment",
+                name: unitLabel(u),
+                numberOfRooms: u.rooms,
+                floorSize: { "@type": "QuantitativeValue", value: u.area, unitCode: "MTK" },
+              },
               offers: {
                 "@type": "Offer",
                 priceCurrency: "PLN",

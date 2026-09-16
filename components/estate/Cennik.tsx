@@ -32,7 +32,7 @@ export default function Cennik() {
               Ceny <span className="fg-accent">mieszkań i domów</span>
             </>
           }
-          lead={`Metraż, ogród, cena i status wszystkich ${OFERTA_TEKST} w jednym zestawieniu.`}
+          lead={`Metraż, ogród, cena i status - ${OFERTA_TEKST} w jednym zestawieniu.`}
         />
 
         <div className="mt-10 sm:mt-12" data-reveal>
@@ -114,7 +114,7 @@ export default function Cennik() {
 
           <p className="t-meta fg-muted mt-8 max-w-2xl text-pretty">
             Ceny brutto (z VAT). Cenę każdego mieszkania i domu aktualizujemy przy każdej zmianie u dewelopera.{" "}
-            <a href="/ceny-ofertowe.csv" className="link-underline fg-accent">
+            <a href="/ceny-ofertowe.csv" rel="nofollow" className="link-underline fg-accent">
               Dane w formacie otwartym (CSV)
             </a>
             .

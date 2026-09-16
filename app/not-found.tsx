@@ -2,8 +2,15 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { SITE } from "@/lib/data/site";
 
+const description = "Pod tym adresem nie ma strony. Wróć na stronę główną osiedla Plażowa Park.";
+
+// Bez własnych wpisów strona 404 dziedziczy canonical, opis i og: ze strony głównej,
+// czyli podaje adres strony głównej jako swój kanoniczny.
 export const metadata: Metadata = {
   title: "Strona nie znaleziona",
+  description,
+  alternates: { canonical: null },
+  openGraph: { title: "Strona nie znaleziona - Plażowa Park", description },
   robots: { index: false, follow: true },
 };
 

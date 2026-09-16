@@ -148,9 +148,11 @@ export default function EstateExplorer() {
             <div className="min-w-0">
               <p className="t-meta-sm fg-muted">Budynki</p>
               <div className="no-scrollbar edge-fade -mx-1 mt-3 flex min-w-0 snap-x snap-mandatory gap-2 overflow-x-auto px-1 pb-1 sm:flex-wrap sm:overflow-visible">
-                <button type="button" aria-pressed={building === null} onClick={() => onMapSelect(null)} className="chip flex-none snap-start">
+                <button type="button" aria-pressed={building === null} aria-label="Wszystkie budynki" onClick={() => onMapSelect(null)} className="chip flex-none snap-start">
                   Wszystkie
                 </button>
+                {/* "2 z 4", a nie samo "2": obok stoją chipy rodzaju z liczbą wszystkich
+                    lokali, więc goła liczba dostępnych czytała się jako komplet */}
                 {BUILDINGS.map((b) => (
                   <button
                     key={b.stageId}
@@ -158,10 +160,10 @@ export default function EstateExplorer() {
                     aria-pressed={building === b.stageId}
                     onClick={() => onMapSelect(building === b.stageId ? null : b.stageId)}
                     className="chip flex-none snap-start"
-                    aria-label={`Budynek ${b.label}, ${b.available} dostępnych`}
+                    aria-label={`Budynek ${b.label}, ${b.available} z ${b.count} dostępnych`}
                   >
                     Budynek {b.label}
-                    <span className="num opacity-60">· {b.available}</span>
+                    <span className="num">· {b.available} z {b.count}</span>
                   </button>
                 ))}
               </div>
@@ -177,16 +179,21 @@ export default function EstateExplorer() {
 
         <div
           id="lista-lokali"
+          tabIndex={-1}
           className="bd mt-14 flex scroll-mt-28 flex-wrap items-center justify-between gap-4 border-y py-4"
           data-reveal
         >
           <div className="no-scrollbar edge-fade -mx-1 flex w-full min-w-0 snap-x gap-2 overflow-x-auto px-1 sm:mx-0 sm:w-auto sm:flex-wrap sm:overflow-visible">
-            <button type="button" aria-pressed={status === "all"} onClick={() => { setStatus("all"); uzytoFiltra("status: wszystkie"); }} className="chip flex-none snap-start">
+            <button type="button" aria-pressed={status === "all"} aria-label="Wszystkie statusy" onClick={() => { setStatus("all"); uzytoFiltra("status: wszystkie"); }} className="chip flex-none snap-start">
               Wszystkie
             </button>
             <button type="button" aria-pressed={status === "available"} onClick={() => { setStatus("available"); uzytoFiltra("status: dostępne"); }} className="chip flex-none snap-start">
               Dostępne
             </button>
+            {/* kreska rozdziela dwie niezależne grupy: status i rodzaj. Bez niej
+                wciśnięte naraz "Wszystkie" i "Domy" wyglądały na sprzeczne, a
+                "Wszystkie" obiecywało pełną listę */}
+            <span aria-hidden className="bd my-2 flex-none self-stretch border-l" />
             <button
               type="button"
               aria-pressed={kind === "mieszkanie"}
@@ -194,7 +201,7 @@ export default function EstateExplorer() {
               onClick={() => wybierzRodzaj("mieszkanie")}
               className="chip flex-none snap-start"
             >
-              Mieszkania <span className="num opacity-60">· {OFERTA.mieszkania}</span>
+              Mieszkania <span className="num">· {OFERTA.mieszkania}</span>
             </button>
             <button
               type="button"
@@ -203,7 +210,7 @@ export default function EstateExplorer() {
               onClick={() => wybierzRodzaj("dom")}
               className="chip flex-none snap-start"
             >
-              Domy <span className="num opacity-60">· {OFERTA.domy}</span>
+              Domy <span className="num">· {OFERTA.domy}</span>
             </button>
             {(building || status !== "all" || kind !== "all") && (
               <button type="button" onClick={clear} className="chip fg-accent flex-none snap-start border-transparent">

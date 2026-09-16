@@ -27,9 +27,11 @@ export default function Faq() {
             return (
               <div key={f.q} className="bd border-b">
                 <button
+                  id={`faq-q-${i}`}
                   onClick={() => setOpen(active ? null : i)}
                   className="flex w-full items-start justify-between gap-6 py-4 text-left sm:py-5"
                   aria-expanded={active}
+                  aria-controls={`faq-a-${i}`}
                 >
                   <span className="t-title">{f.q}</span>
                   <span className="relative mt-1.5 h-4 w-4 flex-none" aria-hidden>
@@ -41,7 +43,13 @@ export default function Faq() {
                     />
                   </span>
                 </button>
+                {/* sama siatka 0fr tylko przycina tekst - bez inert czytnik ekranu
+                    czytałby wszystkie zwinięte odpowiedzi jednym ciągiem */}
                 <div
+                  id={`faq-a-${i}`}
+                  role="region"
+                  aria-labelledby={`faq-q-${i}`}
+                  inert={!active}
                   className={`grid transition-[grid-template-rows] duration-300 ease-[var(--ease-out-expo)] ${
                     active ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
                   }`}

@@ -36,6 +36,9 @@ export default function VirtualTour() {
   const [tryb, setTryb] = useState<"osiedle" | "wnetrze">("wnetrze");
   const [typ, setTyp] = useState(TYPY[0] ?? "1A");
   const [active, setActive] = useState(false);
+  // przycisk, ktorym otwarto spacer - focus ma tam wrocic po zamknieciu
+  const startRef = useRef<HTMLButtonElement | null>(null);
+  const zamknijRef = useRef<HTMLButtonElement>(null);
   const [ready, setReady] = useState(false);
   const [index, setIndex] = useState(0);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -44,6 +47,8 @@ export default function VirtualTour() {
   const viewerRef = useRef<any>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const sceneObjsRef = useRef<any[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const scenaRef = useRef<((i: number) => any) | null>(null);
   const indexRef = useRef(0);
 
   const aktywny = tryb === "osiedle" ? OSIEDLE : (WNETRZA[typ] ?? OSIEDLE);
@@ -65,7 +70,17 @@ export default function VirtualTour() {
       });
       viewerRef.current = viewer;
 
-      sceneObjsRef.current = SCENES.map((data) => {
+      sceneObjsRef.current = [];
+      /**
+       * Scena powstaje dopiero, gdy jest potrzebna. Wczesniej tworzylismy od razu
+       * komplet, a kazda scena ma podglad panoramy, wiec samo wejscie w spacer po
+       * wnetrzu sciagalo 17 podgladow naraz - ponad megabajt, zanim ktokolwiek
+       * przeszedl do drugiego ujecia.
+       */
+      scenaRef.current = (i: number) => {
+        const gotowa = sceneObjsRef.current[i];
+        if (gotowa) return gotowa;
+        const data = SCENES[i];
         const source = Marzipano.ImageUrlSource.fromString(
           `${aktywny.base}/tiles/${data.id}/{z}/{f}/{y}/{x}.jpg`,
           { cubeMapPreviewUrl: `${aktywny.base}/tiles/${data.id}/preview.jpg` }
@@ -73,13 +88,14 @@ export default function VirtualTour() {
         const geometry = new Marzipano.CubeGeometry(data.levels);
         const limiter = Marzipano.RectilinearView.limit.traditional(data.faceSize, (100 * Math.PI) / 180);
         const view = new Marzipano.RectilinearView(data.initialViewParameters, limiter);
-        const scene = viewer.createScene({ source, geometry, view, pinFirstLevel: true });
-        return { scene, view };
-      });
+        const obj = { scene: viewer.createScene({ source, geometry, view, pinFirstLevel: true }), view };
+        sceneObjsRef.current[i] = obj;
+        return obj;
+      };
 
       indexRef.current = 0;
       setIndex(0);
-      sceneObjsRef.current[0].scene.switchTo();
+      scenaRef.current(0).scene.switchTo();
       setReady(true);
     })();
 
@@ -95,7 +111,7 @@ export default function VirtualTour() {
 
   const goTo = useCallback((delta: number) => {
     const n = (indexRef.current + delta + SCENES.length) % SCENES.length;
-    const obj = sceneObjsRef.current[n];
+    const obj = scenaRef.current?.(n);
     if (!obj) return;
     indexRef.current = n;
     obj.view.setParameters(SCENES[n].initialViewParameters);
@@ -107,7 +123,31 @@ export default function VirtualTour() {
     if (document.fullscreenElement) document.exitFullscreen?.();
     setActive(false);
     setReady(false);
+    startRef.current?.focus();
   }, []);
+
+  /**
+   * Nakladka ze sterowaniem jest pozycjonowana wzgledem sekcji, wiec dopoki sekcja
+   * nie stoi rowno z ekranem, pasek z nazwa ujecia i strzalkami wypada pod dolna
+   * krawedzia. Po uruchomieniu spaceru zrownujemy sekcje z ekranem i przenosimy
+   * focus na kontrolki, zeby spacer nie byl pulapka dla klawiatury.
+   */
+  useEffect(() => {
+    if (!active) return;
+    // mobilny pasek CTA stoi przy dolnej krawedzi i zaslanialby sterowanie ujeciami
+    document.body.dataset.spacer = "1";
+    const sekcja = wrapRef.current;
+    if (sekcja) {
+      // nie scrollIntoView: sekcje maja scroll-margin-top pod belke nawigacji
+      // (globals.css), wiec zostawiloby 88 px luki i zepchnelo pasek sterowania
+      // pod dolna krawedz ekranu
+      window.scrollTo({ top: sekcja.getBoundingClientRect().top + window.scrollY, behavior: "auto" });
+    }
+    zamknijRef.current?.focus({ preventScroll: true });
+    return () => {
+      delete document.body.dataset.spacer;
+    };
+  }, [active]);
 
   // bez tego spacer był pułapką: po wejściu nie było ani przycisku, ani skrótu
   useEffect(() => {
@@ -153,6 +193,7 @@ export default function VirtualTour() {
 
             <button
               type="button"
+              ref={zamknijRef}
               onClick={zamknij}
               aria-label="Zakończ spacer"
               className="pointer-events-auto absolute right-5 top-[calc(var(--nav-h)+72px)] flex h-11 w-11 items-center justify-center border border-sand-50/25 bg-abyss/40 backdrop-blur-md transition-colors hover:border-clay-300"
@@ -163,8 +204,10 @@ export default function VirtualTour() {
             </button>
 
             {tryb === "wnetrze" && (
-              <div className="pointer-events-auto absolute inset-x-0 top-[calc(var(--nav-h)+16px)] flex justify-center px-5">
-                <div className="no-scrollbar flex max-w-full items-center gap-1 overflow-x-auto border border-sand-50/20 bg-abyss/55 p-1 backdrop-blur-md">
+              <div className="pointer-events-none absolute inset-x-0 top-[calc(var(--nav-h)+16px)] flex justify-center px-5">
+                {/* klikalny jest sam pasek, nie cala szerokosc wiersza - inaczej przezroczysty
+                    kontener lezal na przycisku pelnego ekranu i zjadal jego klikniecia */}
+                <div className="no-scrollbar pointer-events-auto flex max-w-full items-center gap-1 overflow-x-auto border border-sand-50/20 bg-abyss/55 p-1 backdrop-blur-md">
                   {TYPY.map((t) => (
                     <button
                       key={t}
@@ -242,7 +285,8 @@ export default function VirtualTour() {
             <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
               <button
                 type="button"
-                onClick={() => {
+                onClick={(e) => {
+                  startRef.current = e.currentTarget;
                   setTryb("wnetrze");
                   setActive(true);
                   track("view_360", { tryb: "wnetrze", typ });
@@ -254,7 +298,8 @@ export default function VirtualTour() {
               </button>
               <button
                 type="button"
-                onClick={() => {
+                onClick={(e) => {
+                  startRef.current = e.currentTarget;
                   setTryb("osiedle");
                   setActive(true);
                   track("view_360", { tryb: "osiedle" });

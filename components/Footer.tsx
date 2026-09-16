@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { NAV, SITE, DEVELOPER } from "@/lib/data/site";
+import { NAV, SITE, DEVELOPER, OPERATOR } from "@/lib/data/site";
 import { OFERTA_TEKST } from "@/lib/unitCopy";
 import { Icon } from "./Icons";
 import { LogoMark } from "./Logo";
@@ -109,7 +109,11 @@ export default function Footer() {
             je przy każdej zmianie. Dostępność mieszkań i domów potwierdza biuro sprzedaży.
           </p>
           <div className="t-meta-sm fg-muted mt-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <p>© 2026 {DEVELOPER.name}</p>
+            <div>
+              {/* Bez roku: strony są statyczne, więc każdy wpisany rok zastygnie na dacie builda. */}
+              <p>© {DEVELOPER.name}</p>
+              <p className="mt-1">Serwis prowadzi {OPERATOR.name}</p>
+            </div>
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
               {legal.map((l) => (
                 <a key={l.href} href={l.href} className="link-underline hover:text-clay-300">

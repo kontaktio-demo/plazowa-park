@@ -45,6 +45,17 @@ export const OPERATOR = {
   regon: "385038850",
 } as const;
 
+// Data ostatniej zmiany treści każdego dokumentu prawnego. Czyta ją nagłówek strony
+// i sitemapa, żeby obie nie mogły się rozjechać.
+export const LEGAL_UPDATED = {
+  prywatnosc: "2026-09-08",
+  cookies: "2026-09-08",
+  regulamin: "2026-09-16",
+} as const;
+
+export const dataPl = (iso: string) =>
+  new Date(iso).toLocaleDateString("pl-PL", { day: "numeric", month: "long", year: "numeric" });
+
 export type NavItem = { label: string; href: string };
 export const NAV: NavItem[] = [
   { label: "Osiedle", href: "#osiedle" },
@@ -205,7 +216,7 @@ export const FAQ = [
   },
   {
     q: "Czy nabywcy mają zniżki u partnerów inwestycji?",
-    a: "Tak. Kupującym mieszkanie albo dom w Plażowa Park przysługuje 10% rabatu na zakupy w Centrum Budowlanym Głowno, czyli w składzie budowlanym przy ul. Kopernika 30a. Warunki rabatu potwierdza biuro sprzedaży.",
+    a: "Tak. Kupującym mieszkanie albo dom w Plażowa Park przysługuje 10% rabatu na zakupy w Centrum Budowlanym Głowno, czyli w składzie budowlanym przy ul. Kopernika 30A. Warunki rabatu potwierdza biuro sprzedaży.",
   },
   {
     q: "Jak wygląda proces zakupu?",

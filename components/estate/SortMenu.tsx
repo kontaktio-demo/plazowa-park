@@ -49,7 +49,9 @@ export default function SortMenu({ value, onChange }: { value: SortKey; onChange
       setOpen(false);
       return;
     }
-    if (!open && (e.key === "Enter" || e.key === " " || e.key === "ArrowDown")) {
+    // ArrowUp też otwiera listę: bez tego przeglądarka brała klawisz na siebie
+    // i zamiast menu przewijała stronę
+    if (!open && (e.key === "Enter" || e.key === " " || e.key === "ArrowDown" || e.key === "ArrowUp")) {
       e.preventDefault();
       setOpen(true);
       return;

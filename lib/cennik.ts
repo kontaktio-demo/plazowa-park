@@ -166,6 +166,11 @@ export function cenaNaDzien(nazwa: string, dzien: string): Wpis | null {
   return wynik;
 }
 
+/** Dzień ostatniej zmiany ceny lokalu - sitemapa podaje go zamiast daty builda. */
+export function ostatniaZmianaCeny(nazwa: string): string {
+  return LOKALE[nazwa]?.at(-1)?.od ?? START;
+}
+
 /** Dzisiaj w strefie inwestycji, a nie w strefie serwera, na którym trasa się wykonała. */
 export function dzisiaj(): string {
   return new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Warsaw" }).format(new Date());
@@ -223,6 +228,10 @@ export function dniCennika(doDnia = dzisiaj()): string[] {
 
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+// SITE.address.city trzyma mianownik ("Głowno") i tak ma zostać w adresach; opisy
+// dla portalu potrzebują miejscownika.
+const MIASTO_MSC = "Głownie";
+
 const USTAWA =
   "ustawy z dnia 20 maja 2021 r. o ochronie praw nabywcy lokalu mieszkalnego lub domu jednorodzinnego oraz Deweloperskim Funduszu Gwarancyjnym";
 const USTAWA_EN =
@@ -237,7 +246,7 @@ function zasob(dzien: string): string {
         <english>${esc(`Offer prices for developer's apartments and houses ${DEVELOPER.name} ${dzien}`)}</english>
       </title>
       <description>
-        <polish>${esc(`Dane dotyczące cen ofertowych mieszkań i domów jednorodzinnych dewelopera ${DEVELOPER.name} w ramach osiedla ${SITE.name} w ${SITE.address.city}, udostępnione ${dzien} zgodnie z art. 19b ust. 1 ${USTAWA}.`)}</polish>
+        <polish>${esc(`Dane dotyczące cen ofertowych mieszkań i domów jednorodzinnych dewelopera ${DEVELOPER.name} w ramach osiedla ${SITE.name} w ${MIASTO_MSC}, udostępnione ${dzien} zgodnie z art. 19b ust. 1 ${USTAWA}.`)}</polish>
         <english>${esc(`Data on offer prices of apartments and houses of the developer ${DEVELOPER.name} made available ${dzien} in accordance with art. 19b ust. 1 ${USTAWA_EN}.`)}</english>
       </description>
       <availability>local</availability>
@@ -263,7 +272,7 @@ export function manifestXml(doDnia = dzisiaj()): string {
       <english>${esc(`Offer prices of apartments and houses of developer ${DEVELOPER.name} - ${SITE.name} estate`)}</english>
     </title>
     <description>
-      <polish>${esc(`Zbiór danych zawiera informacje o cenach ofertowych mieszkań i domów jednorodzinnych dewelopera ${DEVELOPER.name} w ramach osiedla ${SITE.name} w ${SITE.address.city}, udostępniane zgodnie z art. 19b ust. 1 ${USTAWA}.`)}</polish>
+      <polish>${esc(`Zbiór danych zawiera informacje o cenach ofertowych mieszkań i domów jednorodzinnych dewelopera ${DEVELOPER.name} w ramach osiedla ${SITE.name} w ${MIASTO_MSC}, udostępniane zgodnie z art. 19b ust. 1 ${USTAWA}.`)}</polish>
       <english>${esc(`The dataset contains information on offer prices of apartments and houses of the developer ${DEVELOPER.name} made available in accordance with art. 19b ust. 1 ${USTAWA_EN}.`)}</english>
     </description>
     <url>${SITE.url}/#cennik</url>

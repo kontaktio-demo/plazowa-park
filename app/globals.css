@@ -280,6 +280,12 @@
   }
   .btn-solid:hover { background: var(--color-sun); color: var(--color-ink); transform: translateY(-2px); }
   .btn-sm { padding: 0.7rem 1.1rem; font-size: 0.875rem; min-height: 44px; }
+  /* Poniżej 360 px nowrap ustawia min-content kolumny na całą etykietę (ok. 317 px)
+     i rozpycha siatkę poza ekran, gdzie html { overflow-x: clip } po prostu ją ucina.
+     Długa polska etykieta ma się tam zawinąć zamiast wypychać układ. */
+  @media (width < 360px) {
+    .btn { white-space: normal; }
+  }
 
   /* --------------------------------------------- powierzchnie */
   .card {
@@ -353,12 +359,15 @@
     padding: 0.85rem 1rem;
     border-radius: var(--radius-card);
     background: color-mix(in srgb, var(--color-abyss) 78%, transparent);
-    border: 1px solid color-mix(in srgb, var(--color-sand-50) 17%, transparent);
+    /* Obwódka kładzie się na wypełnieniu pola (background-clip sięga border-box),
+       więc kompozycja idzie od rgb(35,29,25), nie od karty. Przy 17% dawało to
+       1,69:1; dopiero 45% przekracza 3:1 wobec karty (WCAG 1.4.11). */
+    border: 1px solid color-mix(in srgb, var(--color-sand-50) 45%, transparent);
     color: var(--color-sand-50);
     transition: border-color 160ms ease, box-shadow 160ms ease;
   }
   .field::placeholder { color: color-mix(in srgb, var(--color-sand-50) 52%, transparent); }
-  .field:hover { border-color: color-mix(in srgb, var(--color-sand-50) 30%, transparent); }
+  .field:hover { border-color: color-mix(in srgb, var(--color-sand-50) 60%, transparent); }
   .field:focus {
     outline: none;
     border-color: var(--color-sun);
@@ -376,11 +385,11 @@
     flex: none;
     cursor: pointer;
     border-radius: 6px;
-    border: 1px solid color-mix(in srgb, var(--color-sand-50) 30%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-sand-50) 45%, transparent);
     background: color-mix(in srgb, var(--color-abyss) 78%, transparent);
     transition: background-color 150ms ease, border-color 150ms ease;
   }
-  .checkbox:hover { border-color: color-mix(in srgb, var(--color-sand-50) 46%, transparent); }
+  .checkbox:hover { border-color: color-mix(in srgb, var(--color-sand-50) 60%, transparent); }
   .checkbox:checked {
     background-color: var(--color-sun);
     border-color: var(--color-sun);

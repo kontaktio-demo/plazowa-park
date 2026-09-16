@@ -100,7 +100,7 @@ export function unitDescription(u: Unit): string[] {
 
   const standardV = [
     `Układ na ${u.floors} kondygnacjach uzupełnia poddasze w cenie, które zaadaptujesz na sypialnię, gabinet lub pokój do zabawy. Ogrzewanie zapewniają pompa ciepła i instalacja podłogowa, a rekuperacja i fotowoltaika są opcją dodatkowo płatną; do ${o.dopelniacz} należą ${postoj}.`,
-    `Do dyspozycji masz ${u.floors} kondygnacje oraz adaptowalne poddasze wliczone w cenę - idealne na dodatkowy pokój lub domowe biuro. Standard jest energooszczędny: pompa ciepła, ogrzewanie podłogowe i ${postoj}, a rekuperacja oraz fotowoltaika pozostają opcją dodatkowo płatną.`,
+    `Do dyspozycji masz ${u.floors} kondygnacje oraz adaptowalne poddasze wliczone w cenę - idealne na dodatkowy pokój lub domowe biuro. Standard jest energooszczędny: pompa ciepła i ogrzewanie podłogowe, a rekuperacja oraz fotowoltaika pozostają opcją dodatkowo płatną. Parkowanie rozwiązują ${postoj}.`,
     `Rozkład na ${u.floors} kondygnacjach dopełnia poddasze w cenie. Elewacja z elastycznej cegły, tynku najwyższej klasy i blachy na rąbek idzie w parze z pompą ciepła i ogrzewaniem podłogowym; w komplecie ${postoj}.`,
   ];
 

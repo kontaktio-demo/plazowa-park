@@ -21,7 +21,7 @@ export default function Hero() {
           src="/renders/hero.webp"
           alt="Budynek osiedla Plażowa Park w sosnowym lesie, rodzina na ścieżce prowadzącej do wejścia"
           fill
-          priority
+          preload
           quality={80}
           sizes="100vw"
           placeholder="blur"
@@ -32,11 +32,19 @@ export default function Hero() {
       {/* Scrim tylko pod kolumną tekstu. Wcześniej dwie pełnoekranowe nakładki
           dawały w strefie H1 ok. 90% krycia granatu i kasowały całe złote światło
           renderu - to było dosłownie to, co klient nazwał "za czarna i nie żyje".
-          Czytelność bierzemy z cienia tekstu, nie z przyciemniania zdjęcia. */}
-      {/* na wąskim ekranie skos zjadałby cały kadr, więc tam scrim jest pionowy */}
+          Od 640 px skos wystarcza: prawa połowa kadru zostaje nietknięta. */}
       <div
         aria-hidden
         className="absolute inset-0 hidden bg-[linear-gradient(100deg,var(--color-abyss)_0%,color-mix(in_srgb,var(--color-abyss)_58%,transparent)_34%,transparent_66%)] sm:block"
+      />
+      {/* Poniżej 640 px kolumna tekstu zajmuje całą szerokość, więc skos nie ma
+          czego ominąć - scrim musi być pionowy. Bursztynowa linia H1 ma wobec
+          bieli chmur tylko 2,13:1, więc dopiero 70% granatu daje jej 3:1
+          (zmierzone na pikselach renderu). Górne 160 px zostaje czyste, żeby
+          niebo i światło nie zgasły. */}
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0,color-mix(in_srgb,var(--color-abyss)_70%,transparent)_160px,color-mix(in_srgb,var(--color-abyss)_70%,transparent)_100%)] sm:hidden"
       />
       {/* delikatny cień pod paskiem nawigacji - na jasnym niebie białe menu
           traciło czytelność */}
@@ -51,7 +59,7 @@ export default function Hero() {
           <h1 className="t-display-xl max-sm:text-[2.35rem] [text-shadow:0_2px_28px_var(--color-abyss)]">
             <span className="rise-y block" style={{ animationDelay: "0ms" }}>
               Mieszkania i domy
-            </span>
+            </span>{" "}
             <span className="rise-y block text-sun" style={{ animationDelay: "90ms" }}>
               nad Zalewem Mrożyczka
             </span>

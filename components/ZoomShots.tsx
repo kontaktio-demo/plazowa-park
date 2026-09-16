@@ -8,7 +8,9 @@ import Lightbox, { type Shot } from "./Lightbox";
  * Kadry lokalu z powiększaniem. Klient chciał móc przybliżać widoki - rzut
  * w kaflu jest za mały, żeby sprawdzić, czy kanapa się zmieści.
  *
- * `priority` dostaje tylko ta galeria, która jest LCP strony.
+ * `priority` dostaje tylko ta galeria, która jest LCP strony. To prop tego
+ * komponentu, nie Next - na <Image> idzie jako `preload`, bo `priority` jest
+ * w Next 16 wycofane.
  */
 export default function ZoomShots({ shots, priority }: { shots: Shot[]; priority?: boolean }) {
   const [open, setOpen] = useState<number | null>(null);
@@ -59,7 +61,7 @@ function Tile({
         fill
         sizes={small ? "(max-width: 1024px) 33vw, 220px" : "(max-width: 1024px) 100vw, 50vw"}
         className={contain ? "object-contain" : "object-cover"}
-        priority={priority}
+        preload={priority}
       />
       {!small && (
         <span className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center border border-sand-50/35 bg-abyss/45 text-sand-50 backdrop-blur-sm transition-colors group-hover:border-sun">

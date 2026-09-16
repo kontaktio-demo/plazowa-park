@@ -22,15 +22,29 @@ const nextConfig: NextConfig = {
   },
 
   async headers() {
+    const cacheGrafiki = [
+      { key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" },
+    ];
+    const bezIndeksu = [{ key: "X-Robots-Tag", value: "noindex" }];
     return [
       {
         // Długi cache dla stabilnych assetów (klatki obrotu, rendery, rzuty
         // lokali, mapy) - powstają raz i praktycznie się nie zmieniają.
         source: "/:folder(dollhouse|osiedle|galeria|renders|rzuty|map|brand)/:path*",
-        headers: [
-          { key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" },
-        ],
+        headers: cacheGrafiki,
       },
+      // Obraz Open Graph leży poza tymi folderami, a zmienia się równie rzadko.
+      { source: "/og.jpg", headers: cacheGrafiki },
+      {
+        // Pliki dla dane.gov.pl zostają publicznie dostępne, bo tego wymaga art. 19b
+        // ustawy deweloperskiej, ale nie mają po co stać w wynikach wyszukiwania.
+        // noindex nie blokuje pobierania, więc harvester portalu bierze je dalej.
+        source: "/:plik(ceny-ofertowe\\.csv|dane-gov\\.xml|dane-gov\\.md5)",
+        headers: bezIndeksu,
+      },
+      // Cennik na wskazany dzień to nowy adres każdej doby - bez tego w indeksie
+      // narosłoby do tysiąca prawie identycznych plików, w dodatku linkowanych z portalu.
+      { source: "/ceny-ofertowe/:plik", headers: bezIndeksu },
     ];
   },
 };

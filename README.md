@@ -120,17 +120,22 @@ czterech sekcji przed zgodą dało po zgodzie cztery zdarzenia `sekcja_widoczna`
 | `pokaz_wszystkie` | rozwinięcie pełnej listy lokali | `sekcja`, `etykieta` |
 | `view_lokal` | otwarcie lokalu | `unit`, `value`, `currency`, `status`, `zrodlo` (modal/strona) |
 | `pobranie_rzutu` | pobranie rzutu PDF | `sekcja`, `etykieta`, `unit` |
-| `book_viewing` | kliknięcie CTA (10 miejsc, doszedł cennik) | `sekcja`, `etykieta`, `unit` przy lokalu |
+| `book_viewing` | kliknięcie CTA prowadzącego do listy lokali albo do formularza | `sekcja`, `etykieta`, `unit` przy lokalu |
 | `start_formularza` | pierwsze kliknięcie w pole formularza | brak |
 | `blad_formularza` | walidacja zatrzymała wysyłkę | `etykieta` (lista pól) |
-| `generate_lead` | wysłany formularz | `unit`, `value`, `currency` |
+| `generate_lead` | wysłany formularz | `unit`; `value` i `currency` tylko przy wskazanym lokalu |
 | `view_360` | start spaceru | `tryb` (wnetrze/osiedle), `typ` przy wnętrzu |
 | `zmiana_ukladu` | przełączenie układu w spacerze | `typ` |
 | `click_to_call` | kliknięcie w telefon | `phone` |
-| `click_to_email` | kliknięcie w e-mail | `href` |
-| `click_whatsapp` | kliknięcie w WhatsApp | `href` |
+| `click_to_email` | kliknięcie w e-mail | `sekcja` |
 | `klik_facebook` | kliknięcie w profil osiedla | `sekcja`, `etykieta` |
 | `klik_partner` | kliknięcie w partnera (MWW, CBG) | `sekcja`, `etykieta` |
+
+Wartości `sekcja` przy `book_viewing`: nawigacja, menu-mobilne, hero, karta-lokalu, modal-lokalu,
+cennik, pasek-mobilny, deweloper, strona-lokalu, strona-lokalizacja.
+
+Linku do WhatsAppa nie ma na stronie ani jednego, więc nie ma też czego szukać w GA4. Gdyby kiedyś
+powstał, obsługę kliknięcia trzeba dodać od nowa.
 
 Do tego GA4 sam liczy `page_view` (także przy przejściach bez przeładowania strony),
 `scroll`, `click` na linkach wychodzących i `file_download`.
@@ -144,7 +149,8 @@ Parametry są dobrane pod cztery pytania sprzedażowe:
    sortują po cenie rosnąco. To wprost mówi, co wyeksponować wyżej.
 3. **Które lokale sprzedają.** `view_lokal` i `generate_lead` wysyłają **tę samą** nazwę
    lokalu, więc da się zestawić oglądalność z zapytaniami. Oba mają też `value` w złotych,
-   więc GA4 sam policzy wartość obejrzanych i zapytanych mieszkań.
+   więc GA4 sam policzy wartość obejrzanych i zapytanych mieszkań. Zgłoszenie bez wskazanego lokalu
+   nie ma czego wycenić, więc idzie bez `value`.
 4. **Czy formularz nie odstrasza.** `start_formularza` minus `generate_lead` to porzucenia,
    a `blad_formularza` mówi, na którym polu ludzie się zacinają.
 
@@ -215,6 +221,11 @@ dane ministrowi do spraw informatyzacji, który wystawia je na dane.gov.pl. Stro
 | `/ceny-ofertowe/...-2026-09-16.csv` | ten sam cennik według stanu na wskazany dzień |
 | `/dane-gov.xml` | manifest dla harvestera portalu: jeden zasób na każdą dobę |
 | `/dane-gov.md5` | suma kontrolna manifestu, wymagana przy imporcie automatycznym |
+
+Wszystkie cztery trasy odpowiadają z nagłówkiem `X-Robots-Tag: noindex` (reguła w `next.config.ts`).
+Pliki zostają w pełni dostępne, bo noindex nie blokuje pobierania i harvester portalu bierze je dalej,
+ale surowy CSV nie wchodzi do wyników wyszukiwania. Bez tego w indeksie narosłoby do tysiąca prawie
+identycznych plików: trasa dzienna tworzy nowy adres każdej doby, a dane.gov.pl publicznie linkuje każdy z nich.
 
 Wszystko liczy [`lib/cennik.ts`](lib/cennik.ts) z `lib/data/units.ts` i
 [`lib/data/historia-cen.json`](lib/data/historia-cen.json). Trasy z cennikiem mają

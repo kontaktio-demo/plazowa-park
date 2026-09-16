@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import LegalShell from "@/components/LegalShell";
-import { SITE } from "@/lib/data/site";
+import { ZmienZgode } from "@/components/CookieConsent";
+import { dataPl, LEGAL_UPDATED, SITE } from "@/lib/data/site";
 
 const description =
   "Informacje o plikach cookie w serwisie Plażowa Park w Głownie: rodzaje cookies, cele oraz zarządzanie zgodą w przeglądarce.";
@@ -16,12 +17,14 @@ export const metadata: Metadata = {
     siteName: "Plażowa Park",
     title: "Polityka cookies - Plażowa Park",
     description,
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Plażowa Park - osiedle nad Zalewem Mrożyczka w Głownie" }],
   },
+  twitter: { card: "summary_large_image", title: "Polityka cookies - Plażowa Park", description, images: ["/og.jpg"] },
 };
 
 export default function Page() {
   return (
-    <LegalShell title="Polityka cookies" updated="8 września 2026">
+    <LegalShell title="Polityka cookies" updated={dataPl(LEGAL_UPDATED.cookies)}>
       <p>
         Serwis <strong>plazowa-park.pl</strong> korzysta z plików cookie i podobnych technologii, w tym z pamięci
         lokalnej przeglądarki. Sam Serwis nie zapisuje na Twoim urządzeniu plików cookie; w pamięci lokalnej
@@ -44,9 +47,12 @@ export default function Page() {
       <h2>3. Zarządzanie zgodą i cookie</h2>
       <p>
         Przy pierwszej wizycie wyświetlamy baner umożliwiający akceptację wszystkich plików cookie lub wyłącznie
-        niezbędnych. Decyzję zapisujemy w pamięci lokalnej przeglądarki, więc aby ją cofnąć, wyczyść dane witryny
-        dla plazowa-park.pl w ustawieniach przeglądarki - baner pojawi się ponownie. Ustawienia samych plików
-        cookie zmienisz w przeglądarce, w tym możesz je usunąć lub zablokować.
+        niezbędnych. Decyzję zapisujemy w pamięci lokalnej przeglądarki i możesz ją zmienić albo wycofać w każdej
+        chwili - przycisk poniżej kasuje zapisaną decyzję i przywraca baner. Ustawienia samych plików cookie
+        zmienisz w przeglądarce, w tym możesz je usunąć lub zablokować.
+      </p>
+      <p>
+        <ZmienZgode />
       </p>
       <p>Instrukcje zarządzania cookie w popularnych przeglądarkach dostępne są w ich dokumentacji (Chrome, Firefox, Safari, Edge).</p>
 
@@ -58,7 +64,9 @@ export default function Page() {
         i nie wymaga zgody, bo nie sięga do Twojego urządzenia. Dane te nie służą do identyfikacji
         konkretnej osoby.
         Mapa okolicy pobiera kafle satelitarne od zewnętrznego dostawcy (Esri ArcGIS Online), co wiąże się
-        z przekazaniem mu adresu IP Twojego urządzenia.
+        z przekazaniem mu adresu IP Twojego urządzenia. Tak samo działa spacer 360 i pobieranie rzutów w PDF -
+        pliki pochodzą z serwerów SenseVR (quptos-web-data.sensevr.pl), które poznają wtedy adres IP Twojego
+        urządzenia. Dostawca spaceru nie zapisuje plików cookie ani niczego w pamięci Twojej przeglądarki.
       </p>
 
       <h2>5. Kontakt</h2>

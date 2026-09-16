@@ -35,9 +35,18 @@ export default function PlanOkolicy() {
                 type="button"
                 aria-expanded={otwarty}
                 aria-label={`${p.name}: ${p.desc}`}
-                onClick={() => setAktywny(otwarty ? null : i)}
-                onMouseEnter={() => setAktywny(i)}
-                onMouseLeave={() => setAktywny((v) => (v === i ? null : v))}
+                // Dotyk i mysz muszą iść osobno. Przy onClick razem z onMouseEnter
+                // Chromium na Androidzie wysyła po tapnięciu zgodnościowe mouseenter,
+                // które otwiera dymek, a następujący po nim click od razu go zamyka.
+                onPointerDown={(e) => {
+                  if (e.pointerType !== "mouse") setAktywny(otwarty ? null : i);
+                }}
+                onPointerEnter={(e) => {
+                  if (e.pointerType === "mouse") setAktywny(i);
+                }}
+                onPointerLeave={(e) => {
+                  if (e.pointerType === "mouse") setAktywny((v) => (v === i ? null : v));
+                }}
                 onFocus={() => setAktywny(i)}
                 onBlur={() => setAktywny((v) => (v === i ? null : v))}
                 className="absolute -translate-x-1/2 -translate-y-1/2"

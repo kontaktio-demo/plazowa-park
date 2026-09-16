@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import LegalShell from "@/components/LegalShell";
-import { OPERATOR, SITE } from "@/lib/data/site";
+import { dataPl, LEGAL_UPDATED, OPERATOR, SITE } from "@/lib/data/site";
 
 const description =
   "Zasady przetwarzania danych osobowych (RODO) w serwisie Plażowa Park w Głownie: administrator, cele i podstawy prawne przetwarzania oraz prawa użytkownika.";
@@ -16,12 +16,14 @@ export const metadata: Metadata = {
     siteName: "Plażowa Park",
     title: "Polityka prywatności - Plażowa Park",
     description,
+    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Plażowa Park - osiedle nad Zalewem Mrożyczka w Głownie" }],
   },
+  twitter: { card: "summary_large_image", title: "Polityka prywatności - Plażowa Park", description, images: ["/og.jpg"] },
 };
 
 export default function Page() {
   return (
-    <LegalShell title="Polityka prywatności" updated="8 września 2026">
+    <LegalShell title="Polityka prywatności" updated={dataPl(LEGAL_UPDATED.prywatnosc)}>
       <p>
         Niniejsza Polityka prywatności opisuje zasady przetwarzania danych osobowych osób korzystających z serwisu
         internetowego <strong>plazowa-park.pl</strong> (&quot;Serwis&quot;) oraz kontaktujących się z nami w sprawie inwestycji
@@ -44,7 +46,7 @@ export default function Page() {
       <p>Przetwarzamy dane, które podajesz dobrowolnie w formularzu kontaktowym lub podczas kontaktu telefonicznego:</p>
       <ul>
         <li><strong>Imię i nazwisko, telefon, adres e-mail</strong> - w celu obsługi zapytania, przedstawienia oferty i kontaktu handlowego.</li>
-        <li><strong>Treść wiadomości oraz wybrane mieszkanie</strong> - w celu przygotowania odpowiedzi dopasowanej do Twoich potrzeb.</li>
+        <li><strong>Treść wiadomości oraz wybrane mieszkanie lub dom</strong> - w celu przygotowania odpowiedzi dopasowanej do Twoich potrzeb.</li>
         <li><strong>Dane techniczne</strong> (adres IP, pliki cookie, dane analityczne) - w celu zapewnienia działania i bezpieczeństwa Serwisu oraz analizy ruchu.</li>
       </ul>
 
@@ -78,6 +80,11 @@ export default function Page() {
       <p>
         Mapa okolicy pobiera kafle satelitarne od zewnętrznego dostawcy (Esri ArcGIS Online), któremu przy
         wyświetleniu mapy przekazywany jest adres IP Twojego urządzenia.
+      </p>
+      <p>
+        Spacer 360 oraz rzuty w formacie PDF pobieramy z serwerów dostawcy prezentacji inwestycji
+        (SenseVR), któremu przy uruchomieniu spaceru lub pobraniu pliku przekazywany jest adres IP
+        Twojego urządzenia. Pliki te wczytują się dopiero po Twoim kliknięciu.
       </p>
       <p>
         Statystyki odwiedzin prowadzimy w Google Analytics oraz w analityce Vercel Inc., czyli dostawcy

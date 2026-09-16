@@ -28,7 +28,7 @@ export default function Standard() {
             </p>
             <p>
               Elewacje łączą tynk najwyższej klasy z elastyczną cegłą i blachą na rąbek. Panoramiczne okna
-              sięgają od podłogi po sam sufit i otwierają wnętrze na prywatny ogród i taras. Każdy
+              sięgają od podłogi po sam sufit i otwierają wnętrze na prywatny ogród i taras. Każde
               mieszkanie i każdy dom ma własne, niezależne wejście i dwa miejsca postojowe, a cztery domy
               w budynkach środkowych - własny garaż.
             </p>

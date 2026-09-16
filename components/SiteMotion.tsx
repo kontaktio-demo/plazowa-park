@@ -33,6 +33,25 @@ export default function SiteMotion() {
       revealTimer = window.setTimeout(revealAll, 3500);
     }
 
+    // Elementy, które wchodzą do drzewa później, nie były obserwowane, a CSS trzyma
+    // je na zerowej przezroczystości. Tak znikała cała lista lokali po wejściu
+    // w kombinację filtrów bez wyników: siatka odmontowywała się i wracała jako nowy
+    // węzeł, którego nikt już nie odsłaniał.
+    const obserwuj = (el: HTMLElement) => {
+      if (reduce || !io) el.classList.add("is-in");
+      else io.observe(el);
+    };
+    const mo = new MutationObserver((zmiany) => {
+      for (const z of zmiany) {
+        for (const n of z.addedNodes) {
+          if (!(n instanceof HTMLElement)) continue;
+          if (n.matches("[data-reveal]")) obserwuj(n);
+          n.querySelectorAll<HTMLElement>("[data-reveal]:not(.is-in)").forEach(obserwuj);
+        }
+      }
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
+
     let lenis: import("lenis").default | undefined;
     const onClick = (e: MouseEvent) => {
       const a = (e.target as HTMLElement)?.closest?.('a[href^="#"]') as HTMLAnchorElement | null;
@@ -112,6 +131,7 @@ export default function SiteMotion() {
       disposed = true;
       document.removeEventListener("click", onClick);
       io?.disconnect();
+      mo.disconnect();
       clearTimeout(revealTimer);
       killScroll?.();
     };

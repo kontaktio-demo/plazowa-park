@@ -32,10 +32,24 @@ export default function StickyCta() {
     };
   }, []);
 
+  // W spacerze 360 pasek staje przy dolnej krawedzi dokladnie tam, gdzie sterowanie
+  // ujeciami, wiec na czas spaceru znika. Spacer sygnalizuje sie atrybutem na body,
+  // zeby te dwa komponenty nie musialy o sobie wiedziec.
+  const [spacer, setSpacer] = useState(false);
+  useEffect(() => {
+    const sprawdz = () => setSpacer(document.body.dataset.spacer === "1");
+    sprawdz();
+    const mo = new MutationObserver(sprawdz);
+    mo.observe(document.body, { attributes: true, attributeFilter: ["data-spacer"] });
+    return () => mo.disconnect();
+  }, []);
+
   return (
     <div
-      className={`fixed inset-x-3 bottom-0 z-50 flex gap-2.5 pb-[calc(12px+env(safe-area-inset-bottom))] transition-[opacity,transform] duration-300 lg:hidden ${
-        show && zgoda ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
+      // visibility w przejściu, bo samo opacity-0 zostawia oba linki w kolejności Tab
+      // jako przystanki bez widocznego focusu
+      className={`fixed inset-x-3 bottom-0 z-50 flex gap-2.5 pb-[calc(12px+env(safe-area-inset-bottom))] transition-[opacity,transform,visibility] duration-300 lg:hidden ${
+        show && zgoda && !spacer ? "translate-y-0 opacity-100" : "invisible pointer-events-none translate-y-4 opacity-0"
       }`}
     >
       <a

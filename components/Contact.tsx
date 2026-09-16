@@ -21,11 +21,13 @@ const RE_MAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
  * wartości i nie dało się zestawić oglądalności z zapytaniami - a to jest jedyne
  * zestawienie, które odpowiada na pytanie, które lokale realnie sprzedają.
  *
- * Wpisy spoza listy lądują jako "inne", żeby wymiar nie zbierał losowego tekstu.
+ * Wpisy spoza listy lądują jako "inne", pusty wpis jako "nie wskazano" - dokładnie
+ * ta sama wartość, która idzie w mailu do biura, żeby wymiar nie zbierał pustek
+ * ani losowego tekstu.
  */
 function nazwaLokalu(wpis: string): string {
   const czysty = wpis.replace(/^\s*(mieszkanie|dom)\s+/i, "").trim();
-  if (!czysty) return "";
+  if (!czysty) return "nie wskazano";
   return UNITS.some((u) => u.name === czysty) ? czysty : "inne";
 }
 
@@ -38,6 +40,18 @@ function nazwaLokalu(wpis: string): string {
  */
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 const WEB3FORMS_KEY = "8b25ae77-e757-42ae-9666-cb2f6d7ce657";
+
+/**
+ * Kolejność pól na ekranie plus nazwy widoczne w interfejsie. Jedno i drugie ma
+ * znaczenie: focus po nieudanej walidacji ma iść na pierwsze błędne pole od góry,
+ * a w raporcie GA4 ma stać nazwa, którą klientka zrozumie, a nie klucz z kodu.
+ */
+const POLA = [
+  ["name", "Imię i nazwisko"],
+  ["phone", "Telefon"],
+  ["email", "E-mail"],
+  ["rodo", "Zgoda RODO"],
+] as const;
 
 function validate(d: Record<string, string>): Errors {
   const e: Errors = {};
@@ -54,6 +68,11 @@ export default function Contact() {
   const [errors, setErrors] = useState<Errors>({});
   const [failed, setFailed] = useState("");
   const zaczete = useRef(false);
+  const potwierdzenie = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    if (state === "ok") potwierdzenie.current?.focus();
+  }, [state]);
 
   useEffect(() => {
     const onSelect = (e: Event) => setUnit((e as CustomEvent<string>).detail || "");
@@ -71,14 +90,26 @@ export default function Contact() {
     e.preventDefault();
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
-    if (data.company) return; // honeypot
+    // Honeypot: bot dostaje ten sam ekran co przy sukcesie, ale nic nie wychodzi.
+    // Ciche przerwanie zostawiało człowieka, któremu pole wypełniła wtyczka, przy
+    // przycisku, który pozornie nie reaguje.
+    if (data.company) {
+      setState("ok");
+      form.reset();
+      setUnit("");
+      return;
+    }
 
     const found = validate(data);
     setErrors(found);
-    if (Object.keys(found).length) {
+    const bledne = POLA.filter(([klucz]) => found[klucz]);
+    if (bledne.length) {
       // Same pola, na których ludzie się zacinają - to one decydują, czy formularz skrócić.
-      track("blad_formularza", { etykieta: Object.keys(found).join(", ") });
-      form.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+      track("blad_formularza", { etykieta: bledne.map(([, nazwa]) => nazwa).join(", ") });
+      // Pole bierzemy z obiektu błędów, a nie z aria-invalid w DOM: React nie zdążył
+      // jeszcze przemalować atrybutów, więc selektor trafiałby na błąd z poprzedniej
+      // próby, a przy pierwszej - nigdzie.
+      form.querySelector<HTMLElement>(`[name="${bledne[0][0]}"]`)?.focus();
       return;
     }
 
@@ -170,6 +201,7 @@ export default function Contact() {
               rel="noopener noreferrer"
               data-track="klik_facebook"
               data-miejsce="kontakt"
+              aria-label="Facebook - fanpage osiedla"
               className="bd flex items-center gap-5 border-y py-5 transition-colors hover:text-clay-300"
             >
               <span className="glyph-box">
@@ -189,11 +221,15 @@ export default function Contact() {
           data-reveal
         >
           {state === "ok" ? (
-            <div className="flex min-h-[420px] flex-col items-center justify-center text-center">
+            <div role="status" className="flex min-h-[420px] flex-col items-center justify-center text-center">
               <span className="glyph-box border-ok text-ok">
                 <Icon.check width={22} height={22} />
               </span>
-              <h3 className="t-display-m mt-6">Zgłoszenie przyjęte</h3>
+              {/* focus przenosimy tutaj, bo przycisk wysyłki znika razem z formularzem
+                  i użytkownik klawiatury lądowałby na początku dokumentu */}
+              <h3 ref={potwierdzenie} tabIndex={-1} className="t-display-m mt-6">
+                Zgłoszenie przyjęte
+              </h3>
               <p className="t-body fg-muted mt-3 max-w-sm text-pretty">
                 Odezwiemy się w ciągu jednego dnia roboczego, na podany numer telefonu.
               </p>
@@ -232,7 +268,7 @@ export default function Contact() {
 
               <label className="block">
                 <span className="t-label fg-muted mb-2 block">
-                  Wiadomość <span className="opacity-60">opcjonalnie</span>
+                  Wiadomość <span className="opacity-80">opcjonalnie</span>
                 </span>
                 <textarea name="message" rows={3} placeholder="Interesuje mnie prezentacja i cennik" className="field resize-none" />
               </label>
@@ -243,6 +279,7 @@ export default function Contact() {
                     type="checkbox"
                     name="rodo"
                     aria-invalid={Boolean(errors.rodo)}
+                    aria-describedby={errors.rodo ? "rodo-err" : undefined}
                     className="checkbox mt-0.5"
                   />
                   <span className="t-body fg-muted">
@@ -253,10 +290,18 @@ export default function Contact() {
                     .
                   </span>
                 </label>
-                {errors.rodo && <p className="field-error mt-2">{errors.rodo}</p>}
+                {errors.rodo && (
+                  <p id="rodo-err" role="alert" className="field-error mt-2">
+                    {errors.rodo}
+                  </p>
+                )}
               </div>
 
-              {state === "error" && <p className="field-error">{failed}</p>}
+              {state === "error" && (
+                <p role="alert" className="field-error">
+                  {failed}
+                </p>
+              )}
 
               <button type="submit" disabled={state === "sending"} className="btn btn-sun w-full disabled:opacity-60">
                 {state === "sending" ? "Wysyłanie" : "Wyślij zapytanie"}
@@ -300,7 +345,7 @@ function Field({
   return (
     <label className="block">
       <span className="t-label fg-muted mb-2 block">
-        {label} {optional && <span className="opacity-60">opcjonalnie</span>}
+        {label} {optional && <span className="opacity-80">opcjonalnie</span>}
       </span>
       <input
         type={type}
@@ -313,7 +358,7 @@ function Field({
         className="field"
       />
       {error && (
-        <span id={`${name}-err`} className="field-error mt-2">
+        <span id={`${name}-err`} role="alert" className="field-error mt-2">
           {error}
         </span>
       )}

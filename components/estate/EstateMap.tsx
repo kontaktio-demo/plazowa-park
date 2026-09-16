@@ -16,7 +16,14 @@ type Orbit = {
 
 const data = orbit as Orbit;
 const COUNT = data.frames.length;
-const SRC = (i: number) => `/dollhouse/${data.frames[i]}`;
+const RAW = (i: number) => `/dollhouse/${data.frames[i]}`;
+// Klatki obrotu omijały optymalizator i ciągnęły 1,7 MB surowego WebP - ponad
+// połowę transferu strony głównej. Ten sam plik przez /_next/image jest o połowę
+// lżejszy, a źródło ma 800 px, więc w=768 niczego nie traci.
+const SRC = (i: number) => `/_next/image?url=${encodeURIComponent(RAW(i))}&w=768&q=75`;
+// tyle klatek ciągniemy naraz - 40 sekwencyjnych round-tripów trzymało przyciski
+// obrotu wyłączone przez kilka sekund nawet na dobrym 4G
+const ROWNOLEGLE = 6;
 
 // ile pikseli przeciągnięcia na jedną klatkę - dobrane tak, żeby pełny obrót
 // wypadał na mniej więcej półtorej szerokości planu
@@ -49,11 +56,12 @@ export default function EstateMap({
   const [hover, setHover] = useState<number | null>(null);
   const [loaded, setLoaded] = useState(1);
   const boxRef = useRef<HTMLDivElement>(null);
-  const drag = useRef<{ id: number; x: number; from: number; moved: boolean } | null>(null);
+  const drag = useRef<{ id: number; x: number; from: number } | null>(null);
+  const obrocono = useRef(false);
   const ready = loaded === COUNT;
 
-  // klatki ciągniemy dopiero, gdy plan wjeżdża w ekran - 1,7 MB nie ma prawa
-  // obciążać pierwszego wejścia na stronę
+  // klatki ciągniemy dopiero, gdy plan wjeżdża w ekran - komplet obrotu nie ma
+  // prawa obciążać pierwszego wejścia na stronę
   useEffect(() => {
     const el = boxRef.current;
     if (!el) return;
@@ -62,16 +70,19 @@ export default function EstateMap({
       ([e]) => {
         if (!e.isIntersecting) return;
         io.disconnect();
-        (async () => {
-          for (let i = 1; i < COUNT && !cancelled; i++) {
-            await new Promise<void>((done) => {
-              const img = new window.Image();
-              img.onload = img.onerror = () => done();
-              img.src = SRC(i);
-            });
-            if (!cancelled) setLoaded((n) => n + 1);
-          }
-        })();
+        const kolejka = Array.from({ length: COUNT - 1 }, (_, i) => i + 1);
+        const pobierz = () => {
+          const i = kolejka.shift();
+          if (i === undefined || cancelled) return;
+          const img = new window.Image();
+          img.onload = img.onerror = () => {
+            if (cancelled) return;
+            setLoaded((n) => n + 1);
+            pobierz();
+          };
+          img.src = SRC(i);
+        };
+        for (let w = 0; w < ROWNOLEGLE; w++) pobierz();
       },
       { rootMargin: "300px" }
     );
@@ -86,15 +97,22 @@ export default function EstateMap({
 
   const onDown = (e: React.PointerEvent) => {
     if (!ready) return;
-    drag.current = { id: e.pointerId, x: e.clientX, from: index, moved: false };
-    e.currentTarget.setPointerCapture(e.pointerId);
+    drag.current = { id: e.pointerId, x: e.clientX, from: index };
+    obrocono.current = false;
   };
 
   const onMove = (e: React.PointerEvent) => {
     const d = drag.current;
     if (!d || d.id !== e.pointerId) return;
     const dx = e.clientX - d.x;
-    if (Math.abs(dx) > 4) d.moved = true;
+    if (Math.abs(dx) <= 4) return;
+    // Wskaźnik przechwytujemy dopiero po progu przeciągnięcia. Przechwycenie już
+    // przy wciśnięciu przekierowywało click z budynku na kontener planu, więc
+    // myszą nie dało się wybrać żadnej bryły.
+    if (!obrocono.current) {
+      obrocono.current = true;
+      e.currentTarget.setPointerCapture(e.pointerId);
+    }
     setIndex(wrap(d.from - Math.round(dx / DRAG_PER_FRAME)));
   };
 
@@ -102,12 +120,13 @@ export default function EstateMap({
     const d = drag.current;
     if (!d || d.id !== e.pointerId) return;
     drag.current = null;
-    e.currentTarget.releasePointerCapture(e.pointerId);
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) e.currentTarget.releasePointerCapture(e.pointerId);
   };
 
-  // klik w budynek nie może odpalić się na końcu przeciągania
+  // klik w budynek nie może odpalić się na końcu przeciągania; flaga żyje do
+  // następnego wciśnięcia, bo click pada już po pointerup
   const pick = (stageId: number) => {
-    if (drag.current?.moved) return;
+    if (obrocono.current) return;
     onSelect(selected === stageId ? null : stageId);
   };
 
@@ -127,7 +146,7 @@ export default function EstateMap({
             renderem przebijała przez jego jasne partie i na planie widać było drugi,
             przekrzywiony obrys osiedla. Przy obrocie klatka bazowa musi zniknąć. */}
         <Image
-          src={SRC(0)}
+          src={RAW(0)}
           alt="Plan osiedla Plażowa Park - sześć budynków wśród drzew"
           fill
           sizes="(max-width: 1024px) 100vw, 55vw"
@@ -247,9 +266,9 @@ export default function EstateMap({
         </ul>
 
         <div className="flex items-center gap-2">
-          <span className="t-meta-sm fg-muted hidden sm:inline">
-            {ready ? "Przeciągnij, aby obrócić" : "Wczytywanie obrotu"}
-          </span>
+          {/* stan ładowania musi być czytelny też na telefonie: bez podpisu widać
+              tylko dwa wyszarzone przyciski i pasek postępu wysoki na 2 px */}
+          <span className="t-meta-sm fg-muted">{ready ? "Przeciągnij, aby obrócić" : "Wczytywanie obrotu"}</span>
           <button
             type="button"
             onClick={() => spin(-2)}

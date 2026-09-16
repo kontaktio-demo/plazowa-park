@@ -10,8 +10,6 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${SITE.geo.lat
 export default function Okolica() {
   return (
     <section id="okolica" className="band band-sand sec relative">
-      
-
       <div className="wrap">
         <SectionHeader
           id="okolica"
@@ -58,8 +56,10 @@ export default function Okolica() {
           <PlanOkolicy />
         </div>
 
+        {/* na stronie głównej mapa jest dodatkiem pod planem, więc biblioteki
+            nie ciągniemy przy samym przewinięciu obok sekcji */}
         <div className="bd mt-6 h-80 overflow-hidden border sm:h-115" data-reveal>
-          <MapLibreMap zoom={14} />
+          <MapLibreMap zoom={14} naZadanie />
         </div>
         <div className="t-meta-sm fg-muted mt-4 flex flex-wrap items-center justify-between gap-3">
           <span>

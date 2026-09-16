@@ -9,6 +9,18 @@ import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 
 const GA = process.env.NEXT_PUBLIC_GA_ID;
 
+// Bez miejsca kliknięcia nie wiadomo, które CTA realnie konwertuje. Część z nich nie leży
+// w żadnej sekcji z id - pasek mobilny i menu mobilne są poza headerem, modal i podstrony
+// też - więc samo drzewo DOM dawało pustą wartość. Jawny atrybut ma pierwszeństwo, reszta
+// to zapas, a na końcu i tak pada konkretna nazwa zamiast pustki.
+function miejsceKliku(el: HTMLElement) {
+  return (
+    el.getAttribute("data-miejsce") ||
+    el.closest("section")?.id ||
+    (el.closest("header") ? "nawigacja" : el.closest("footer") ? "stopka" : "inne")
+  );
+}
+
 export default function Analytics() {
   const zgoda = useConsent();
   const sciezka = usePathname();
@@ -19,30 +31,24 @@ export default function Analytics() {
       const tel = el?.closest?.('a[href^="tel:"]') as HTMLAnchorElement | null;
       if (tel) track("click_to_call", { phone: tel.getAttribute("href")?.replace("tel:", "") || "" });
       const mail = el?.closest?.('a[href^="mailto:"]') as HTMLAnchorElement | null;
-      if (mail) track("click_to_email", { href: mail.getAttribute("href") || "" });
-      const wa = el?.closest?.('a[href*="wa.me"]') as HTMLAnchorElement | null;
-      if (wa) track("click_whatsapp", { href: wa.getAttribute("href") || "" });
+      // Bez adresu: jest jeden na całej stronie, a gtag i tak podmienia go na "(redacted)".
+      // Wartość niesie dopiero miejsce kliknięcia - stopka czy sekcja kontaktu.
+      if (mail) track("click_to_email", { sekcja: miejsceKliku(mail) });
       const dt = el?.closest?.("[data-track]") as HTMLElement | null;
       if (dt) {
-        // Bez sekcji i etykiety nie wiadomo, które z dziewięciu CTA realnie konwertuje.
-        // Cztery z nich nie leżą w żadnej sekcji z id - pasek mobilny i menu mobilne są
-        // poza headerem, modal i podstrony też - więc samo drzewo DOM dawało pustą
-        // wartość. Jawny atrybut ma pierwszeństwo, reszta to zapas, a na końcu i tak
-        // pada konkretna nazwa zamiast pustki.
-        const sekcja =
-          dt.getAttribute("data-miejsce") ||
-          dt.closest("section")?.id ||
-          (dt.closest("header") ? "nawigacja" : dt.closest("footer") ? "stopka" : "inne");
-        // licznik dostępnych lokali klei się do tekstu przycisku ("Sprawdź dostępność18")
-        const etykieta = (dt.getAttribute("aria-label") || dt.textContent || "")
+        // innerText, nie textContent: sąsiadujące spany blokowe skleiłyby się bez spacji
+        // ("FacebookFanpage osiedla"). Licznik dostępnych lokali też klei się do tekstu
+        // przycisku - "Sprawdź dostępność18" w nagłówku, "Sprawdź dostępność (18)"
+        // w menu mobilnym - a w raporcie ma zostać sama nazwa przycisku.
+        const etykieta = (dt.getAttribute("aria-label") || dt.innerText || "")
           .replace(/\s+/g, " ")
-          .replace(/\s*\d+$/, "")
           .trim()
+          .replace(/\s*\(?\d+\)?$/, "")
           .slice(0, 60);
         // przy CTA i rzutach na stronie lokalu doklejamy, o które mieszkanie chodzi
         const lokal = dt.getAttribute("data-lokal");
         track(dt.getAttribute("data-track") || "cta_click", {
-          sekcja,
+          sekcja: miejsceKliku(dt),
           etykieta,
           ...(lokal ? { unit: lokal } : {}),
         });
@@ -71,7 +77,7 @@ export default function Analytics() {
 
   // Zasięg sekcji. Wbudowany pomiar przewijania w GA4 zgłasza tylko próg 90%, a na tej
   // stronie potrzebna jest odpowiedź na inne pytanie: do którego miejsca ludzie docierają,
-  // zanim zawrócą. Dziesięć sekcji daje gotowy lejek od hero do formularza. Zdarzenie
+  // zanim zawrócą. Sekcje dają gotowy lejek od hero do formularza. Zdarzenie
   // pada raz na sekcję i na wejście, bo interesuje nas zasięg, nie liczba przewinięć.
   useEffect(() => {
     const sekcje = Array.from(document.querySelectorAll<HTMLElement>("section[id]"));

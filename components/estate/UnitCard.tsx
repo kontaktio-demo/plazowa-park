@@ -6,7 +6,7 @@ import type { Unit } from "@/lib/data/units";
 import { plnShort, area, STATUS_META } from "@/lib/format";
 import { unitSlug } from "@/lib/slug";
 import { selectUnit } from "@/lib/selectUnit";
-import { planImage, unitPlace, unitKind, unitLabel, ODMIANA } from "@/lib/unitType";
+import { planImage, unitKind, unitLabel } from "@/lib/unitType";
 import UnitPosition from "./UnitPosition";
 import { Icon } from "../Icons";
 
@@ -17,21 +17,22 @@ import { Icon } from "../Icons";
  */
 export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Unit) => void }) {
   const s = STATUS_META[unit.status];
-  const place = unitPlace(unit);
   const kind = unitKind(unit);
-  const odm = ODMIANA[kind];
   const label = unitLabel(unit);
 
   return (
     <article className="card card-hover flex h-full flex-row overflow-hidden sm:flex-col">
+      {/* rzut prowadzi tam, co tytuł niżej: klawiaturą i czytnikiem ekranu ten sam
+          cel dwa razy pod rząd był tylko szumem, więc zostaje klikalny myszą */}
       <Link
         href={`/mieszkania-i-domy/${unitSlug(unit.name)}`}
         className="relative block w-[38%] flex-none self-stretch overflow-hidden bg-sand-50 sm:aspect-4/3 sm:w-full"
-        aria-label={`Zobacz ${odm.mianownik} ${unit.name}`}
+        tabIndex={-1}
+        aria-hidden
       >
         <Image
           src={planImage(unit)}
-          alt={`Rzut parteru ${odm.dopelniacz} ${unit.name}, typ ${place.type}`}
+          alt=""
           fill
           sizes="(max-width: 640px) 40vw, (max-width: 1280px) 50vw, 30vw"
           className="object-contain p-3 sm:p-5"
@@ -82,7 +83,13 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
           <button onClick={() => onOpen(unit)} className="btn btn-solid btn-sm max-sm:px-2.5 flex-1">
             Szczegóły
           </button>
-          <button onClick={() => selectUnit(label)} className="btn btn-ghost btn-sm max-sm:px-2.5 flex-1">
+          <button
+            data-track="book_viewing"
+            data-miejsce="karta-lokalu"
+            data-lokal={unit.name}
+            onClick={() => selectUnit(label)}
+            className="btn btn-ghost btn-sm max-sm:px-2.5 flex-1"
+          >
             Zapytaj <Icon.arrow width={16} height={16} className="hidden sm:block" />
           </button>
         </div>
