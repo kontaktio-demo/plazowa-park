@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { OFERTA_TEKST } from "@/lib/unitCopy";
 import { UNITS } from "@/lib/data/units";
 import { plnShort, area, STATUS_META } from "@/lib/format";
 import { unitSlug } from "@/lib/slug";
@@ -12,7 +13,7 @@ import SectionHeader from "../SectionHeader";
 /** Numeracja dewelopera sama układa lokale budynkami: 1.1A, 1.1B, 2.2A, 2.2B, 3.3A... */
 const LOKALE = [...UNITS].sort((a, b) => a.name.localeCompare(b.name, "pl", { numeric: true }));
 
-const KOLUMNY = ["Lokal", "Rodzaj", "Budynek", "Powierzchnia", "Pokoje", "Ogród", "Cena", "Cena za m²", "Status"];
+const KOLUMNY = ["Mieszkanie lub dom", "Rodzaj", "Budynek", "Powierzchnia", "Pokoje", "Ogród", "Cena", "Cena za m²", "Status"];
 
 /**
  * Jedno zestawienie wszystkich lokali. Ta sama tabela obsługuje oba układy: od `lg`
@@ -28,15 +29,15 @@ export default function Cennik() {
           id="cennik"
           title={
             <>
-              Ceny <span className="fg-accent">wszystkich lokali</span>
+              Ceny <span className="fg-accent">mieszkań i domów</span>
             </>
           }
-          lead={`Metraż, ogród, cena i status każdego z ${UNITS.length} lokali w jednym zestawieniu.`}
+          lead={`Metraż, ogród, cena i status wszystkich ${OFERTA_TEKST} w jednym zestawieniu.`}
         />
 
         <div className="mt-10 sm:mt-12" data-reveal>
           <table className="w-full border-collapse text-left">
-            <caption className="sr-only">Cennik i dostępność lokali w osiedlu Plażowa Park</caption>
+            <caption className="sr-only">Cennik i dostępność mieszkań i domów w osiedlu Plażowa Park</caption>
             <thead className="hidden lg:table-header-group">
               <tr className="bd border-y">
                 {KOLUMNY.map((k) => (
@@ -45,7 +46,7 @@ export default function Cennik() {
                   </th>
                 ))}
                 <th scope="col" className="py-3">
-                  <span className="sr-only">Zapytanie o lokal</span>
+                  <span className="sr-only">Zapytanie</span>
                 </th>
               </tr>
             </thead>
@@ -112,7 +113,7 @@ export default function Cennik() {
           </table>
 
           <p className="t-meta fg-muted mt-8 max-w-2xl text-pretty">
-            Ceny brutto (z VAT). Cenę każdego lokalu aktualizujemy przy każdej zmianie u dewelopera.{" "}
+            Ceny brutto (z VAT). Cenę każdego mieszkania i domu aktualizujemy przy każdej zmianie u dewelopera.{" "}
             <a href="/ceny-ofertowe.csv" className="link-underline fg-accent">
               Dane w formacie otwartym (CSV)
             </a>

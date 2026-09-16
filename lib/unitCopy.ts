@@ -19,6 +19,8 @@ const MNOGA: Record<UnitKind, [string, string, string]> = {
   dom: ["dom", "domy", "domów"],
 };
 
+const wielka = (t: string) => `${t[0].toUpperCase()}${t.slice(1)}`;
+
 /** "mieszkań" dla 16, "domy" dla 4 - do liczb branych z OFERTA. */
 export const lokaleSlowo = (kind: UnitKind, n: number) => odmien(n, MNOGA[kind]);
 
@@ -67,8 +69,8 @@ export function unitDescription(u: Unit): string[] {
   const buildingV = dom
     ? [
         `To jeden z dwóch domów w środkowym budynku ${bl}, z garażem wpisanym w bryłę.`,
-        `Środkowy budynek ${bl} mieści dwa pięciopokojowe domy z garażem - największe lokale w osiedlu.`,
-        `To jeden z zaledwie ${OFERTA.domy} domów w osiedlu; w środkowym budynku ${bl} stoją tylko dwa lokale.`,
+        `Środkowy budynek ${bl} mieści dwa pięciopokojowe domy z garażem - największe w osiedlu.`,
+        `To jeden z zaledwie ${OFERTA.domy} domów w osiedlu; w środkowym budynku ${bl} stoją tylko dwa domy.`,
       ]
     : [
         `Narożny budynek ${bl} mieści tylko cztery mieszkania, co zapewnia kameralność i prywatność.`,
@@ -143,8 +145,8 @@ export function unitDescription(u: Unit): string[] {
     u.status === "available"
       ? `Umów prezentację, aby zobaczyć ${o.wskazujacy} i poznać warunki zakupu.`
       : u.status === "reserved"
-        ? "Ten lokal jest obecnie zarezerwowany - zapytaj o dostępność podobnych."
-        : "Ten lokal został sprzedany - sprawdź pozostałe dostępne lokale w osiedlu.";
+        ? `${wielka(o.wskazujacy)} ma już rezerwację - zapytaj o dostępność podobnych.`
+        : `Nie ma już ${o.dopelniacz} ${u.name} w ofercie - sprawdź pozostałe mieszkania i domy w osiedlu.`;
   const closeV = [
     `Cena ${o.dopelniacz} ${u.name}: ${P} (${PM}/m²), status: ${status}. Poddasze poza metrażem i prywatny ogród realnie podnoszą wartość tej oferty. ${cta}`,
     `${P} (${PM}/m²) - tyle kosztuje ${o.mianownik} ${u.name}, status: ${status}. ${cta}`,

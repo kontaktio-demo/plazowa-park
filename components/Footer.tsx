@@ -106,7 +106,7 @@ export default function Footer() {
           <p className="t-body fg-muted max-w-3xl text-sm text-pretty">
             Wizualizacje i plan osiedla mają charakter poglądowy i nie stanowią oferty w rozumieniu
             art. 66 Kodeksu cywilnego. Podane ceny są aktualnymi cenami ofertowymi brutto i aktualizujemy
-            je przy każdej zmianie. Dostępność lokali potwierdza biuro sprzedaży.
+            je przy każdej zmianie. Dostępność mieszkań i domów potwierdza biuro sprzedaży.
           </p>
           <div className="t-meta-sm fg-muted mt-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p>© 2026 {DEVELOPER.name}</p>

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { UNITS, BUILDINGS } from "@/lib/data/units";
 import { unitSlug, unitBySlug } from "@/lib/slug";
 import { pln, plnShort, area, rooms, STATUS_META, odmien } from "@/lib/format";
-import { schemaAvailability, unitDescription, unitMetaDescription } from "@/lib/unitCopy";
+import { lokaleSlowo, schemaAvailability, unitDescription, unitMetaDescription } from "@/lib/unitCopy";
 import { ODMIANA, unitKind, unitLabel, unitFloors, garageArea, livingArea } from "@/lib/unitType";
 import { SITE } from "@/lib/data/site";
 import PageHeader from "@/components/PageHeader";
@@ -21,7 +21,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const u = unitBySlug(slug);
-  if (!u) return { title: "Lokal nie znaleziony" };
+  if (!u) return { title: "Nie znaleziono mieszkania ani domu" };
   const label = unitLabel(u);
   const desc = unitMetaDescription(u);
   const ogTitle = `${label} - Plażowa Park Głowno`;
@@ -198,7 +198,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
               {building && (
                 <p className="card t-body fg-muted mt-7 p-4 text-sm">
                   W budynku <strong className="fg font-medium">{u.buildingLabel}</strong>:{" "}
-                  {building.count} {odmien(building.count, ["lokal", "lokale", "lokali"])}, w tym {building.available}{" "}
+                  {building.count} {lokaleSlowo(kind, building.count)}, w tym {building.available}{" "}
                   {odmien(building.available, ["dostępny", "dostępne", "dostępnych"])}, od {plnShort(building.priceFrom)}.
                 </p>
               )}

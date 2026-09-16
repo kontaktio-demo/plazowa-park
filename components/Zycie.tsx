@@ -7,7 +7,7 @@ import { Icon } from "./Icons";
 const points = [
   { t: "Kameralne osiedle", d: `Zaledwie ${OFERTA_TEKST} w cichym, zielonym otoczeniu.` },
   { t: "Las i woda za progiem", d: "Ponad 100-letni las i Zalew Mrożyczka w zasięgu spaceru." },
-  { t: "Przestrzeń dla dzieci", d: "Prywatny ogród i taras przy każdym lokalu." },
+  { t: "Przestrzeń dla dzieci", d: "Prywatny ogród i taras przy każdym mieszkaniu i domu." },
 ];
 
 export default function Zycie() {

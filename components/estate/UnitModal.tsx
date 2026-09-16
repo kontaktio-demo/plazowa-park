@@ -174,7 +174,7 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
             </div>
 
             <Link href={`/mieszkania-i-domy/${unitSlug(unit.name)}`} className="link-underline t-meta fg-accent mt-5 inline-flex items-center gap-2">
-              Pełna strona lokalu <Icon.arrow width={15} height={15} />
+              Pełna strona {ODMIANA[kind].dopelniacz} <Icon.arrow width={15} height={15} />
             </Link>
           </div>
         </div>

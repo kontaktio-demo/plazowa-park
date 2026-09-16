@@ -99,7 +99,7 @@ export default function Contact() {
           "Imię i nazwisko": data.name,
           Telefon: data.phone,
           "E-mail": data.email,
-          Lokal: data.unit || "nie wskazano",
+          "Mieszkanie lub dom": data.unit || "nie wskazano",
           Wiadomość: data.message || "brak",
           "Zgoda RODO": data.rodo ? "tak" : "nie",
         }),
@@ -222,7 +222,7 @@ export default function Contact() {
                 <Field label="E-mail" name="email" type="email" placeholder="jan@example.com" error={errors.email} autoComplete="email" />
               </div>
               <Field
-                label="Wybrany lokal"
+                label="Wybrane mieszkanie lub dom"
                 name="unit"
                 placeholder="np. Mieszkanie 2.2B albo Dom 3.3A"
                 optional

@@ -29,13 +29,13 @@ export default function Standard() {
             <p>
               Elewacje łączą tynk najwyższej klasy z elastyczną cegłą i blachą na rąbek. Panoramiczne okna
               sięgają od podłogi po sam sufit i otwierają wnętrze na prywatny ogród i taras. Każdy
-              lokal ma własne, niezależne wejście i dwa miejsca postojowe, a cztery domy
+              mieszkanie i każdy dom ma własne, niezależne wejście i dwa miejsca postojowe, a cztery domy
               w budynkach środkowych - własny garaż.
             </p>
             <p>
               Poddasze jest zawarte w cenie nieruchomości i nie wlicza się do metrażu - możesz je
               zaadaptować według własnego pomysłu. Wykończenie pod klucz i zmiany w projekcie ustalamy
-              indywidualnie z nabywcami, którzy kupują lokal na etapie budowy.
+              indywidualnie z nabywcami, którzy kupują na etapie budowy.
             </p>
             <p className="t-meta-sm">
               Szczegółowe parametry techniczne zawiera prospekt informacyjny inwestycji, który udostępnia

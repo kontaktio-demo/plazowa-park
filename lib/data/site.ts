@@ -130,18 +130,18 @@ export const STANDARD = [
   { title: "Fotowoltaika", desc: "Własna energia i niższe rachunki. Opcja dodatkowo płatna, montaż na życzenie.", icon: "solar", tag: "Za dopłatą" },
   { title: "Panoramiczne okna", desc: "Przeszklenia od podłogi do sufitu z widokiem na las.", icon: "window" },
   { title: "Materiały premium", desc: "Elastyczna cegła, tynk najwyższej klasy i blacha na rąbek.", icon: "brick" },
-  { title: "Prywatny ogród i taras", desc: "Własna zielona przestrzeń przy każdym lokalu.", icon: "garden" },
-  { title: "2 miejsca postojowe", desc: "Dwa miejsca na lokal; cztery domy mają własny garaż.", icon: "car" },
-  { title: "Prywatne wejście", desc: "Każdy lokal ma własne, niezależne wejście.", icon: "door" },
+  { title: "Prywatny ogród i taras", desc: "Własna zielona przestrzeń przy każdym mieszkaniu i domu.", icon: "garden" },
+  { title: "2 miejsca postojowe", desc: "Dwa miejsca do każdego mieszkania i domu; cztery domy mają własny garaż.", icon: "car" },
+  { title: "Prywatne wejście", desc: "Każde mieszkanie i każdy dom ma własne, niezależne wejście.", icon: "door" },
   { title: "Wykończenie pod klucz", desc: "Personalizacja projektu i wykończenia na etapie budowy.", icon: "pencil", tag: "Opcja" },
 ] as const;
 
 // Pięć kroków w kolejności, w jakiej przechodzi je nabywca. Bez kwot i terminów:
 // opłatę rezerwacyjną, harmonogram transz i daty potwierdza prospekt informacyjny.
 export const KROKI_ZAKUPU = [
-  { title: "Oferta", desc: "Wybierasz lokal z aktualnej listy dostępności i cen na tej stronie." },
-  { title: "Oględziny", desc: "Umawiasz termin i oglądasz osiedle oraz wybrany lokal z biurem sprzedaży." },
-  { title: "Umowa rezerwacyjna", desc: "Lokal zostaje czasowo wyłączony z oferty na warunkach zapisanych w umowie." },
+  { title: "Oferta", desc: "Wybierasz mieszkanie albo dom z aktualnej listy dostępności i cen na tej stronie." },
+  { title: "Oględziny", desc: "Umawiasz termin i oglądasz osiedle oraz wybrane mieszkanie albo dom z biurem sprzedaży." },
+  { title: "Umowa rezerwacyjna", desc: "Wybrana nieruchomość zostaje czasowo wyłączona z oferty na warunkach zapisanych w umowie." },
   { title: "Umowa deweloperska", desc: "Akt notarialny, wpłaty na rachunek powierniczy zgodnie z harmonogramem." },
   { title: "Przeniesienie własności", desc: "Po odbiorze technicznym, aktem notarialnym, z wpisem do księgi wieczystej." },
 ] as const;
@@ -168,7 +168,7 @@ export const PARTNERZY = [
 ] as const;
 
 export const RABAT_CBG =
-  "Kupującym lokal w Plażowa Park przysługuje 10% rabatu na zakupy w Centrum Budowlanym Głowno. Warunki rabatu potwierdza biuro sprzedaży.";
+  "Kupującym mieszkanie albo dom w Plażowa Park przysługuje 10% rabatu na zakupy w Centrum Budowlanym Głowno. Warunki rabatu potwierdza biuro sprzedaży.";
 
 export const FAQ = [
   {
@@ -185,11 +185,11 @@ export const FAQ = [
   },
   {
     q: "Jakie są ceny i czy są dostępne mieszkania i domy?",
-    a: "Ceny zaczynają się od 633 000 zł. Cenę, cenę za m² i status każdego lokalu podajemy w sekcji Cennik oraz na jego podstronie; te same dane są w kartach lokali.",
+    a: "Ceny zaczynają się od 633 000 zł. Cenę, cenę za m² i status każdego mieszkania i domu podajemy w sekcji Cennik oraz na jego podstronie; te same dane są w kartach oferty.",
   },
   {
     q: "Czy poddasze jest wliczone w cenę?",
-    a: "Tak. Każdy lokal ma parter, piętro oraz poddasze. Poddasze jest zawarte w cenie nieruchomości i nie jest wliczone w metraż, więc możesz je zaadaptować według własnego pomysłu.",
+    a: "Tak. Każde mieszkanie i każdy dom ma parter, piętro oraz poddasze. Poddasze jest zawarte w cenie nieruchomości i nie jest wliczone w metraż, więc możesz je zaadaptować według własnego pomysłu.",
   },
   {
     q: "Co znajduje się w okolicy osiedla?",
@@ -197,15 +197,19 @@ export const FAQ = [
   },
   {
     q: "Jaki jest standard wykończenia i technologia?",
-    a: "Lokale powstają w oparciu o pompy ciepła i ogrzewanie podłogowe. Rekuperacja i fotowoltaika są opcją dodatkowo płatną, montowaną na etapie budowy. Standard obejmuje panoramiczne okna oraz elewację z tynku najwyższej klasy, elastycznej cegły i blachy na rąbek. Możliwa jest personalizacja wykończenia pod klucz.",
+    a: "Mieszkania i domy powstają w oparciu o pompy ciepła i ogrzewanie podłogowe. Rekuperacja i fotowoltaika są opcją dodatkowo płatną, montowaną na etapie budowy. Standard obejmuje panoramiczne okna oraz elewację z tynku najwyższej klasy, elastycznej cegły i blachy na rąbek. Możliwa jest personalizacja wykończenia pod klucz.",
   },
   {
-    q: "Czy do lokalu należy ogród i miejsce postojowe?",
-    a: "Tak. Każdy lokal ma prywatny ogród i taras z panoramicznymi oknami oraz dwa miejsca postojowe; cztery domy w budynkach środkowych mają dodatkowo własny garaż.",
+    q: "Czy do mieszkania albo domu należy ogród i miejsce postojowe?",
+    a: "Tak. Każde mieszkanie i każdy dom ma prywatny ogród i taras z panoramicznymi oknami oraz dwa miejsca postojowe; cztery domy w budynkach środkowych mają dodatkowo własny garaż.",
   },
   {
     q: "Czy nabywcy mają zniżki u partnerów inwestycji?",
-    a: "Tak. Kupującym lokal w Plażowa Park przysługuje 10% rabatu na zakupy w Centrum Budowlanym Głowno, czyli w składzie budowlanym przy ul. Kopernika 30a. Warunki rabatu potwierdza biuro sprzedaży.",
+    a: "Tak. Kupującym mieszkanie albo dom w Plażowa Park przysługuje 10% rabatu na zakupy w Centrum Budowlanym Głowno, czyli w składzie budowlanym przy ul. Kopernika 30a. Warunki rabatu potwierdza biuro sprzedaży.",
+  },
+  {
+    q: "Jak wygląda proces zakupu?",
+    a: "Pięć kroków. Wybierasz mieszkanie albo dom z aktualnej listy dostępności i cen, umawiasz się na oględziny osiedla i wybranej nieruchomości, podpisujesz umowę rezerwacyjną, która czasowo wyłącza ją z oferty, następnie umowę deweloperską u notariusza z harmonogramem wpłat na rachunek powierniczy, a po odbiorze technicznym umowę przeniesienia własności, również aktem notarialnym, z wpisem do księgi wieczystej.",
   },
   {
     q: "Kto jest deweloperem inwestycji?",

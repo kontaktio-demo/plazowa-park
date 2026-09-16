@@ -33,7 +33,7 @@ export default function Osiedle() {
           </h2>
           <p className="t-body-l fg-muted mx-auto mt-5 max-w-2xl text-pretty sm:mt-6">
             Osiedle to {OFERTA_TEKST} w {INVESTMENT.buildingsCount} budynkach. Narożne mieszczą po
-            cztery mieszkania, środkowe po dwa domy z garażem. Do każdego lokalu należy prywatny
+            cztery mieszkania, środkowe po dwa domy z garażem. Do każdego mieszkania i domu należy prywatny
             ogród, taras, dwa miejsca postojowe i poddasze w cenie.
           </p>
         </header>

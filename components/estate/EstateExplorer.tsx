@@ -2,9 +2,10 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { UNITS, BUILDINGS, INVESTMENT, type Unit } from "@/lib/data/units";
-import { plnShort, odmien } from "@/lib/format";
+import { plnShort } from "@/lib/format";
 import { OFERTA, unitKind, type UnitKind } from "@/lib/unitType";
 import { sectionEyebrow } from "@/lib/sections";
+import { lokaleSlowo } from "@/lib/unitCopy";
 import CountUp from "../CountUp";
 import EstateMap from "./EstateMap";
 import UnitCard from "./UnitCard";
@@ -73,6 +74,13 @@ export default function EstateExplorer() {
   }, [building, status, kind, sort]);
 
   // przy krotkiej liscie nie ma sensu chowac trzech kart za przyciskiem
+  // Po odfiltrowaniu samych domow przycisk ma mowic "domow", a nie "lokali".
+  const rodzaje = new Set(filtered.map(unitKind));
+  const rzeczownikListy =
+    rodzaje.size === 1
+      ? lokaleSlowo([...rodzaje][0], filtered.length)
+      : `${lokaleSlowo("mieszkanie", 5)} i ${lokaleSlowo("dom", 5)}`;
+
   const preview = filtered.length <= PREVIEW + 3 ? filtered.length : PREVIEW;
   const visible = expanded ? filtered : filtered.slice(0, preview);
   const hidden = filtered.length - visible.length;
@@ -161,7 +169,7 @@ export default function EstateExplorer() {
 
             <p className="t-body fg-muted max-w-md text-pretty">
               Budynki narożne (1 i 2, 4 i 5, 6 i 7, 9 i 10) mieszczą po cztery mieszkania 82-94 m² na dwóch
-              kondygnacjach. Budynki środkowe (3 i 8) to domy: po dwa lokale pięciopokojowe do 133 m², każdy
+              kondygnacjach. Budynki środkowe (3 i 8) to domy: po dwa pięciopokojowe do 133 m², każdy
               z garażem w bryle. Poddasze jest w cenie i nie wlicza się do metrażu.
             </p>
           </div>
@@ -235,14 +243,14 @@ export default function EstateExplorer() {
                   }}
                   className="btn btn-ghost"
                 >
-                  Pokaż wszystkie {filtered.length} {odmien(filtered.length, ["lokal", "lokale", "lokali"])}
+                  Pokaż wszystkie {filtered.length} {rzeczownikListy}
                 </button>
               </div>
             )}
           </>
         ) : (
           <div className="bd mt-8 border border-dashed p-12 text-center">
-            <p className="fg-muted">Brak lokali dla wybranych filtrów.</p>
+            <p className="fg-muted">Nic nie pasuje do wybranych filtrów.</p>
             <button type="button" onClick={clear} className="btn btn-ghost btn-sm mt-5">
               Wyczyść filtry
             </button>

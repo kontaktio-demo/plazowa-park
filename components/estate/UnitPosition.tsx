@@ -1,5 +1,5 @@
 import type { Unit } from "@/lib/data/units";
-import { buildingUnits, unitPlace } from "@/lib/unitType";
+import { buildingUnits, unitKind, unitPlace } from "@/lib/unitType";
 
 /**
  * Pozycja lokalu w budynku, rysowana z realnej numeracji dewelopera. Podpis mówi
@@ -32,7 +32,9 @@ export default function UnitPosition({ unit, className = "" }: { unit: Unit; cla
       <p className="t-label mt-2">
         Budynek {unit.buildingLabel} · strona {place.side}
       </p>
-      <p className="t-meta-sm fg-muted mt-1">Wypełniony kwadrat to ten lokal, obrys to sąsiedzi.</p>
+      <p className="t-meta-sm fg-muted mt-1">
+        Wypełniony kwadrat to {unitKind(unit) === "dom" ? "wybrany dom" : "wybrane mieszkanie"}, obrys to sąsiedzi.
+      </p>
     </div>
   );
 }

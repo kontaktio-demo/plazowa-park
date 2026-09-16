@@ -44,14 +44,14 @@ export default function Page() {
       </p>
       <p>
         Charakter <strong>poglądowy</strong> mają wizualizacje, animacje i plan osiedla: pokazują zamierzony
-        efekt i mogą różnić się od stanu faktycznego. Wizualizacje architektury, rzuty lokali i plan osiedla
+        efekt i mogą różnić się od stanu faktycznego. Wizualizacje architektury, rzuty mieszkań i domów oraz plan osiedla
         pochodzą od dewelopera inwestycji, a część wizualizacji pokazujących aranżację, zieleń i otoczenie
         przygotowaliśmy na ich podstawie.
       </p>
       <p>
-        Ceny lokali podane w Serwisie są <strong>aktualnymi cenami ofertowymi brutto</strong> i aktualizujemy
+        Ceny mieszkań i domów podane w Serwisie są <strong>aktualnymi cenami ofertowymi brutto</strong> i aktualizujemy
         je przy każdej zmianie. Metraże, liczba pokoi i statusy dostępności pochodzą z systemu sprzedaży
-        dewelopera; dostępność lokalu przed podpisaniem umowy potwierdza biuro sprzedaży.
+        dewelopera; dostępność przed podpisaniem umowy potwierdza biuro sprzedaży.
       </p>
 
       <h2>§4. Warunki techniczne</h2>
