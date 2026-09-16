@@ -197,12 +197,17 @@ export const nazwaPliku = (dzien: string) =>
   `ceny-ofertowe-ks-prestige-development-plazowa-park-${dzien}.csv`;
 
 /**
- * Harvester pobiera manifest codziennie i za każdym razem czyta wszystkie zasoby,
- * więc lista dni nie może rosnąć bez końca. Rok z okładem pokrywa historię cen,
- * którą realnie ktoś porównuje, a zasoby raz zaimportowane zostają w portalu,
- * nawet gdy wypadną z manifestu.
+ * Harvester pobiera manifest codziennie i czyta wszystkie zasoby, więc lista dni
+ * nie może rosnąć bez końca. Limit to 1000, bo tyle rekomenduje Ministerstwo
+ * Cyfryzacji dla jednego pliku XML.
+ *
+ * Wartość ma znaczenie dla historii cen: zasoby, których nie ma już w manifeście,
+ * portal usuwa, a nie archiwizuje ("Zbiory danych oraz dane na portalu, których
+ * identyfikatory dostawcy nie znajdują się w pliku XML (...) są usuwane i nie będą
+ * dostępne na portalu"). Przy 1000 dni pierwszy dzień wypadnie z manifestu około
+ * 12 czerwca 2029; wcześniej trzeba wystąpić o drugie źródło danych.
  */
-const LIMIT_DNI = 370;
+const LIMIT_DNI = 1000;
 
 export function dniCennika(doDnia = dzisiaj()): string[] {
   const dni: string[] = [];

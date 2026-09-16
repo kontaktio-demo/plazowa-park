@@ -214,10 +214,21 @@ dane ministrowi do spraw informatyzacji, który wystawia je na dane.gov.pl. Stro
 | `/ceny-ofertowe.csv` | dzisiejszy cennik, 58 kolumn wzorcowego pliku Ministerstwa Cyfryzacji |
 | `/ceny-ofertowe/...-2026-09-16.csv` | ten sam cennik według stanu na wskazany dzień |
 | `/dane-gov.xml` | manifest dla harvestera portalu: jeden zasób na każdą dobę |
+| `/dane-gov.md5` | suma kontrolna manifestu, wymagana przy imporcie automatycznym |
 
 Wszystko liczy [`lib/cennik.ts`](lib/cennik.ts) z `lib/data/units.ts` i
-[`lib/data/historia-cen.json`](lib/data/historia-cen.json). Trasy mają `revalidate = 3600`, bo
-odpowiedź zależy od bieżącej daty i musi przeskoczyć na nowy dzień zaraz po północy, a nie po dobie.
+[`lib/data/historia-cen.json`](lib/data/historia-cen.json). Trasy z cennikiem mają
+`revalidate = 3600`, bo odpowiedź zależy od bieżącej daty i musi przeskoczyć na nowy dzień zaraz
+po północy, a nie po dobie. Manifest i jego suma kontrolna są bez cache: hash musi opisywać
+dokładnie te bajty, które portal właśnie pobrał, a przy osobnych oknach cache mogłyby pochodzić
+z dwóch różnych dób i import by nie przeszedł.
+
+Manifest wystawia jeden zasób na dobę, a nie jeden plik aktualizowany codziennie. Tak rekomenduje
+Ministerstwo Cyfryzacji i tak wygląda jego wzorcowy XML. Zbiory deweloperów z jednym zasobem, które
+sprawdziliśmy w portalu, to porzucone jednorazowe wrzutki; te działające codziennie mają po kilkaset
+zasobów. Lista dni jest ograniczona do 1000 pozycji, bo tyle rekomenduje ministerstwo dla jednego
+pliku. Zasoby, które wypadną z manifestu, portal **usuwa**, więc przed 12 czerwca 2029 trzeba
+wystąpić o drugie źródło danych, inaczej najstarsze dni znikną z portalu.
 
 ### Skąd się bierze historia cen
 
@@ -238,11 +249,25 @@ i pliki dla portalu nadążają za panelem dewelopera bez ręcznej pracy.
 Portal nie wykryje plików sam. Trzeba raz wysłać maila na **kontakt@dane.gov.pl** z konta, które jest
 edytorem profilu dostawcy (KS Prestige Development, instytucja 4908 na dane.gov.pl), i podać:
 
+- imię i nazwisko oraz służbowy adres e-mail osoby z uprawnieniami edytora
 - adres pliku XML: `https://plazowa-park.pl/dane-gov.xml`
+- adres pliku MD5: `https://plazowa-park.pl/dane-gov.md5`
 - częstotliwość pobierania: **codziennie**
 
+Innej drogi nie ma i to jest sprawdzone, nie założone. Publiczne API portalu
+(`https://api.dane.gov.pl/spec`) ma wyłącznie metody GET, bez uwierzytelniania; `POST /1.4/datasets`
+zwraca 405, a CKAN nie istnieje. Baza wiedzy ministerstwa odpowiada na to pytanie wprost: zasilanie
+idzie przez panel administracyjny albo przez cykliczny import z zewnętrznego źródła, a samo źródło
+tworzy wyłącznie administrator portalu po zgłoszeniu mailem. Ustawa też nie przewiduje odrębnego
+kanału: art. 19b odsyła po prostu do portalu danych.
+
 Profil istnieje od 1 października 2025 i ma dziś zero zbiorów danych oraz zero źródeł XML, czyli dane
-nie płyną. Po uruchomieniu harvestera zbiór pojawia się na dane.gov.pl sam i odświeża się co dobę.
+nie płyną. Po uruchomieniu źródła portal codziennie sam pobiera manifest, sprawdza sumę kontrolną
+i zakłada nowy zasób z cennikiem na dany dzień. Nikt się nie loguje i nikt niczego nie klika.
+
+Człowiek będzie potrzebny jeszcze dwa razy, oba terminy odległe i przewidywalne: przed czerwcem 2029
+wniosek o drugie źródło danych (limit 1000 zasobów) oraz po zakończeniu sprzedaży obowiązkowy mail
+o dezaktywację źródła.
 
 ### Czego brakuje w danych
 
