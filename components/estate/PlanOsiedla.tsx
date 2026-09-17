@@ -1,0 +1,123 @@
+"use client";
+
+import Image from "next/image";
+import { useState } from "react";
+import { UNITS, type Unit } from "@/lib/data/units";
+import { NA_PLANIE, PLAN } from "@/lib/data/plan";
+import { area, plnShort, STATUS_META } from "@/lib/format";
+import { unitLabel, unitPlace } from "@/lib/unitType";
+import { BLUR } from "@/lib/blur";
+import Lightbox from "../Lightbox";
+
+const OPIS =
+  "Plan zagospodarowania osiedla Plażowa Park: dziesięć budynków po obu stronach drogi wewnętrznej, przy każdym mieszkaniu i domu ogródek";
+
+const PRESENT = (["available", "reserved", "sold"] as const).filter((k) => UNITS.some((u) => u.status === k));
+
+const proc = (v: number, calosc: number) => `${(v / calosc) * 100}%`;
+
+// Wolne lokale zostają bez nakładki, bo to prawie cała oferta, a kropki przy każdym
+// zasłaniały oznaczenia lokali wypalone w planie. Kolor dostają tylko wyjątki.
+const tlo = (status: Unit["status"]) =>
+  status === "available"
+    ? undefined
+    : `color-mix(in srgb, ${STATUS_META[status].color} ${status === "sold" ? 45 : 30}%, transparent)`;
+
+/**
+ * Plan zagospodarowania dewelopera z klikalnym każdym mieszkaniem i domem. Numery
+ * budynków i lokali są wypalone w samym planie, więc nakładka niczego nie podpisuje
+ * drugi raz: zaznacza status i otwiera szczegóły.
+ */
+export default function PlanOsiedla({ selected, onOpen }: { selected: number | null; onOpen: (u: Unit) => void }) {
+  const [wskazany, setWskazany] = useState<Unit | null>(null);
+  const [powiekszony, setPowiekszony] = useState(false);
+
+  return (
+    <div className="min-w-0">
+      <div className="bd relative w-full overflow-hidden border bg-sand-50" style={{ aspectRatio: `${PLAN.w} / ${PLAN.h}` }}>
+        <Image
+          src={PLAN.src}
+          alt={OPIS}
+          fill
+          sizes="(max-width: 1024px) 100vw, 640px"
+          placeholder="blur"
+          blurDataURL={BLUR.plan}
+          className="object-cover"
+        />
+        {UNITS.map((u) => {
+          const p = NA_PLANIE[u.name];
+          if (!p) return null;
+          const [x, y, w, h] = p.r;
+          const s = STATUS_META[u.status];
+          const wBudynku = selected === u.stageId;
+          return (
+            <button
+              key={u.id}
+              type="button"
+              data-track="klik_plan"
+              data-miejsce="plan-osiedla"
+              data-lokal={u.name}
+              aria-label={`${unitLabel(u)}, budynek ${unitPlace(u).house}, ${area(u.area)}, ${plnShort(u.price)}, ${s.label.toLowerCase()}`}
+              onClick={() => onOpen(u)}
+              onMouseEnter={() => setWskazany(u)}
+              onMouseLeave={() => setWskazany(null)}
+              onFocus={() => setWskazany(u)}
+              onBlur={() => setWskazany(null)}
+              className={`absolute outline-offset-0 transition-colors hover:bg-sun/35 hover:outline-2 hover:outline-clay-900 focus-visible:bg-sun/35 ${
+                wBudynku ? "bg-sun/30 outline-2 outline-clay-600" : ""
+              }`}
+              style={{
+                left: proc(x, PLAN.w),
+                top: proc(y, PLAN.h),
+                width: proc(w, PLAN.w),
+                height: proc(h, PLAN.h),
+                background: wBudynku ? undefined : tlo(u.status),
+              }}
+            />
+          );
+        })}
+      </div>
+
+      {/* Podpis pod planem zamiast dymka: dymek zasłaniałby sąsiednie lokale, a na
+          telefonie i tak nie ma najechania, jest od razu otwarcie szczegółów */}
+      <div className="mt-4 flex min-h-11 flex-wrap items-center justify-between gap-x-6 gap-y-2">
+        <p className="t-meta-sm min-w-0">
+          {wskazany ? (
+            <>
+              <span className="font-medium">{unitLabel(wskazany)}</span>
+              <span className="fg-muted num">
+                {" "}
+                · budynek {unitPlace(wskazany).house} · {area(wskazany.area)} · {plnShort(wskazany.price)}
+              </span>
+            </>
+          ) : (
+            <span className="fg-muted">Kliknij mieszkanie albo dom na planie, żeby zobaczyć rzuty i cenę.</span>
+          )}
+        </p>
+        <ul className="t-meta-sm fg-muted flex flex-wrap items-center gap-x-5 gap-y-2">
+          {PRESENT.map((k) => (
+            <li key={k} className="flex items-center gap-2">
+              <span className="bd size-3.5 border" style={{ background: tlo(k) }} />
+              {STATUS_META[k].label}
+            </li>
+          ))}
+          {/* na telefonie numery ogródków i lokali na planie mają kilka pikseli */}
+          <li>
+            <button type="button" onClick={() => setPowiekszony(true)} className="link-underline fg-accent">
+              Powiększ plan
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      {powiekszony && (
+        <Lightbox
+          shots={[{ src: PLAN.src, alt: OPIS, caption: "Plan zagospodarowania osiedla", fit: "contain" }]}
+          index={0}
+          onIndex={() => {}}
+          onClose={() => setPowiekszony(false)}
+        />
+      )}
+    </div>
+  );
+}

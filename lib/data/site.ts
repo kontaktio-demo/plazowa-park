@@ -113,7 +113,7 @@ export const POI = [
 // w procentach szerokości i wysokości obrazu, odczytane z samego planu.
 // Opisujemy wyłącznie to, co deweloper sam na tym planie podpisał.
 export const MAPA_PUNKTY = [
-  { x: 84, y: 55, name: "Plażowa Park", desc: "Osiedle: sześć budynków, 16 mieszkań i 4 domy przy ul. Plażowej.", tu: true },
+  { x: 84, y: 55, name: "Plażowa Park", desc: "Osiedle: dziesięć budynków, 16 mieszkań i 4 domy przy ul. Plażowej.", tu: true },
   { x: 45, y: 41, name: "Zalew Mrożyczka", desc: "Trzydzieści hektarów wody z piaszczystą plażą i strzeżonym kąpieliskiem." },
   { x: 72, y: 45, name: "Central Wake Park", desc: "Najważniejsze miejsce na wakeboardowej mapie Polski, w sąsiedztwie osiedla." },
   { x: 28, y: 64, name: "Plaża i molo", desc: "Piaszczysta plaża z molo po zachodniej stronie zalewu." },
@@ -184,7 +184,7 @@ export const RABAT_CBG =
 export const FAQ = [
   {
     q: "Ile mieszkań i domów liczy osiedle Plażowa Park?",
-    a: "Osiedle to 16 mieszkań i 4 domy w 6 budynkach, o powierzchni od 82 do 133 m². Cztery budynki narożne mieszczą po cztery mieszkania czteropokojowe, a dwa budynki środkowe po dwa pięciopokojowe domy z garażem.",
+    a: "Osiedle to 16 mieszkań i 4 domy w 10 budynkach, o powierzchni od 82 do 133 m². Osiem budynków mieści po dwa mieszkania czteropokojowe, a dwa budynki środkowe (3 i 8) po dwa pięciopokojowe domy z garażem. Przy każdym mieszkaniu i domu jest prywatny ogródek.",
   },
   {
     q: "Gdzie dokładnie leży osiedle?",

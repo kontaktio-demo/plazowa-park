@@ -2,11 +2,10 @@
  * Jednorazowy pipeline assetów. Wynik jest commitowany, więc build nie zależy
  * od tego skryptu. Uruchomienie: node scripts/assets.mjs
  *
- * Robi cztery rzeczy:
- *  1. tnie sekwencję obrotu ze 120 klatek do 48 (desktop) i 12 (mobile),
- *  2. przepisuje rzuty lokali z 2048px JPEG na WebP w realnie potrzebnym rozmiarze,
- *  3. wycina kadr "życie" z renderu hero (taras, ogród, ciepłe światło, bez ludzi),
- *  4. generuje placeholdery blur do lib/blur.ts.
+ * Robi trzy rzeczy:
+ *  1. przepisuje rzuty lokali z 2048px JPEG na WebP w realnie potrzebnym rozmiarze,
+ *  2. wycina kadr "życie" z renderu hero (taras, ogród, ciepłe światło, bez ludzi),
+ *  3. generuje placeholdery blur do lib/blur.ts.
  */
 import sharp from "sharp";
 import { readdir, unlink, writeFile, readFile, rename, rmdir, stat, access } from "node:fs/promises";
@@ -17,57 +16,6 @@ const kb = (n) => `${(n / 1024).toFixed(0)} KB`;
 const sizeOf = async (p) => (await stat(p)).size;
 /** Windows blokuje plik, dopóki sharp trzyma go otwartego - czytamy do bufora. */
 const load = async (p) => sharp(await readFile(p));
-
-/**
- * Sekwencja obrotu. Klatki zrodlowe (f001-f120) leza poza repo - podaj katalog
- * przez ORBIT_SRC. Bez tego krok jest pomijany, bo w repo sa juz gotowe wyniki.
- *
- * Dwie rzeczy warte zapamietania:
- *  - 48 klatek zamiast 24: przy 24 krok wynosil 15 stopni i obrot widocznie skakal,
- *  - przemnozenie przez kolor piasku jest wypalone w plikach. Render ma biale tlo,
- *    a mix-blend-multiply w przegladarce zawodzi, bo warstwa reveal zaklada wlasny
- *    kontekst stackingu i biel zostaje biala.
- */
-const SAND = [247 / 255, 244 / 255, 237 / 255];
-
-async function orbit() {
-  const src = process.env.ORBIT_SRC;
-  // katalog wersjonowany: /orbit/ ma Cache-Control na 30 dni, a nazwy klatek sie
-  // powtarzaja, wiec bez zmiany sciezki wracajacy uzytkownik dostalby stare pliki
-  const dir = join(PUB, "orbit", "v2");
-  if (!src) return console.log("orbit: brak ORBIT_SRC, pomijam");
-  const frames = (await readdir(src)).filter((f) => /^f\d{3}\.webp$/.test(f)).sort();
-  if (!frames.length) return console.log("orbit: brak klatek zrodlowych, pomijam");
-
-  const pick = (count) =>
-    Array.from({ length: count }, (_, i) => frames[Math.round((i * frames.length) / count) % frames.length]);
-
-  let total = 0;
-  const desk = pick(48);
-  for (let i = 0; i < desk.length; i++) {
-    const out = join(dir, `d${String(i + 1).padStart(2, "0")}.webp`);
-    await (await load(join(src, desk[i])))
-      .resize(1000, 1000)
-      .linear(SAND, [0, 0, 0])
-      .webp({ quality: 45, effort: 6 })
-      .toFile(out);
-    total += await sizeOf(out);
-  }
-
-  let totalM = 0;
-  const mob = pick(12);
-  for (let i = 0; i < mob.length; i++) {
-    const out = join(dir, `m${String(i + 1).padStart(2, "0")}.webp`);
-    await (await load(join(src, mob[i])))
-      .resize(560, 560)
-      .linear(SAND, [0, 0, 0])
-      .webp({ quality: 50, effort: 6 })
-      .toFile(out);
-    totalM += await sizeOf(out);
-  }
-
-  console.log(`orbit: 48 klatek desktop ${kb(total)} (${kb(total / 48)}/klatka), 12 mobile ${kb(totalM)}`);
-}
 
 async function renders() {
   try {
@@ -111,7 +59,7 @@ async function blur() {
     hero: join(PUB, "renders", "hero.webp"),
     zycie: join(PUB, "renders", "zycie.webp"),
     tour: join(PUB, "renders", "tour-poster.webp"),
-    estate: join(PUB, "dollhouse", "f00.webp"),
+    plan: join(PUB, "osiedle", "plan-zagospodarowania.webp"),
   };
   // każdy render z galerii dostaje własny placeholder - inaczej siatka mruga
   // jednym kolorem dla siedmiu różnych zdjęć
@@ -133,6 +81,5 @@ async function blur() {
   console.log(`blur: ${Object.keys(out).length} placeholderów`);
 }
 
-await orbit();
 await renders();
 await blur();

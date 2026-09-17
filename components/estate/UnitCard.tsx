@@ -6,8 +6,7 @@ import type { Unit } from "@/lib/data/units";
 import { plnShort, area, STATUS_META } from "@/lib/format";
 import { unitSlug } from "@/lib/slug";
 import { selectUnit } from "@/lib/selectUnit";
-import { planImage, unitKind, unitLabel } from "@/lib/unitType";
-import UnitPosition from "./UnitPosition";
+import { planImage, unitKind, unitLabel, unitPlace } from "@/lib/unitType";
 import { Icon } from "../Icons";
 
 /**
@@ -19,6 +18,7 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
   const s = STATUS_META[unit.status];
   const kind = unitKind(unit);
   const label = unitLabel(unit);
+  const budynek = unitPlace(unit).house;
 
   return (
     <article className="card card-hover flex h-full flex-row overflow-hidden sm:flex-col">
@@ -55,7 +55,7 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
           </Link>
         </h3>
 
-        <UnitPosition unit={unit} className="mt-3 max-w-40 sm:mt-4 sm:max-w-none" />
+        <p className="t-label fg-muted mt-1 sm:hidden">Budynek {budynek}</p>
 
         {/* hairline między kolumnami, żeby etykiety nie czytały się jako jeden ciąg */}
         <dl className="mt-3 grid grid-cols-2 gap-x-5 gap-y-3 sm:mt-5 sm:gap-y-4 [&>*:nth-child(even)]:border-l [&>*:nth-child(even)]:border-(--band-line) [&>*:nth-child(even)]:pl-5">
@@ -64,7 +64,7 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
           <Spec label="Ogród" value={area(unit.garden)} />
           {/* na telefonie liczba pokoi i budynek są już w modalu i na stronie lokalu */}
           <Spec label="Pokoje" value={String(unit.rooms)} className="hidden sm:block" />
-          <Spec label="Budynek" value={unit.buildingLabel} className="hidden sm:block" />
+          <Spec label="Budynek" value={budynek} className="hidden sm:block" />
         </dl>
 
         <div className="bd mt-auto border-t pt-3 sm:pt-4">

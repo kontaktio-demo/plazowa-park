@@ -94,7 +94,8 @@ const buildings = stages.map((stageId) => {
 const investment = {
   totalUnits: units.length,
   available: units.filter((u) => u.status === "available").length,
-  buildingsCount: buildings.length,
+  // budynki liczy plan zagospodarowania, nie etapy konfiguratora: 4.1A stoi w budynku 4
+  buildingsCount: new Set(units.map((u) => u.name.split(".")[0])).size,
   priceMin: Math.min(...units.map((u) => u.price)),
   priceMax: Math.max(...units.map((u) => u.price)),
   areaMin: Math.min(...units.map((u) => u.area)),

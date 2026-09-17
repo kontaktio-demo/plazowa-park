@@ -1,22 +1,22 @@
 # Plażowa Park - landing page inwestycji
 
 Awwwards-grade, konwersyjny one-page dla inwestycji deweloperskiej **Plażowa Park** w Głownie
-(16 mieszkań i 4 domy w 6 budynkach, bezpośrednio przy Zalewie Mrożyczka). Celem strony jest maksymalizacja
-konwersji (twarde CTA, lead capture, jawne ceny i statusy, interaktywna mapa osiedla) oraz dominacja
+(16 mieszkań i 4 domy w 10 budynkach, bezpośrednio przy Zalewie Mrożyczka). Celem strony jest maksymalizacja
+konwersji (twarde CTA, lead capture, jawne ceny i statusy, klikalny plan osiedla) oraz dominacja
 lokalnego SEO.
 
 ## Stack
 
 - **Next.js 16 (App Router) + TypeScript**
 - **Tailwind CSS v4** - design system (ciepła paleta: bursztyn, biel, beż; Space Grotesk + Inter)
-- **GSAP + ScrollTrigger + Lenis** - scroll-driven storytelling, scrubowany obrót osiedla, reveals (z pełnym `prefers-reduced-motion`)
+- **GSAP + ScrollTrigger + Lenis** - scroll-driven storytelling, reveals (z pełnym `prefers-reduced-motion`)
 - **Marzipano** - spacery 360 po osiedlu i po wnętrzach lokali (materiał dewelopera)
-- **sharp** - potok obrazów: kadry osiedla, plan obrotowy, placeholdery blur, obraz OG
+- **sharp** - potok obrazów: kadry osiedla, plan osiedla, placeholdery blur, obraz OG
 
 ## Sekcje
 
-Hero · osiedle (obrotowy plan z klikalnymi budynkami) · eksplorator lokali (filtry mieszkania/domy,
-karty, modal z rzutem parteru i piętra) · **cennik wszystkich lokali** · **spacer 360 po wnętrzu
+Hero · osiedle (kadry budynków) · eksplorator lokali (plan zagospodarowania z klikalnym każdym
+mieszkaniem i domem, filtry mieszkania/domy, karty, modal z rzutem parteru i piętra) · **cennik wszystkich lokali** · **spacer 360 po wnętrzu
 i po osiedlu** · standard i technologia · życie · okolica (plan 3D z punktami) · deweloper, proces
 zakupu i partnerzy · FAQ · formularz kontaktowy · stopka.
 Podstrony: lokalizacja, 20 stron lokali, polityka prywatności, polityka cookies, regulamin.
@@ -26,15 +26,21 @@ Baner cookie, JSON-LD, sitemap, robots.
 
 Dane lokali (metraż, cena, cena/m², liczba pokoi, status, rzuty) pochodzą z rzeczywistego konfiguratora
 dewelopera (SenseVR / Qupto, investment 214) i są zapisane w [`lib/data/units.ts`](lib/data/units.ts).
-Geometria interaktywnej mapy osiedla (obrysy i pozycje budynków) pochodzi z tego samego źródła
-([`lib/data/estate-orbit.json`](lib/data/estate-orbit.json)). Treści i fakty: [`lib/data/site.ts`](lib/data/site.ts).
+Treści i fakty: [`lib/data/site.ts`](lib/data/site.ts).
+
+Numerację budynków rozstrzyga plan zagospodarowania terenu od dewelopera
+(`public/osiedle/plan-zagospodarowania.webp`, oryginał w `.pzt-src/`): dziesięć budynków po dwa
+lokale, a numer lokalu `5.2A` to "lokal 2A" w budynku 5. Położenie każdego lokalu na planie i numer
+jego ogródka są w [`lib/data/plan.ts`](lib/data/plan.ts); metraże ogródków z planu zgadzają się
+z polem `garden` z konfiguratora. Konfigurator grupuje budynki w sześć etapów ("1 i 2", "3", ...),
+dlatego filtr na stronie mówi "Budynki 1 i 2".
 
 Podział na 16 mieszkań i 4 domy wyprowadza `unitKind()` w [`lib/unitType.ts`](lib/unitType.ts):
 domy to lokale z budynków środkowych (segment 3), czyli 3.3A, 3.3B, 8.3A i 8.3B. Konfigurator
 dewelopera oznacza wszystkie dwadzieścia lokali jednakowo jako `flat`, więc rodzaju nie da się
 z niego odczytać.
 
-Od dewelopera pochodzą: obrotowy plan osiedla (`public/dollhouse`), kadry budynków
+Od dewelopera pochodzą: plan zagospodarowania osiedla, kadry budynków
 (`public/osiedle`), mapka okolicy (`public/map`) i spacer 360. Rzuty obu kondygnacji
 (`public/rzuty`) oraz wykazy pomieszczeń z metrażami ([`lib/data/rzuty.ts`](lib/data/rzuty.ts))
 buduje [`scripts/rzuty.py`](scripts/rzuty.py) z PDF-ów rzutów dewelopera: sześć typów rzutu
@@ -117,6 +123,7 @@ czterech sekcji przed zgodą dało po zgodzie cztery zdarzenia `sekcja_widoczna`
 | --- | --- | --- |
 | `sekcja_widoczna` | odwiedzający dotarł do sekcji (raz na wejście) | `sekcja` |
 | `uzyj_filtra` | filtr, budynek lub sortowanie na liście lokali | `sekcja`, `etykieta` |
+| `klik_plan` | kliknięcie mieszkania albo domu na planie osiedla (otwiera szczegóły) | `sekcja`, `etykieta`, `unit` |
 | `pokaz_wszystkie` | rozwinięcie pełnej listy lokali | `sekcja`, `etykieta` |
 | `view_lokal` | otwarcie lokalu | `unit`, `value`, `currency`, `status`, `zrodlo` (modal/strona) |
 | `pobranie_rzutu` | pobranie rzutu PDF | `sekcja`, `etykieta`, `unit` |
@@ -317,7 +324,7 @@ a po ogłoszeniu struktury trzeba będzie przerobić `lib/cennik.ts`.
   automatycznie aktualizuje UI oraz `availability` w schema.org (`InStock` / `PreOrder` / `SoldOut`).
   URL-e lokali zostają - nie usuwaj ich, aby nie tworzyć soft 404.
 - **Wygaszanie po sprzedaży** (przygotować, nie aktywować): gdy wszystkie lokale są sprzedane, albo
-  (a) zamień stronę główną na statyczną „Inwestycja sprzedana" z danymi dewelopera i CTA do przyszłych
+  (a) zamień stronę główną na statyczną "Inwestycja sprzedana" z danymi dewelopera i CTA do przyszłych
   projektów, albo (b) dodaj w `proxy.ts` przekierowanie 301 na stronę dewelopera. Sitemap
   i canonical zostaw do czasu deindeksacji.
 

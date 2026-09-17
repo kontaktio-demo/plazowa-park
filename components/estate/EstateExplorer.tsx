@@ -3,11 +3,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { UNITS, BUILDINGS, INVESTMENT, type Unit } from "@/lib/data/units";
 import { plnShort } from "@/lib/format";
-import { OFERTA, unitKind, type UnitKind } from "@/lib/unitType";
+import { nazwaGrupy, OFERTA, unitKind, type UnitKind } from "@/lib/unitType";
 import { sectionEyebrow } from "@/lib/sections";
 import { lokaleSlowo } from "@/lib/unitCopy";
 import CountUp from "../CountUp";
-import EstateMap from "./EstateMap";
+import PlanOsiedla from "./PlanOsiedla";
 import UnitCard from "./UnitCard";
 import UnitModal from "./UnitModal";
 import SortMenu, { type SortKey } from "./SortMenu";
@@ -24,7 +24,7 @@ const OPIS_SORTOWANIA: Record<SortKey, string> = {
   "area-desc": "metraż od największego",
 };
 
-const etykietaBudynku = (id: number) => BUILDINGS.find((b) => b.stageId === id)?.label ?? String(id);
+const etykietaBudynku = (id: number) => nazwaGrupy(BUILDINGS.find((b) => b.stageId === id)?.label ?? String(id));
 
 export default function EstateExplorer() {
   const [building, setBuilding] = useState<number | null>(null);
@@ -40,7 +40,7 @@ export default function EstateExplorer() {
       const id = (e as CustomEvent<number>).detail;
       setBuilding(id);
       setExpanded(true);
-      track("uzyj_filtra", { sekcja: "osiedle", etykieta: `budynek: ${etykietaBudynku(id)}` });
+      track("uzyj_filtra", { sekcja: "osiedle", etykieta: etykietaBudynku(id) });
     };
     window.addEventListener(SELECT_BUILDING_EVENT, onPick);
     return () => window.removeEventListener(SELECT_BUILDING_EVENT, onPick);
@@ -91,16 +91,14 @@ export default function EstateExplorer() {
     uzytoFiltra("wyczyszczone");
   };
 
-  const onMapSelect = (id: number | null) => {
+  const wybierzBudynek = (id: number | null) => {
     setBuilding(id);
-    uzytoFiltra(`budynek: ${id ? etykietaBudynku(id) : "wszystkie"}`);
+    uzytoFiltra(id ? etykietaBudynku(id) : "budynki: wszystkie");
     if (id) {
       setExpanded(true);
       setTimeout(() => document.getElementById("lista-lokali")?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
     }
   };
-
-  const buildingLabel = building ? BUILDINGS.find((b) => b.stageId === building)?.label : null;
 
   return (
     <section id="mieszkania-i-domy" className="band band-sand-2 sec">
@@ -114,12 +112,12 @@ export default function EstateExplorer() {
         </header>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-[55fr_45fr] lg:gap-14 [&>*]:min-w-0" data-reveal>
-          <EstateMap selected={building} onSelect={onMapSelect} />
+          <PlanOsiedla selected={building} onOpen={setModal} />
 
           <div className="flex min-w-0 flex-col justify-between gap-9">
             <p className="t-body-l fg-muted max-w-xl text-pretty">
-              Kliknij budynek na planie osiedla, wybierz mieszkania albo domy i ustaw kolejność według ceny
-              lub metrażu.
+              Wybierz budynki, mieszkania albo domy i ustaw kolejność według ceny lub metrażu. Każdy lokal
+              na planie otwiera jego rzuty i cenę.
             </p>
 
             <div className="grid grid-cols-2 gap-3">
@@ -148,7 +146,7 @@ export default function EstateExplorer() {
             <div className="min-w-0">
               <p className="t-meta-sm fg-muted">Budynki</p>
               <div className="no-scrollbar edge-fade -mx-1 mt-3 flex min-w-0 snap-x snap-mandatory gap-2 overflow-x-auto px-1 pb-1 sm:flex-wrap sm:overflow-visible">
-                <button type="button" aria-pressed={building === null} aria-label="Wszystkie budynki" onClick={() => onMapSelect(null)} className="chip flex-none snap-start">
+                <button type="button" aria-pressed={building === null} aria-label="Wszystkie budynki" onClick={() => wybierzBudynek(null)} className="chip flex-none snap-start">
                   Wszystkie
                 </button>
                 {/* "2 z 4", a nie samo "2": obok stoją chipy rodzaju z liczbą wszystkich
@@ -158,11 +156,11 @@ export default function EstateExplorer() {
                     key={b.stageId}
                     type="button"
                     aria-pressed={building === b.stageId}
-                    onClick={() => onMapSelect(building === b.stageId ? null : b.stageId)}
+                    onClick={() => wybierzBudynek(building === b.stageId ? null : b.stageId)}
                     className="chip flex-none snap-start"
-                    aria-label={`Budynek ${b.label}, ${b.available} z ${b.count} dostępnych`}
+                    aria-label={`${nazwaGrupy(b.label)}, ${b.available} z ${b.count} dostępnych`}
                   >
-                    Budynek {b.label}
+                    {nazwaGrupy(b.label)}
                     <span className="num">· {b.available} z {b.count}</span>
                   </button>
                 ))}
@@ -170,9 +168,9 @@ export default function EstateExplorer() {
             </div>
 
             <p className="t-body fg-muted max-w-md text-pretty">
-              Budynki narożne (1 i 2, 4 i 5, 6 i 7, 9 i 10) mieszczą po cztery mieszkania 82-94 m² na dwóch
-              kondygnacjach. Budynki środkowe (3 i 8) to domy: po dwa pięciopokojowe do 133 m², każdy
-              z garażem w bryle. Poddasze jest w cenie i nie wlicza się do metrażu.
+              Budynki 1, 2, 4, 5, 6, 7, 9 i 10 mają po dwa mieszkania 82-94 m² na dwóch kondygnacjach.
+              Budynki środkowe (3 i 8) to domy: po dwa pięciopokojowe do 133 m², każdy z garażem
+              w bryle. Poddasze jest w cenie i nie wlicza się do metrażu.
             </p>
           </div>
         </div>
@@ -221,7 +219,7 @@ export default function EstateExplorer() {
 
           <div className="flex w-full items-center justify-between gap-4 sm:w-auto">
             <span className="t-meta-sm fg-muted">
-              {buildingLabel ? `Budynek ${buildingLabel} · ` : ""}
+              {building ? `${etykietaBudynku(building)} · ` : ""}
               <span className="num fg">{filtered.length}</span> z {INVESTMENT.totalUnits}
             </span>
             <SortMenu value={sort} onChange={(v) => { setSort(v); uzytoFiltra(`sortowanie: ${OPIS_SORTOWANIA[v]}`); }} />

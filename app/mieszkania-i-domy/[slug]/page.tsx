@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { UNITS, BUILDINGS } from "@/lib/data/units";
+import { UNITS } from "@/lib/data/units";
 import { unitSlug, unitBySlug } from "@/lib/slug";
 import { pln, plnShort, area, rooms, STATUS_META, odmien } from "@/lib/format";
 import { lokaleSlowo, schemaAvailability, unitDescription, unitMetaDescription } from "@/lib/unitCopy";
-import { ODMIANA, unitKind, unitLabel, unitFloors, garageArea, livingArea } from "@/lib/unitType";
+import { ODMIANA, unitKind, unitLabel, unitFloors, unitPlace, garageArea, livingArea } from "@/lib/unitType";
 import { SITE } from "@/lib/data/site";
+import { PLAN } from "@/lib/data/plan";
 import PageHeader from "@/components/PageHeader";
 import Footer from "@/components/Footer";
 import TrackUnitView from "@/components/TrackUnitView";
-import UnitPosition from "@/components/estate/UnitPosition";
+import PlanLokalu from "@/components/estate/PlanLokalu";
 import ZoomShots from "@/components/ZoomShots";
 import { Icon } from "@/components/Icons";
 
@@ -51,7 +52,12 @@ const galleryImgs = [
     alt: "Wizualizacja poglądowa: rodzina w prywatnym ogrodzie przy strefie wypoczynku",
     caption: "Ogród i strefa wypoczynku - wizualizacja poglądowa",
   },
-  { src: "/dollhouse/f00.webp", alt: "Plan osiedla Plażowa Park z lotu ptaka", caption: "Plan osiedla" },
+  {
+    src: PLAN.src,
+    alt: "Plan zagospodarowania osiedla Plażowa Park z numerami budynków, lokali i ogródków",
+    caption: "Plan zagospodarowania osiedla",
+    fit: "contain" as const,
+  },
 ];
 
 // Wykaz dewelopera jest pisany małymi literami, a "Wc" wyglądałoby na błąd.
@@ -68,7 +74,9 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
   const label = unitLabel(u);
   const floors = unitFloors(u);
   const garage = garageArea(u);
-  const building = BUILDINGS.find((b) => b.stageId === u.stageId);
+  const budynek = unitPlace(u).house;
+  const wBudynku = UNITS.filter((x) => unitPlace(x).house === budynek);
+  const wolneWBudynku = wBudynku.filter((x) => x.status === "available").length;
   const sameBuilding = UNITS.filter((x) => x.stageId === u.stageId && x.id !== u.id);
   const others = UNITS.filter((x) => x.stageId !== u.stageId && x.id !== u.id);
   const rel = [...sameBuilding, ...others].slice(0, 3);
@@ -152,14 +160,14 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
             <div>
               <p className="t-meta-sm fg-muted flex items-center gap-2">
                 <span className="status-dot" style={{ background: s.color }} />
-                {s.label} · budynek {u.buildingLabel}
+                {s.label} · budynek {budynek}
               </p>
               <h1 className="t-display-l mt-5">{label}</h1>
               <p className="t-label fg-muted mt-6">Cena</p>
               <div className="t-display-m num mt-1">{pln(u.price)}</div>
               <div className="t-meta-sm fg-muted num mt-2">{plnShort(u.pricePerM)}/m²</div>
 
-              <UnitPosition unit={u} className="mt-8 max-w-52" />
+              <PlanLokalu unit={u} className="mt-8 max-w-sm" />
 
               <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5">
                 {[
@@ -205,13 +213,12 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                   Zobacz rzuty i wykaz pomieszczeń <Icon.arrowDown width={15} height={15} />
                 </a>
               )}
-              {building && (
-                <p className="card t-body fg-muted mt-7 p-4 text-sm">
-                  W budynku <strong className="fg font-medium">{u.buildingLabel}</strong>:{" "}
-                  {building.count} {lokaleSlowo(kind, building.count)}, w tym {building.available}{" "}
-                  {odmien(building.available, ["dostępny", "dostępne", "dostępnych"])}, od {plnShort(building.priceFrom)}.
-                </p>
-              )}
+              <p className="card t-body fg-muted mt-7 p-4 text-sm">
+                W budynku <strong className="fg font-medium">{budynek}</strong>: {wBudynku.length}{" "}
+                {lokaleSlowo(kind, wBudynku.length)}, w tym {wolneWBudynku}{" "}
+                {odmien(wolneWBudynku, [kind === "dom" ? "dostępny" : "dostępne", "dostępne", "dostępnych"])}, od{" "}
+                {plnShort(Math.min(...wBudynku.map((x) => x.price)))}.
+              </p>
             </div>
           </div>
 

@@ -7,7 +7,7 @@ import { UNITS } from "@/lib/data/units";
 import { plnShort, area, STATUS_META } from "@/lib/format";
 import { unitSlug } from "@/lib/slug";
 import { selectUnit } from "@/lib/selectUnit";
-import { unitKind, unitLabel, garageArea } from "@/lib/unitType";
+import { unitKind, unitLabel, unitPlace, garageArea } from "@/lib/unitType";
 import SectionHeader from "../SectionHeader";
 
 /** Numeracja dewelopera sama układa lokale budynkami: 1.1A, 1.1B, 2.2A, 2.2B, 3.3A... */
@@ -71,7 +71,7 @@ export default function Cennik() {
                       </Link>
                     </th>
                     <Komorka label="Rodzaj">{unitKind(u) === "dom" ? "Dom" : "Mieszkanie"}</Komorka>
-                    <Komorka label="Budynek">{u.buildingLabel}</Komorka>
+                    <Komorka label="Budynek">{unitPlace(u).house}</Komorka>
                     <Komorka label="Powierzchnia">
                       <span className="num">{area(u.area)}</span>
                       {garaz > 0 && (

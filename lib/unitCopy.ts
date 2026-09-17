@@ -11,7 +11,7 @@
 import type { Unit } from "@/lib/data/units";
 import { UNITS } from "@/lib/data/units";
 import { area, odmien, plnShort, rooms, STATUS_META } from "@/lib/format";
-import { garageArea, ODMIANA, OFERTA, unitKind, unitLabel, type UnitKind } from "@/lib/unitType";
+import { garageArea, ODMIANA, OFERTA, unitKind, unitLabel, unitPlace, type UnitKind } from "@/lib/unitType";
 
 // ODMIANA niesie tylko liczbę pojedynczą, a zestawienia potrzebują mnogiej.
 const MNOGA: Record<UnitKind, [string, string, string]> = {
@@ -53,7 +53,7 @@ export function unitDescription(u: Unit): string[] {
   const R = rooms(u.rooms);
   const P = plnShort(u.price);
   const PM = plnShort(u.pricePerM);
-  const bl = u.buildingLabel;
+  const bl = unitPlace(u).house;
   const status = STATUS_META[u.status].label.toLowerCase();
   // W domach garaż siedzi w metrażu lokalu, więc podajemy go wprost przy powierzchni.
   const pow = dom ? `${A} razem z garażem ${area(garageArea(u))}` : A;
@@ -62,7 +62,7 @@ export function unitDescription(u: Unit): string[] {
   const introV = [
     `${L} to ${R} o powierzchni ${pow} w kameralnym osiedlu Plażowa Park w Głownie.`,
     `${A}, ${R} i własny ogród ${G} - tak w skrócie prezentuje się ${o.mianownik} ${u.name} w Plażowa Park w Głownie.`,
-    `W ${dom ? "środkowym" : "narożnym"} budynku ${bl} osiedla Plażowa Park w Głownie znajduje się ${o.mianownik} ${u.name} o powierzchni ${pow} (${R}).`,
+    `W ${dom ? "środkowym budynku" : "budynku"} ${bl} osiedla Plażowa Park w Głownie znajduje się ${o.mianownik} ${u.name} o powierzchni ${pow} (${R}).`,
     `${L} (${A}, ${R}) otwiera się na prywatny ogród ${G} i taras z panoramicznymi oknami.`,
   ];
 
@@ -73,9 +73,9 @@ export function unitDescription(u: Unit): string[] {
         `To jeden z zaledwie ${OFERTA.domy} domów w osiedlu; w środkowym budynku ${bl} stoją tylko dwa domy.`,
       ]
     : [
-        `Narożny budynek ${bl} mieści tylko cztery mieszkania, co zapewnia kameralność i prywatność.`,
-        `To jedno z zaledwie czterech mieszkań w narożnym budynku ${bl}, z minimalną liczbą sąsiadów.`,
-        `Kameralny, narożny budynek ${bl} to jedynie cztery mieszkania - spokój i prywatność na co dzień.`,
+        `Budynek ${bl} mieści tylko dwa mieszkania, co zapewnia kameralność i prywatność.`,
+        `To jedno z zaledwie dwóch mieszkań w budynku ${bl}, z minimalną liczbą sąsiadów.`,
+        `Kameralny budynek ${bl} to jedynie dwa mieszkania - spokój i prywatność na co dzień.`,
       ];
 
   // Metraż ogrodu pochodzi z pola API `total_area`. Nazwa pola jest myląca

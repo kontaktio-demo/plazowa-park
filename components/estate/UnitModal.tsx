@@ -11,7 +11,7 @@ import { unitSlug } from "@/lib/slug";
 import { selectUnit } from "@/lib/selectUnit";
 import { planImage, unitPlace, unitKind, unitLabel, unitFloors, garageArea, ODMIANA } from "@/lib/unitType";
 import { track } from "@/lib/track";
-import UnitPosition from "./UnitPosition";
+import PlanLokalu from "./PlanLokalu";
 import { Icon } from "../Icons";
 
 export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClose: () => void }) {
@@ -86,7 +86,7 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
     { l: "Ogród prywatny", v: area(unit.garden) },
     { l: "Liczba pokoi", v: rooms(unit.rooms) },
     { l: "Kondygnacje", v: String(unit.floors) },
-    { l: "Budynek", v: unit.buildingLabel },
+    { l: "Budynek", v: place.house },
     { l: "Cena za m²", v: plnShort(unit.pricePerM) },
   ];
 
@@ -153,7 +153,7 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
             <p className="t-label fg-muted mt-5">Cena</p>
             <div className="t-display-m num mt-1">{plnShort(unit.price)}</div>
 
-            <UnitPosition unit={unit} className="mt-6 max-w-[13rem]" />
+            <PlanLokalu unit={unit} className="mt-6" />
 
             <dl className="mt-6 grid grid-cols-2 gap-x-5 gap-y-4">
               {specs.map((sp) => (

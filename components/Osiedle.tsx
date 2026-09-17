@@ -3,22 +3,22 @@
 import Image from "next/image";
 import { BUILDINGS, INVESTMENT } from "@/lib/data/units";
 import { plnShort, STATUS_META } from "@/lib/format";
-import { buildingUnits, unitKind } from "@/lib/unitType";
+import { buildingUnits, nazwaGrupy, unitKind } from "@/lib/unitType";
 import { lokaleSlowo, OFERTA_TEKST } from "@/lib/unitCopy";
 import { selectBuilding } from "@/lib/selectUnit";
 import { sectionEyebrow } from "@/lib/sections";
 
 /**
- * Sześć budynków, każdy własnym kadrem z dollhouse'u dewelopera. Wcześniej stały
- * tu rysowane sylwetki elewacji: płaskie, cztery z sześciu identyczne i bez ani
- * jednego drzewa, mimo że sekcja nazywa się "Osiedle ukryte w lesie".
- * Kadry generuje scripts/osiedle-kadry.mjs - dla każdego budynku wybiera klatkę
- * obrotu, na której stoi najbliżej widza. Klik filtruje listę lokali niżej.
+ * Sześć grup budynków z konfiguratora dewelopera (dwa budynki obok siebie albo
+ * jeden środkowy), każda własnym kadrem z dollhouse'u. Wcześniej stały tu rysowane
+ * sylwetki elewacji: płaskie i bez ani jednego drzewa, mimo że sekcja nazywa się
+ * "Osiedle ukryte w lesie". Kadry generuje scripts/osiedle-kadry.mjs. Klik filtruje
+ * listę lokali niżej.
  */
 const status = (available: number, count: number) =>
   available === 0 ? "sold" : available < count ? "reserved" : "available";
 
-// Budynek jest jednorodny: narożny mieści cztery mieszkania, środkowy dwa domy.
+// Grupa jest jednorodna: same mieszkania albo same domy.
 const skladBudynku = (stageId: number, count: number) =>
   `${count} ${lokaleSlowo(unitKind(buildingUnits(stageId)[0]), count)}`;
 
@@ -32,8 +32,8 @@ export default function Osiedle() {
             Osiedle ukryte <span className="fg-accent">w lesie</span>
           </h2>
           <p className="t-body-l fg-muted mx-auto mt-5 max-w-2xl text-pretty sm:mt-6">
-            Osiedle to {OFERTA_TEKST} w {INVESTMENT.buildingsCount} budynkach. Narożne mieszczą po
-            cztery mieszkania, środkowe po dwa domy z garażem. Do każdego mieszkania i domu należy prywatny
+            Osiedle to {OFERTA_TEKST} w {INVESTMENT.buildingsCount} budynkach. Osiem ma po dwa mieszkania,
+            dwa środkowe po dwa domy z garażem. Do każdego mieszkania i domu należy prywatny
             ogród, taras, dwa miejsca postojowe i poddasze w cenie.
           </p>
         </header>
@@ -49,21 +49,21 @@ export default function Osiedle() {
                 key={b.stageId}
                 type="button"
                 onClick={() => selectBuilding(b.stageId)}
-                aria-label={`Budynek ${b.label}: ${skladBudynku(b.stageId, b.count)}, wolne: ${b.available}, od ${plnShort(b.priceFrom)}. Pokaż na liście`}
+                aria-label={`${nazwaGrupy(b.label)}: ${skladBudynku(b.stageId, b.count)}, wolne: ${b.available}, od ${plnShort(b.priceFrom)}. Pokaż na liście`}
                 className="group bd overflow-hidden border text-left transition-colors hover:border-clay-600"
                 style={{ transitionDelay: `${Math.min(i, 6) * 60}ms` }}
               >
                 <span className="relative block aspect-4/3 overflow-hidden bg-sand-200">
                   <Image
                     src={`/osiedle/b${b.stageId}.webp`}
-                    alt={`Budynek ${b.label} osiedla Plażowa Park wśród drzew`}
+                    alt={`${nazwaGrupy(b.label)} osiedla Plażowa Park wśród drzew`}
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                   />
                   <span className="bd absolute left-3 top-3 flex items-center gap-1.5 border bg-sand-50/95 px-2 py-1">
                     <span className="status-dot" style={{ background: STATUS_META[s].color }} />
-                    <span className="t-meta-sm">Budynek {b.label}</span>
+                    <span className="t-meta-sm">{nazwaGrupy(b.label)}</span>
                   </span>
                 </span>
 

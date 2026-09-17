@@ -168,10 +168,12 @@ export default function Lightbox({
       <div className="flex flex-none items-start justify-between gap-4 px-4 py-3 sm:items-center sm:px-6">
         {/* podpis się zawija: ucięty na telefonie gubił to, co właśnie tłumaczy */}
         <p className="t-meta-sm fg-muted min-w-0">
-          <span className="num">
-            {index + 1} / {shots.length}
-          </span>
-          {shot.caption ? <span className="fg ml-3">{shot.caption}</span> : null}
+          {shots.length > 1 && (
+            <span className="num mr-3">
+              {index + 1} / {shots.length}
+            </span>
+          )}
+          {shot.caption ? <span className="fg">{shot.caption}</span> : null}
         </p>
         <div className="flex flex-none items-center gap-1">
           <Ctl label="Pomniejsz" onClick={() => zoomAt(1 / 1.4, innerWidth / 2, innerHeight / 2)} disabled={z.s <= MIN}>

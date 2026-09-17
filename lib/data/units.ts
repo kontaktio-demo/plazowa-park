@@ -465,7 +465,7 @@ export const BUILDINGS: Building[] = [
 export const INVESTMENT = {
   "totalUnits": 20,
   "available": 18,
-  "buildingsCount": 6,
+  "buildingsCount": 10,
   "priceMin": 633000,
   "priceMax": 926000,
   "areaMin": 82.05,

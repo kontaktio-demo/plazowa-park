@@ -28,9 +28,9 @@ const nextConfig: NextConfig = {
     const bezIndeksu = [{ key: "X-Robots-Tag", value: "noindex" }];
     return [
       {
-        // Długi cache dla stabilnych assetów (klatki obrotu, rendery, rzuty
+        // Długi cache dla stabilnych assetów (plan osiedla, rendery, rzuty
         // lokali, mapy) - powstają raz i praktycznie się nie zmieniają.
-        source: "/:folder(dollhouse|osiedle|galeria|renders|rzuty|map|brand)/:path*",
+        source: "/:folder(osiedle|galeria|renders|rzuty|map|brand)/:path*",
         headers: cacheGrafiki,
       },
       // Obraz Open Graph leży poza tymi folderami, a zmienia się równie rzadko.
