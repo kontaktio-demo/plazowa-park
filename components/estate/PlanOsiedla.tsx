@@ -8,6 +8,7 @@ import { area, plnShort, STATUS_META } from "@/lib/format";
 import { unitLabel, unitPlace } from "@/lib/unitType";
 import { BLUR } from "@/lib/blur";
 import Lightbox from "../Lightbox";
+import { wczytajLokal } from "@/lib/wczytaj";
 
 const OPIS =
   "Plan zagospodarowania osiedla Plażowa Park: dziesięć budynków po obu stronach drogi wewnętrznej, przy każdym mieszkaniu i domu ogródek";
@@ -59,9 +60,16 @@ export default function PlanOsiedla({ selected, onOpen }: { selected: number | n
               data-lokal={u.name}
               aria-label={`${unitLabel(u)}, budynek ${unitPlace(u).house}, ${area(u.area)}, ${plnShort(u.price)}, ${s.label.toLowerCase()}`}
               onClick={() => onOpen(u)}
-              onMouseEnter={() => setWskazany(u)}
+              onPointerEnter={() => {
+                setWskazany(u);
+                wczytajLokal(u);
+              }}
+              onPointerDown={() => wczytajLokal(u)}
               onMouseLeave={() => setWskazany(null)}
-              onFocus={() => setWskazany(u)}
+              onFocus={() => {
+                setWskazany(u);
+                wczytajLokal(u);
+              }}
               onBlur={() => setWskazany(null)}
               className={`absolute outline-offset-0 transition-colors hover:bg-sun/35 hover:outline-2 hover:outline-clay-900 focus-visible:bg-sun/35 ${
                 wBudynku ? "bg-sun/30 outline-2 outline-clay-600" : ""
@@ -87,7 +95,8 @@ export default function PlanOsiedla({ selected, onOpen }: { selected: number | n
               <span className="font-medium">{unitLabel(wskazany)}</span>
               <span className="fg-muted num">
                 {" "}
-                · budynek {unitPlace(wskazany).house} · {area(wskazany.area)} · {plnShort(wskazany.price)}
+                · budynek {unitPlace(wskazany).house} · {area(wskazany.area)} ·{" "}
+                <span className="whitespace-nowrap">{plnShort(wskazany.price)}</span>
               </span>
             </>
           ) : (

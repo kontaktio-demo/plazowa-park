@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { NAV, SITE } from "@/lib/data/site";
 import { INVESTMENT } from "@/lib/data/units";
+import { wyciszTlo } from "@/lib/wycisz";
 import { Icon } from "./Icons";
 import { LogoMark } from "./Logo";
 
@@ -21,21 +22,17 @@ export default function Nav() {
   }, []);
 
   useEffect(() => {
-    document.documentElement.style.overflow = open ? "hidden" : "";
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    document.addEventListener("keydown", onKey);
     const przycisk = hamburger.current;
-    // Bez inert Tab wychodzi z nakładki na treść leżącą pod spodem, a czytnik ekranu
-    // czyta całą stronę. Nagłówek zostaje aktywny, bo trzyma przycisk zamykania;
+    // Bez wyciszenia Tab wychodzi z nakładki na treść leżącą pod spodem, a czytnik
+    // ekranu czyta całą stronę. Nagłówek zostaje aktywny, bo trzyma przycisk zamykania;
     // baner cookies leży nad menu, więc też musi zostać klikalny.
-    const tlo = Array.from(document.body.children).filter(
-      (el) => el !== naglowek.current && el !== nakladka.current && !el.hasAttribute("data-nad-menu")
+    const przywroc = wyciszTlo(
+      [naglowek.current, nakladka.current, ...document.querySelectorAll("[data-nad-menu]")],
+      () => setOpen(false)
     );
-    tlo.forEach((el) => el.setAttribute("inert", ""));
     return () => {
-      document.removeEventListener("keydown", onKey);
-      tlo.forEach((el) => el.removeAttribute("inert"));
+      przywroc();
       przycisk?.focus();
     };
   }, [open]);

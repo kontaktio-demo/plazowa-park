@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { Unit } from "@/lib/data/units";
 import { NA_PLANIE, PLAN } from "@/lib/data/plan";
 import { unitKind, unitPlace } from "@/lib/unitType";
+import { SIZES_KADRU } from "@/lib/wczytaj";
 
 // wycinek planu w pikselach pliku: tyle, żeby zmieścił się budynek, sąsiedni
 // budynek i ogródki, a numery z planu dało się jeszcze przeczytać
@@ -31,7 +32,7 @@ export default function PlanLokalu({ unit, className = "" }: { unit: Unit; class
             height: proc(PLAN.h, KADR.h),
           }}
         >
-          <Image src={PLAN.src} alt="" fill sizes="1024px" className="object-cover" />
+          <Image src={PLAN.src} alt="" fill sizes={SIZES_KADRU} className="object-cover" />
           <span
             aria-hidden
             className="absolute bg-sun/40 outline-3 -outline-offset-3 outline-sun"

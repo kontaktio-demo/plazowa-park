@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useEffectEvent, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +11,8 @@ import { unitSlug } from "@/lib/slug";
 import { selectUnit } from "@/lib/selectUnit";
 import { planImage, unitPlace, unitKind, unitLabel, unitFloors, garageArea, ODMIANA } from "@/lib/unitType";
 import { track } from "@/lib/track";
+import { SIZES_RZUTU } from "@/lib/wczytaj";
+import { wyciszTlo } from "@/lib/wycisz";
 import PlanLokalu from "./PlanLokalu";
 import { Icon } from "../Icons";
 
@@ -20,7 +22,6 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
   const [wybor, setWybor] = useState({ id: "", i: 0 });
   const kondygnacja = wybor.id === unit?.id ? wybor.i : 0;
   const oknoRef = useRef<HTMLDivElement>(null);
-  const zamknijRef = useRef<HTMLButtonElement>(null);
 
   // Większość oglądania lokali idzie przez modal, a nie przez ich strony - bez tego
   // statystyka popularności mieszkań pokazywałaby ułamek rzeczywistego zainteresowania.
@@ -36,41 +37,57 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
   }, [unit]);
 
   /**
-   * Modal deklarował aria-modal, ale focus zostawał na karcie pod nakładką: Tab
-   * wędrował po tle, a po zamknięciu przepadał na body. Tło dostaje inert (modal
-   * idzie przez portal do body, żeby nie wyłączyć samego siebie), Tab krąży
-   * wewnątrz, a focus wraca na przycisk, który modal otworzył - chyba że w
-   * międzyczasie sam poszedł dalej, na pole formularza kontaktowego.
+   * Focus idzie na przycisk zamknięcia, tło milknie dla czytnika i klawiatury, a po
+   * zamknięciu focus wraca na lokal, z którego okno otwarto - chyba że w międzyczasie
+   * sam poszedł dalej, na pole formularza kontaktowego. Okno idzie przez portal do body,
+   * żeby wyciszenie tła nie objęło samego okna. Dlaczego nie <dialog> ze showModal:
+   * lib/wycisz.ts.
    */
+  const zamknij = useEffectEvent(onClose);
+  const otwarte = unit !== null;
   useEffect(() => {
-    if (!unit) return;
     const okno = oknoRef.current;
+    if (!okno || !otwarte) return;
     const wrocDo = document.activeElement as HTMLElement | null;
-    const tlo = Array.from(document.body.children).filter((el) => el !== okno && !el.hasAttribute("inert"));
-    tlo.forEach((el) => el.setAttribute("inert", ""));
-    zamknijRef.current?.focus();
-
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") return onClose();
-      if (e.key !== "Tab" || !okno) return;
-      const f = okno.querySelectorAll<HTMLElement>('a[href], button:not([disabled]):not([tabindex="-1"])');
-      if (!f.length) return;
-      const brzeg = e.shiftKey ? f[0] : f[f.length - 1];
-      if (document.activeElement !== brzeg) return;
-      e.preventDefault();
-      (e.shiftKey ? f[f.length - 1] : f[0]).focus();
-    };
-    document.addEventListener("keydown", onKey);
-    document.documentElement.style.overflow = "hidden";
+    okno.querySelector<HTMLElement>("[data-zamknij]")?.focus();
+    const przywroc = wyciszTlo([okno], () => zamknij());
     return () => {
-      document.removeEventListener("keydown", onKey);
-      document.documentElement.style.overflow = "";
-      tlo.forEach((el) => el.removeAttribute("inert"));
-      if (document.activeElement === document.body) wrocDo?.focus({ preventScroll: true });
+      przywroc();
+      if (document.activeElement === document.body || okno.contains(document.activeElement)) {
+        wrocDo?.focus({ preventScroll: true });
+      }
     };
-  }, [unit, onClose]);
+  }, [otwarte]);
 
   if (!unit) return null;
+
+  return createPortal(
+    <div
+      ref={oknoRef}
+      role="dialog"
+      aria-modal="true"
+      aria-label={unitLabel(unit)}
+      className="fixed inset-0 z-80 flex items-end justify-center sm:items-center"
+    >
+      {/* nakładka zamyka okno myszą, ale nie jest przystankiem w kolejności Tab */}
+      <button type="button" tabIndex={-1} aria-hidden onClick={onClose} className="okno-lokalu-tlo absolute inset-0 bg-abyss/70" />
+      <Tresc unit={unit} kondygnacja={kondygnacja} onKondygnacja={(i) => setWybor({ id: unit.id, i })} onClose={onClose} />
+    </div>,
+    document.body
+  );
+}
+
+function Tresc({
+  unit,
+  kondygnacja,
+  onKondygnacja,
+  onClose,
+}: {
+  unit: Unit;
+  kondygnacja: number;
+  onKondygnacja: (i: number) => void;
+  onClose: () => void;
+}) {
   const s = STATUS_META[unit.status];
   const place = unitPlace(unit);
   const kind = unitKind(unit);
@@ -79,7 +96,6 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
   const garaz = garageArea(unit);
 
   const kondygnacje = unitFloors(unit);
-  const aktywna = kondygnacje[kondygnacja] ?? kondygnacje[0];
 
   const specs = [
     { l: "Powierzchnia", v: garaz ? `${area(unit.area)} (w tym garaż ${area(garaz)})` : area(unit.area) },
@@ -90,27 +106,27 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
     { l: "Cena za m²", v: plnShort(unit.pricePerM) },
   ];
 
-  return createPortal(
-    <div
-      ref={oknoRef}
-      className="fixed inset-0 z-80 flex items-end justify-center sm:items-center"
-      role="dialog"
-      aria-modal="true"
-      aria-label={label}
-    >
-      {/* nakładka zamyka modal myszą, ale nie jest przystankiem w kolejności Tab:
-          jej obwódka focusu i tak leżałaby poza ekranem */}
-      <button type="button" tabIndex={-1} aria-hidden onClick={onClose} className="absolute inset-0 bg-abyss/70 backdrop-blur-sm" />
-      <div className="band band-sand relative z-10 max-h-[92svh] w-full max-w-3xl overflow-y-auto rounded-t-[12px] sm:rounded-[12px]">
+  return (
+      <div className="okno-lokalu-panel band band-sand relative z-10 max-h-[92svh] w-full max-w-3xl overflow-y-auto overscroll-contain rounded-t-[12px] sm:rounded-[12px]" data-lenis-prevent>
         <div className="grid sm:grid-cols-2">
           <div className="relative aspect-4/3 bg-sand-50 sm:aspect-auto sm:min-h-[420px]">
-            <Image
-              src={aktywna?.render ?? planImage(unit)}
-              alt={`${aktywna?.nazwa ?? "Parter"} - rzut ${odm.dopelniacz} ${unit.name}, typ ${place.type}`}
-              fill
-              sizes="(max-width: 640px) 100vw, 384px"
-              className="object-contain p-6"
-            />
+            {/* Obie kondygnacje leżą jedna na drugiej i przełącznik zmienia tylko
+                widoczność. Podmiana src ściągała piętro dopiero po kliknięciu, więc
+                przez pół sekundy okno pokazywało pustkę. */}
+            {kondygnacje.length ? (
+              kondygnacje.map((k, i) => (
+                <Image
+                  key={k.render}
+                  src={k.render}
+                  alt={i === kondygnacja ? `${k.nazwa} - rzut ${odm.dopelniacz} ${unit.name}, typ ${place.type}` : ""}
+                  fill
+                  sizes={SIZES_RZUTU}
+                  className={`object-contain p-6 transition-opacity duration-200 ${i === kondygnacja ? "" : "opacity-0"}`}
+                />
+              ))
+            ) : (
+              <Image src={planImage(unit)} alt={`Rzut ${odm.dopelniacz} ${unit.name}`} fill sizes={SIZES_RZUTU} className="object-contain p-6" />
+            )}
             {kondygnacje.length > 1 && (
               <div className="absolute left-4 top-4 flex gap-2">
                 {kondygnacje.map((k, i) => (
@@ -118,7 +134,7 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
                     key={k.nazwa}
                     type="button"
                     aria-pressed={i === kondygnacja}
-                    onClick={() => setWybor({ id: unit.id, i })}
+                    onClick={() => onKondygnacja(i)}
                     className="chip bg-surface"
                   >
                     {k.nazwa}
@@ -141,7 +157,7 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
                 <h3 className="t-display-m mt-3">{label}</h3>
               </div>
               <button
-                ref={zamknijRef}
+                data-zamknij
                 onClick={onClose}
                 aria-label="Zamknij"
                 className="bd-strong flex h-11 w-11 flex-none items-center justify-center border"
@@ -210,7 +226,5 @@ export default function UnitModal({ unit, onClose }: { unit: Unit | null; onClos
           </div>
         </div>
       </div>
-    </div>,
-    document.body
   );
 }

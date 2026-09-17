@@ -1,13 +1,16 @@
 /**
  * Plan zagospodarowania terenu (PZT) od dewelopera. To on rozstrzyga o numeracji:
  * dziesięć budynków, w każdym dwa lokale, a lokal `5.2A` to "lokal 2A" w budynku 5.
- * Oryginał leży w .pzt-src/, plik na stronie jest przycięty z białego marginesu u góry.
+ * Oryginał leży w .pzt-src/. Na stronie stoi jego ilustracja z podpisami, którą
+ * buduje scripts/plan-osiedla.py, z zachowaną geometrią oryginału.
  *
- * Prostokąty są w pikselach tego pliku: [x, y, szerokość, wysokość], odczytane
- * z obrysu ścian na planie. Numer ogródka i jego metraż też pochodzą z PZT i zgadzają
- * się z polem `garden` w danych dewelopera.
+ * `w` i `h` to układ współrzędnych PZT przyciętego z białego marginesu u góry, nie
+ * rozmiar pliku ilustracji (ma te same proporcje, większą rozdzielczość). Prostokąty
+ * są w tym układzie: [x, y, szerokość, wysokość], odczytane z obrysu ścian na planie.
+ * Numer ogródka i jego metraż też pochodzą z PZT i zgadzają się z polem `garden`
+ * w danych dewelopera.
  */
-export const PLAN = { src: "/osiedle/plan-zagospodarowania.webp", w: 1307, h: 1377 } as const;
+export const PLAN = { src: "/osiedle/plan-osiedla.webp", w: 1307, h: 1377 } as const;
 
 export type NaPlanie = { r: readonly [number, number, number, number]; ogrodek: number };
 

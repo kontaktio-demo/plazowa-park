@@ -32,7 +32,7 @@ export default function CookieConsent() {
     <div
       role="region"
       aria-label="Zgoda na cookies"
-      // menu mobilne wycisza resztę strony atrybutem inert, baner ma zostać klikalny
+      // menu mobilne wycisza resztę strony (lib/wycisz.ts), baner ma zostać klikalny
       data-nad-menu
       className="fixed inset-x-0 bottom-0 z-70 p-3 sm:inset-x-auto sm:bottom-5 sm:left-5 sm:max-w-xl sm:p-0"
     >

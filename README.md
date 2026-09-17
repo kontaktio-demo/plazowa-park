@@ -28,12 +28,16 @@ Dane lokali (metraż, cena, cena/m², liczba pokoi, status, rzuty) pochodzą z r
 dewelopera (SenseVR / Qupto, investment 214) i są zapisane w [`lib/data/units.ts`](lib/data/units.ts).
 Treści i fakty: [`lib/data/site.ts`](lib/data/site.ts).
 
-Numerację budynków rozstrzyga plan zagospodarowania terenu od dewelopera
-(`public/osiedle/plan-zagospodarowania.webp`, oryginał w `.pzt-src/`): dziesięć budynków po dwa
-lokale, a numer lokalu `5.2A` to "lokal 2A" w budynku 5. Położenie każdego lokalu na planie i numer
+Numerację budynków rozstrzyga plan zagospodarowania terenu od dewelopera (oryginał
+w `.pzt-src/`): dziesięć budynków po dwa lokale, a numer lokalu `5.2A` to "lokal 2A" w budynku 5. Położenie każdego lokalu na planie i numer
 jego ogródka są w [`lib/data/plan.ts`](lib/data/plan.ts); metraże ogródków z planu zgadzają się
 z polem `garden` z konfiguratora. Konfigurator grupuje budynki w sześć etapów ("1 i 2", "3", ...),
 dlatego filtr na stronie mówi "Budynki 1 i 2".
+
+Plan na stronie (`public/osiedle/plan-osiedla.webp`) to ilustracja PZT wygenerowana w Higgsfield
+(GPT Image 2.5) z zachowaną geometrią oryginału, sprawdzoną nałożeniem obrysów lokali. Podpisy
+(budynki, lokale, ogródki z metrażami, śmietniki, wjazd) nie pochodzą z modelu, tylko z danych:
+składa je [`scripts/plan-osiedla.py`](scripts/plan-osiedla.py).
 
 Podział na 16 mieszkań i 4 domy wyprowadza `unitKind()` w [`lib/unitType.ts`](lib/unitType.ts):
 domy to lokale z budynków środkowych (segment 3), czyli 3.3A, 3.3B, 8.3A i 8.3B. Konfigurator

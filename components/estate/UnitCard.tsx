@@ -8,6 +8,7 @@ import { unitSlug } from "@/lib/slug";
 import { selectUnit } from "@/lib/selectUnit";
 import { planImage, unitKind, unitLabel, unitPlace } from "@/lib/unitType";
 import { Icon } from "../Icons";
+import { wczytajLokal } from "@/lib/wczytaj";
 
 /**
  * Na telefonie karta jest poziomym wierszem katalogu - dwadzieścia lokali da się
@@ -80,7 +81,13 @@ export default function UnitCard({ unit, onOpen }: { unit: Unit; onOpen: (u: Uni
             jak wyrzucenie uzytkownika z listy. Na telefonie oba przyciski nie miesciły
             sie w pelnym odstepie btn-sm, stad wezsze marginesy do 640 px. */}
         <div className="mt-3 flex gap-2.5 sm:mt-4">
-          <button onClick={() => onOpen(unit)} className="btn btn-solid btn-sm max-sm:px-2.5 flex-1">
+          <button
+            onClick={() => onOpen(unit)}
+            onPointerEnter={() => wczytajLokal(unit)}
+            onPointerDown={() => wczytajLokal(unit)}
+            onFocus={() => wczytajLokal(unit)}
+            className="btn btn-solid btn-sm max-sm:px-2.5 flex-1"
+          >
             Szczegóły
           </button>
           <button

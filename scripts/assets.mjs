@@ -59,7 +59,7 @@ async function blur() {
     hero: join(PUB, "renders", "hero.webp"),
     zycie: join(PUB, "renders", "zycie.webp"),
     tour: join(PUB, "renders", "tour-poster.webp"),
-    plan: join(PUB, "osiedle", "plan-zagospodarowania.webp"),
+    plan: join(PUB, "osiedle", "plan-osiedla.webp"),
   };
   // każdy render z galerii dostaje własny placeholder - inaczej siatka mruga
   // jednym kolorem dla siedmiu różnych zdjęć

@@ -54,7 +54,7 @@ const galleryImgs = [
   },
   {
     src: PLAN.src,
-    alt: "Plan zagospodarowania osiedla Plażowa Park z numerami budynków, lokali i ogródków",
+    alt: "Plan osiedla Plażowa Park z numerami budynków, lokali i ogródków oraz metrażami ogródków",
     caption: "Plan zagospodarowania osiedla",
     fit: "contain" as const,
   },

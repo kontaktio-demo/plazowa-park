@@ -100,6 +100,9 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: auto; /* Lenis prowadzi smooth scroll */
+    /* blokada przewijania pod oknem lokalu i lightboxem nie może zdejmować paska:
+       zmiana szerokości strony przeliczała układ całości i przesuwała treść */
+    scrollbar-gutter: stable;
     background: var(--color-abyss);
     overflow-x: clip;
   }
@@ -458,6 +461,20 @@ body.motion-ready [data-reveal="stagger"] > * {
 }
 body.motion-ready [data-reveal="stagger"].is-in > * { opacity: 1; transform: none; }
 
+
+/* okno lokalu: tło i panel wchodzą razem, panel lekko z dołu. Same transform
+   i opacity, więc animacja nie przelicza układu strony pod spodem. */
+@keyframes oknoTlo {
+  from { opacity: 0; }
+}
+@keyframes oknoPanel {
+  from { opacity: 0; transform: translateY(24px); }
+}
+.okno-lokalu-tlo { animation: oknoTlo 220ms ease-out; }
+.okno-lokalu-panel { animation: oknoPanel 320ms var(--ease-out-expo); }
+@media (prefers-reduced-motion: reduce) {
+  .okno-lokalu-tlo, .okno-lokalu-panel { animation: none; }
+}
 
 @keyframes kenBurns {
   from { transform: scale(1.02); }
