@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { INVESTMENT } from "@/lib/data/units";
 import { plnShort } from "@/lib/format";
 import { OFERTA } from "@/lib/unitType";
 import { lokaleSlowo, OFERTA_TEKST } from "@/lib/unitCopy";
@@ -10,7 +9,7 @@ const stats = [
   { v: String(OFERTA.mieszkania), l: lokaleSlowo("mieszkanie", OFERTA.mieszkania) },
   { v: String(OFERTA.domy), l: lokaleSlowo("dom", OFERTA.domy) },
   { v: "82-133", l: "m² powierzchni" },
-  { v: `od ${plnShort(INVESTMENT.priceMin)}`, l: "cena" },
+  { v: `od ${plnShort(OFERTA.cenaOd)}`, l: "cena" },
 ];
 
 export default function Hero() {

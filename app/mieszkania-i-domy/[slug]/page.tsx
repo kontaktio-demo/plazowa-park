@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { UNITS } from "@/lib/data/units";
 import { unitSlug, unitBySlug } from "@/lib/slug";
 import { pln, plnShort, area, rooms, STATUS_META, odmien } from "@/lib/format";
-import { lokaleSlowo, schemaAvailability, unitDescription, unitMetaDescription } from "@/lib/unitCopy";
+import { ctaPytanie, lokaleSlowo, schemaAvailability, unitDescription, unitMetaDescription } from "@/lib/unitCopy";
 import { ODMIANA, unitKind, unitLabel, unitFloors, unitPlace, garageArea, livingArea } from "@/lib/unitType";
 import { SITE } from "@/lib/data/site";
 import { PLAN } from "@/lib/data/plan";
@@ -76,7 +76,8 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
   const garage = garageArea(u);
   const budynek = unitPlace(u).house;
   const wBudynku = UNITS.filter((x) => unitPlace(x).house === budynek);
-  const wolneWBudynku = wBudynku.filter((x) => x.status === "available").length;
+  const wolne = wBudynku.filter((x) => x.status === "available");
+  const wolneWBudynku = wolne.length;
   const sameBuilding = UNITS.filter((x) => x.stageId === u.stageId && x.id !== u.id);
   const others = UNITS.filter((x) => x.stageId !== u.stageId && x.id !== u.id);
   const rel = [...sameBuilding, ...others].slice(0, 3);
@@ -202,7 +203,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                   data-lokal={u.name}
                   className="btn btn-sun flex-1"
                 >
-                  Zapytaj o {o.wskazujacy} <Icon.arrow width={18} height={18} />
+                  {ctaPytanie(u)} <Icon.arrow width={18} height={18} />
                 </Link>
                 <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost">
                   <Icon.phone width={16} height={16} /> {SITE.phone.display}
@@ -216,8 +217,8 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
               <p className="card t-body fg-muted mt-7 p-4 text-sm">
                 W budynku <strong className="fg font-medium">{budynek}</strong>: {wBudynku.length}{" "}
                 {lokaleSlowo(kind, wBudynku.length)}, w tym {wolneWBudynku}{" "}
-                {odmien(wolneWBudynku, [kind === "dom" ? "dostępny" : "dostępne", "dostępne", "dostępnych"])}, od{" "}
-                {plnShort(Math.min(...wBudynku.map((x) => x.price)))}.
+                {odmien(wolneWBudynku, [kind === "dom" ? "dostępny" : "dostępne", "dostępne", "dostępnych"])}
+                {wolne.length > 0 && <>, od {plnShort(Math.min(...wolne.map((x) => x.price)))}</>}.
               </p>
             </div>
           </div>

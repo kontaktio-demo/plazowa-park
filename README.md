@@ -28,6 +28,12 @@ Dane lokali (metraż, cena, cena/m², liczba pokoi, status, rzuty) pochodzą z r
 dewelopera (SenseVR / Qupto, investment 214) i są zapisane w [`lib/data/units.ts`](lib/data/units.ts).
 Treści i fakty: [`lib/data/site.ts`](lib/data/site.ts).
 
+Statusy sprzedaży, których deweloper nie wprowadził jeszcze u siebie, trzyma stała `BIURO`
+w [`scripts/sync-units.mjs`](scripts/sync-units.mjs). Bez niej nocna synchronizacja cofałaby je
+do stanu z panelu. Wygrywa status dalszy w sprzedaży, więc panel może dopisać rezerwację albo
+sprzedaż, ale nie cofnie tego, co zgłosiło biuro. Gdy deweloper oznaczy lokal u siebie, wpis
+można stamtąd usunąć. Na 18 września 2026 są tam sprzedane 1.1A, 1.1B, 6.1B, 10.2A i 10.2B.
+
 Numerację budynków rozstrzyga plan zagospodarowania terenu od dewelopera (oryginał
 w `.pzt-src/`): dziesięć budynków po dwa lokale, a numer lokalu `5.2A` to "lokal 2A" w budynku 5. Położenie każdego lokalu na planie i numer
 jego ogródka są w [`lib/data/plan.ts`](lib/data/plan.ts); metraże ogródków z planu zgadzają się
@@ -252,6 +258,11 @@ zasobów. Lista dni jest ograniczona do 1000 pozycji, bo tyle rekomenduje minist
 pliku. Zasoby, które wypadną z manifestu, portal **usuwa**, więc przed 12 czerwca 2029 trzeba
 wystąpić o drugie źródło danych, inaczej najstarsze dni znikną z portalu.
 
+Sprzedany lokal wypada z cennika, bo obowiązek dotyczy cen ofertowych, a lokal po umowie nie jest
+już oferowany. Dzień sprzedaży zapisuje `scripts/sync-units.mjs` w `historia-cen.json` (pole
+`sprzedane`), więc pliki z wcześniejszych dni nadal go zawierają: pokazują stan oferty z tamtego dnia,
+a nie dzisiejszy. Bez tej daty wczorajszy plik zmieniałby treść po każdej sprzedaży.
+
 ### Skąd się bierze historia cen
 
 Konfigurator dewelopera nie przechowuje historii (`price_history_count` = 0 dla każdego z dwudziestu
@@ -324,8 +335,10 @@ a po ogłoszeniu struktury trzeba będzie przerobić `lib/cennik.ts`.
   WordPressa (`/privacy-policy`, `/strona-glowna`, `/global-styles`, `/feed`, `/comments/feed`).
 - **Strona lokalizacji**: `/lokalizacja` - dedykowany, indeksowalny URL pod long-tail (Zalew Mrożyczka,
   Central Wake Park, dojazd do Łodzi / ŁKA), linkowany z sekcji Okolica i z podstron lokali.
-- **Status lokali**: zmiana pola `status` w `lib/data/units.ts` (`available` / `reserved` / `sold`)
-  automatycznie aktualizuje UI oraz `availability` w schema.org (`InStock` / `PreOrder` / `SoldOut`).
+- **Status lokali**: pole `status` w `lib/data/units.ts` (`available` / `reserved` / `sold`); zmiany
+  spoza panelu dewelopera wpisuje się do stałej `BIURO` w `scripts/sync-units.mjs`, inaczej nocna
+  synchronizacja je cofnie. Status automatycznie aktualizuje UI, `availability` w schema.org
+  (`InStock` / `PreOrder` / `SoldOut`) oraz cennik dla dane.gov.pl.
   URL-e lokali zostają - nie usuwaj ich, aby nie tworzyć soft 404.
 - **Wygaszanie po sprzedaży** (przygotować, nie aktywować): gdy wszystkie lokale są sprzedane, albo
   (a) zamień stronę główną na statyczną "Inwestycja sprzedana" z danymi dewelopera i CTA do przyszłych

@@ -140,7 +140,7 @@ export default function EstateExplorer() {
                 label="domów dostępnych"
               />
               <Kpi value={<CountUp to={INVESTMENT.buildingsCount} />} label="budynków" />
-              <Kpi value={plnShort(INVESTMENT.priceMin)} label="cena od" small />
+              <Kpi value={plnShort(OFERTA.cenaOd)} label="cena od" small />
             </div>
 
             <div className="min-w-0">

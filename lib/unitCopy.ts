@@ -28,6 +28,12 @@ export const lokaleSlowo = (kind: UnitKind, n: number) => odmien(n, MNOGA[kind])
 export const OFERTA_TEKST = `${OFERTA.mieszkania} ${lokaleSlowo("mieszkanie", OFERTA.mieszkania)} i ${OFERTA.domy} ${lokaleSlowo("dom", OFERTA.domy)}`;
 
 // Schema.org availability, full 3-state mapping (reserved -> PreOrder, not SoldOut).
+/** Przy sprzedanym lokalu pytanie "o ten dom" brzmi jak oferta czegoś, czego nie ma. */
+export function ctaPytanie(u: Unit): string {
+  const o = ODMIANA[unitKind(u)];
+  return u.status === "sold" ? `Zapytaj o podobne ${o.mianownik}` : `Zapytaj o ${o.wskazujacy}`;
+}
+
 export function schemaAvailability(status: Unit["status"]): string {
   return status === "available"
     ? "https://schema.org/InStock"

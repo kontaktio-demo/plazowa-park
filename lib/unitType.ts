@@ -50,6 +50,7 @@ export function unitLabel(unit: Unit): string {
 }
 
 const policz = (kind: UnitKind) => UNITS.filter((u) => unitKind(u) === kind);
+const wolne = UNITS.filter((u) => u.status === "available");
 
 /** Liczby do nagłówków i statystyk - z danych, nie wpisane w tekst. */
 export const OFERTA = {
@@ -57,7 +58,16 @@ export const OFERTA = {
   domy: policz("dom").length,
   mieszkaniaDostepne: policz("mieszkanie").filter((u) => u.status === "available").length,
   domyDostepne: policz("dom").filter((u) => u.status === "available").length,
+  /** Najniższa cena, którą da się dziś kupić. Sprzedane i zarezerwowane nie liczą się,
+   *  bo "cena od" ma odpowiadać temu, co jest w ofercie. */
+  cenaOd: Math.min(...(wolne.length ? wolne : UNITS).map((u) => u.price)),
 } as const;
+
+/** Najtańszy wolny lokal w grupie budynków, albo null, gdy wszystkie są zajęte. */
+export function cenaOdWGrupie(stageId: number): number | null {
+  const lista = UNITS.filter((u) => u.stageId === stageId && u.status === "available");
+  return lista.length ? Math.min(...lista.map((u) => u.price)) : null;
+}
 
 /**
  * Konfigurator dewelopera grupuje lokale w etapy ("1 i 2", "3"), a plan

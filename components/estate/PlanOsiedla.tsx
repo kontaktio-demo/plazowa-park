@@ -18,11 +18,16 @@ const PRESENT = (["available", "reserved", "sold"] as const).filter((k) => UNITS
 const proc = (v: number, calosc: number) => `${(v / calosc) * 100}%`;
 
 // Wolne lokale zostają bez nakładki, bo to prawie cała oferta, a kropki przy każdym
-// zasłaniały oznaczenia lokali wypalone w planie. Kolor dostają tylko wyjątki.
-const tlo = (status: Unit["status"]) =>
-  status === "available"
-    ? undefined
-    : `color-mix(in srgb, ${STATUS_META[status].color} ${status === "sold" ? 45 : 30}%, transparent)`;
+// zasłaniały oznaczenia lokali wypalone w planie. Kolor dostają tylko wyjątki, a
+// sprzedane dodatkowo ukośne kreskowanie: sam odcień ginął na telefonie i w druku.
+const tlo = (status: Unit["status"]) => {
+  if (status === "available") return undefined;
+  const kolor = STATUS_META[status].color;
+  const wypelnienie = `color-mix(in srgb, ${kolor} ${status === "sold" ? 38 : 30}%, transparent)`;
+  if (status !== "sold") return wypelnienie;
+  const kreska = `color-mix(in srgb, ${kolor} 62%, transparent)`;
+  return `repeating-linear-gradient(45deg, ${kreska} 0 2px, transparent 2px 7px), ${wypelnienie}`;
+};
 
 /**
  * Plan zagospodarowania dewelopera z klikalnym każdym mieszkaniem i domem. Numery

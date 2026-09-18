@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { BUILDINGS, INVESTMENT } from "@/lib/data/units";
 import { plnShort, STATUS_META } from "@/lib/format";
-import { buildingUnits, nazwaGrupy, unitKind } from "@/lib/unitType";
+import { buildingUnits, cenaOdWGrupie, nazwaGrupy, unitKind } from "@/lib/unitType";
 import { lokaleSlowo, OFERTA_TEKST } from "@/lib/unitCopy";
 import { selectBuilding } from "@/lib/selectUnit";
 import { sectionEyebrow } from "@/lib/sections";
@@ -44,12 +44,15 @@ export default function Osiedle() {
         >
           {BUILDINGS.map((b, i) => {
             const s = status(b.available, b.count);
+            const cenaOd = cenaOdWGrupie(b.stageId);
             return (
               <button
                 key={b.stageId}
                 type="button"
                 onClick={() => selectBuilding(b.stageId)}
-                aria-label={`${nazwaGrupy(b.label)}: ${skladBudynku(b.stageId, b.count)}, wolne: ${b.available}, od ${plnShort(b.priceFrom)}. Pokaż na liście`}
+                aria-label={`${nazwaGrupy(b.label)}: ${skladBudynku(b.stageId, b.count)}, wolne: ${b.available}${
+                  cenaOd ? `, od ${plnShort(cenaOd)}` : ""
+                }. Pokaż na liście`}
                 className="group bd overflow-hidden border text-left transition-colors hover:border-clay-600"
                 style={{ transitionDelay: `${Math.min(i, 6) * 60}ms` }}
               >
@@ -75,7 +78,7 @@ export default function Osiedle() {
                     </span>
                     <span className="t-meta-sm fg-muted mt-1 block">Wolne: {b.available}</span>
                   </span>
-                  <span className="t-meta-sm fg-accent num flex-none">od {plnShort(b.priceFrom)}</span>
+                  {cenaOd && <span className="t-meta-sm fg-accent num flex-none">od {plnShort(cenaOd)}</span>}
                 </span>
               </button>
             );

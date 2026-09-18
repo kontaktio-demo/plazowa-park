@@ -1,6 +1,6 @@
 import { SITE, DEVELOPER, OPERATOR, FAQ } from "@/lib/data/site";
 import { INVESTMENT, UNITS } from "@/lib/data/units";
-import { unitKind, unitLabel } from "@/lib/unitType";
+import { OFERTA, unitKind, unitLabel } from "@/lib/unitType";
 import { unitSlug } from "@/lib/slug";
 import { OFERTA_TEKST } from "@/lib/unitCopy";
 
@@ -99,7 +99,7 @@ export default function SiteJsonLd() {
           image: `${SITE.url}/og.jpg`,
           telephone: SITE.phone.tel,
           email: SITE.email,
-          priceRange: `${INVESTMENT.priceMin}-${INVESTMENT.priceMax} PLN`,
+          priceRange: `${OFERTA.cenaOd}-${INVESTMENT.priceMax} PLN`,
           address,
           geo,
           parentOrganization: { "@id": `${SITE.url}/#developer` },
@@ -133,7 +133,7 @@ export function HomeJsonLd() {
           offers: {
             "@type": "AggregateOffer",
             priceCurrency: "PLN",
-            lowPrice: INVESTMENT.priceMin,
+            lowPrice: OFERTA.cenaOd,
             highPrice: INVESTMENT.priceMax,
             offerCount: INVESTMENT.available,
             availability: "https://schema.org/InStock",

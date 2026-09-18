@@ -16,6 +16,9 @@ export type Wpis = { od: string; cena: number; cenaM2: number };
 
 const LOKALE = historia.lokale as Record<string, Wpis[]>;
 
+/** Dzien, w ktorym lokal zniknal z oferty. Patrz `cennikCsv`. */
+const SPRZEDANE = (historia as { sprzedane?: Record<string, string> }).sprzedane ?? {};
+
 /** Pierwszy dzień, na który mamy cennik. Wcześniejszych cen deweloper nam nie przekazał. */
 export const START = historia.start;
 
@@ -190,7 +193,10 @@ const pole = (v: string | number) => {
  * znaki. CRLF jak we wzorcu ministerstwa.
  */
 export function cennikCsv(dzien: string): string {
-  const wiersze = UNITS.map((u) => {
+  // Sprzedany lokal wypada z cennika od dnia sprzedazy: obowiazek dotyczy cen
+  // ofertowych, a lokal po umowie nie jest juz oferowany. W plikach z wczesniejszych
+  // dni zostaje, bo wtedy byl w ofercie - inaczej zmienialibysmy dane wstecz.
+  const wiersze = UNITS.filter((u) => !(SPRZEDANE[u.name] && SPRZEDANE[u.name] <= dzien)).map((u) => {
     const c = cenaNaDzien(u.name, dzien);
     return c ? wiersz(u, c) : null;
   }).filter((w): w is (string | number)[] => w !== null);

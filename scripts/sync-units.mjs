@@ -18,6 +18,27 @@ const HEADERS = { "User-Agent": "Mozilla/5.0", Referer: "https://ksprestige-glow
 /** API zwraca `free` / `reserved` / `sold`; u nas `available` znaczy to samo co `free`. */
 const STATUS = { free: "available", reserved: "reserved", sold: "sold" };
 
+/**
+ * Statusy zgloszone przez biuro sprzedazy, ktorych deweloper nie wprowadzil jeszcze
+ * u siebie. Bez nich kazda nocna synchronizacja cofalaby te lokale na "wolne".
+ * Wygrywa status dalszy w sprzedazy, wiec panel moze tylko dopisac rezerwacje albo
+ * sprzedaz, nigdy cofnac tego, co zglosilo biuro. Gdy deweloper oznaczy lokal
+ * u siebie, wpis staje sie zbedny i mozna go stad usunac.
+ */
+const BIURO = {
+  "1.1A": "sold",
+  "1.1B": "sold",
+  "6.1B": "sold",
+  "10.2A": "sold",
+  "10.2B": "sold",
+};
+
+const KOLEJNOSC = { available: 0, reserved: 1, sold: 2 };
+const status = (nazwa, zApi) => {
+  const biuro = BIURO[nazwa];
+  return biuro && KOLEJNOSC[biuro] > KOLEJNOSC[zApi] ? biuro : zApi;
+};
+
 const money = (n) => Math.round(Number(n));
 const m2 = (n) => Number(Number(n).toFixed(2));
 
@@ -67,7 +88,7 @@ const units = raw
     floors: u.floor_count,
     price: money(u.cost),
     pricePerM: money(u.cost_per_unit_area),
-    status: STATUS[u.sales_status] ?? "available",
+    status: status(String(u.display_name).trim(), STATUS[u.sales_status] ?? "available"),
     planUrl: plans.get(u.id) ?? null,
     viewThumb: u.thumbnail_url ? String(u.thumbnail_url).split("/").pop() : null,
   }))
@@ -127,6 +148,17 @@ for (const u of units) {
   else wpisy.push(wpis);
   zmiany.push(`${u.name}: ${ostatni ? `${ostatni.cena} -> ` : ""}${u.price}`);
 }
+
+// Dzien sprzedazy kazdego lokalu. Cennik dla dane.gov.pl pokazuje stan na dany dzien,
+// wiec bez tej daty wczorajszy plik gubilby lokal sprzedany dzisiaj.
+historia.sprzedane ??= {};
+for (const u of units) {
+  if (u.status === "sold") historia.sprzedane[u.name] ??= dzis;
+  else delete historia.sprzedane[u.name];
+}
+historia.sprzedane = Object.fromEntries(
+  Object.entries(historia.sprzedane).sort(([a], [b]) => a.localeCompare(b, "pl", { numeric: true }))
+);
 
 historia.lokale = Object.fromEntries(
   Object.entries(historia.lokale).sort(([a], [b]) => a.localeCompare(b, "pl", { numeric: true }))

@@ -26,7 +26,7 @@ export const UNITS: Unit[] = [
     "floors": 2,
     "price": 749000,
     "pricePerM": 7933,
-    "status": "available",
+    "status": "sold",
     "planUrl": "https://quptos-web-data.sensevr.pl/ver_2_3/C1/I214/units/units_unitplan/v1/1.1A.pdf",
     "viewThumb": "L_0001_B1.jpg"
   },
@@ -43,7 +43,7 @@ export const UNITS: Unit[] = [
     "floors": 2,
     "price": 674000,
     "pricePerM": 7843,
-    "status": "available",
+    "status": "sold",
     "planUrl": "https://quptos-web-data.sensevr.pl/ver_2_3/C1/I214/units/units_unitplan/v1/1.1B.pdf",
     "viewThumb": "L_0002_B2.jpg"
   },
@@ -213,7 +213,7 @@ export const UNITS: Unit[] = [
     "floors": 2,
     "price": 694000,
     "pricePerM": 8075,
-    "status": "available",
+    "status": "sold",
     "planUrl": "https://quptos-web-data.sensevr.pl/ver_2_3/C1/I214/units/units_unitplan/v1/6.1B.pdf",
     "viewThumb": "L_0002_B2.jpg"
   },
@@ -332,7 +332,7 @@ export const UNITS: Unit[] = [
     "floors": 2,
     "price": 735000,
     "pricePerM": 7925,
-    "status": "available",
+    "status": "sold",
     "planUrl": "https://quptos-web-data.sensevr.pl/ver_2_3/C1/I214/units/units_unitplan/v1/10.2A.pdf",
     "viewThumb": "L_0003_B3.jpg"
   },
@@ -349,7 +349,7 @@ export const UNITS: Unit[] = [
     "floors": 2,
     "price": 646000,
     "pricePerM": 7873,
-    "status": "available",
+    "status": "sold",
     "planUrl": "https://quptos-web-data.sensevr.pl/ver_2_3/C1/I214/units/units_unitplan/v1/10.2B.pdf",
     "viewThumb": "L_0004_B4.jpg"
   }
@@ -361,7 +361,7 @@ export const BUILDINGS: Building[] = [
     "letter": "A",
     "label": "1 i 2",
     "count": 4,
-    "available": 4,
+    "available": 2,
     "priceFrom": 633000,
     "areaFrom": 82.05,
     "areaTo": 94.42,
@@ -413,7 +413,7 @@ export const BUILDINGS: Building[] = [
     "letter": "F",
     "label": "6 i 7",
     "count": 4,
-    "available": 4,
+    "available": 3,
     "priceFrom": 634000,
     "areaFrom": 82.05,
     "areaTo": 94.42,
@@ -447,7 +447,7 @@ export const BUILDINGS: Building[] = [
     "letter": "B",
     "label": "9 i 10",
     "count": 4,
-    "available": 4,
+    "available": 2,
     "priceFrom": 646000,
     "areaFrom": 82.05,
     "areaTo": 94.42,
@@ -464,7 +464,7 @@ export const BUILDINGS: Building[] = [
 
 export const INVESTMENT = {
   "totalUnits": 20,
-  "available": 18,
+  "available": 13,
   "buildingsCount": 10,
   "priceMin": 633000,
   "priceMax": 926000,

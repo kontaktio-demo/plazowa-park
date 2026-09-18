@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Unit } from "@/lib/data/units";
 import { NA_PLANIE, PLAN } from "@/lib/data/plan";
+import { STATUS_META } from "@/lib/format";
 import { unitKind, unitPlace } from "@/lib/unitType";
 import { SIZES_KADRU } from "@/lib/wczytaj";
 
@@ -19,6 +20,8 @@ export default function PlanLokalu({ unit, className = "" }: { unit: Unit; class
   const x0 = zakres(x + w / 2 - KADR.w / 2, PLAN.w - KADR.w);
   const y0 = zakres(y + h / 2 - KADR.h / 2, PLAN.h - KADR.h);
   const { house, type } = unitPlace(unit);
+  // wolny lokal wyróżnia bursztyn marki; zieleń statusu zlewałaby się z trawnikami
+  const kolor = unit.status === "available" ? "var(--color-sun)" : STATUS_META[unit.status].color;
 
   return (
     <figure className={className}>
@@ -33,10 +36,19 @@ export default function PlanLokalu({ unit, className = "" }: { unit: Unit; class
           }}
         >
           <Image src={PLAN.src} alt="" fill sizes={SIZES_KADRU} className="object-cover" />
+          {/* kolor wyróżnienia idzie za statusem, żeby sprzedany lokal nie wyglądał
+              na wolny w oknie, którego nagłówek mówi "Sprzedano" */}
           <span
             aria-hidden
-            className="absolute bg-sun/40 outline-3 -outline-offset-3 outline-sun"
-            style={{ left: proc(x, PLAN.w), top: proc(y, PLAN.h), width: proc(w, PLAN.w), height: proc(h, PLAN.h) }}
+            className="absolute outline-3 -outline-offset-3"
+            style={{
+              left: proc(x, PLAN.w),
+              top: proc(y, PLAN.h),
+              width: proc(w, PLAN.w),
+              height: proc(h, PLAN.h),
+              background: `color-mix(in srgb, ${kolor} 34%, transparent)`,
+              outlineColor: kolor,
+            }}
           />
         </div>
       </div>

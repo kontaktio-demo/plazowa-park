@@ -10,6 +10,7 @@ import { SITE } from "@/lib/data/site";
 import { unitSlug } from "@/lib/slug";
 import { selectUnit } from "@/lib/selectUnit";
 import { planImage, unitPlace, unitKind, unitLabel, unitFloors, garageArea, ODMIANA } from "@/lib/unitType";
+import { ctaPytanie } from "@/lib/unitCopy";
 import { track } from "@/lib/track";
 import { SIZES_RZUTU } from "@/lib/wczytaj";
 import { wyciszTlo } from "@/lib/wycisz";
@@ -198,7 +199,7 @@ function Tresc({
                 }}
                 className="btn btn-sun"
               >
-                Zapytaj o {odm.wskazujacy} <Icon.arrow width={18} height={18} />
+                {ctaPytanie(unit)} <Icon.arrow width={18} height={18} />
               </button>
               <div className="flex gap-2.5">
                 <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost btn-sm flex-1">
