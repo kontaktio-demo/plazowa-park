@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { SITE } from "@/lib/data/site";
 import { track } from "@/lib/track";
 import { UNITS } from "@/lib/data/units";
@@ -61,8 +61,27 @@ function validate(d: Record<string, string>): Errors {
   return e;
 }
 
+/**
+ * Lokal podpowiedziany adresem (/?lokal=Mieszkanie%202.2B#kontakt). Czytamy go
+ * przez useSyncExternalStore, nie efektem: na serwerze snapshot jest pusty, więc
+ * hydracja się zgadza, a stan nie zmienia się w efekcie po pierwszym renderze.
+ */
+function useLokalZAdresu() {
+  return useSyncExternalStore(
+    (cb) => {
+      window.addEventListener("popstate", cb);
+      return () => window.removeEventListener("popstate", cb);
+    },
+    () => new URLSearchParams(window.location.search).get("lokal") ?? "",
+    () => ""
+  );
+}
+
 export default function Contact() {
-  const [unit, setUnit] = useState("");
+  const zAdresu = useLokalZAdresu();
+  // null znaczy "nikt nie ruszał pola", więc trzyma się tego, co podał adres
+  const [wpisane, setWpisane] = useState<string | null>(null);
+  const unit = wpisane ?? zAdresu;
   const [state, setState] = useState<State>("idle");
   const [errors, setErrors] = useState<Errors>({});
   const [failed, setFailed] = useState("");
@@ -72,16 +91,6 @@ export default function Contact() {
   useEffect(() => {
     if (state === "ok") potwierdzenie.current?.focus();
   }, [state]);
-
-  // Lokal wskazuje adres, z którym przychodzi się ze strony lokalu: /?lokal=...#kontakt
-  useEffect(() => {
-    try {
-      const q = new URLSearchParams(window.location.search).get("lokal");
-      if (q) setUnit(q);
-    } catch {
-      /* ignore */
-    }
-  }, []);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -93,7 +102,7 @@ export default function Contact() {
     if (data.company) {
       setState("ok");
       form.reset();
-      setUnit("");
+      setWpisane("");
       return;
     }
 
@@ -139,7 +148,7 @@ export default function Contact() {
       track("generate_lead", { unit: nazwa, ...(cena ? { value: cena, currency: "PLN" } : {}) });
       setState("ok");
       form.reset();
-      setUnit("");
+      setWpisane("");
     } catch {
       setFailed("Nie udało się wysłać zgłoszenia. Zadzwoń do nas albo spróbuj ponownie za chwilę.");
       setState("error");
@@ -260,7 +269,7 @@ export default function Contact() {
                 placeholder="np. Mieszkanie 2.2B albo Dom 3.3A"
                 optional
                 value={unit}
-                onChange={setUnit}
+                onChange={setWpisane}
               />
 
               <label className="block">

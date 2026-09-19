@@ -57,7 +57,6 @@ async function renders() {
 async function blur() {
   const targets = {
     hero: join(PUB, "renders", "hero.webp"),
-    zycie: join(PUB, "renders", "zycie.webp"),
     tour: join(PUB, "renders", "tour-poster.webp"),
     plan: join(PUB, "osiedle", "plan-osiedla.webp"),
   };

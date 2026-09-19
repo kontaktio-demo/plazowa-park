@@ -67,9 +67,9 @@ prawne nie zmieniły się o znak.
 
 ## Wykryte poza zakresem
 
-- `components/Contact.tsx`: reguła `react-hooks/set-state-in-effect` zgłasza błąd przy odczycie
-  `?lokal=` z adresu. Błąd jest starszy niż ten refactor, a naprawa wymaga zmiany sposobu
-  prefillu (ryzyko rozjazdu hydracji), więc zostaje na osobne zadanie.
+- ZAMKNIĘTE: `components/Contact.tsx` czyta `?lokal=` przez `useSyncExternalStore`, a nie
+  efektem. Reguła `react-hooks/set-state-in-effect` milczy, prefill działa jak wcześniej,
+  a serwer nadal renderuje puste pole, więc hydracja się zgadza.
 - JS: 88 KB z Marzipano ładowało się przy każdym wejściu na stronę, mimo że import był
   po kliknięciu. Przyczyną było trzymanie widoku spaceru w tym samym komponencie, co
   powłoka sekcji; rozdzielenie na `VirtualTour` + `TourStage` (next/dynamic) zdjęło to
@@ -79,6 +79,6 @@ prawne nie zmieniły się o znak.
   wypadły z package.json. Efekt wizualnie ten sam (yPercent 8 na tym samym zakresie).
 - "Zobacz też" sortuję po różnicy ceny (tak jak mówi główne zdanie polecenia), a zapowiedź
   nad listą brzmi "Zobacz dostępne w podobnej cenie", żeby nie obiecywać doboru po metrażu.
-- `scripts/osiedle-kadry.mjs` generuje kadry budynków (`public/osiedle/b*.webp`), których po
-  usunięciu sekcji Osiedle nikt nie renderuje. Pliki i skrypt zostają w repozytorium zgodnie
-  z ustaleniem, że kasujemy render, nie assety.
+- ZAMKNIĘTE: `scripts/osiedle-kadry.mjs` i sześć kadrów `public/osiedle/b*.webp` (792 KB)
+  usunięte. Nic ich nie wołało: ani kod, ani `package.json`, ani CI, ani dane strukturalne.
+  Historyczny opis w `docs/redesign-2026-08.md` zostaje jako zapis tamtej decyzji.
