@@ -40,6 +40,13 @@ prawne nie zmieniły się o znak.
 | podstrona lokalu: akapit podsumowujący pod parametrami | te same liczby w tabeli parametrów obok |
 | podstrona lokalu: link "Lokalizacja osiedla i dojazd" w bloku opisowym | jedna linijka z adresem osiedla i linkiem na /lokalizacja |
 
+## Znalezione i naprawione w QA
+
+- Skok z nawigacji do sekcji zatrzymywał się 88 px za nisko: Lenis liczy pozycję elementu
+  po swojemu i nie widzi `scroll-margin-top`. Skok liczy teraz tę samą wartość co CSS.
+- Na podstronie sprzedanego lokalu komunikat składał się w "niedostępnye" (rodzaj gramatyczny
+  doklejany po pełnym słowie).
+
 ## Wykryte poza zakresem
 
 - `components/Contact.tsx`: reguła `react-hooks/set-state-in-effect` zgłasza błąd przy odczycie

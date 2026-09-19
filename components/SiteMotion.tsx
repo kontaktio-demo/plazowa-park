@@ -62,12 +62,17 @@ export default function SiteMotion() {
       if (!target) return;
       e.preventDefault();
       history.replaceState(null, "", id);
-      if (lenis) lenis.scrollTo(target as HTMLElement, { offset: -70, duration: 1.2 });
-      else (target as HTMLElement).scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+      // Ten sam odstęp co scroll-margin-top sekcji w globals.css. Lenis liczy pozycję
+      // elementu po swojemu i ignoruje scroll-margin, więc skok z nawigacji zatrzymywał
+      // się 88 px niżej niż skok z adresu z kotwicą.
+      const gora = (document.querySelector("header")?.offsetHeight ?? 72) + 16;
+      const cel = (target as HTMLElement).getBoundingClientRect().top + window.scrollY - gora;
+      if (lenis) lenis.scrollTo(cel, { duration: 1.2 });
+      else window.scrollTo({ top: cel, behavior: reduce ? "auto" : "smooth" });
     };
     document.addEventListener("click", onClick);
 
-    // --- warstwa odroczona: Lenis + GSAP to ~200 KB, nie mogą konkurować z LCP ---
+    // --- warstwa odroczona: Lenis nie może konkurować z LCP ---
     let disposed = false;
     let killScroll: (() => void) | undefined;
 

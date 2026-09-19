@@ -352,7 +352,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
             <h2 className="t-display-m">Zobacz też</h2>
             {u.status !== "available" && (
               <p className="t-body fg-muted mt-4 text-pretty">
-                {wielkaLitera(o.wskazujacy)} jest niedostępny{kind === "dom" ? "" : "e"}. Zobacz dostępne w podobnej cenie:
+                {wielkaLitera(o.wskazujacy)} jest niedostępn{kind === "dom" ? "y" : "e"}. Zobacz dostępne w podobnej cenie:
               </p>
             )}
             <div className="mt-8 grid gap-5 sm:grid-cols-3">
