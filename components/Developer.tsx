@@ -73,7 +73,6 @@ export default function Developer() {
                 href={p.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={p.name}
                 data-track="klik_partner"
                 data-miejsce="deweloper"
                 className="card card-hover flex items-center gap-4 p-4 sm:gap-5 sm:p-5"

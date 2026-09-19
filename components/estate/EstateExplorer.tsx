@@ -222,7 +222,7 @@ export default function EstateExplorer() {
             <button
               type="button"
               aria-pressed={rodzaj === "mieszkania"}
-              aria-label={`Mieszkania, ${OFERTA.mieszkania} w ofercie`}
+              aria-label={`Mieszkania · ${OFERTA.mieszkania} w ofercie`}
               onClick={() => wybierzRodzaj("mieszkania")}
               className="chip flex-none snap-start"
             >
@@ -231,7 +231,7 @@ export default function EstateExplorer() {
             <button
               type="button"
               aria-pressed={rodzaj === "domy"}
-              aria-label={`Domy, ${OFERTA.domy} w ofercie`}
+              aria-label={`Domy · ${OFERTA.domy} w ofercie`}
               onClick={() => wybierzRodzaj("domy")}
               className="chip flex-none snap-start"
             >
