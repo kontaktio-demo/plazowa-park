@@ -148,3 +148,9 @@ Poza prawą kolumną ruszona jedna rzecz: podpis pod planem pokazywał w stanie 
 zdanie co akapit instrukcji, który właśnie przeniósł się obok planu, więc oba były widoczne naraz.
 Podpis jest teraz wyłącznie odczytem spod kursora i istnieje od `lg` w górę (na dotyku nie ma
 najechania, a instrukcja stoi w kolumnie). Hotspoty, kliknięcia i sam plan bez zmian.
+
+Favicon: w karcie przeglądarki stał ogólny trójkąt. Teraz jest znak marki - sosna rysowana
+kreską nad linią gruntu, czarna na kremowym kafelku. Pełne logo (pięć pni) ma rozstaw 17,5
+na 179 szerokości, czyli przy 16-32 px poniżej piksela na przerwę i zlewa się w plamę; dlatego
+w `app/icon.svg` i `app/favicon.ico` stoi jedna sosna w tym samym języku rysunku, a pełne logo
+w `app/apple-icon.png`, gdzie 180 px na nie wystarcza.

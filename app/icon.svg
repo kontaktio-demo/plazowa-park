@@ -1,11 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <!-- Znak marki sprowadzony do jednej sosny nad kreską. Wierna wersja z pięcioma
-       pniami i gałęziami (components/Logo.tsx) przy 16 px zlewała się w szarą plamę:
-       kreski miały tam ułamek piksela. Sylwetka trzyma się w każdym rozmiarze. -->
-  <rect width="64" height="64" rx="14" fill="#1c1714"/>
-  <g fill="#e9a43f">
-    <path d="M32 8 44 30H37.5L48 48H16L26.5 30H20Z"/>
-    <rect x="29.4" y="44" width="5.2" height="8"/>
-    <rect x="10" y="53.5" width="44" height="4.2"/>
+  <!-- Znak marki z components/Logo.tsx sprowadzony do jednej sosny nad kreską gruntu.
+       Pięć pni oryginału ma rozstaw 17,5 na 179 szerokości: w karcie przeglądarki
+       (16-32 px) wypada poniżej piksela na przerwę i cały znak zlewa się w plamę.
+       Jedna sosna zachowuje język rysunku - pion pnia, opadające gałęzie, kreska
+       gruntu - i czyta się w każdym rozmiarze. Pełne logo stoi w apple-icon.png,
+       gdzie 180 px wystarcza na wszystkie pięć. -->
+  <rect width="64" height="64" rx="13" fill="#fdfcfa"/>
+  <g transform="translate(-0.370 -5.711) scale(0.3237)" fill="none" stroke="#12100e" stroke-linecap="butt">
+    <path d="M100 30V188" stroke-width="20"/>
+    <path d="M100 62 54 98 M100 62 146 98 M100 112 54 148 M100 112 146 148 M100 162 54 198 M100 162 146 198" stroke-width="18"/>
+    <path d="M28 194H172" stroke-width="18"/>
   </g>
 </svg>
