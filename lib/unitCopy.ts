@@ -38,7 +38,15 @@ export function schemaAvailability(status: Unit["status"]): string {
 }
 
 // ~150-char meta/OG description, enriched with the unit's real numbers.
+//
+// Przy lokalu sprzedanym albo zarezerwowanym opis nie podaje ceny ofertowej ani
+// "w cenie": w wynikach wyszukiwania czytało się to jak zaproszenie do kupna
+// czegoś, czego nie ma. Liczby zostają, bo to nadal opis tej nieruchomości.
 export function unitMetaDescription(u: Unit): string {
   const garaz = garageArea(u) ? `, garaż ${area(garageArea(u))}` : "";
-  return `${unitLabel(u)}: ${area(u.area)}, ${rooms(u.rooms)}, ogród ${area(u.garden)}${garaz}, taras i poddasze w cenie. Cena ${plnShort(u.price)}. Plażowa Park, Głowno nad Zalewem Mrożyczka.`;
+  const podstawa = `${unitLabel(u)}: ${area(u.area)}, ${rooms(u.rooms)}, ogród ${area(u.garden)}${garaz}`;
+  const ogon = "Plażowa Park, Głowno nad Zalewem Mrożyczka.";
+  if (u.status === "sold") return `${podstawa}. Ten lokal jest już sprzedany - sprawdź dostępne mieszkania i domy. ${ogon}`;
+  if (u.status === "reserved") return `${podstawa}. Ten lokal jest zarezerwowany - sprawdź dostępne mieszkania i domy. ${ogon}`;
+  return `${podstawa}, taras i poddasze w cenie. Cena ${plnShort(u.price)}. ${ogon}`;
 }
