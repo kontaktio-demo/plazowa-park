@@ -92,6 +92,8 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
   const sumaRzutu = Math.round(floors.reduce((a, f) => a + f.suma, 0) * 100) / 100;
   // Przy sprzedanym lokalu formularz dostaje rodzaj, nie numer: pytanie dotyczy
   // podobnej nieruchomości, a nie tej jednej.
+  // powrót celuje w wiersz tego lokalu, nie w początek sekcji
+  const doListy = `/#lokal-${slug}`;
   const inquireHref = `/?lokal=${encodeURIComponent(u.status === "sold" ? o.mianownik[0].toUpperCase() + o.mianownik.slice(1) : label)}#kontakt`;
 
   const unitUrl = `${SITE.url}/mieszkania-i-domy/${slug}`;
@@ -152,7 +154,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
               Strona główna
             </Link>
             <span aria-hidden>/</span>
-            <Link href="/#mieszkania-i-domy" className="hover:text-clay-600">
+            <Link href={doListy} className="hover:text-clay-600">
               Mieszkania i domy
             </Link>
             <span aria-hidden>/</span>
@@ -366,7 +368,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                 </Link>
               ))}
             </div>
-            <Link href="/#mieszkania-i-domy" className="link-underline t-meta fg-accent mt-8 inline-flex items-center gap-2">
+            <Link href={doListy} className="link-underline t-meta fg-accent mt-8 inline-flex items-center gap-2">
               <Icon.arrow width={16} height={16} className="rotate-180" /> Wszystkie mieszkania i domy
             </Link>
           </div>

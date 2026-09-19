@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { UNITS, INVESTMENT, type Unit } from "@/lib/data/units";
 import { plnShort, area, STATUS_META } from "@/lib/format";
 import { unitSlug } from "@/lib/slug";
@@ -25,6 +25,16 @@ import PlanOsiedla from "./PlanOsiedla";
 import SortMenu from "./SortMenu";
 
 const wierszId = (u: Unit) => `lokal-${unitSlug(u.name)}`;
+
+/** Adres z kotwicą wiersza, np. /#lokal-3-3a - tak wraca się z podstrony lokalu. */
+const subskrybujHash = (cb: () => void) => {
+  window.addEventListener("hashchange", cb);
+  window.addEventListener("popstate", cb);
+  return () => {
+    window.removeEventListener("hashchange", cb);
+    window.removeEventListener("popstate", cb);
+  };
+};
 
 const ZAJETE = UNITS.filter((u) => u.status !== "available").length;
 
@@ -57,6 +67,11 @@ export default function EstateExplorer() {
   const { rodzaj, tylkoDostepne, sort } = stan;
   const [podswietlony, setPodswietlony] = useState<string | null>(null);
   const timer = useRef<number | undefined>(undefined);
+  const hash = useSyncExternalStore(
+    subskrybujHash,
+    () => window.location.hash,
+    () => ""
+  );
 
   const uzytoFiltra = (etykieta: string) => track("uzyj_filtra", { sekcja: "mieszkania-i-domy", etykieta });
 
@@ -85,21 +100,56 @@ export default function EstateExplorer() {
     uzytoFiltra(`sortowanie: ${etykietaSortu({ k, d })}`);
   };
 
-  // Klik w lokal na planie prowadzi do jego wiersza, a nie do osobnego okna.
-  // Filtry, które mogłyby ten wiersz ukryć, wracają do stanu wyjściowego.
-  const pokazWTabeli = (u: Unit) => {
-    if (rodzaj !== "wszystkie" || (tylkoDostepne && u.status !== "available")) {
-      ustaw({ rodzaj: "wszystkie", tylkoDostepne: u.status === "available" && tylkoDostepne });
-    }
+  /**
+   * Jedno dojście do wiersza dla planu osiedla i dla powrotu z podstrony lokalu:
+   * przewinięcie z tym samym odstępem co kotwice sekcji i dwusekundowe podświetlenie
+   * w kolorze akcentu.
+   */
+  const przewinDoWiersza = (u: Unit, ustawFocus: boolean) => {
+    const wiersz = document.getElementById(wierszId(u));
+    if (!wiersz) return;
     setPodswietlony(u.name);
     window.clearTimeout(timer.current);
-    timer.current = window.setTimeout(() => setPodswietlony(null), 4000);
-    requestAnimationFrame(() => {
-      const wiersz = document.getElementById(wierszId(u));
-      wiersz?.scrollIntoView({ behavior: "smooth", block: "center" });
-      wiersz?.querySelector<HTMLElement>("a")?.focus({ preventScroll: true });
-    });
+    timer.current = window.setTimeout(() => setPodswietlony(null), 2200);
+    const gora = (document.querySelector("header")?.offsetHeight ?? 72) + 16;
+    const cel = wiersz.getBoundingClientRect().top + window.scrollY - gora - 80;
+    const lenis = (window as Window & { __lenis?: { scrollTo: (y: number, o?: object) => void } }).__lenis;
+    if (lenis) lenis.scrollTo(cel, { duration: 1 });
+    else window.scrollTo({ top: cel, behavior: "smooth" });
+    if (ustawFocus) wiersz.querySelector<HTMLElement>("a")?.focus({ preventScroll: true });
   };
+
+  /** Filtr nie może chować wiersza, do którego ktoś właśnie przyszedł. */
+  const odsloniec = (u: Unit) => {
+    if (rodzaj === "wszystkie" && !(tylkoDostepne && u.status !== "available")) return false;
+    ustaw({
+      rodzaj: "wszystkie",
+      tylkoDostepne: tylkoDostepne && u.status === "available",
+    });
+    return true;
+  };
+
+  const pokazWTabeli = (u: Unit) => {
+    if (odsloniec(u)) {
+      // wiersz dopiero wejdzie do drzewa, przewinięciem zajmie się kolejny przebieg
+      requestAnimationFrame(() => przewinDoWiersza(u, true));
+      return;
+    }
+    przewinDoWiersza(u, true);
+  };
+
+  // Wejście z /#lokal-3-3a (breadcrumb i stopka podstrony lokalu). Efekt biegnie
+  // ponownie po zmianie listy, więc jeśli trzeba było zdjąć filtr, przewinięcie
+  // trafia na gotowy wiersz.
+  useEffect(() => {
+    const cel = hash.startsWith("#lokal-") ? hash.slice(1) : "";
+    if (!cel) return;
+    const u = UNITS.find((x) => wierszId(x) === cel);
+    if (!u || odsloniec(u)) return;
+    const id = window.setTimeout(() => przewinDoWiersza(u, false), 60);
+    return () => window.clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hash, lista]);
 
   /**
    * Cały wiersz prowadzi na podstronę lokalu, ale nazwa zostaje prawdziwym linkiem:
