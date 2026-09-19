@@ -75,7 +75,17 @@ export default function EstateExplorer() {
 
   const uzytoFiltra = (etykieta: string) => track("uzyj_filtra", { sekcja: "mieszkania-i-domy", etykieta });
 
-  const lista = useMemo(() => posortuj(przefiltruj(UNITS, rodzaj, tylkoDostepne), sort), [rodzaj, tylkoDostepne, sort]);
+  /**
+   * W drzewie stoją wszystkie dwadzieścia wierszy, w kolejności wynikającej
+   * z sortowania; filtr tylko je ukrywa. Dzięki temu w HTML strony (także bez JS)
+   * są linki do wszystkich podstron lokali, a ukryte wiersze nie łapią tabulatora
+   * ani czytnika ekranu, bo display:none wyjmuje je z drzewa dostępności.
+   */
+  const wszystkie = useMemo(() => posortuj(UNITS, sort), [sort]);
+  const widoczne = useMemo(
+    () => new Set(przefiltruj(UNITS, rodzaj, tylkoDostepne).map((u) => u.id)),
+    [rodzaj, tylkoDostepne]
+  );
 
   const wybierzRodzaj = (r: Rodzaj) => {
     ustaw({ rodzaj: r });
@@ -149,7 +159,7 @@ export default function EstateExplorer() {
     const id = window.setTimeout(() => przewinDoWiersza(u, false), 60);
     return () => window.clearTimeout(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hash, lista]);
+  }, [hash, widoczne]);
 
   /**
    * Cały wiersz prowadzi na podstronę lokalu, ale nazwa zostaje prawdziwym linkiem:
@@ -241,7 +251,7 @@ export default function EstateExplorer() {
 
           <div className="flex w-full items-center justify-between gap-4 sm:w-auto">
             <span className="t-meta-sm fg-muted">
-              <span className="num fg">{lista.length}</span> z {INVESTMENT.totalUnits}
+              <span className="num fg">{widoczne.size}</span> z {INVESTMENT.totalUnits}
             </span>
             <SortMenu opcje={OPCJE_SORTU} value={sortDoUrl(sort)} etykieta={etykietaSortu(sort)} onChange={ustawSort} />
           </div>
@@ -314,23 +324,30 @@ export default function EstateExplorer() {
               </tr>
             </thead>
             <tbody className="block lg:table-row-group">
-              {lista.map((u) => {
+              {wszystkie.map((u) => {
                 const s = STATUS_META[u.status];
                 const garaz = garageArea(u);
                 const wybrany = podswietlony === u.name;
+                // klasa "hidden" bez klas układu: inaczej lg:table-row przykryłoby
+                // ukrycie na szerokim ekranie i wiersz wróciłby do tabulatora
+                const ukryty = !widoczne.has(u.id);
                 return (
                   <tr
                     key={u.id}
                     id={wierszId(u)}
                     onPointerDown={(e) => (nacisniety.current = e.target)}
                     onClick={(e) => wejdzWLokal(e, u)}
-                    className={`card bd mb-4 block cursor-pointer scroll-mt-28 p-4 transition-colors focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-(--band-focus) lg:mb-0 lg:table-row lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 ${
-                      u.status === "available" ? "" : "fg-muted"
-                    } ${
-                      wybrany
-                        ? "bg-sun/20 lg:[&>*]:bg-sun/20"
-                        : "hover:bg-sand-50/70 lg:hover:bg-transparent lg:[&:hover>*]:bg-sand-50/70"
-                    }`}
+                    className={
+                      ukryty
+                        ? "hidden"
+                        : `card bd mb-4 block cursor-pointer scroll-mt-28 p-4 transition-colors focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-(--band-focus) lg:mb-0 lg:table-row lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 ${
+                            u.status === "available" ? "" : "fg-muted"
+                          } ${
+                            wybrany
+                              ? "bg-sun/20 lg:[&>*]:bg-sun/20"
+                              : "hover:bg-sand-50/70 lg:hover:bg-transparent lg:[&:hover>*]:bg-sand-50/70"
+                          }`
+                    }
                   >
                     <th
                       scope="row"
@@ -384,7 +401,7 @@ export default function EstateExplorer() {
             </tbody>
           </table>
 
-          {lista.length === 0 && (
+          {widoczne.size === 0 && (
             <p className="bd fg-muted border border-dashed p-12 text-center">Nic nie pasuje do wybranych filtrów.</p>
           )}
 
