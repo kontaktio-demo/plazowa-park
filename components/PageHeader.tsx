@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { NAV, SITE } from "@/lib/data/site";
+import { INVESTMENT } from "@/lib/data/units";
 import { Icon } from "./Icons";
 import { LogoMark } from "./Logo";
 
@@ -28,8 +29,11 @@ export default function PageHeader() {
             <Icon.phone width={17} height={17} className="fg-accent" />
             <span className="num">{SITE.phone.display}</span>
           </a>
-          <Link href="/#mieszkania-i-domy" className="btn btn-sun btn-sm">
+          <Link href="/#mieszkania-i-domy" data-track="book_viewing" data-miejsce="nawigacja" className="btn btn-sun btn-sm">
             Sprawdź dostępność
+            <span className="num ml-0.5 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-ink/15 px-1.5 text-[0.75rem] font-medium">
+              {INVESTMENT.available}
+            </span>
           </Link>
         </div>
       </div>

@@ -56,12 +56,11 @@ export const LEGAL_UPDATED = {
 export const dataPl = (iso: string) =>
   new Date(iso).toLocaleDateString("pl-PL", { day: "numeric", month: "long", year: "numeric" });
 
+// Cztery wejścia zamiast siedmiu. Oferta ma jedno miejsce (#mieszkania-i-domy),
+// a spacer 360, cennik i osiedle były osobnymi drogami do tych samych lokali.
 export type NavItem = { label: string; href: string };
 export const NAV: NavItem[] = [
-  { label: "Osiedle", href: "#osiedle" },
   { label: "Mieszkania i domy", href: "#mieszkania-i-domy" },
-  { label: "Cennik", href: "#cennik" },
-  { label: "Spacer 360", href: "#spacer" },
   { label: "Standard", href: "#standard" },
   { label: "Okolica", href: "#okolica" },
   { label: "Kontakt", href: "#kontakt" },

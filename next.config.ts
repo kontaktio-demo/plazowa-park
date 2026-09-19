@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
   // Bez tego po przepieciu domeny wpadlyby na 404 i zabraly ze soba historie w wyszukiwarce.
   async redirects() {
     return [
+      // lista lokali jest sekcją strony głównej, a nie osobną stroną; sam adres
+      // /mieszkania-i-domy zwracał 404, choć prowadzi do niego nazwa podstron lokali
+      { source: "/mieszkania-i-domy", destination: "/#mieszkania-i-domy", permanent: true },
       { source: "/privacy-policy", destination: "/polityka-prywatnosci", permanent: true },
       { source: "/strona-glowna", destination: "/", permanent: true },
       { source: "/global-styles", destination: "/", permanent: true },
