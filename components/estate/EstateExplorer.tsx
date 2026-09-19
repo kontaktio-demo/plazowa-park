@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useMemo, useRef, useState, type ReactNode } from "react";
 import { UNITS, INVESTMENT, type Unit } from "@/lib/data/units";
 import { plnShort, area, STATUS_META } from "@/lib/format";
@@ -40,6 +41,7 @@ const KOLUMNY: { l: string; k?: Kolumna }[] = [
   { l: "Cena", k: "cena" },
   { l: "Cena za m²", k: "cenam2" },
   { l: "Status" },
+  { l: "Szczegóły" },
 ];
 
 /**
@@ -49,6 +51,8 @@ const KOLUMNY: { l: string; k?: Kolumna }[] = [
  * lokale, które realnie można kupić.
  */
 export default function EstateExplorer() {
+  const router = useRouter();
+  const nacisniety = useRef<EventTarget | null>(null);
   const [stan, ustaw] = useStanListy();
   const { rodzaj, tylkoDostepne, sort } = stan;
   const [podswietlony, setPodswietlony] = useState<string | null>(null);
@@ -95,6 +99,18 @@ export default function EstateExplorer() {
       wiersz?.scrollIntoView({ behavior: "smooth", block: "center" });
       wiersz?.querySelector<HTMLElement>("a")?.focus({ preventScroll: true });
     });
+  };
+
+  /**
+   * Cały wiersz prowadzi na podstronę lokalu, ale nazwa zostaje prawdziwym linkiem:
+   * to ona jest w kolejności Tab, w menu kontekstowym i w indeksie wyszukiwarki.
+   * Klik pomijamy, gdy ktoś zaznaczał tekst albo puścił przycisk na innym elemencie.
+   */
+  const wejdzWLokal = (e: React.MouseEvent, u: Unit) => {
+    if ((e.target as HTMLElement).closest("a")) return;
+    if (nacisniety.current !== e.target) return;
+    if (window.getSelection()?.toString()) return;
+    router.push(`/mieszkania-i-domy/${unitSlug(u.name)}`);
   };
 
   const kierunek = (k?: Kolumna) => (k && sort.k === k ? (sort.d === "asc" ? "ascending" : "descending") : undefined);
@@ -213,7 +229,7 @@ export default function EstateExplorer() {
                     key={kol.l}
                     scope="col"
                     aria-sort={kierunek(kol.k)}
-                    className="t-label py-3 pr-4 font-medium"
+                    className={`t-label py-3 pr-4 font-medium ${kol.l === "Szczegóły" ? "sr-only" : ""}`}
                   >
                     {kol.k ? (
                       <button
@@ -256,8 +272,14 @@ export default function EstateExplorer() {
                   <tr
                     key={u.id}
                     id={wierszId(u)}
-                    className={`card bd mb-4 block scroll-mt-28 p-4 transition-colors lg:mb-0 lg:table-row lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 ${
-                      wybrany ? "bg-sun/20 lg:[&>*]:bg-sun/20" : ""
+                    onPointerDown={(e) => (nacisniety.current = e.target)}
+                    onClick={(e) => wejdzWLokal(e, u)}
+                    className={`card bd mb-4 block cursor-pointer scroll-mt-28 p-4 transition-colors focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-(--band-focus) lg:mb-0 lg:table-row lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 ${
+                      u.status === "available" ? "" : "fg-muted"
+                    } ${
+                      wybrany
+                        ? "bg-sun/20 lg:[&>*]:bg-sun/20"
+                        : "hover:bg-sand-50/70 lg:hover:bg-transparent lg:[&:hover>*]:bg-sand-50/70"
                     }`}
                   >
                     <th
@@ -293,6 +315,19 @@ export default function EstateExplorer() {
                         {s.label}
                       </span>
                     </Komorka>
+                    <td className="bd block border-t pt-3 lg:table-cell lg:border-t-0 lg:border-b lg:py-3 lg:text-sm">
+                      <Link
+                        href={`/mieszkania-i-domy/${unitSlug(u.name)}`}
+                        tabIndex={-1}
+                        aria-hidden
+                        className="t-meta fg-accent inline-flex items-center gap-1.5 whitespace-nowrap"
+                      >
+                        Szczegóły
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                          <path d="M5 12h14M13 6l6 6-6 6" />
+                        </svg>
+                      </Link>
+                    </td>
                   </tr>
                 );
               })}
