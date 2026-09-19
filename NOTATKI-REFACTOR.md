@@ -154,3 +154,8 @@ kreską nad linią gruntu, czarna na kremowym kafelku. Pełne logo (pięć pni) 
 na 179 szerokości, czyli przy 16-32 px poniżej piksela na przerwę i zlewa się w plamę; dlatego
 w `app/icon.svg` i `app/favicon.ico` stoi jedna sosna w tym samym języku rysunku, a pełne logo
 w `app/apple-icon.png`, gdzie 180 px na nie wystarcza.
+
+Stopka: `py-14 sm:py-20` było symetryczne, a pod ostatnim wierszem nie ma już nic, więc 80 px
+u dołu było pustą przestrzenią na końcu strony. Teraz `pt-14 pb-8 sm:pt-16 sm:pb-10`: dół 40 px
+zamiast 80, góra 64 zamiast 80. Wysokość stopki przy 1440 px: 577 zamiast 633. Pasek CTA
+z telefonu chowa się przed stopką, więc nie trzeba pod niego rezerwować miejsca.

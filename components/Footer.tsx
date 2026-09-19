@@ -19,7 +19,10 @@ const registry = [
 export default function Footer() {
   return (
     <footer className="band band-abyss">
-      <div className="wrap py-14 sm:py-20">
+      {/* Odstęp u dołu asymetryczny: pod ostatnim wierszem nic już nie ma, więc
+          80 px symetrycznego oddechu było pustą przestrzenią na końcu strony.
+          Pasek CTA z telefonu znika przed stopką, nie trzeba pod niego rezerwować miejsca. */}
+      <div className="wrap pt-14 pb-8 sm:pt-16 sm:pb-10">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr] lg:gap-12">
           <div>
             <p className="flex items-center gap-3">
