@@ -149,13 +149,22 @@ zdanie co akapit instrukcji, który właśnie przeniósł się obok planu, więc
 Podpis jest teraz wyłącznie odczytem spod kursora i istnieje od `lg` w górę (na dotyku nie ma
 najechania, a instrukcja stoi w kolumnie). Hotspoty, kliknięcia i sam plan bez zmian.
 
-Favicon: w karcie przeglądarki stał ogólny trójkąt. Teraz jest znak marki - sosna rysowana
-kreską nad linią gruntu, czarna na kremowym kafelku. Pełne logo (pięć pni) ma rozstaw 17,5
-na 179 szerokości, czyli przy 16-32 px poniżej piksela na przerwę i zlewa się w plamę; dlatego
-w `app/icon.svg` i `app/favicon.ico` stoi jedna sosna w tym samym języku rysunku, a pełne logo
-w `app/apple-icon.png`, gdzie 180 px na nie wystarcza.
+Favicon: w karcie przeglądarki stał ogólny trójkąt. Teraz jest pełne logo - pięć sosen nad
+kreską, ta sama geometria co `components/Logo.tsx`, czarne na kremowym kafelku, w `app/icon.svg`,
+`app/favicon.ico` i `app/apple-icon.png`. Kadr ciasny na samym rysunku, bez marginesów oryginału,
+i kreska 8 zamiast 4: przy 32 px cieńsza gubi pnie, grubsza je skleja. Decyzja właściciela po
+obejrzeniu wariantów: ma być logo, nie jego uproszczenie. Świadomy koszt: przy 16 px (stary ekran
+bez HiDPI, pasek zakładek) pięć pni o rozstawie 17,5 na 179 szerokości wypada poniżej piksela na
+przerwę i znak czyta się jako zwarta plama. Przy 32 px, czyli w karcie przeglądarki na typowym
+dzisiejszym ekranie, pnie i gałęzie są rozróżnialne.
 
 Stopka: `py-14 sm:py-20` było symetryczne, a pod ostatnim wierszem nie ma już nic, więc 80 px
 u dołu było pustą przestrzenią na końcu strony. Teraz `pt-14 pb-8 sm:pt-16 sm:pb-10`: dół 40 px
 zamiast 80, góra 64 zamiast 80. Wysokość stopki przy 1440 px: 577 zamiast 633. Pasek CTA
 z telefonu chowa się przed stopką, więc nie trzeba pod niego rezerwować miejsca.
+
+Kafle cen: stopień liczby zrównany z licznikami obok (`13`, `20`). Kafel jest kontenerem
+(`@container`), a stopień to `min(clamp(1.625rem,2.4vw,2.35rem), 18cqw)`: normalnie dokładnie tyle,
+co licznik, a mniejszy tylko wtedy, gdy kafel jest za wąski na "633 000 zł" w jednym wierszu.
+Zmierzone: od 430 px w górę cena ma dokładnie stopień licznika (26 px przy 430-1024, 34,56 przy 1440,
+37,6 przy 1920), przy 390 px 22,7, przy 360 px 20. Zawsze jeden wiersz, zawsze mieści się w kaflu.

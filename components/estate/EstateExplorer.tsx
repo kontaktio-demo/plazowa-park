@@ -442,10 +442,10 @@ export default function EstateExplorer() {
   );
 }
 
-function Kpi({ value, label, small }: { value: string; label: string; small?: boolean }) {
+function Kpi({ value, label }: { value: string; label: string }) {
   return (
     <div className="card flex min-w-0 flex-col justify-center p-4">
-      <div className={`num leading-none ${small ? "font-display text-lg font-semibold" : "t-display-m"}`}>{value}</div>
+      <div className="t-display-m num leading-none">{value}</div>
       <div className="t-meta-sm fg-muted mt-2.5">{label}</div>
     </div>
   );
@@ -453,15 +453,20 @@ function Kpi({ value, label, small }: { value: string; label: string; small?: bo
 
 /** Cena od w grupie; gdy nie został w niej ani jeden wolny lokal, kafel to mówi. */
 function KpiCena({ cena, label }: { cena: number | null; label: string }) {
-  if (cena === null) {
-    return (
-      <div className="card flex min-w-0 flex-col justify-center p-4">
-        <div className="font-display text-lg font-semibold leading-none text-balance">Wszystkie sprzedane</div>
-        <div className="t-meta-sm fg-muted mt-2.5">{label.replace(" od", "")}</div>
-      </div>
-    );
-  }
-  return <Kpi value={plnShort(cena)} label={label} small />;
+  return (
+    <div className="card @container flex min-w-0 flex-col justify-center p-4">
+      {cena === null ? (
+        <div className="font-display text-xl leading-tight font-semibold text-balance">Wszystkie sprzedane</div>
+      ) : (
+        /* Ten sam stopień co liczniki obok. Zmniejsza się dopiero wtedy, gdy kafel jest
+           za wąski na "633 000 zł" w jednym wierszu, czyli poniżej mniej więcej 420 px. */
+        <div className="t-display-m num leading-none text-[min(clamp(1.625rem,2.4vw,2.35rem),18cqw)]">
+          {plnShort(cena)}
+        </div>
+      )}
+      <div className="t-meta-sm fg-muted mt-2.5">{cena === null ? label.replace(" od", "") : label}</div>
+    </div>
+  );
 }
 
 function Komorka({ label, children }: { label: string; children: ReactNode }) {
