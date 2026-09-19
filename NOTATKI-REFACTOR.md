@@ -46,6 +46,18 @@ prawne nie zmieniły się o znak.
 | --- | --- |
 | /lokalizacja: blok "Dlaczego warto zamieszkać nad Zalewem Mrożyczka" (3 akapity) | trzy bloki nad nim (Nad Zalewem Mrożyczka, Las i rekreacja, Dojazd do Łodzi i Warszawy) oraz lista "Co znajdziesz w okolicy" pod nim; Głowno i zaplecze także w bloku o dojeździe |
 
+## Runda 2: decyzje warte zapamiętania
+
+- Filtry i sortowanie siedzą w adresie (`?typ=`, `?dostepne=`, `?sort=`), czytane przez
+  `useSyncExternalStore`, a nie efektem. Dzięki temu serwer renderuje widok domyślny
+  (13 dostępnych, cena rosnąco) prosto w HTML, a link do widoku da się wysłać dalej.
+- Domyślny filtr "tylko dostępne" chowa 7 lokali, więc w HTML strony głównej jest ich 13,
+  a nie 20. Pełna dwudziestka zostaje w danych strukturalnych (ItemList) i w cenniku CSV.
+- Sortowanie nagłówkiem kolumny daje też kombinacje spoza sześciu gotowych ustawień
+  (np. ogród rosnąco). Menu pokazuje wtedy aktualny stan, a nie najbliższy preset.
+- Nawigacja między lokalami chodzi po lokalach dostępnych; przy sprzedanym albo
+  zarezerwowanym po pełnej dwudziestce, bo w krótszej liście taki lokal nie miałby miejsca.
+
 ## Znalezione i naprawione w QA
 
 - Skok z nawigacji do sekcji zatrzymywał się 88 px za nisko: Lenis liczy pozycję elementu
