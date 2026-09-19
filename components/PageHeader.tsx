@@ -16,7 +16,7 @@ export default function PageHeader({ aktywna }: { aktywna?: string }) {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav aria-label="Menu główne" className="hidden items-center gap-7 lg:flex">
           {NAV.map((n) => (
             <Link
               key={n.href}

@@ -284,6 +284,7 @@ export default function Contact() {
                   <input
                     type="checkbox"
                     name="rodo"
+                    aria-required="true"
                     aria-invalid={Boolean(errors.rodo)}
                     aria-describedby={errors.rodo ? "rodo-err" : undefined}
                     className="checkbox mt-0.5"
