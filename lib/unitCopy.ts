@@ -16,8 +16,6 @@ const MNOGA: Record<UnitKind, [string, string, string]> = {
   dom: ["dom", "domy", "domów"],
 };
 
-const wielka = (t: string) => `${t[0].toUpperCase()}${t.slice(1)}`;
-
 /** "mieszkań" dla 16, "domy" dla 4 - do liczb branych z OFERTA. */
 export const lokaleSlowo = (kind: UnitKind, n: number) => odmien(n, MNOGA[kind]);
 

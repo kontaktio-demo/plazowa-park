@@ -84,16 +84,10 @@ export default function SiteMotion() {
       await whenIdle();
       if (disposed) return;
 
-      const [{ default: Lenis }, gsapMod, stMod] = await Promise.all([
-        import("lenis"),
-        import("gsap"),
-        import("gsap/ScrollTrigger"),
-      ]);
+      const { default: Lenis } = await import("lenis");
       if (disposed) return;
-      const gsap = gsapMod.default;
-      const ScrollTrigger = stMod.ScrollTrigger;
-      gsap.registerPlugin(ScrollTrigger);
 
+      let klatka = 0;
       if (!reduce) {
         lenis = new Lenis({
           // tryb lerp: ciągła interpolacja do celu, płynna przy każdej prędkości kółka
@@ -104,25 +98,30 @@ export default function SiteMotion() {
         });
         // @ts-expect-error udostępnione do skoków po kotwicach
         window.__lenis = lenis;
-        lenis.on("scroll", ScrollTrigger.update);
-        gsap.ticker.add((time) => lenis!.raf(time * 1000));
-        gsap.ticker.lagSmoothing(0);
+        const tick = (czas: number) => {
+          lenis!.raf(czas);
+          klatka = requestAnimationFrame(tick);
+        };
+        klatka = requestAnimationFrame(tick);
 
-        // delikatny parallax tła hero; obraz jest powiększony o 8%, więc
-        // przesunięcie nigdy nie odsłania krawędzi
+        // Delikatny parallax tła hero; obraz jest powiększony o 8%, więc przesunięcie
+        // nigdy nie odsłania krawędzi. Wcześniej robił to GSAP ze ScrollTriggerem:
+        // 111 KB biblioteki na jedną interpolację, którą liczy ten jeden wiersz.
         const layer = document.querySelector<HTMLElement>("[data-parallax]");
         const host = layer?.parentElement;
         if (layer && host) {
-          gsap.to(layer, {
-            yPercent: 8,
-            ease: "none",
-            scrollTrigger: { trigger: host, start: "top top", end: "bottom top", scrub: true },
-          });
+          const parallax = () => {
+            const r = host.getBoundingClientRect();
+            const postep = Math.min(1, Math.max(0, -r.top / (r.height || 1)));
+            layer.style.transform = `translateY(${(postep * 8).toFixed(3)}%)`;
+          };
+          parallax();
+          lenis.on("scroll", parallax);
         }
       }
 
       killScroll = () => {
-        ScrollTrigger.getAll().forEach((t) => t.kill());
+        cancelAnimationFrame(klatka);
         lenis?.destroy();
       };
     })();

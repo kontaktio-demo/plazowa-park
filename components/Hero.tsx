@@ -21,7 +21,7 @@ export default function Hero() {
           alt="Budynek osiedla Plażowa Park w sosnowym lesie, rodzina na ścieżce prowadzącej do wejścia"
           fill
           preload
-          quality={80}
+          quality={65}
           sizes="100vw"
           placeholder="blur"
           blurDataURL={BLUR.hero}

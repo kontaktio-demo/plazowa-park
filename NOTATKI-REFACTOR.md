@@ -45,6 +45,13 @@ prawne nie zmieniły się o znak.
 - `components/Contact.tsx`: reguła `react-hooks/set-state-in-effect` zgłasza błąd przy odczycie
   `?lokal=` z adresu. Błąd jest starszy niż ten refactor, a naprawa wymaga zmiany sposobu
   prefillu (ryzyko rozjazdu hydracji), więc zostaje na osobne zadanie.
+- JS: 88 KB z Marzipano ładowało się przy każdym wejściu na stronę, mimo że import był
+  po kliknięciu. Przyczyną było trzymanie widoku spaceru w tym samym komponencie, co
+  powłoka sekcji; rozdzielenie na `VirtualTour` + `TourStage` (next/dynamic) zdjęło to
+  z pierwszego wejścia. Spacer po kliknięciu dociąga 196 KB.
+- GSAP + ScrollTrigger (111 KB) obsługiwały jedną interpolację parallaxu w hero.
+  Parallax liczy teraz jeden wiersz na zdarzeniu scrolla Lenis, a obie biblioteki
+  wypadły z package.json. Efekt wizualnie ten sam (yPercent 8 na tym samym zakresie).
 - "Zobacz też" sortuję po różnicy ceny (tak jak mówi główne zdanie polecenia), a zapowiedź
   nad listą brzmi "Zobacz dostępne w podobnej cenie", żeby nie obiecywać doboru po metrażu.
 - `scripts/osiedle-kadry.mjs` generuje kadry budynków (`public/osiedle/b*.webp`), których po

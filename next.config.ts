@@ -3,9 +3,12 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
-    deviceSizes: [360, 480, 640, 768, 1024, 1280, 1536, 1920, 2400],
+    // Sześć szerokości zamiast dziewięciu. Każda dodatkowa mnoży warianty w srcset
+    // każdego obrazu, a różnicy między 1280 a 1536 nikt na tej stronie nie zobaczy.
+    deviceSizes: [360, 640, 768, 1024, 1280, 1920],
+    imageSizes: [256, 384],
     // bez tej listy Next ignoruje `quality` na <Image> i wraca do 75
-    qualities: [62, 68, 75, 80],
+    qualities: [62, 65, 68, 75, 80],
   },
   poweredByHeader: false,
   compress: true,
@@ -15,7 +18,8 @@ const nextConfig: NextConfig = {
     return [
       // lista lokali jest sekcją strony głównej, a nie osobną stroną; sam adres
       // /mieszkania-i-domy zwracał 404, choć prowadzi do niego nazwa podstron lokali
-      { source: "/mieszkania-i-domy", destination: "/#mieszkania-i-domy", permanent: true },
+      // 301, nie domyślne dla Next 308: tego adresu szukają linki i zakładki sprzed zmiany
+      { source: "/mieszkania-i-domy", destination: "/#mieszkania-i-domy", statusCode: 301 },
       { source: "/privacy-policy", destination: "/polityka-prywatnosci", permanent: true },
       { source: "/strona-glowna", destination: "/", permanent: true },
       { source: "/global-styles", destination: "/", permanent: true },
