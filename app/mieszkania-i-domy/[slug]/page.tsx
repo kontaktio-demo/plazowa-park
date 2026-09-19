@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { UNITS } from "@/lib/data/units";
 import { unitSlug, unitBySlug } from "@/lib/slug";
 import { pln, plnShort, area, rooms, STATUS_META, odmien } from "@/lib/format";
-import { ctaPytanie, lokaleSlowo, schemaAvailability, unitDescription, unitMetaDescription } from "@/lib/unitCopy";
+import { ctaPytanie, lokaleSlowo, schemaAvailability, unitMetaDescription } from "@/lib/unitCopy";
 import { ODMIANA, unitKind, unitLabel, unitFloors, unitPlace, garageArea, livingArea } from "@/lib/unitType";
 import { SITE } from "@/lib/data/site";
 import { PLAN } from "@/lib/data/plan";
@@ -60,6 +60,8 @@ const galleryImgs = [
   },
 ];
 
+const wielkaLitera = (t: string) => `${t[0].toUpperCase()}${t.slice(1)}`;
+
 // Wykaz dewelopera jest pisany małymi literami, a "Wc" wyglądałoby na błąd.
 const nazwaPomieszczenia = (n: string) => (n === "wc" ? "WC" : `${n[0].toUpperCase()}${n.slice(1)}`);
 
@@ -78,15 +80,19 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
   const wBudynku = UNITS.filter((x) => unitPlace(x).house === budynek);
   const wolne = wBudynku.filter((x) => x.status === "available");
   const wolneWBudynku = wolne.length;
-  const sameBuilding = UNITS.filter((x) => x.stageId === u.stageId && x.id !== u.id);
-  const others = UNITS.filter((x) => x.stageId !== u.stageId && x.id !== u.id);
-  const rel = [...sameBuilding, ...others].slice(0, 3);
+  // Podpowiadamy wyłącznie to, co realnie można kupić, i sortujemy po różnicy ceny,
+  // a nie po kolejności w danych dewelopera: wcześniej pierwsze z brzegu bywały
+  // lokale sprzedane.
+  const rel = UNITS.filter((x) => x.id !== u.id && x.status === "available")
+    .sort((a, b) => Math.abs(a.price - u.price) - Math.abs(b.price - u.price))
+    .slice(0, 3);
   const pomieszczenia = floors.flatMap((f) => f.pomieszczenia);
   const nazwanePokoje = pomieszczenia.filter((p) => /^(salon|sypialnia|pokój)/.test(p.nazwa)).length;
   const doAdaptacji = pomieszczenia.filter((p) => p.nazwa === "pralnia" || p.nazwa === "garderoba");
   const sumaRzutu = Math.round(floors.reduce((a, f) => a + f.suma, 0) * 100) / 100;
-  const inquireHref = `/?lokal=${encodeURIComponent(label)}#kontakt`;
-  const paras = unitDescription(u);
+  // Przy sprzedanym lokalu formularz dostaje rodzaj, nie numer: pytanie dotyczy
+  // podobnej nieruchomości, a nie tej jednej.
+  const inquireHref = `/?lokal=${encodeURIComponent(u.status === "sold" ? o.mianownik[0].toUpperCase() + o.mianownik.slice(1) : label)}#kontakt`;
 
   const unitUrl = `${SITE.url}/mieszkania-i-domy/${slug}`;
   const metaDesc = unitMetaDescription(u);
@@ -193,7 +199,6 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                 ))}
               </dl>
 
-              <p className="t-body fg-muted mt-8 text-pretty">{paras[0]}</p>
 
               <div className="mt-8 flex flex-col gap-2.5 sm:flex-row">
                 <Link
@@ -335,22 +340,21 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
             </section>
           )}
 
-          <section className="bd mt-16 border-t pt-12">
-            <h2 className="t-display-m">
-              O {o.miejscownik} {u.name}
-            </h2>
-            <div className="t-body fg-muted mt-6 max-w-3xl space-y-4 text-pretty">
-              {paras.slice(1).map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </div>
-            <Link href="/lokalizacja" className="link-underline t-meta fg-accent mt-7 inline-flex items-center gap-2">
-              Lokalizacja osiedla i dojazd <Icon.arrow width={15} height={15} />
+          <p className="t-body fg-muted bd mt-16 border-t pt-12 text-pretty">
+            Osiedle leży przy {SITE.address.street} w {SITE.address.city}.{" "}
+            <Link href="/lokalizacja" className="link-underline fg-accent">
+              Zobacz lokalizację i dojazd
             </Link>
-          </section>
+            .
+          </p>
 
           <div className="bd mt-16 border-t pt-12">
             <h2 className="t-display-m">Zobacz też</h2>
+            {u.status !== "available" && (
+              <p className="t-body fg-muted mt-4 text-pretty">
+                {wielkaLitera(o.wskazujacy)} jest niedostępny{kind === "dom" ? "" : "e"}. Zobacz dostępne w podobnej cenie:
+              </p>
+            )}
             <div className="mt-8 grid gap-5 sm:grid-cols-3">
               {rel.map((r) => (
                 <Link key={r.id} href={`/mieszkania-i-domy/${unitSlug(r.name)}`} className="card card-hover p-5">

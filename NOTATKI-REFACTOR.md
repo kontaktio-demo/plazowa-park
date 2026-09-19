@@ -36,12 +36,17 @@ prawne nie zmieniły się o znak.
 | FAQ: jak daleko do Łodzi, Strykowa i Warszawy | cztery dystanse w sekcji Okolica i na /lokalizacja |
 | FAQ: co znajduje się w okolicy | lead sekcji Okolica, plan okolicy z punktami, /lokalizacja |
 | FAQ: jaki jest standard i technologia | sekcja Standard: akapit, sześć kafelków i linijka o opcjach za dopłatą |
+| podstrona lokalu: blok "O mieszkaniu/domu X" (5 akapitów z generatora) | tabela parametrów i blok "Co jeszcze warto wiedzieć" na tej samej podstronie; opis osiedla, standardu i okolicy na stronie głównej |
+| podstrona lokalu: akapit podsumowujący pod parametrami | te same liczby w tabeli parametrów obok |
+| podstrona lokalu: link "Lokalizacja osiedla i dojazd" w bloku opisowym | jedna linijka z adresem osiedla i linkiem na /lokalizacja |
 
 ## Wykryte poza zakresem
 
 - `components/Contact.tsx`: reguła `react-hooks/set-state-in-effect` zgłasza błąd przy odczycie
   `?lokal=` z adresu. Błąd jest starszy niż ten refactor, a naprawa wymaga zmiany sposobu
   prefillu (ryzyko rozjazdu hydracji), więc zostaje na osobne zadanie.
+- "Zobacz też" sortuję po różnicy ceny (tak jak mówi główne zdanie polecenia), a zapowiedź
+  nad listą brzmi "Zobacz dostępne w podobnej cenie", żeby nie obiecywać doboru po metrażu.
 - `scripts/osiedle-kadry.mjs` generuje kadry budynków (`public/osiedle/b*.webp`), których po
   usunięciu sekcji Osiedle nikt nie renderuje. Pliki i skrypt zostają w repozytorium zgodnie
   z ustaleniem, że kasujemy render, nie assety.
