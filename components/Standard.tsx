@@ -41,7 +41,7 @@ export default function Standard() {
             sizes="(max-width: 1280px) 100vw, 1216px"
             placeholder="blur"
             blurDataURL={BLUR["gal-taras-ogrod"]}
-            className="object-cover object-[center_62%]"
+            className="object-cover object-bottom"
           />
         </figure>
 
