@@ -5,58 +5,88 @@ import { useMemo, useRef, useState, type ReactNode } from "react";
 import { UNITS, INVESTMENT, type Unit } from "@/lib/data/units";
 import { plnShort, area, STATUS_META } from "@/lib/format";
 import { unitSlug } from "@/lib/slug";
-import { OFERTA, garageArea, unitKind, unitLabel, unitPlace, type UnitKind } from "@/lib/unitType";
+import { OFERTA, garageArea, unitKind, unitLabel, unitPlace } from "@/lib/unitType";
 import { sectionEyebrow } from "@/lib/sections";
 import { track } from "@/lib/track";
+import {
+  etykietaSortu,
+  NAZWA_KOLUMNY,
+  posortuj,
+  PRESETY,
+  przefiltruj,
+  sortDoUrl,
+  sortZUrl,
+  type Kolumna,
+  type Rodzaj,
+} from "@/lib/sortowanie";
+import { useStanListy } from "@/lib/stanListy";
 import PlanOsiedla from "./PlanOsiedla";
-import SortMenu, { type SortKey } from "./SortMenu";
-
-/** Numeracja dewelopera sama układa lokale budynkami: 1.1A, 1.1B, 2.2A, 2.2B, 3.3A... */
-const LOKALE = [...UNITS].sort((a, b) => a.name.localeCompare(b.name, "pl", { numeric: true }));
-
-const KOLUMNY = ["Mieszkanie lub dom", "Rodzaj", "Budynek", "Powierzchnia", "Pokoje", "Ogród", "Cena", "Cena za m²", "Status"];
-
-// w raporcie ma stać nazwa, którą klientka zrozumie, a nie klucz z kodu
-const OPIS_SORTOWANIA: Record<SortKey, string> = {
-  "price-asc": "cena rosnąco",
-  "area-desc": "metraż malejąco",
-};
+import SortMenu from "./SortMenu";
 
 const wierszId = (u: Unit) => `lokal-${unitSlug(u.name)}`;
 
+const ZAJETE = UNITS.filter((u) => u.status !== "available").length;
+
+const OPCJE_SORTU = PRESETY.map((s) => ({ key: sortDoUrl(s), label: etykietaSortu(s) }));
+
+// kolumny, które da się sortować klikiem w nagłówek
+const KOLUMNY: { l: string; k?: Kolumna }[] = [
+  { l: "Mieszkanie lub dom" },
+  { l: "Rodzaj" },
+  { l: "Budynek", k: "budynek" },
+  { l: "Powierzchnia", k: "metraz" },
+  { l: "Pokoje" },
+  { l: "Ogród", k: "ogrod" },
+  { l: "Cena", k: "cena" },
+  { l: "Cena za m²", k: "cenam2" },
+  { l: "Status" },
+];
+
 /**
  * Jedyne miejsce z danymi lokali na stronie głównej: plan osiedla i jedna lista.
- * Wcześniej te same dwadzieścia lokali stało w trzech sekcjach (karty budynków,
- * siatka kart z filtrami, tabela cennika), każda z własnymi filtrami i własnym
- * sposobem wejścia w szczegóły.
+ * Filtry i sortowanie siedzą w adresie (lib/stanListy.ts), więc widok da się
+ * podlinkować, a wejście bez parametrów pokazuje to, po co ludzie tu przychodzą:
+ * lokale, które realnie można kupić.
  */
 export default function EstateExplorer() {
-  const [kind, setKind] = useState<"all" | UnitKind>("all");
-  const [tylkoDostepne, setTylkoDostepne] = useState(false);
-  const [sort, setSort] = useState<SortKey>("price-asc");
+  const [stan, ustaw] = useStanListy();
+  const { rodzaj, tylkoDostepne, sort } = stan;
   const [podswietlony, setPodswietlony] = useState<string | null>(null);
   const timer = useRef<number | undefined>(undefined);
 
   const uzytoFiltra = (etykieta: string) => track("uzyj_filtra", { sekcja: "mieszkania-i-domy", etykieta });
 
-  const lista = useMemo(() => {
-    const out = LOKALE.filter(
-      (u) => (kind === "all" || unitKind(u) === kind) && (!tylkoDostepne || u.status === "available")
-    );
-    out.sort((a, b) => (sort === "price-asc" ? a.price - b.price : b.area - a.area));
-    return out;
-  }, [kind, tylkoDostepne, sort]);
+  const lista = useMemo(() => posortuj(przefiltruj(UNITS, rodzaj, tylkoDostepne), sort), [rodzaj, tylkoDostepne, sort]);
 
-  const wybierzRodzaj = (k: "all" | UnitKind) => {
-    setKind(k);
-    uzytoFiltra(`typ: ${k === "all" ? "wszystkie" : k}`);
+  const wybierzRodzaj = (r: Rodzaj) => {
+    ustaw({ rodzaj: r });
+    uzytoFiltra(`typ: ${r}`);
+  };
+
+  const przelaczDostepne = (v: boolean) => {
+    ustaw({ tylkoDostepne: v });
+    uzytoFiltra(`status: ${v ? "tylko dostępne" : "wszystkie"}`);
+  };
+
+  const ustawSort = (klucz: string) => {
+    ustaw({ sort: sortZUrl(klucz) });
+    uzytoFiltra(`sortowanie: ${etykietaSortu(sortZUrl(klucz))}`);
+  };
+
+  // drugi klik w ten sam nagłówek odwraca kierunek; nowa kolumna startuje od
+  // kolejności, która przy niej ma sens (ceny i metraże od najmniejszych)
+  const klikNaglowek = (k: Kolumna) => {
+    const d = sort.k === k ? (sort.d === "asc" ? "desc" : "asc") : "asc";
+    ustaw({ sort: { k, d } });
+    uzytoFiltra(`sortowanie: ${etykietaSortu({ k, d })}`);
   };
 
   // Klik w lokal na planie prowadzi do jego wiersza, a nie do osobnego okna.
   // Filtry, które mogłyby ten wiersz ukryć, wracają do stanu wyjściowego.
   const pokazWTabeli = (u: Unit) => {
-    setKind("all");
-    setTylkoDostepne(false);
+    if (rodzaj !== "wszystkie" || (tylkoDostepne && u.status !== "available")) {
+      ustaw({ rodzaj: "wszystkie", tylkoDostepne: u.status === "available" && tylkoDostepne });
+    }
     setPodswietlony(u.name);
     window.clearTimeout(timer.current);
     timer.current = window.setTimeout(() => setPodswietlony(null), 4000);
@@ -66,6 +96,8 @@ export default function EstateExplorer() {
       wiersz?.querySelector<HTMLElement>("a")?.focus({ preventScroll: true });
     });
   };
+
+  const kierunek = (k?: Kolumna) => (k && sort.k === k ? (sort.d === "asc" ? "ascending" : "descending") : undefined);
 
   return (
     <section id="mieszkania-i-domy" className="band band-sand-2 sec">
@@ -108,23 +140,23 @@ export default function EstateExplorer() {
           data-reveal
         >
           <div className="no-scrollbar edge-fade -mx-1 flex w-full min-w-0 snap-x gap-2 overflow-x-auto px-1 sm:mx-0 sm:w-auto sm:flex-wrap sm:overflow-visible">
-            <button type="button" aria-pressed={kind === "all"} onClick={() => wybierzRodzaj("all")} className="chip flex-none snap-start">
+            <button type="button" aria-pressed={rodzaj === "wszystkie"} onClick={() => wybierzRodzaj("wszystkie")} className="chip flex-none snap-start">
               Wszystkie
             </button>
             <button
               type="button"
-              aria-pressed={kind === "mieszkanie"}
+              aria-pressed={rodzaj === "mieszkania"}
               aria-label={`Mieszkania, ${OFERTA.mieszkania} w ofercie`}
-              onClick={() => wybierzRodzaj("mieszkanie")}
+              onClick={() => wybierzRodzaj("mieszkania")}
               className="chip flex-none snap-start"
             >
               Mieszkania <span className="num">· {OFERTA.mieszkania}</span>
             </button>
             <button
               type="button"
-              aria-pressed={kind === "dom"}
+              aria-pressed={rodzaj === "domy"}
               aria-label={`Domy, ${OFERTA.domy} w ofercie`}
-              onClick={() => wybierzRodzaj("dom")}
+              onClick={() => wybierzRodzaj("domy")}
               className="chip flex-none snap-start"
             >
               Domy <span className="num">· {OFERTA.domy}</span>
@@ -134,11 +166,7 @@ export default function EstateExplorer() {
             <button
               type="button"
               aria-pressed={tylkoDostepne}
-              onClick={() => {
-                const v = !tylkoDostepne;
-                setTylkoDostepne(v);
-                uzytoFiltra(`status: ${v ? "tylko dostępne" : "wszystkie"}`);
-              }}
+              onClick={() => przelaczDostepne(!tylkoDostepne)}
               className="chip flex-none snap-start"
             >
               Tylko dostępne
@@ -149,20 +177,72 @@ export default function EstateExplorer() {
             <span className="t-meta-sm fg-muted">
               <span className="num fg">{lista.length}</span> z {INVESTMENT.totalUnits}
             </span>
-            <SortMenu value={sort} onChange={(v) => { setSort(v); uzytoFiltra(`sortowanie: ${OPIS_SORTOWANIA[v]}`); }} />
+            <SortMenu opcje={OPCJE_SORTU} value={sortDoUrl(sort)} etykieta={etykietaSortu(sort)} onChange={ustawSort} />
           </div>
         </div>
 
+        {/* Co domyślny filtr chowa i jak go zdjąć - jednym zdaniem, bez szukania chipa */}
+        <p className="t-meta-sm fg-muted mt-4">
+          {tylkoDostepne ? (
+            <>
+              <span className="num">{ZAJETE}</span> z <span className="num">{INVESTMENT.totalUnits}</span> już
+              sprzedanych lub zarezerwowanych{" "}
+              <button type="button" onClick={() => przelaczDostepne(false)} className="link-underline fg-accent">
+                pokaż wszystkie
+              </button>
+            </>
+          ) : (
+            <>
+              Pokazujesz wszystkie <span className="num">{INVESTMENT.totalUnits}</span>{" "}
+              <button type="button" onClick={() => przelaczDostepne(true)} className="link-underline fg-accent">
+                pokaż tylko dostępne
+              </button>
+            </>
+          )}
+        </p>
+
         {/* Jedna lista w dwóch układach: od `lg` zwykła tabela, niżej wiersze
             rozkładają się na karty, a etykieta komórki wraca jako tekst obok wartości. */}
-        <div className="mt-8" data-reveal>
+        <div className="mt-6" data-reveal>
           <table className="w-full border-collapse text-left">
             <caption className="sr-only">Zestawienie mieszkań i domów: metraż, ogród, cena i status</caption>
             <thead className="hidden lg:table-header-group">
               <tr className="bd border-y">
-                {KOLUMNY.map((k) => (
-                  <th key={k} scope="col" className="t-label py-3 pr-4 font-medium">
-                    {k}
+                {KOLUMNY.map((kol) => (
+                  <th
+                    key={kol.l}
+                    scope="col"
+                    aria-sort={kierunek(kol.k)}
+                    className="t-label py-3 pr-4 font-medium"
+                  >
+                    {kol.k ? (
+                      <button
+                        type="button"
+                        onClick={() => klikNaglowek(kol.k!)}
+                        className="flex items-center gap-1.5 hover:text-(--band-accent)"
+                        aria-label={`Sortuj: ${NAZWA_KOLUMNY[kol.k]} ${sort.k === kol.k && sort.d === "asc" ? "malejąco" : "rosnąco"}`}
+                      >
+                        {kol.l}
+                        <svg
+                          width="11"
+                          height="11"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden
+                          className={`transition-[opacity,transform] ${
+                            sort.k === kol.k ? "fg-accent opacity-100" : "opacity-0"
+                          } ${sort.k === kol.k && sort.d === "desc" ? "rotate-180" : ""}`}
+                        >
+                          <path d="M12 19V5M5 12l7-7 7 7" />
+                        </svg>
+                      </button>
+                    ) : (
+                      kol.l
+                    )}
                   </th>
                 ))}
               </tr>

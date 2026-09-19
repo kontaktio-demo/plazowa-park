@@ -2,21 +2,29 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 
-export type SortKey = "price-asc" | "area-desc";
-
-const OPTIONS: { key: SortKey; label: string }[] = [
-  { key: "price-asc", label: "Cena rosnąco" },
-  { key: "area-desc", label: "Metraż malejąco" },
-];
+export type Opcja = { key: string; label: string };
 
 /**
  * Wzorzec combobox z listą: rola `option` musi być bezpośrednim dzieckiem
  * `listbox`, więc lista jest divem, a nie ul/li. Focus zostaje na przycisku,
  * a aktywna pozycja jest wskazywana przez aria-activedescendant.
+ *
+ * Etykieta przycisku przychodzi z zewnątrz, bo sortowanie można ustawić także
+ * nagłówkiem kolumny, a wtedy stan bywa spoza listy gotowych ustawień.
  */
-export default function SortMenu({ value, onChange }: { value: SortKey; onChange: (v: SortKey) => void }) {
+export default function SortMenu({
+  opcje,
+  value,
+  etykieta,
+  onChange,
+}: {
+  opcje: Opcja[];
+  value: string;
+  etykieta: string;
+  onChange: (v: string) => void;
+}) {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState(() => Math.max(0, OPTIONS.findIndex((o) => o.key === value)));
+  const [active, setActive] = useState(() => Math.max(0, opcje.findIndex((o) => o.key === value)));
   const rootRef = useRef<HTMLDivElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
   // lista i opcje muszą mieć unikalne id, bo menu stoi na stronie więcej niż raz
@@ -32,7 +40,7 @@ export default function SortMenu({ value, onChange }: { value: SortKey; onChange
   }, [open]);
 
   const choose = (i: number) => {
-    onChange(OPTIONS[i].key);
+    onChange(opcje[i].key);
     setActive(i);
     setOpen(false);
     btnRef.current?.focus();
@@ -57,17 +65,15 @@ export default function SortMenu({ value, onChange }: { value: SortKey; onChange
     if (!open) return;
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setActive((i) => (i + 1) % OPTIONS.length);
+      setActive((i) => (i + 1) % opcje.length);
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
-      setActive((i) => (i - 1 + OPTIONS.length) % OPTIONS.length);
+      setActive((i) => (i - 1 + opcje.length) % opcje.length);
     } else if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       choose(active);
     }
   };
-
-  const current = OPTIONS.find((o) => o.key === value) ?? OPTIONS[0];
 
   return (
     <div ref={rootRef} className="relative">
@@ -79,12 +85,12 @@ export default function SortMenu({ value, onChange }: { value: SortKey; onChange
         aria-expanded={open}
         aria-controls={listId}
         aria-activedescendant={open ? `${listId}-${active}` : undefined}
-        aria-label={`Sortowanie: ${current.label}`}
+        aria-label={`Sortowanie: ${etykieta}`}
         onClick={() => setOpen((v) => !v)}
         onKeyDown={onKeyDown}
         className="bd-strong t-meta flex min-h-11 items-center gap-2.5 rounded-[12px] border px-4 py-2.5"
       >
-        {current.label}
+        {etykieta}
         <svg
           width="12"
           height="12"
@@ -109,7 +115,7 @@ export default function SortMenu({ value, onChange }: { value: SortKey; onChange
           open ? "pointer-events-auto scale-y-100 opacity-100" : "pointer-events-none scale-y-95 opacity-0"
         }`}
       >
-        {OPTIONS.map((o, i) => (
+        {opcje.map((o, i) => (
           <div
             key={o.key}
             id={`${listId}-${i}`}
