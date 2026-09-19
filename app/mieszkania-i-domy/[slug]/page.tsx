@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { UNITS } from "@/lib/data/units";
+import { UNITS, type Unit } from "@/lib/data/units";
 import { unitSlug, unitBySlug } from "@/lib/slug";
 import { pln, plnShort, area, rooms, STATUS_META, odmien } from "@/lib/format";
 import { ctaPytanie, lokaleSlowo, schemaAvailability, unitMetaDescription } from "@/lib/unitCopy";
 import { ODMIANA, unitKind, unitLabel, unitFloors, unitPlace, garageArea, livingArea } from "@/lib/unitType";
+import { DOMYSLNY_SORT, posortuj } from "@/lib/sortowanie";
 import { SITE } from "@/lib/data/site";
 import { PLAN } from "@/lib/data/plan";
 import PageHeader from "@/components/PageHeader";
@@ -62,6 +63,35 @@ const galleryImgs = [
 
 const wielkaLitera = (t: string) => `${t[0].toUpperCase()}${t.slice(1)}`;
 
+/**
+ * Sąsiedni lokal w pasku nawigacji. Na krańcach listy zostaje sama wyszarzona
+ * strzałka, żeby pasek nie zmieniał szerokości i licznik nie skakał.
+ */
+function Sasiad({ unit, wstecz }: { unit?: Unit; wstecz?: boolean }) {
+  const strzalka = (
+    <Icon.arrow width={16} height={16} className={wstecz ? "rotate-180" : ""} aria-hidden />
+  );
+  if (!unit) {
+    return (
+      <span aria-disabled className="t-meta fg-muted inline-flex min-w-11 items-center gap-2 opacity-40">
+        {wstecz && strzalka}
+        {!wstecz && strzalka}
+      </span>
+    );
+  }
+  return (
+    <Link
+      href={`/mieszkania-i-domy/${unitSlug(unit.name)}`}
+      className="link-underline t-meta fg-accent inline-flex min-w-11 items-center gap-2"
+    >
+      {wstecz && strzalka}
+      <span className="hidden sm:inline">{unitLabel(unit)}</span>
+      <span className="num sm:hidden">{unit.name}</span>
+      {!wstecz && strzalka}
+    </Link>
+  );
+}
+
 // Wykaz dewelopera jest pisany małymi literami, a "Wc" wyglądałoby na błąd.
 const nazwaPomieszczenia = (n: string) => (n === "wc" ? "WC" : `${n[0].toUpperCase()}${n.slice(1)}`);
 
@@ -94,6 +124,20 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
   // podobnej nieruchomości, a nie tej jednej.
   // powrót celuje w wiersz tego lokalu, nie w początek sekcji
   const doListy = `/#lokal-${slug}`;
+
+  /**
+   * Sąsiedzi w tej samej kolejności, co domyślna lista na stronie głównej (cena
+   * rosnąco). Kupujący chodzi po lokalach dostępnych; przy sprzedanym albo
+   * zarezerwowanym poruszamy się po pełnej dwudziestce, bo inaczej ten lokal
+   * nie miałby w tej kolejności swojego miejsca.
+   */
+  const kolejnosc = posortuj(
+    u.status === "available" ? UNITS.filter((x) => x.status === "available") : UNITS,
+    DOMYSLNY_SORT
+  );
+  const pozycja = kolejnosc.findIndex((x) => x.id === u.id);
+  const poprzedni = kolejnosc[pozycja - 1];
+  const nastepny = kolejnosc[pozycja + 1];
   const inquireHref = `/?lokal=${encodeURIComponent(u.status === "sold" ? o.mianownik[0].toUpperCase() + o.mianownik.slice(1) : label)}#kontakt`;
 
   const unitUrl = `${SITE.url}/mieszkania-i-domy/${slug}`;
@@ -230,8 +274,17 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
             </div>
           </div>
 
+          <nav aria-label="Inne mieszkania i domy" className="bd mt-14 flex items-center justify-between gap-3 border-t pt-6">
+            <Sasiad unit={poprzedni} wstecz />
+            <span className="t-meta-sm fg-muted num text-center">
+              {pozycja + 1} z {kolejnosc.length}
+              {u.status === "available" ? " dostępnych" : ""}
+            </span>
+            <Sasiad unit={nastepny} />
+          </nav>
+
           {floors.length > 0 && (
-            <section id="rzuty" className="bd mt-16 border-t pt-12">
+            <section id="rzuty" className="bd mt-12 border-t pt-12">
               <h2 className="t-display-m">
                 Rzuty {o.dopelniacz} {u.name}
               </h2>
@@ -334,7 +387,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
                   data-lokal={u.name}
                   className="link-underline t-meta fg-accent mt-8 inline-flex items-center gap-2"
                 >
-                  Pobierz rzut {o.dopelniacz} w PDF <Icon.arrow width={15} height={15} />
+                  Pobierz rzut {o.dopelniacz} w PDF (nowa karta) <Icon.external width={15} height={15} />
                 </a>
               ) : (
                 <p className="t-meta fg-muted mt-8">Rzut {o.dopelniacz} w PDF wydaje biuro sprzedaży.</p>

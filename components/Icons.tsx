@@ -53,6 +53,9 @@ export const Icon = {
   arrowDown: (p: P) => (
     <svg {...base} {...p}><path d="M12 5v14m-6-6 6 6 6-6" /></svg>
   ),
+  external: (p: P) => (
+    <svg {...base} {...p}><path d="M14 5h5v5M19 5l-7 7M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4" /></svg>
+  ),
   close: (p: P) => (
     <svg {...base} {...p}><path d="M6 6l12 12M18 6 6 18" /></svg>
   ),
