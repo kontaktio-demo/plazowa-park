@@ -3,11 +3,11 @@ import type { Unit } from "@/lib/data/units";
 import { NA_PLANIE, PLAN } from "@/lib/data/plan";
 import { STATUS_META } from "@/lib/format";
 import { unitKind, unitPlace } from "@/lib/unitType";
-import { SIZES_KADRU } from "@/lib/wczytaj";
 
 // wycinek planu w pikselach pliku: tyle, żeby zmieścił się budynek, sąsiedni
 // budynek i ogródki, a numery z planu dało się jeszcze przeczytać
 const KADR = { w: 440, h: 330 };
+const SIZES = "1024px";
 
 const proc = (v: number, calosc: number) => `${(v / calosc) * 100}%`;
 const zakres = (v: number, max: number) => Math.min(Math.max(v, 0), max);
@@ -35,7 +35,7 @@ export default function PlanLokalu({ unit, className = "" }: { unit: Unit; class
             height: proc(PLAN.h, KADR.h),
           }}
         >
-          <Image src={PLAN.src} alt="" fill sizes={SIZES_KADRU} className="object-cover" />
+          <Image src={PLAN.src} alt="" fill sizes={SIZES} className="object-cover" />
           {/* kolor wyróżnienia idzie za statusem, żeby sprzedany lokal nie wyglądał
               na wolny w oknie, którego nagłówek mówi "Sprzedano" */}
           <span

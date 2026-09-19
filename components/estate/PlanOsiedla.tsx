@@ -8,7 +8,6 @@ import { area, plnShort, STATUS_META } from "@/lib/format";
 import { unitLabel, unitPlace } from "@/lib/unitType";
 import { BLUR } from "@/lib/blur";
 import Lightbox from "../Lightbox";
-import { wczytajLokal } from "@/lib/wczytaj";
 
 const OPIS =
   "Plan zagospodarowania osiedla Plażowa Park: dziesięć budynków po obu stronach drogi wewnętrznej, przy każdym mieszkaniu i domu ogródek";
@@ -34,7 +33,7 @@ const tlo = (status: Unit["status"]) => {
  * budynków i lokali są wypalone w samym planie, więc nakładka niczego nie podpisuje
  * drugi raz: zaznacza status i otwiera szczegóły.
  */
-export default function PlanOsiedla({ selected, onOpen }: { selected: number | null; onOpen: (u: Unit) => void }) {
+export default function PlanOsiedla({ onOpen }: { onOpen: (u: Unit) => void }) {
   const [wskazany, setWskazany] = useState<Unit | null>(null);
   const [powiekszony, setPowiekszony] = useState(false);
 
@@ -55,7 +54,6 @@ export default function PlanOsiedla({ selected, onOpen }: { selected: number | n
           if (!p) return null;
           const [x, y, w, h] = p.r;
           const s = STATUS_META[u.status];
-          const wBudynku = selected === u.stageId;
           return (
             <button
               key={u.id}
@@ -65,26 +63,17 @@ export default function PlanOsiedla({ selected, onOpen }: { selected: number | n
               data-lokal={u.name}
               aria-label={`${unitLabel(u)}, budynek ${unitPlace(u).house}, ${area(u.area)}, ${plnShort(u.price)}, ${s.label.toLowerCase()}`}
               onClick={() => onOpen(u)}
-              onPointerEnter={() => {
-                setWskazany(u);
-                wczytajLokal(u);
-              }}
-              onPointerDown={() => wczytajLokal(u)}
+              onPointerEnter={() => setWskazany(u)}
               onMouseLeave={() => setWskazany(null)}
-              onFocus={() => {
-                setWskazany(u);
-                wczytajLokal(u);
-              }}
+              onFocus={() => setWskazany(u)}
               onBlur={() => setWskazany(null)}
-              className={`absolute outline-offset-0 transition-colors hover:bg-sun/35 hover:outline-2 hover:outline-clay-900 focus-visible:bg-sun/35 ${
-                wBudynku ? "bg-sun/30 outline-2 outline-clay-600" : ""
-              }`}
+              className="absolute outline-offset-0 transition-colors hover:bg-sun/35 hover:outline-2 hover:outline-clay-900 focus-visible:bg-sun/35"
               style={{
                 left: proc(x, PLAN.w),
                 top: proc(y, PLAN.h),
                 width: proc(w, PLAN.w),
                 height: proc(h, PLAN.h),
-                background: wBudynku ? undefined : tlo(u.status),
+                background: tlo(u.status),
               }}
             />
           );
@@ -92,7 +81,7 @@ export default function PlanOsiedla({ selected, onOpen }: { selected: number | n
       </div>
 
       {/* Podpis pod planem zamiast dymka: dymek zasłaniałby sąsiednie lokale, a na
-          telefonie i tak nie ma najechania, jest od razu otwarcie szczegółów */}
+          telefonie i tak nie ma najechania, jest od razu skok do wiersza w tabeli */}
       <div className="mt-4 flex min-h-11 flex-wrap items-center justify-between gap-x-6 gap-y-2">
         <p className="t-meta-sm min-w-0">
           {wskazany ? (
@@ -105,7 +94,7 @@ export default function PlanOsiedla({ selected, onOpen }: { selected: number | n
               </span>
             </>
           ) : (
-            <span className="fg-muted">Kliknij mieszkanie albo dom na planie, żeby zobaczyć rzuty i cenę.</span>
+            <span className="fg-muted">Kliknij mieszkanie albo dom na planie, żeby znaleźć go w zestawieniu niżej.</span>
           )}
         </p>
         <ul className="t-meta-sm fg-muted flex flex-wrap items-center gap-x-5 gap-y-2">

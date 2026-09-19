@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { SITE } from "@/lib/data/site";
-import { SELECT_UNIT_EVENT } from "@/lib/selectUnit";
 import { track } from "@/lib/track";
 import { UNITS } from "@/lib/data/units";
 import SectionHeader from "./SectionHeader";
@@ -74,16 +73,14 @@ export default function Contact() {
     if (state === "ok") potwierdzenie.current?.focus();
   }, [state]);
 
+  // Lokal wskazuje adres, z którym przychodzi się ze strony lokalu: /?lokal=...#kontakt
   useEffect(() => {
-    const onSelect = (e: Event) => setUnit((e as CustomEvent<string>).detail || "");
-    window.addEventListener(SELECT_UNIT_EVENT, onSelect);
     try {
       const q = new URLSearchParams(window.location.search).get("lokal");
       if (q) setUnit(q);
     } catch {
       /* ignore */
     }
-    return () => window.removeEventListener(SELECT_UNIT_EVENT, onSelect);
   }, []);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

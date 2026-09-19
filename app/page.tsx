@@ -1,8 +1,6 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
-import Osiedle from "@/components/Osiedle";
 import EstateExplorer from "@/components/estate/EstateExplorer";
-import Cennik from "@/components/estate/Cennik";
 import VirtualTour from "@/components/VirtualTour";
 import Standard from "@/components/Standard";
 import Zycie from "@/components/Zycie";
@@ -23,9 +21,7 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <Osiedle />
         <EstateExplorer />
-        <Cennik />
         <VirtualTour />
         <Standard />
         <Zycie />

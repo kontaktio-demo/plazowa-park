@@ -1,8 +1,6 @@
 /** Etykiety nad nagłówkami sekcji - jedno źródło, żeby nie rozjechały się z treścią. */
 const ETYKIETY: Record<string, string> = {
-  osiedle: "Osiedle",
   "mieszkania-i-domy": "Mieszkania i domy",
-  cennik: "Cennik",
   spacer: "Spacer 360",
   standard: "Standard",
   zycie: "Życie",

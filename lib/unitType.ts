@@ -63,23 +63,6 @@ export const OFERTA = {
   cenaOd: Math.min(...(wolne.length ? wolne : UNITS).map((u) => u.price)),
 } as const;
 
-/** Najtańszy wolny lokal w grupie budynków, albo null, gdy wszystkie są zajęte. */
-export function cenaOdWGrupie(stageId: number): number | null {
-  const lista = UNITS.filter((u) => u.stageId === stageId && u.status === "available");
-  return lista.length ? Math.min(...lista.map((u) => u.price)) : null;
-}
-
-/**
- * Konfigurator dewelopera grupuje lokale w etapy ("1 i 2", "3"), a plan
- * zagospodarowania liczy budynki osobno. Etap z dwoma numerami to dwa budynki.
- */
-export const nazwaGrupy = (label: string) => `${label.includes(" i ") ? "Budynki" : "Budynek"} ${label}`;
-
-/** Podgląd lokalu na listach: izometryczny render parteru. */
-export function planImage(unit: Unit): string {
-  return `/rzuty/typ-${unitPlace(unit).type}-parter-render.webp`;
-}
-
 export type RzutKondygnacji = Kondygnacja & { render: string; techniczny: string };
 
 /**
@@ -118,7 +101,3 @@ export function livingArea(unit: Unit): number {
   return Math.round((unit.area - garageArea(unit)) * 100) / 100;
 }
 
-/** Wszystkie lokale budynku w kolejności numeracji dewelopera. */
-export function buildingUnits(stageId: number): Unit[] {
-  return UNITS.filter((u) => u.stageId === stageId).sort((a, b) => a.name.localeCompare(b.name, "pl", { numeric: true }));
-}

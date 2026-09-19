@@ -1,176 +1,102 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { UNITS, BUILDINGS, INVESTMENT, type Unit } from "@/lib/data/units";
-import { plnShort } from "@/lib/format";
-import { nazwaGrupy, OFERTA, unitKind, type UnitKind } from "@/lib/unitType";
+import Link from "next/link";
+import { useMemo, useRef, useState, type ReactNode } from "react";
+import { UNITS, INVESTMENT, type Unit } from "@/lib/data/units";
+import { plnShort, area, STATUS_META } from "@/lib/format";
+import { unitSlug } from "@/lib/slug";
+import { OFERTA, garageArea, unitKind, unitLabel, unitPlace, type UnitKind } from "@/lib/unitType";
 import { sectionEyebrow } from "@/lib/sections";
-import { lokaleSlowo } from "@/lib/unitCopy";
-import CountUp from "../CountUp";
-import PlanOsiedla from "./PlanOsiedla";
-import UnitCard from "./UnitCard";
-import UnitModal from "./UnitModal";
-import SortMenu, { type SortKey } from "./SortMenu";
-import { SELECT_BUILDING_EVENT } from "@/lib/selectUnit";
 import { track } from "@/lib/track";
+import PlanOsiedla from "./PlanOsiedla";
+import SortMenu, { type SortKey } from "./SortMenu";
 
-const PREVIEW = 6;
+/** Numeracja dewelopera sama układa lokale budynkami: 1.1A, 1.1B, 2.2A, 2.2B, 3.3A... */
+const LOKALE = [...UNITS].sort((a, b) => a.name.localeCompare(b.name, "pl", { numeric: true }));
+
+const KOLUMNY = ["Mieszkanie lub dom", "Rodzaj", "Budynek", "Powierzchnia", "Pokoje", "Ogród", "Cena", "Cena za m²", "Status"];
 
 // w raporcie ma stać nazwa, którą klientka zrozumie, a nie klucz z kodu
 const OPIS_SORTOWANIA: Record<SortKey, string> = {
   "price-asc": "cena rosnąco",
-  "price-desc": "cena malejąco",
-  "area-asc": "metraż od najmniejszego",
-  "area-desc": "metraż od największego",
+  "area-desc": "metraż malejąco",
 };
 
-const etykietaBudynku = (id: number) => nazwaGrupy(BUILDINGS.find((b) => b.stageId === id)?.label ?? String(id));
+const wierszId = (u: Unit) => `lokal-${unitSlug(u.name)}`;
 
+/**
+ * Jedyne miejsce z danymi lokali na stronie głównej: plan osiedla i jedna lista.
+ * Wcześniej te same dwadzieścia lokali stało w trzech sekcjach (karty budynków,
+ * siatka kart z filtrami, tabela cennika), każda z własnymi filtrami i własnym
+ * sposobem wejścia w szczegóły.
+ */
 export default function EstateExplorer() {
-  const [building, setBuilding] = useState<number | null>(null);
-  const [status, setStatus] = useState<"all" | "available">("all");
   const [kind, setKind] = useState<"all" | UnitKind>("all");
+  const [tylkoDostepne, setTylkoDostepne] = useState(false);
   const [sort, setSort] = useState<SortKey>("price-asc");
-  const [modal, setModal] = useState<Unit | null>(null);
-  const [expanded, setExpanded] = useState(false);
+  const [podswietlony, setPodswietlony] = useState<string | null>(null);
+  const timer = useRef<number | undefined>(undefined);
 
-  // klik w budynek w sekcji Osiedle ustawia filtr tutaj
-  useEffect(() => {
-    const onPick = (e: Event) => {
-      const id = (e as CustomEvent<number>).detail;
-      setBuilding(id);
-      setExpanded(true);
-      track("uzyj_filtra", { sekcja: "osiedle", etykieta: etykietaBudynku(id) });
-    };
-    window.addEventListener(SELECT_BUILDING_EVENT, onPick);
-    return () => window.removeEventListener(SELECT_BUILDING_EVENT, onPick);
-  }, []);
-
-  // Filtry mówią, czego ludzie szukają: mieszkania, domu czy najtańszego lokalu.
-  // Etykieta idzie w istniejącym wymiarze, żeby nie mnożyć wymiarów niestandardowych w GA4.
   const uzytoFiltra = (etykieta: string) => track("uzyj_filtra", { sekcja: "mieszkania-i-domy", etykieta });
 
-  const wybierzRodzaj = (k: UnitKind) => {
-    const v = kind === k ? "all" : k;
-    setKind(v);
-    uzytoFiltra(`typ: ${v === "all" ? "wszystkie" : v}`);
-  };
-
-  const filtered = useMemo(() => {
-    let list = UNITS.slice();
-    if (building) list = list.filter((u) => u.stageId === building);
-    if (status === "available") list = list.filter((u) => u.status === "available");
-    if (kind !== "all") list = list.filter((u) => unitKind(u) === kind);
-    list.sort((a, b) =>
-      sort === "price-asc"
-        ? a.price - b.price
-        : sort === "price-desc"
-          ? b.price - a.price
-          : sort === "area-asc"
-            ? a.area - b.area
-            : b.area - a.area
+  const lista = useMemo(() => {
+    const out = LOKALE.filter(
+      (u) => (kind === "all" || unitKind(u) === kind) && (!tylkoDostepne || u.status === "available")
     );
-    return list;
-  }, [building, status, kind, sort]);
+    out.sort((a, b) => (sort === "price-asc" ? a.price - b.price : b.area - a.area));
+    return out;
+  }, [kind, tylkoDostepne, sort]);
 
-  // przy krotkiej liscie nie ma sensu chowac trzech kart za przyciskiem
-  // Po odfiltrowaniu samych domow przycisk ma mowic "domow", a nie "lokali".
-  const rodzaje = new Set(filtered.map(unitKind));
-  const rzeczownikListy =
-    rodzaje.size === 1
-      ? lokaleSlowo([...rodzaje][0], filtered.length)
-      : `${lokaleSlowo("mieszkanie", 5)} i ${lokaleSlowo("dom", 5)}`;
-
-  const preview = filtered.length <= PREVIEW + 3 ? filtered.length : PREVIEW;
-  const visible = expanded ? filtered : filtered.slice(0, preview);
-  const hidden = filtered.length - visible.length;
-  const clear = () => {
-    setBuilding(null);
-    setStatus("all");
-    setKind("all");
-    uzytoFiltra("wyczyszczone");
+  const wybierzRodzaj = (k: "all" | UnitKind) => {
+    setKind(k);
+    uzytoFiltra(`typ: ${k === "all" ? "wszystkie" : k}`);
   };
 
-  const wybierzBudynek = (id: number | null) => {
-    setBuilding(id);
-    uzytoFiltra(id ? etykietaBudynku(id) : "budynki: wszystkie");
-    if (id) {
-      setExpanded(true);
-      setTimeout(() => document.getElementById("lista-lokali")?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
-    }
+  // Klik w lokal na planie prowadzi do jego wiersza, a nie do osobnego okna.
+  // Filtry, które mogłyby ten wiersz ukryć, wracają do stanu wyjściowego.
+  const pokazWTabeli = (u: Unit) => {
+    setKind("all");
+    setTylkoDostepne(false);
+    setPodswietlony(u.name);
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setPodswietlony(null), 4000);
+    requestAnimationFrame(() => {
+      const wiersz = document.getElementById(wierszId(u));
+      wiersz?.scrollIntoView({ behavior: "smooth", block: "center" });
+      wiersz?.querySelector<HTMLElement>("a")?.focus({ preventScroll: true });
+    });
   };
 
   return (
     <section id="mieszkania-i-domy" className="band band-sand-2 sec">
       <div className="wrap">
-        <header className="max-w-4xl" data-reveal>
+        <header className="max-w-3xl" data-reveal>
           <p className="eyebrow">{sectionEyebrow("mieszkania-i-domy")}</p>
           <h2 className="t-display-l mt-6 text-balance">
             <span className="num">{OFERTA.mieszkania}</span> mieszkań i <span className="num">{OFERTA.domy}</span> domy,{" "}
             <span className="fg-accent">każdy z ogrodem</span>
           </h2>
+          <p className="t-body-l fg-muted mt-6 text-pretty">
+            Osiedle to {OFERTA.mieszkania} mieszkań i {OFERTA.domy} domy w {INVESTMENT.buildingsCount} budynkach, każde
+            z prywatnym ogrodem, tarasem i dwoma miejscami postojowymi. Osiem budynków ma po dwa mieszkania, dwa
+            środkowe po dwa domy z garażem.
+          </p>
         </header>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-[55fr_45fr] lg:gap-14 [&>*]:min-w-0" data-reveal>
-          <PlanOsiedla selected={building} onOpen={setModal} />
+        <div className="mt-10 grid gap-10 lg:mt-12 lg:grid-cols-[55fr_45fr] lg:gap-14 [&>*]:min-w-0" data-reveal>
+          <PlanOsiedla onOpen={pokazWTabeli} />
 
-          <div className="flex min-w-0 flex-col justify-between gap-9">
-            <p className="t-body-l fg-muted max-w-xl text-pretty">
-              Wybierz budynki, mieszkania albo domy i ustaw kolejność według ceny lub metrażu. Każdy lokal
-              na planie otwiera jego rzuty i cenę.
-            </p>
-
-            <div className="grid grid-cols-2 gap-3">
-              <Kpi
-                value={
-                  <>
-                    <CountUp to={OFERTA.mieszkaniaDostepne} />
-                    <span className="fg-muted"> z {OFERTA.mieszkania}</span>
-                  </>
-                }
-                label="mieszkań dostępnych"
-              />
-              <Kpi
-                value={
-                  <>
-                    <CountUp to={OFERTA.domyDostepne} />
-                    <span className="fg-muted"> z {OFERTA.domy}</span>
-                  </>
-                }
-                label="domów dostępnych"
-              />
-              <Kpi value={<CountUp to={INVESTMENT.buildingsCount} />} label="budynków" />
+          <div className="flex min-w-0 flex-col justify-center gap-8">
+            {/* Liczby renderuje serwer, bez animacji od zera: przed uruchomieniem
+                skryptów strona pokazywała "0 z 16 dostępnych" */}
+            <div className="grid grid-cols-3 gap-3">
+              <Kpi value={String(INVESTMENT.available)} label="dostępnych" />
+              <Kpi value={String(INVESTMENT.totalUnits)} label="wszystkich" />
               <Kpi value={plnShort(OFERTA.cenaOd)} label="cena od" small />
             </div>
-
-            <div className="min-w-0">
-              <p className="t-meta-sm fg-muted">Budynki</p>
-              <div className="no-scrollbar edge-fade -mx-1 mt-3 flex min-w-0 snap-x snap-mandatory gap-2 overflow-x-auto px-1 pb-1 sm:flex-wrap sm:overflow-visible">
-                <button type="button" aria-pressed={building === null} aria-label="Wszystkie budynki" onClick={() => wybierzBudynek(null)} className="chip flex-none snap-start">
-                  Wszystkie
-                </button>
-                {/* "2 z 4", a nie samo "2": obok stoją chipy rodzaju z liczbą wszystkich
-                    lokali, więc goła liczba dostępnych czytała się jako komplet */}
-                {BUILDINGS.map((b) => (
-                  <button
-                    key={b.stageId}
-                    type="button"
-                    aria-pressed={building === b.stageId}
-                    onClick={() => wybierzBudynek(building === b.stageId ? null : b.stageId)}
-                    className="chip flex-none snap-start"
-                    aria-label={`${nazwaGrupy(b.label)}, ${b.available} z ${b.count} dostępnych`}
-                  >
-                    {nazwaGrupy(b.label)}
-                    <span className="num">· {b.available} z {b.count}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
             <p className="t-body fg-muted max-w-md text-pretty">
-              Budynki 1, 2, 4, 5, 6, 7, 9 i 10 mają po dwa mieszkania 82-94 m² na dwóch kondygnacjach.
-              Budynki środkowe (3 i 8) to domy: po dwa pięciopokojowe do 133 m², każdy z garażem
-              w bryle. Poddasze jest w cenie i nie wlicza się do metrażu.
+              Kliknij mieszkanie albo dom na planie, żeby zobaczyć jego wiersz w zestawieniu. Z wiersza wejdziesz na
+              stronę lokalu z rzutami obu kondygnacji.
             </p>
           </div>
         </div>
@@ -178,20 +104,13 @@ export default function EstateExplorer() {
         <div
           id="lista-lokali"
           tabIndex={-1}
-          className="bd mt-14 flex scroll-mt-28 flex-wrap items-center justify-between gap-4 border-y py-4"
+          className="bd mt-12 flex scroll-mt-28 flex-wrap items-center justify-between gap-4 border-y py-4"
           data-reveal
         >
           <div className="no-scrollbar edge-fade -mx-1 flex w-full min-w-0 snap-x gap-2 overflow-x-auto px-1 sm:mx-0 sm:w-auto sm:flex-wrap sm:overflow-visible">
-            <button type="button" aria-pressed={status === "all"} aria-label="Wszystkie statusy" onClick={() => { setStatus("all"); uzytoFiltra("status: wszystkie"); }} className="chip flex-none snap-start">
+            <button type="button" aria-pressed={kind === "all"} onClick={() => wybierzRodzaj("all")} className="chip flex-none snap-start">
               Wszystkie
             </button>
-            <button type="button" aria-pressed={status === "available"} onClick={() => { setStatus("available"); uzytoFiltra("status: dostępne"); }} className="chip flex-none snap-start">
-              Dostępne
-            </button>
-            {/* kreska rozdziela dwie niezależne grupy: status i rodzaj. Bez niej
-                wciśnięte naraz "Wszystkie" i "Domy" wyglądały na sprzeczne, a
-                "Wszystkie" obiecywało pełną listę */}
-            <span aria-hidden className="bd my-2 flex-none self-stretch border-l" />
             <button
               type="button"
               aria-pressed={kind === "mieszkanie"}
@@ -210,69 +129,127 @@ export default function EstateExplorer() {
             >
               Domy <span className="num">· {OFERTA.domy}</span>
             </button>
-            {(building || status !== "all" || kind !== "all") && (
-              <button type="button" onClick={clear} className="chip fg-accent flex-none snap-start border-transparent">
-                Wyczyść
-              </button>
-            )}
+            {/* kreska rozdziela dwie niezależne grupy: rodzaj i dostępność */}
+            <span aria-hidden className="bd my-2 flex-none self-stretch border-l" />
+            <button
+              type="button"
+              aria-pressed={tylkoDostepne}
+              onClick={() => {
+                const v = !tylkoDostepne;
+                setTylkoDostepne(v);
+                uzytoFiltra(`status: ${v ? "tylko dostępne" : "wszystkie"}`);
+              }}
+              className="chip flex-none snap-start"
+            >
+              Tylko dostępne
+            </button>
           </div>
 
           <div className="flex w-full items-center justify-between gap-4 sm:w-auto">
             <span className="t-meta-sm fg-muted">
-              {building ? `${etykietaBudynku(building)} · ` : ""}
-              <span className="num fg">{filtered.length}</span> z {INVESTMENT.totalUnits}
+              <span className="num fg">{lista.length}</span> z {INVESTMENT.totalUnits}
             </span>
             <SortMenu value={sort} onChange={(v) => { setSort(v); uzytoFiltra(`sortowanie: ${OPIS_SORTOWANIA[v]}`); }} />
           </div>
         </div>
 
-        {filtered.length > 0 ? (
-          <>
-            <div
-              className="mt-8 grid grid-cols-1 items-stretch gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
-              data-reveal="stagger"
-            >
-              {visible.map((u, i) => (
-                <div key={u.id} className="h-full" style={{ transitionDelay: `${Math.min(i, 9) * 60}ms` }}>
-                  <UnitCard unit={u} onOpen={setModal} />
-                </div>
-              ))}
-            </div>
-            {hidden > 0 && (
-              <div className="mt-9 flex justify-center">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setExpanded(true);
-                    track("pokaz_wszystkie", { sekcja: "mieszkania-i-domy", etykieta: String(filtered.length) });
-                  }}
-                  className="btn btn-ghost"
-                >
-                  Pokaż wszystkie {filtered.length} {rzeczownikListy}
-                </button>
-              </div>
-            )}
-          </>
-        ) : (
-          <div className="bd mt-8 border border-dashed p-12 text-center">
-            <p className="fg-muted">Nic nie pasuje do wybranych filtrów.</p>
-            <button type="button" onClick={clear} className="btn btn-ghost btn-sm mt-5">
-              Wyczyść filtry
-            </button>
-          </div>
-        )}
-      </div>
+        {/* Jedna lista w dwóch układach: od `lg` zwykła tabela, niżej wiersze
+            rozkładają się na karty, a etykieta komórki wraca jako tekst obok wartości. */}
+        <div className="mt-8" data-reveal>
+          <table className="w-full border-collapse text-left">
+            <caption className="sr-only">Zestawienie mieszkań i domów: metraż, ogród, cena i status</caption>
+            <thead className="hidden lg:table-header-group">
+              <tr className="bd border-y">
+                {KOLUMNY.map((k) => (
+                  <th key={k} scope="col" className="t-label py-3 pr-4 font-medium">
+                    {k}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="block lg:table-row-group">
+              {lista.map((u) => {
+                const s = STATUS_META[u.status];
+                const garaz = garageArea(u);
+                const wybrany = podswietlony === u.name;
+                return (
+                  <tr
+                    key={u.id}
+                    id={wierszId(u)}
+                    className={`card bd mb-4 block scroll-mt-28 p-4 transition-colors lg:mb-0 lg:table-row lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 ${
+                      wybrany ? "bg-sun/20 lg:[&>*]:bg-sun/20" : ""
+                    }`}
+                  >
+                    <th
+                      scope="row"
+                      className="bd block pb-2 text-left font-normal lg:table-cell lg:border-b lg:pt-3 lg:pr-4 lg:pb-3"
+                    >
+                      <Link
+                        href={`/mieszkania-i-domy/${unitSlug(u.name)}`}
+                        className="t-title hover:text-(--band-accent) lg:text-base"
+                      >
+                        {unitLabel(u)}
+                      </Link>
+                    </th>
+                    <Komorka label="Rodzaj">{unitKind(u) === "dom" ? "Dom" : "Mieszkanie"}</Komorka>
+                    <Komorka label="Budynek">{unitPlace(u).house}</Komorka>
+                    <Komorka label="Powierzchnia">
+                      <span className="num">{area(u.area)}</span>
+                      {garaz > 0 && <span className="t-meta-sm fg-muted num block">w tym garaż {area(garaz)}</span>}
+                    </Komorka>
+                    <Komorka label="Pokoje">{u.rooms}</Komorka>
+                    <Komorka label="Ogród">
+                      <span className="num">{area(u.garden)}</span>
+                    </Komorka>
+                    <Komorka label="Cena">
+                      <span className="num font-medium">{plnShort(u.price)}</span>
+                    </Komorka>
+                    <Komorka label="Cena za m²">
+                      <span className="num">{plnShort(u.pricePerM)}</span>
+                    </Komorka>
+                    <Komorka label="Status">
+                      <span className="inline-flex items-center gap-2">
+                        <span className="status-dot" style={{ background: s.color }} />
+                        {s.label}
+                      </span>
+                    </Komorka>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
 
-      <UnitModal unit={modal} onClose={() => setModal(null)} />
+          {lista.length === 0 && (
+            <p className="bd fg-muted border border-dashed p-12 text-center">Nic nie pasuje do wybranych filtrów.</p>
+          )}
+
+          <p className="t-meta fg-muted mt-8 max-w-2xl text-pretty">
+            Ceny brutto (z VAT). Cenę każdego mieszkania i domu aktualizujemy przy każdej zmianie u dewelopera.{" "}
+            <a href="/ceny-ofertowe.csv" rel="nofollow" className="link-underline fg-accent">
+              Dane w formacie otwartym (CSV)
+            </a>
+            .
+          </p>
+        </div>
+      </div>
     </section>
   );
 }
 
-function Kpi({ value, label, small }: { value: React.ReactNode; label: string; small?: boolean }) {
+function Kpi({ value, label, small }: { value: string; label: string; small?: boolean }) {
   return (
     <div className="card min-w-0 p-4">
       <div className={`num leading-none ${small ? "font-display text-lg font-semibold" : "t-display-m"}`}>{value}</div>
       <div className="t-meta-sm fg-muted mt-2.5">{label}</div>
     </div>
+  );
+}
+
+function Komorka({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <td className="bd flex items-baseline justify-between gap-4 border-t py-2.5 lg:table-cell lg:border-t-0 lg:border-b lg:py-3 lg:pr-4 lg:text-sm">
+      <span className="t-label fg-muted lg:hidden">{label}</span>
+      <span className="text-right lg:text-left">{children}</span>
+    </td>
   );
 }

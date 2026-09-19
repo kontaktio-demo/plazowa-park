@@ -2,13 +2,11 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 
-export type SortKey = "price-asc" | "price-desc" | "area-asc" | "area-desc";
+export type SortKey = "price-asc" | "area-desc";
 
 const OPTIONS: { key: SortKey; label: string }[] = [
   { key: "price-asc", label: "Cena rosnąco" },
-  { key: "price-desc", label: "Cena malejąco" },
-  { key: "area-asc", label: "Metraż od najmniejszego" },
-  { key: "area-desc", label: "Metraż od największego" },
+  { key: "area-desc", label: "Metraż malejąco" },
 ];
 
 /**
