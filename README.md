@@ -227,6 +227,58 @@ Weryfikacja w Search Console idzie przez rekord TXT w DNS domeny, a nie przez zm
 środowiskową, dlatego `GOOGLE_SITE_VERIFICATION` nie jest potrzebne.
 
 
+## Jak aktualizować ofertę
+
+Ta część jest dla biura sprzedaży. Wszystkie dane mieszkań i domów stoją w jednym pliku:
+[`lib/data/units.ts`](lib/data/units.ts). Każdy lokal to jeden blok, na przykład:
+
+```
+{
+  "name": "2.2B",
+  "area": 82.05,
+  "price": 633000,
+  "pricePerM": 7715,
+  "status": "available",
+}
+```
+
+**Cena.** Zmieniasz liczbę przy `price` (bez spacji i bez "zł"). Jeśli zmienia się cena, popraw też
+`pricePerM`, czyli cenę za metr: to cena podzielona przez metraż, zaokrąglona do pełnych złotych.
+
+**Status.** Pole `status` przyjmuje dokładnie trzy wartości:
+
+| wpisujesz | znaczy |
+| --- | --- |
+| `"available"` | w sprzedaży |
+| `"reserved"` | rezerwacja |
+| `"sold"` | sprzedane |
+
+Statusy zwykle nie wymagają ręcznej zmiany w tym pliku: co noc o 5:30 automat pobiera je
+z konfiguratora dewelopera. Jeśli biuro wie o sprzedaży wcześniej niż panel dewelopera, wpisz lokal
+do stałej `BIURO` w [`scripts/sync-units.mjs`](scripts/sync-units.mjs) - inaczej nocna synchronizacja
+cofnie zmianę. Gdy deweloper oznaczy lokal u siebie, wpis z `BIURO` można usunąć.
+
+**Co dzieje się samo po takiej zmianie** (nic z tego nie trzeba poprawiać ręcznie):
+
+- liczniki "dostępnych", "wszystkich" i "cena od" na stronie głównej,
+- licznik przy przycisku "Sprawdź dostępność" w nagłówku i w menu,
+- linijka "7 z 20 już sprzedanych lub zarezerwowanych" i filtr "Tylko dostępne",
+- kolorowanie lokalu na planie osiedla (czerwone kreskowanie przy sprzedanym),
+- wiersz w zestawieniu: status, wyszarzenie, kolejność przy sortowaniu,
+- podstrona lokalu: status, przycisk "Zapytaj o podobne", komunikat nad "Zobacz też",
+- lista "Zobacz też" (pokazuje tylko lokale w sprzedaży),
+- strzałki "poprzedni/następny" między lokalami,
+- dane dla Google (schema.org: cena, dostępność, liczba ofert),
+- cennik `ceny-ofertowe.csv` wysyłany na dane.gov.pl (sprzedane z niego wypadają od dnia sprzedaży),
+- teksty i opisy w wyszukiwarce dla podstrony tego lokalu.
+
+**Czego NIE trzeba ruszać:** planu osiedla, zdjęć, rzutów, tekstów sekcji, FAQ, stopki, sitemapy ani
+niczego w folderze `public`. Metraże, ogrody i liczba pokoi pochodzą od dewelopera i zmieniają się
+tylko wtedy, gdy zmieni je on.
+
+**Po zmianie:** zapisz plik i wypchnij na `main`. Strona przebuduje się sama w kilka minut, a nowe
+dane pojawią się wszędzie naraz.
+
 ## Ceny dla dane.gov.pl
 
 Deweloper ma obowiązek publikować ceny lokali na własnej stronie i raz na dobę przekazywać te same

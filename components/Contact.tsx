@@ -207,7 +207,6 @@ export default function Contact() {
               rel="noopener noreferrer"
               data-track="klik_facebook"
               data-miejsce="kontakt"
-              aria-label="Facebook - fanpage osiedla"
               className="bd flex items-center gap-5 border-y py-5 transition-colors hover:text-clay-300"
             >
               <span className="glyph-box">

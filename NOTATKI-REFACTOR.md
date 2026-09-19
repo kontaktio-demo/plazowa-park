@@ -65,6 +65,36 @@ prawne nie zmieniły się o znak.
 - Na podstronie sprzedanego lokalu komunikat składał się w "niedostępnye" (rodzaj gramatyczny
   doklejany po pełnym słowie).
 
+## Runda 3 (domknięcie): co zamknięte, co zostaje
+
+Zamknięte:
+
+- Pełne SSR listy: w HTML strony głównej stoi dwadzieścia wierszy i dwadzieścia linków do podstron,
+  filtr tylko je ukrywa (`display:none`, więc nie łapią tabulatora ani czytnika ekranu).
+- `Contact.tsx` czyta `?lokal=` bez `setState` w efekcie; `npm run lint` jest czysty.
+- Usunięte: `scripts/osiedle-kadry.mjs`, sześć kadrów `public/osiedle/b*.webp` (792 KB),
+  nieużywany klucz `BLUR.zycie`, osiem niepotrzebnych `export` w `lib/` (knip).
+- Dostępność: `nav` w nagłówku podstron dostał nazwę (`landmark-unique`), etykiety chipów i linków
+  partnerów oraz Facebooka zgadzają się z widocznym tekstem (WCAG 2.5.3), pole zgody RODO ma
+  `aria-required`. axe-core: 0 naruszeń na stronie głównej, podstronie lokalu i `/lokalizacja`.
+- SEO: opisy meta lokali sprzedanych i zarezerwowanych nie obiecują już ceny ofertowej.
+
+Zostaje otwarte:
+
+- **Kontrast tekstu pobocznego: 4,32-4,38 zamiast wymaganych 4,5.** Dotyczy koloru `--color-ink-muted`
+  (#746a5e na tle #efe9df) i akcentu `--color-clay-600` w 14 px. Poprawka to przyciemnienie obu
+  tokenów o kilka procent, czyli zmiana palety, a ta jest wyłączona z zakresu. Do decyzji: zmienić
+  `--color-ink-muted` na około #6a6053 i `--color-clay-600` na około #8d5310.
+- **Lighthouse liczy też elementy w trakcie animacji wejścia** (reveal): przy pomiarze łapie je przy
+  kryciu kilkunastu procent i zgłasza kontrast 1,3-3,9. To artefakt pomiaru, nie stan docelowy.
+- `lib/data/units.ts` eksportuje `BUILDINGS`, `UnitStatus` i `Building`, których nikt nie importuje.
+  Plik jest generowany przez `scripts/sync-units.mjs`, więc ręczne cięcie i tak wróciłoby nocą.
+- Cztery skrypty w `scripts/` (`assets.mjs`, `hero-rodzina.mjs`, `ruch.mjs`, `tour-wnetrza.mjs`) nie są
+  importowane przez aplikację: to narzędzia uruchamiane z ręki, które wytworzyły commitowane assety
+  i raport ruchu z GA4. Zostają jako źródło tych plików.
+- `docs/redesign-2026-08.md` opisuje nieistniejący już skrypt kadrów. To dziennik tamtej decyzji,
+  nie dokumentacja bieżącego stanu, więc zostaje bez zmian.
+
 ## Wykryte poza zakresem
 
 - ZAMKNIĘTE: `components/Contact.tsx` czyta `?lokal=` przez `useSyncExternalStore`, a nie
