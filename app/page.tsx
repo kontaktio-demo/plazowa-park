@@ -3,7 +3,6 @@ import Hero from "@/components/Hero";
 import EstateExplorer from "@/components/estate/EstateExplorer";
 import VirtualTour from "@/components/VirtualTour";
 import Standard from "@/components/Standard";
-import Zycie from "@/components/Zycie";
 import ScrollProgress from "@/components/ScrollProgress";
 import Okolica from "@/components/Okolica";
 import Developer from "@/components/Developer";
@@ -24,7 +23,6 @@ export default function Home() {
         <EstateExplorer />
         <VirtualTour />
         <Standard />
-        <Zycie />
         <Okolica />
         <Developer />
         <Faq />

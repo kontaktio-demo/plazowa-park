@@ -130,30 +130,27 @@ export const DOJAZD = [
   { name: "Warszawa", value: "104 km", note: "trasą przez A2" },
 ] as const;
 
-// Pompa ciepła i ogrzewanie podłogowe są w standardzie. Rekuperacja i fotowoltaika
-// nie: montujemy je na życzenie i za dopłatą, dlatego niosą tag "Za dopłatą".
-// Wykończenie pod klucz zostaje zwykłą opcją - zakres i koszt ustala biuro sprzedaży.
+// Sześć rzeczy, które nabywca dostaje w cenie. Rekuperacja, fotowoltaika
+// i wykończenie pod klucz są dodatkowo płatne, więc stoją osobno, w jednej linijce
+// pod siatką - jako kafelki czytały się jak część standardu.
 export const STANDARD = [
   { title: "Pompy ciepła", desc: "Ekonomiczne, ekologiczne źródło ogrzewania w standardzie osiedla.", icon: "heat" },
   { title: "Ogrzewanie podłogowe", desc: "Równomierne ciepło i swoboda aranżacji bez widocznych grzejników.", icon: "floor" },
-  { title: "Rekuperacja", desc: "Wentylacja z odzyskiem ciepła. Opcja dodatkowo płatna, montaż na etapie budowy.", icon: "air", tag: "Za dopłatą" },
-  { title: "Fotowoltaika", desc: "Własna energia i niższe rachunki. Opcja dodatkowo płatna, montaż na życzenie.", icon: "solar", tag: "Za dopłatą" },
   { title: "Panoramiczne okna", desc: "Przeszklenia od podłogi do sufitu z widokiem na las.", icon: "window" },
-  { title: "Materiały premium", desc: "Elastyczna cegła, tynk najwyższej klasy i blacha na rąbek.", icon: "brick" },
   { title: "Prywatny ogród i taras", desc: "Własna zielona przestrzeń przy każdym mieszkaniu i domu.", icon: "garden" },
   { title: "2 miejsca postojowe", desc: "Dwa miejsca do każdego mieszkania i domu; cztery domy mają własny garaż.", icon: "car" },
-  { title: "Prywatne wejście", desc: "Każde mieszkanie i każdy dom ma własne, niezależne wejście.", icon: "door" },
-  { title: "Wykończenie pod klucz", desc: "Personalizacja projektu i wykończenia na etapie budowy.", icon: "pencil", tag: "Opcja" },
+  { title: "Poddasze w cenie", desc: "Zawarte w cenie i poza metrażem, gotowe do adaptacji według własnego pomysłu.", icon: "ruler" },
 ] as const;
 
-// Pięć kroków w kolejności, w jakiej przechodzi je nabywca. Bez kwot i terminów:
+export const STANDARD_DOPLATA =
+  "Za dopłatą, na etapie budowy: rekuperacja, fotowoltaika, wykończenie pod klucz.";
+
+// Trzy etapy w kolejności, w jakiej przechodzi je nabywca. Bez kwot i terminów:
 // opłatę rezerwacyjną, harmonogram transz i daty potwierdza prospekt informacyjny.
 export const KROKI_ZAKUPU = [
-  { title: "Oferta", desc: "Wybierasz mieszkanie albo dom z aktualnej listy dostępności i cen na tej stronie." },
-  { title: "Oględziny", desc: "Umawiasz termin i oglądasz osiedle oraz wybrane mieszkanie albo dom z biurem sprzedaży." },
+  { title: "Wybór i oględziny", desc: "Wybierasz mieszkanie albo dom z aktualnej listy dostępności i cen, a potem oglądasz osiedle i wybraną nieruchomość z biurem sprzedaży." },
   { title: "Umowa rezerwacyjna", desc: "Wybrana nieruchomość zostaje czasowo wyłączona z oferty na warunkach zapisanych w umowie." },
-  { title: "Umowa deweloperska", desc: "Akt notarialny, wpłaty na rachunek powierniczy zgodnie z harmonogramem." },
-  { title: "Przeniesienie własności", desc: "Po odbiorze technicznym, aktem notarialnym, z wpisem do księgi wieczystej." },
+  { title: "Umowa deweloperska i przeniesienie własności", desc: "Akt notarialny, wpłaty na rachunek powierniczy zgodnie z harmonogramem, a po odbiorze technicznym przeniesienie własności z wpisem do księgi wieczystej." },
 ] as const;
 
 // Partnerzy wymienieni przez dewelopera. MWW Mieszkanie prowadzi sprzedaż osiedla
@@ -180,46 +177,29 @@ export const PARTNERZY = [
 export const RABAT_CBG =
   "Kupującym mieszkanie albo dom w Plażowa Park przysługuje 10% rabatu na zakupy w Centrum Budowlanym Głowno. Warunki rabatu potwierdza biuro sprzedaży.";
 
+// Sześć pytań, na które nie odpowiada wprost żadna sekcja strony. Pytania o liczbę
+// lokali, lokalizację, dojazd i standard zniknęły, bo powtarzały treść sekcji
+// Mieszkania i domy, Okolica i Standard oraz podstrony /lokalizacja.
 export const FAQ = [
-  {
-    q: "Ile mieszkań i domów liczy osiedle Plażowa Park?",
-    a: "Osiedle to 16 mieszkań i 4 domy w 10 budynkach, o powierzchni od 82 do 133 m². Osiem budynków mieści po dwa mieszkania czteropokojowe, a dwa budynki środkowe (3 i 8) po dwa pięciopokojowe domy z garażem. Przy każdym mieszkaniu i domu jest prywatny ogródek.",
-  },
-  {
-    q: "Gdzie dokładnie leży osiedle?",
-    a: "Przy ul. Plażowej 5 i 7 w Głownie (95-015), w powiecie zgierskim w województwie łódzkim. Osiedle stoi bezpośrednio przy Zalewie Mrożyczka, w ponad 100-letnim sosnowym lesie.",
-  },
-  {
-    q: "Jak daleko jest do Łodzi, Strykowa i Warszawy?",
-    a: "Do centrum Łodzi jest 32 km drogą krajową 14 przez Stryków, do Strykowa z węzłem autostrad A1 i A2 - 11 km, a do Warszawy 104 km trasą przez A2. Stacja kolejowa Głowno z połączeniami regionalnymi jest 4 km od osiedla.",
-  },
-  {
-    q: "Jakie są ceny i czy są dostępne mieszkania i domy?",
-    a: "Ceny zaczynają się od 633 000 zł. Cenę, cenę za m² i status każdego mieszkania i domu podajemy w sekcji Cennik oraz na jego podstronie; te same dane są w kartach oferty.",
-  },
   {
     q: "Czy poddasze jest wliczone w cenę?",
     a: "Tak. Każde mieszkanie i każdy dom ma parter, piętro oraz poddasze. Poddasze jest zawarte w cenie nieruchomości i nie jest wliczone w metraż, więc możesz je zaadaptować według własnego pomysłu.",
   },
   {
-    q: "Co znajduje się w okolicy osiedla?",
-    a: "Osiedle leży bezpośrednio przy Zalewie Mrożyczka (30-hektarowym zbiorniku z plażą i kąpieliskiem) oraz w ponad 100-letnim lesie. W sąsiedztwie jest Central Wake Park i ścieżki rowerowe, a restauracje, szkoły i przychodnie są w krótkim dystansie.",
-  },
-  {
-    q: "Jaki jest standard wykończenia i technologia?",
-    a: "Mieszkania i domy powstają w oparciu o pompy ciepła i ogrzewanie podłogowe. Rekuperacja i fotowoltaika są opcją dodatkowo płatną, montowaną na etapie budowy. Standard obejmuje panoramiczne okna oraz elewację z tynku najwyższej klasy, elastycznej cegły i blachy na rąbek. Możliwa jest personalizacja wykończenia pod klucz.",
+    q: "Jakie są ceny i czy są dostępne mieszkania i domy?",
+    a: "Ceny zaczynają się od 633 000 zł. Cenę, cenę za m² i status każdego mieszkania i domu podajemy w zestawieniu w sekcji Mieszkania i domy oraz na jego podstronie.",
   },
   {
     q: "Czy do mieszkania albo domu należy ogród i miejsce postojowe?",
     a: "Tak. Każde mieszkanie i każdy dom ma prywatny ogród i taras z panoramicznymi oknami oraz dwa miejsca postojowe; cztery domy w budynkach środkowych mają dodatkowo własny garaż.",
   },
   {
-    q: "Czy nabywcy mają zniżki u partnerów inwestycji?",
-    a: "Tak. Kupującym mieszkanie albo dom w Plażowa Park przysługuje 10% rabatu na zakupy w Centrum Budowlanym Głowno, czyli w składzie budowlanym przy ul. Kopernika 30A. Warunki rabatu potwierdza biuro sprzedaży.",
-  },
-  {
     q: "Jak wygląda proces zakupu?",
     a: "Pięć kroków. Wybierasz mieszkanie albo dom z aktualnej listy dostępności i cen, umawiasz się na oględziny osiedla i wybranej nieruchomości, podpisujesz umowę rezerwacyjną, która czasowo wyłącza ją z oferty, następnie umowę deweloperską u notariusza z harmonogramem wpłat na rachunek powierniczy, a po odbiorze technicznym umowę przeniesienia własności, również aktem notarialnym, z wpisem do księgi wieczystej.",
+  },
+  {
+    q: "Czy nabywcy mają zniżki u partnerów inwestycji?",
+    a: "Tak. Kupującym mieszkanie albo dom w Plażowa Park przysługuje 10% rabatu na zakupy w Centrum Budowlanym Głowno, czyli w składzie budowlanym przy ul. Kopernika 30A. Warunki rabatu potwierdza biuro sprzedaży.",
   },
   {
     q: "Kto jest deweloperem inwestycji?",

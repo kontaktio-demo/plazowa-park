@@ -1,21 +1,13 @@
 import Image from "next/image";
-import { DEVELOPER, SITE, KROKI_ZAKUPU, PARTNERZY, RABAT_CBG } from "@/lib/data/site";
+import { DEVELOPER, KROKI_ZAKUPU, PARTNERZY, RABAT_CBG } from "@/lib/data/site";
 import { sectionEyebrow } from "@/lib/sections";
 import { Icon } from "./Icons";
 
 // Dwa sprawdzalne fakty. Trzecia karta mówiła o przeniesieniu własności aktem
 // notarialnym, czyli dokładnie to samo, co ostatni krok zakupu niżej.
 const trust = [
-  { title: "Deweloper z Głowna", desc: "Spółka z siedzibą w Głownie, dane rejestrowe poniżej." },
+  { title: "Deweloper z Głowna", desc: "Spółka z siedzibą w Głownie; komplet danych rejestrowych jest w stopce." },
   { title: "Standard premium w cenie", desc: "Pompy ciepła, ogrzewanie podłogowe i materiały najwyższej jakości." },
-];
-
-const registry = [
-  { label: "KRS", value: DEVELOPER.krs },
-  { label: "NIP", value: DEVELOPER.nip },
-  { label: "REGON", value: DEVELOPER.regon },
-  { label: "Status VAT", value: DEVELOPER.statusVat },
-  { label: "Kapitał zakładowy", value: DEVELOPER.kapital },
 ];
 
 const ostatniKrok = KROKI_ZAKUPU.length - 1;
@@ -50,33 +42,9 @@ export default function Developer() {
           ))}
         </div>
 
-        <div className="bd mx-auto mt-10 max-w-[720px] border-t pt-8 sm:mt-14 lg:max-w-[1040px]" data-reveal>
-          <p className="t-label fg-muted">Dane rejestrowe</p>
-          <dl className="mt-5 grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-4">
-            {registry.map((r) => (
-              <div key={r.label} className="min-w-0">
-                <dt className="t-label fg-muted">{r.label}</dt>
-                <dd className="num mt-1.5 font-medium wrap-break-word">{r.value}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="t-body fg-muted mt-6">
-            {DEVELOPER.name}, {DEVELOPER.street}, {DEVELOPER.postal} {DEVELOPER.city}
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost btn-sm">
-              <Icon.phone width={16} height={16} /> {SITE.phone.display}
-            </a>
-            <a href="#kontakt" data-track="book_viewing" data-miejsce="deweloper" className="btn btn-sun btn-sm">
-              Umów spotkanie
-            </a>
-          </div>
-        </div>
-
         <div className="bd mx-auto mt-12 max-w-[720px] border-t pt-8 sm:mt-16 lg:max-w-[1040px]" data-reveal>
           <h3 className="t-title">Jak przebiega zakup</h3>
-          <ol className="mt-7 lg:grid lg:grid-cols-5 lg:gap-6">
+          <ol className="mt-7 lg:grid lg:grid-cols-3 lg:gap-6">
             {KROKI_ZAKUPU.map((k, i) => (
               <li key={k.title} className="relative pb-7 pl-8 last:pb-0 lg:pt-7 lg:pb-0 lg:pl-0">
                 {i < ostatniKrok && (

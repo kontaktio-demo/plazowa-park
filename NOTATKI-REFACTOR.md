@@ -21,6 +21,21 @@ prawne nie zmieniły się o znak.
 | sortowanie "Cena malejąco" i "Metraż od najmniejszego" | zostają "Cena rosnąco" i "Metraż malejąco"; kolumny w tabeli pokazują komplet danych |
 | przycisk "Zapytaj" w każdym wierszu cennika i na kartach | CTA "Zapytaj o..." na podstronie lokalu, z prefillem formularza |
 | liczniki "mieszkań dostępnych" i "domów dostępnych" osobno | pasek statystyk: dostępnych / wszystkich / cena od, plus kolumna Status przy każdym lokalu |
+| sekcja Życie ("Nad wodą na co dzień") z trzema punktami | kameralność: lead sekcji Mieszkania i domy; las i woda: sekcja Okolica; ogród i taras: kafelek w sekcji Standard i kolumna Ogród w zestawieniu |
+| Standard: dwa akapity o elewacji, prywatnym wejściu i wykończeniu | jeden akapit sekcji Standard (technologia, elewacja, wejście) |
+| kafelki Rekuperacja, Fotowoltaika, Wykończenie pod klucz | linijka pod siatką: "Za dopłatą, na etapie budowy: rekuperacja, fotowoltaika, wykończenie pod klucz." |
+| kafelki Materiały premium i Prywatne wejście | akapit sekcji Standard |
+| Okolica: dwa akapity opisowe | lead sekcji Okolica (zalew, plaża, molo, kąpielisko, las, Central Wake Park, ścieżki) |
+| Okolica: lista 6 atrakcji (POI) | ta sama lista na /lokalizacja |
+| Okolica: mapa satelitarna z adresem i linkiem do Google Maps | mapa satelitarna na /lokalizacja; adres w stopce i na /lokalizacja |
+| Deweloper: blok Dane rejestrowe (KRS, NIP, REGON, status VAT, kapitał) | stopka, sekcja z danymi rejestrowymi dewelopera i operatora |
+| Deweloper: przyciski telefonu i "Umów spotkanie" | telefon w nagłówku, stopce i pasku mobilnym; formularz w sekcji Kontakt |
+| proces zakupu w 5 krokach | trzy etapy z tymi samymi nazwami umów; pełny opis w FAQ "Jak wygląda proces zakupu?" |
+| FAQ: ile mieszkań i domów liczy osiedle | lead sekcji Mieszkania i domy i pasek statystyk |
+| FAQ: gdzie leży osiedle | sekcja Okolica, stopka (adres), podstrona /lokalizacja |
+| FAQ: jak daleko do Łodzi, Strykowa i Warszawy | cztery dystanse w sekcji Okolica i na /lokalizacja |
+| FAQ: co znajduje się w okolicy | lead sekcji Okolica, plan okolicy z punktami, /lokalizacja |
+| FAQ: jaki jest standard i technologia | sekcja Standard: akapit, sześć kafelków i linijka o opcjach za dopłatą |
 
 ## Wykryte poza zakresem
 

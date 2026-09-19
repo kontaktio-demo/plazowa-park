@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { STANDARD } from "@/lib/data/site";
+import { STANDARD, STANDARD_DOPLATA } from "@/lib/data/site";
 import { BLUR } from "@/lib/blur";
 import SectionHeader from "./SectionHeader";
 import { FeatureIcon } from "./Icons";
@@ -15,27 +15,15 @@ export default function Standard() {
               Energooszczędna technologia <span className="fg-accent">w standardzie</span>
             </>
           }
-          lead="Mieszkania i domy powstają z materiałów wysokiej jakości, z pompą ciepła i ogrzewaniem podłogowym w standardzie. Poddasze jest zawarte w cenie i gotowe do adaptacji według własnego pomysłu."
           className="max-w-3xl"
         />
 
         <div className="mt-10 grid items-start gap-8 lg:mt-14 lg:grid-cols-[minmax(0,52fr)_minmax(0,48fr)] lg:gap-14" data-reveal>
           <div className="t-body fg-muted space-y-4 text-pretty">
             <p>
-              Osiedle powstaje w technologii energooszczędnej. Źródłem ciepła jest pompa ciepła, a ciepło
-              rozprowadza ogrzewanie podłogowe - bez widocznych grzejników, więc ściany zostają wolne pod
-              aranżację. Rekuperację i fotowoltaikę montujemy na życzenie i za dopłatą, na etapie budowy.
-            </p>
-            <p>
-              Elewacje łączą tynk najwyższej klasy z elastyczną cegłą i blachą na rąbek. Panoramiczne okna
-              sięgają od podłogi po sam sufit i otwierają wnętrze na prywatny ogród i taras. Każde
-              mieszkanie i każdy dom ma własne, niezależne wejście i dwa miejsca postojowe, a cztery domy
-              w budynkach środkowych - własny garaż.
-            </p>
-            <p>
-              Poddasze jest zawarte w cenie nieruchomości i nie wlicza się do metrażu - możesz je
-              zaadaptować według własnego pomysłu. Wykończenie pod klucz i zmiany w projekcie ustalamy
-              indywidualnie z nabywcami, którzy kupują na etapie budowy.
+              Osiedle powstaje w technologii energooszczędnej: pompa ciepła i ogrzewanie podłogowe są
+              w standardzie, a poddasze jest w cenie i poza metrażem. Elewacje łączą tynk najwyższej klasy,
+              elastyczną cegłę i blachę na rąbek. Każde mieszkanie i każdy dom ma własne, niezależne wejście.
             </p>
             <p className="t-meta-sm">
               Szczegółowe parametry techniczne zawiera prospekt informacyjny inwestycji, który udostępnia
@@ -56,22 +44,21 @@ export default function Standard() {
           </figure>
         </div>
 
-        <div className="mt-12 grid grid-cols-2 gap-x-5 gap-y-7 sm:gap-x-6 sm:gap-y-10 lg:mt-16 lg:grid-cols-5 lg:gap-x-8" data-reveal="stagger">
+        <div className="mt-12 grid grid-cols-2 gap-x-5 gap-y-7 sm:gap-x-6 sm:gap-y-10 lg:mt-16 lg:grid-cols-3 lg:gap-x-8" data-reveal="stagger">
           {STANDARD.map((f, i) => (
             <div key={f.title} style={{ transitionDelay: `${Math.min(i, 8) * 60}ms` }}>
-              <div className="flex items-center gap-3">
-                <span className="glyph-box">
-                  <FeatureIcon name={f.icon} width={22} height={22} />
-                </span>
-                {"tag" in f && f.tag && (
-                  <span className="t-meta fg-muted bd border px-2 py-1">{f.tag}</span>
-                )}
-              </div>
+              <span className="glyph-box">
+                <FeatureIcon name={f.icon} width={22} height={22} />
+              </span>
               <h3 className="t-title mt-4 text-balance sm:mt-5">{f.title}</h3>
               <p className="t-body fg-muted mt-2 text-pretty">{f.desc}</p>
             </div>
           ))}
         </div>
+
+        <p className="t-body fg-muted mt-10 text-pretty" data-reveal>
+          {STANDARD_DOPLATA}
+        </p>
       </div>
     </section>
   );
