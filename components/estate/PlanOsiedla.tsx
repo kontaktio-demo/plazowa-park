@@ -35,7 +35,6 @@ const tlo = (status: Unit["status"]) => {
  */
 export default function PlanOsiedla({ onOpen }: { onOpen: (u: Unit) => void }) {
   const [wskazany, setWskazany] = useState<Unit | null>(null);
-  const [powiekszony, setPowiekszony] = useState(false);
 
   return (
     <div className="min-w-0">
@@ -80,11 +79,13 @@ export default function PlanOsiedla({ onOpen }: { onOpen: (u: Unit) => void }) {
         })}
       </div>
 
-      {/* Podpis pod planem zamiast dymka: dymek zasłaniałby sąsiednie lokale, a na
-          telefonie i tak nie ma najechania, jest od razu skok do wiersza w tabeli */}
-      <div className="mt-4 flex min-h-11 flex-wrap items-center justify-between gap-x-6 gap-y-2">
+      {/* Odczyt spod kursora zamiast dymka: dymek zasłaniałby sąsiednie lokale.
+          Tylko od `lg`, bo najechania nie ma na dotyku, a instrukcja stoi teraz
+          w kolumnie obok planu i pod nią na wąskim ekranie. Wysokość zarezerwowana,
+          żeby pojawienie się odczytu nie przesuwało tabeli. */}
+      <div className="mt-4 hidden min-h-11 items-center lg:flex">
         <p className="t-meta-sm min-w-0">
-          {wskazany ? (
+          {wskazany && (
             <>
               <span className="font-medium">{unitLabel(wskazany)}</span>
               <span className="fg-muted num">
@@ -93,26 +94,39 @@ export default function PlanOsiedla({ onOpen }: { onOpen: (u: Unit) => void }) {
                 <span className="whitespace-nowrap">{plnShort(wskazany.price)}</span>
               </span>
             </>
-          ) : (
-            <span className="fg-muted">Kliknij mieszkanie albo dom na planie, żeby znaleźć go w zestawieniu niżej.</span>
           )}
         </p>
-        <ul className="t-meta-sm fg-muted flex flex-wrap items-center gap-x-5 gap-y-2">
-          {PRESENT.map((k) => (
-            <li key={k} className="flex items-center gap-2">
-              <span className="bd size-3.5 border" style={{ background: tlo(k) }} />
-              {STATUS_META[k].label}
-            </li>
-          ))}
-          {/* na telefonie numery ogródków i lokali na planie mają kilka pikseli */}
-          <li>
-            <button type="button" onClick={() => setPowiekszony(true)} className="link-underline fg-accent">
-              Powiększ plan
-            </button>
-          </li>
-        </ul>
       </div>
+    </div>
+  );
+}
 
+/** Legenda statusów planu. Stoi w kolumnie obok planu, nie pod nim. */
+export function LegendaPlanu() {
+  return (
+    <ul className="t-meta-sm fg-muted flex flex-wrap items-center gap-x-5 gap-y-2">
+      {PRESENT.map((k) => (
+        <li key={k} className="flex items-center gap-2">
+          <span className="bd size-3.5 border" style={{ background: tlo(k) }} />
+          {STATUS_META[k].label}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** Na telefonie numery ogródków i lokali wypalone w planie mają kilka pikseli. */
+export function PowiekszPlan() {
+  const [powiekszony, setPowiekszony] = useState(false);
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setPowiekszony(true)}
+        className="link-underline fg-accent t-meta-sm w-fit py-1"
+      >
+        Powiększ plan
+      </button>
       {powiekszony && (
         <Lightbox
           shots={[{ src: PLAN.src, alt: OPIS, caption: "Plan zagospodarowania osiedla", fit: "contain" }]}
@@ -121,6 +135,6 @@ export default function PlanOsiedla({ onOpen }: { onOpen: (u: Unit) => void }) {
           onClose={() => setPowiekszony(false)}
         />
       )}
-    </div>
+    </>
   );
 }

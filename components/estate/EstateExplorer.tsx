@@ -8,6 +8,8 @@ import { plnShort, area, STATUS_META } from "@/lib/format";
 import { unitSlug } from "@/lib/slug";
 import { OFERTA, garageArea, unitKind, unitLabel, unitPlace } from "@/lib/unitType";
 import { sectionEyebrow } from "@/lib/sections";
+import { SITE } from "@/lib/data/site";
+import { Icon } from "../Icons";
 import { track } from "@/lib/track";
 import {
   etykietaSortu,
@@ -21,7 +23,7 @@ import {
   type Rodzaj,
 } from "@/lib/sortowanie";
 import { useStanListy } from "@/lib/stanListy";
-import PlanOsiedla from "./PlanOsiedla";
+import PlanOsiedla, { LegendaPlanu, PowiekszPlan } from "./PlanOsiedla";
 import SortMenu from "./SortMenu";
 
 const wierszId = (u: Unit) => `lokal-${unitSlug(u.name)}`;
@@ -194,18 +196,39 @@ export default function EstateExplorer() {
         <div className="mt-10 grid gap-10 lg:mt-12 lg:grid-cols-[55fr_45fr] lg:gap-14 [&>*]:min-w-0" data-reveal>
           <PlanOsiedla onOpen={pokazWTabeli} />
 
-          <div className="flex min-w-0 flex-col justify-center gap-8">
+          {/* Kolumna obok planu prowadzi przez sekcję: najpierw liczby, potem jak
+              czytać plan, na końcu sposób na kontakt. Rozkład justify-between, bo
+              plan jest wyższy niż ta treść i wyśrodkowanie zostawiało dziurę. */}
+          <div className="flex min-w-0 flex-col justify-between gap-8">
             {/* Liczby renderuje serwer, bez animacji od zera: przed uruchomieniem
                 skryptów strona pokazywała "0 z 16 dostępnych" */}
-            <div className="grid grid-cols-3 gap-3">
+            {/* Od `lg` kafle biorą na siebie nadmiar wysokości planu, zamiast zostawiać
+                go w odstępach: przy 1440 px kolumna jest o ponad 300 px wyższa niż jej treść. */}
+            <div className="grid grid-cols-2 gap-3 lg:max-h-96 lg:grow lg:grid-rows-2">
               <Kpi value={String(INVESTMENT.available)} label="dostępnych" />
               <Kpi value={String(INVESTMENT.totalUnits)} label="wszystkich" />
-              <Kpi value={plnShort(OFERTA.cenaOd)} label="cena od" small />
+              <KpiCena cena={OFERTA.cenaOdMieszkania} label="mieszkania od" />
+              <KpiCena cena={OFERTA.cenaOdDomu} label="domy od" />
             </div>
-            <p className="t-body fg-muted max-w-md text-pretty">
-              Kliknij mieszkanie albo dom na planie, żeby zobaczyć jego wiersz w zestawieniu. Z wiersza wejdziesz na
-              stronę lokalu z rzutami obu kondygnacji.
-            </p>
+
+            <div className="flex flex-col gap-5">
+              <p className="t-body fg-muted text-pretty">
+                Kliknij mieszkanie albo dom na planie, żeby zobaczyć jego wiersz w zestawieniu. Z wiersza wejdziesz na
+                stronę lokalu z rzutami obu kondygnacji.
+              </p>
+              <LegendaPlanu />
+              <PowiekszPlan />
+            </div>
+
+            <div className="bd flex flex-col gap-3 border-t pt-7 sm:flex-row sm:items-center">
+              <a href="#kontakt" data-track="book_viewing" data-miejsce="mieszkania-i-domy" className="btn btn-sun">
+                Umów prezentację <Icon.arrow width={18} height={18} />
+              </a>
+              <a href={`tel:${SITE.phone.tel}`} className="btn btn-ghost">
+                <Icon.phone width={16} height={16} />
+                <span className="num">{SITE.phone.display}</span>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -421,11 +444,24 @@ export default function EstateExplorer() {
 
 function Kpi({ value, label, small }: { value: string; label: string; small?: boolean }) {
   return (
-    <div className="card min-w-0 p-4">
+    <div className="card flex min-w-0 flex-col justify-center p-4">
       <div className={`num leading-none ${small ? "font-display text-lg font-semibold" : "t-display-m"}`}>{value}</div>
       <div className="t-meta-sm fg-muted mt-2.5">{label}</div>
     </div>
   );
+}
+
+/** Cena od w grupie; gdy nie został w niej ani jeden wolny lokal, kafel to mówi. */
+function KpiCena({ cena, label }: { cena: number | null; label: string }) {
+  if (cena === null) {
+    return (
+      <div className="card flex min-w-0 flex-col justify-center p-4">
+        <div className="font-display text-lg font-semibold leading-none text-balance">Wszystkie sprzedane</div>
+        <div className="t-meta-sm fg-muted mt-2.5">{label.replace(" od", "")}</div>
+      </div>
+    );
+  }
+  return <Kpi value={plnShort(cena)} label={label} small />;
 }
 
 function Komorka({ label, children }: { label: string; children: ReactNode }) {

@@ -52,6 +52,14 @@ export function unitLabel(unit: Unit): string {
 const policz = (kind: UnitKind) => UNITS.filter((u) => unitKind(u) === kind);
 const wolne = UNITS.filter((u) => u.status === "available");
 
+/** Najniższa cena w grupie albo null, gdy cała grupa jest już sprzedana. */
+const cenaOdTypu = (kind: UnitKind) => {
+  const ceny = policz(kind)
+    .filter((u) => u.status === "available")
+    .map((u) => u.price);
+  return ceny.length ? Math.min(...ceny) : null;
+};
+
 /** Liczby do nagłówków i statystyk - z danych, nie wpisane w tekst. */
 export const OFERTA = {
   mieszkania: policz("mieszkanie").length,
@@ -61,6 +69,8 @@ export const OFERTA = {
   /** Najniższa cena, którą da się dziś kupić. Sprzedane i zarezerwowane nie liczą się,
    *  bo "cena od" ma odpowiadać temu, co jest w ofercie. */
   cenaOd: Math.min(...(wolne.length ? wolne : UNITS).map((u) => u.price)),
+  cenaOdMieszkania: cenaOdTypu("mieszkanie"),
+  cenaOdDomu: cenaOdTypu("dom"),
 } as const;
 
 export type RzutKondygnacji = Kondygnacja & { render: string; techniczny: string };

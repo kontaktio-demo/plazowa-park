@@ -79,21 +79,26 @@ Zamknięte:
   `aria-required`. axe-core: 0 naruszeń na stronie głównej, podstronie lokalu i `/lokalizacja`.
 - SEO: opisy meta lokali sprzedanych i zarezerwowanych nie obiecują już ceny ofertowej.
 
-Zostaje otwarte:
+ZAMKNIĘTE DECYZJĄ WŁAŚCICIELA:
 
-- **Kontrast tekstu pobocznego: 4,32-4,38 zamiast wymaganych 4,5.** Dotyczy koloru `--color-ink-muted`
-  (#746a5e na tle #efe9df) i akcentu `--color-clay-600` w 14 px. Poprawka to przyciemnienie obu
-  tokenów o kilka procent, czyli zmiana palety, a ta jest wyłączona z zakresu. Do decyzji: zmienić
-  `--color-ink-muted` na około #6a6053 i `--color-clay-600` na około #8d5310.
-- **Lighthouse liczy też elementy w trakcie animacji wejścia** (reveal): przy pomiarze łapie je przy
-  kryciu kilkunastu procent i zgłasza kontrast 1,3-3,9. To artefakt pomiaru, nie stan docelowy.
+- **Kontrast tekstu pobocznego 4,32-4,38 zostaje bez zmian.** Dotyczyło `--color-ink-muted`
+  (#746a5e na tle #efe9df) i `--color-clay-600` w 14 px; jedyna poprawka to przyciemnienie obu
+  tokenów, czyli zmiana palety. Właściciel zdecydował, że paleta zostaje taka, jaka jest.
+  Temat jest zamknięty i nie wracamy do niego. Skutek do wiadomości: Lighthouse na telefonie
+  odejmuje za to kilka punktów w kategorii dostępności (97 zamiast 100), axe-core przechodzi
+  bez naruszeń, reszta strony spełnia AA.
+
+Zostaje otwarte (nic z tego nie blokuje wydania):
+
 - `lib/data/units.ts` eksportuje `BUILDINGS`, `UnitStatus` i `Building`, których nikt nie importuje.
   Plik jest generowany przez `scripts/sync-units.mjs`, więc ręczne cięcie i tak wróciłoby nocą.
 - Cztery skrypty w `scripts/` (`assets.mjs`, `hero-rodzina.mjs`, `ruch.mjs`, `tour-wnetrza.mjs`) nie są
   importowane przez aplikację: to narzędzia uruchamiane z ręki, które wytworzyły commitowane assety
   i raport ruchu z GA4. Zostają jako źródło tych plików.
-- `docs/redesign-2026-08.md` opisuje nieistniejący już skrypt kadrów. To dziennik tamtej decyzji,
-  nie dokumentacja bieżącego stanu, więc zostaje bez zmian.
+
+Skreślone jako nieaktualne: notatka o tym, że Lighthouse łapie elementy w trakcie animacji wejścia
+(artefakt pomiaru, nie stan strony) oraz o `docs/redesign-2026-08.md` (dziennik decyzji, nie
+dokumentacja stanu). Żadne z dwóch nie wymaga pracy.
 
 ## Wykryte poza zakresem
 
@@ -112,3 +117,34 @@ Zostaje otwarte:
 - ZAMKNIĘTE: `scripts/osiedle-kadry.mjs` i sześć kadrów `public/osiedle/b*.webp` (792 KB)
   usunięte. Nic ich nie wołało: ani kod, ani `package.json`, ani CI, ani dane strukturalne.
   Historyczny opis w `docs/redesign-2026-08.md` zostaje jako zapis tamtej decyzji.
+
+
+## Wersja 2.1: układ sekcji oferty i ceny od per typ
+
+Prawa kolumna przy planie osiedla miała przy 1440 px tylko trzy kafle i jedno zdanie, czyli
+około 430 px treści na 773 px wysokości planu, a `justify-center` zbijało to w środek i zostawiała
+dziurę u góry i u dołu. Teraz kolumna prowadzi przez sekcję od liczb, przez sposób czytania planu,
+po sposób kontaktu:
+
+- kafle 2x2 (dostępnych, wszystkich, mieszkania od, domy od) biorą od `lg` nadmiar wysokości
+  na siebie (`grow`, `grid-rows-2`, sufit `max-h-96`), zamiast zostawiać go w odstępach,
+- legenda statusów i "Powiększ plan" przeniesione spod planu do tej kolumny,
+- na dole blok domykający: "Umów prezentację" na `#kontakt` i numer telefonu jako `tel:`,
+  w stylach przycisków z hero (`btn-sun`, `btn-ghost`),
+- wypełnienie kolumny przy 1440 px: 81% zamiast 56%, odstępy 73 px zamiast 171 px.
+
+Proporcji gridu nie ruszam. Zmierzone przy 1440 i 1920 px: `55fr 45fr` daje odstępy 73 px
+i wypełnienie 81%, `60fr 40fr` pogarsza to do 105 px i 75% (szerszy plan jest wyższy, więc
+kolumna obok musi być wyższa), `50fr 50fr` poprawia do 54 px i 85%, ale kosztem mniejszego planu.
+Plan zostaje w dotychczasowej wielkości.
+
+Kafel "cena od" rozbity na "mieszkania od" i "domy od". Obie liczby liczone z lokali o statusie
+W sprzedaży: mieszkania od 633 000 zł (Mieszkanie 2.2B, 9 wolnych), domy od 888 000 zł
+(Dom 8.3B, 4 wolne). Gdy w grupie zabraknie wolnego lokalu, kafel pokazuje "Wszystkie sprzedane";
+sprawdzone przy 360 px - tekst mieści się w kaflu, a oba kafle w rzędzie rosną razem (98 px),
+więc układ się nie łamie. Kafel "od 633 000 zł" w hero zostaje: tam cena dotyczy całej inwestycji.
+
+Poza prawą kolumną ruszona jedna rzecz: podpis pod planem pokazywał w stanie spoczynku to samo
+zdanie co akapit instrukcji, który właśnie przeniósł się obok planu, więc oba były widoczne naraz.
+Podpis jest teraz wyłącznie odczytem spod kursora i istnieje od `lg` w górę (na dotyku nie ma
+najechania, a instrukcja stoi w kolumnie). Hotspoty, kliknięcia i sam plan bez zmian.
