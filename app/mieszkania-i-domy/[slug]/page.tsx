@@ -190,7 +190,7 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <TrackUnitView unit={u.name} price={u.price} status={u.status} />
-      <PageHeader />
+      <PageHeader aktywna="mieszkania-i-domy" />
       <main className="band band-sand">
         <div className="wrap py-10 sm:py-14">
           <nav className="t-meta-sm fg-muted flex flex-wrap items-center gap-2" aria-label="breadcrumb">

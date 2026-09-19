@@ -4,7 +4,7 @@ import { INVESTMENT } from "@/lib/data/units";
 import { Icon } from "./Icons";
 import { LogoMark } from "./Logo";
 
-export default function PageHeader() {
+export default function PageHeader({ aktywna }: { aktywna?: string }) {
   return (
     <header className="band band-sand bd sticky top-0 z-50 border-b bg-sand-50/94 backdrop-blur-md">
       <div className="wrap flex h-(--nav-h) items-center justify-between gap-5">
@@ -18,7 +18,12 @@ export default function PageHeader() {
 
         <nav className="hidden items-center gap-7 lg:flex">
           {NAV.map((n) => (
-            <Link key={n.href} href={`/${n.href}`} className="link-underline t-meta hover:text-(--band-accent)">
+            <Link
+              key={n.href}
+              href={`/${n.href}`}
+              aria-current={n.href === `#${aktywna}` ? "true" : undefined}
+              className={`link-underline t-meta hover:text-(--band-accent) ${n.href === `#${aktywna}` ? "fg-accent" : ""}`}
+            >
               {n.label}
             </Link>
           ))}

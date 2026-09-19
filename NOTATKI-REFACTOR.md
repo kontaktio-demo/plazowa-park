@@ -40,6 +40,12 @@ prawne nie zmieniły się o znak.
 | podstrona lokalu: akapit podsumowujący pod parametrami | te same liczby w tabeli parametrów obok |
 | podstrona lokalu: link "Lokalizacja osiedla i dojazd" w bloku opisowym | jedna linijka z adresem osiedla i linkiem na /lokalizacja |
 
+## Runda 2: co zniknęło i gdzie to jest
+
+| usunięta informacja | gdzie ta sama informacja zostaje |
+| --- | --- |
+| /lokalizacja: blok "Dlaczego warto zamieszkać nad Zalewem Mrożyczka" (3 akapity) | trzy bloki nad nim (Nad Zalewem Mrożyczka, Las i rekreacja, Dojazd do Łodzi i Warszawy) oraz lista "Co znajdziesz w okolicy" pod nim; Głowno i zaplecze także w bloku o dojeździe |
+
 ## Znalezione i naprawione w QA
 
 - Skok z nawigacji do sekcji zatrzymywał się 88 px za nisko: Lenis liczy pozycję elementu

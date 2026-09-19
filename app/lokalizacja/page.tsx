@@ -3,6 +3,7 @@ import Link from "next/link";
 import { POI, SITE } from "@/lib/data/site";
 import { OFERTA_TEKST } from "@/lib/unitCopy";
 import { OFERTA } from "@/lib/unitType";
+import { INVESTMENT } from "@/lib/data/units";
 import PageHeader from "@/components/PageHeader";
 import Footer from "@/components/Footer";
 import MapLibreMap from "@/components/MapLibreMap";
@@ -77,7 +78,7 @@ export default function LokalizacjaPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <PageHeader />
+      <PageHeader aktywna="okolica" />
       <main className="band band-sand">
         <div className="wrap py-10 sm:py-14">
           <nav className="t-meta-sm fg-muted flex items-center gap-2" aria-label="breadcrumb">
@@ -127,29 +128,6 @@ export default function LokalizacjaPage() {
             ))}
           </div>
 
-          <section className="mt-16 max-w-3xl">
-            <h2 className="t-display-m">Dlaczego warto zamieszkać nad Zalewem Mrożyczka</h2>
-            <div className="t-body fg-muted mt-6 space-y-4 text-pretty">
-              <p>
-                Głowno to spokojne miasto w powiecie zgierskim, w województwie łódzkim, które łączy kameralny
-                charakter z pełnym zapleczem na co dzień: szkoły, przedszkola, przychodnie, sklepy i restauracje
-                są w codziennym zasięgu. Dla rodzin oznacza to komfort życia z dala od wielkomiejskiego zgiełku,
-                bez rezygnacji z wygód i dobrej komunikacji.
-              </p>
-              <p>
-                Zalew Mrożyczka to 30 hektarów wody z piaszczystą plażą, molo i strzeżonym kąpieliskiem,
-                latem naturalne miejsce wypoczynku, a poza sezonem sceneria spacerów i joggingu wokół sosnowego
-                lasu. Działający tuż obok Central Wake Park przyciąga miłośników wakeboardingu z całego regionu,
-                a sieć ścieżek rowerowych łączy osiedle z okolicznymi atrakcjami i brzegiem zbiornika.
-              </p>
-              <p>
-                W okolicy jest też coś, czego nie znajdziesz w innych częściach województwa: zespół wydm
-                śródlądowych, jedna z przyrodniczych osobliwości okolic Głowna. Razem z sosnowym lasem i
-                brzegiem zalewu tworzy teren na długie spacery o każdej porze roku.
-              </p>
-            </div>
-          </section>
-
           <div className="mt-16 grid gap-12 lg:grid-cols-2 lg:gap-16">
             <div>
               <h2 className="t-display-m">Co znajdziesz w okolicy</h2>
@@ -193,7 +171,10 @@ export default function LokalizacjaPage() {
             </p>
             <div className="flex flex-none flex-col gap-2.5 sm:flex-row">
               <Link href="/#mieszkania-i-domy" data-track="book_viewing" data-miejsce="strona-lokalizacja" className="btn btn-sun">
-                Zobacz mieszkania i domy <Icon.arrow width={18} height={18} />
+                Zobacz dostępne mieszkania i domy
+                <span className="num ml-0.5 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-ink/15 px-1.5 text-[0.75rem] font-medium">
+                  {INVESTMENT.available}
+                </span>
               </Link>
               <Link href="/#kontakt" data-track="book_viewing" data-miejsce="strona-lokalizacja" className="btn btn-ghost">
                 Umów prezentację

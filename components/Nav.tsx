@@ -9,6 +9,7 @@ import { LogoMark } from "./Logo";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [aktywna, setAktywna] = useState("");
   const [open, setOpen] = useState(false);
   const naglowek = useRef<HTMLElement>(null);
   const nakladka = useRef<HTMLDivElement>(null);
@@ -19,6 +20,43 @@ export default function Nav() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  /**
+   * Podświetlenie pozycji odpowiadającej oglądanej sekcji. Liczone ze zwykłego
+   * scrolla, nie IntersectionObserverem: Lenis przewija stronę naprawdę, a przy
+   * sekcjach na cały ekran obserwator przełączałby się w połowie ekranu.
+   * Wybieramy ostatnią sekcję, której góra minęła dolną krawędź nagłówka.
+   */
+  useEffect(() => {
+    const sekcje = NAV.map((n) => document.getElementById(n.href.slice(1))).filter(
+      (el): el is HTMLElement => el !== null
+    );
+    if (!sekcje.length) return;
+    let zaplanowane = false;
+    const policz = () => {
+      zaplanowane = false;
+      const prog = (naglowek.current?.offsetHeight ?? 72) + 24;
+      let biezaca = "";
+      for (const s of sekcje) if (s.getBoundingClientRect().top <= prog) biezaca = s.id;
+      // na samym dole strony wygrywa ostatnia sekcja, nawet jeśli jest krótka
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+        biezaca = sekcje[sekcje.length - 1].id;
+      }
+      setAktywna((poprzednia) => (poprzednia === biezaca ? poprzednia : biezaca));
+    };
+    const onScroll = () => {
+      if (zaplanowane) return;
+      zaplanowane = true;
+      requestAnimationFrame(policz);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -62,7 +100,14 @@ export default function Nav() {
 
           <nav aria-label="Menu główne" className="hidden flex-1 items-center justify-center gap-x-5 xl:flex 2xl:gap-x-7">
             {NAV.map((n) => (
-              <a key={n.href} href={n.href} className="link-underline t-meta whitespace-nowrap hover:text-(--band-accent)">
+              <a
+                key={n.href}
+                href={n.href}
+                aria-current={n.href === `#${aktywna}` ? "true" : undefined}
+                className={`link-underline t-meta whitespace-nowrap hover:text-(--band-accent) ${
+                  n.href === `#${aktywna}` ? "fg-accent" : ""
+                }`}
+              >
                 {n.label}
               </a>
             ))}
@@ -131,7 +176,10 @@ export default function Nav() {
                 <a
                   href={n.href}
                   onClick={() => setOpen(false)}
-                  className="t-display-m flex items-center justify-between py-4"
+                  aria-current={n.href === `#${aktywna}` ? "true" : undefined}
+                  className={`t-display-m flex items-center justify-between py-4 ${
+                    n.href === `#${aktywna}` ? "fg-accent" : ""
+                  }`}
                 >
                   {n.label}
                   <Icon.arrow width={20} height={20} className="text-clay-300" />
