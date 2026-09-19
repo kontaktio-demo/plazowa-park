@@ -1,21 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Znak marki sprowadzony do jednej sosny nad kreską. Wierna wersja z pięcioma
+       pniami i gałęziami (components/Logo.tsx) przy 16 px zlewała się w szarą plamę:
+       kreski miały tam ułamek piksela. Sylwetka trzyma się w każdym rozmiarze. -->
   <rect width="64" height="64" rx="14" fill="#1c1714"/>
-  <g transform="translate(7.43 4.00) scale(0.2745)" fill="none" stroke="#faf8f4" stroke-width="7">
-      <path d="M54.5 46.0V195"/>
-      <path d="M72.5 25.0V195"/>
-      <path d="M89.5 5.0V195"/>
-      <path d="M106.5 25.0V195"/>
-      <path d="M124.0 46.0V195"/>
-      <path d="M54.5 68.5 72.5 106.5"/>
-      <path d="M124.5 68.5 106.5 106.5"/>
-      <path d="M39.0 84.0 54.5 115.0"/>
-      <path d="M140.0 84.0 124.5 115.0"/>
-      <path d="M54.5 102.0 72.5 138.0"/>
-      <path d="M124.5 102.0 106.5 138.0"/>
-      <path d="M45.0 123.0 54.5 142.0"/>
-      <path d="M134.0 123.0 124.5 142.0"/>
-      <path d="M54.5 133.0 72.5 169.0"/>
-      <path d="M124.5 133.0 106.5 169.0"/>
-      <path d="M0 201h179"/>
+  <g fill="#e9a43f">
+    <path d="M32 8 44 30H37.5L48 48H16L26.5 30H20Z"/>
+    <rect x="29.4" y="44" width="5.2" height="8"/>
+    <rect x="10" y="53.5" width="44" height="4.2"/>
   </g>
 </svg>
