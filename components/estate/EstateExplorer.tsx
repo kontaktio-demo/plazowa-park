@@ -410,7 +410,8 @@ export default function EstateExplorer() {
             <a href="/ceny-ofertowe.csv" rel="nofollow" className="link-underline fg-accent">
               Dane w formacie otwartym (CSV)
             </a>
-            .
+            . Plik zawiera lokale aktualnie znajdujące się w ofercie, w formacie wymaganym ustawą o ochronie praw
+            nabywcy lokalu mieszkalnego i domu jednorodzinnego, dlatego nie obejmuje lokali sprzedanych.
           </p>
         </div>
       </div>
