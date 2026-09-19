@@ -5,7 +5,7 @@ import { DOMYSLNY_SORT, sortDoUrl, sortZUrl, type Rodzaj, type Sort } from "./so
 
 export type StanListy = { rodzaj: Rodzaj; tylkoDostepne: boolean; sort: Sort };
 
-export const DOMYSLNY_STAN: StanListy = { rodzaj: "wszystkie", tylkoDostepne: true, sort: DOMYSLNY_SORT };
+const DOMYSLNY_STAN: StanListy = { rodzaj: "wszystkie", tylkoDostepne: true, sort: DOMYSLNY_SORT };
 
 const ZDARZENIE = "pp:adres";
 

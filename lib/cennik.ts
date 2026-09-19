@@ -12,7 +12,7 @@ import { unitKind } from "./unitType";
  * Moduł jest czysty (żadnego I/O), żeby dało się go sprawdzić bez budowania aplikacji.
  */
 
-export type Wpis = { od: string; cena: number; cenaM2: number };
+type Wpis = { od: string; cena: number; cenaM2: number };
 
 const LOKALE = historia.lokale as Record<string, Wpis[]>;
 
@@ -20,7 +20,7 @@ const LOKALE = historia.lokale as Record<string, Wpis[]>;
 const SPRZEDANE = (historia as { sprzedane?: Record<string, string> }).sprzedane ?? {};
 
 /** Pierwszy dzień, na który mamy cennik. Wcześniejszych cen deweloper nam nie przekazał. */
-export const START = historia.start;
+const START = historia.start;
 
 /** Znak umowny portalu: "wypełnienie pozycji jest niemożliwe lub niecelowe". */
 const BRAK = "X";
@@ -162,7 +162,7 @@ function wiersz(u: Unit, c: Wpis): (string | number)[] {
 }
 
 /** Cena obowiązująca danego dnia, czyli ostatnia zmiana nie późniejsza niż ten dzień. */
-export function cenaNaDzien(nazwa: string, dzien: string): Wpis | null {
+function cenaNaDzien(nazwa: string, dzien: string): Wpis | null {
   const wpisy = LOKALE[nazwa] ?? [];
   let wynik: Wpis | null = null;
   for (const w of wpisy) if (w.od <= dzien) wynik = w;
@@ -220,7 +220,7 @@ export const nazwaPliku = (dzien: string) =>
  */
 const LIMIT_DNI = 1000;
 
-export function dniCennika(doDnia = dzisiaj()): string[] {
+function dniCennika(doDnia = dzisiaj()): string[] {
   const dni: string[] = [];
   const d = new Date(`${doDnia}T00:00:00Z`);
   while (dni.length < LIMIT_DNI) {

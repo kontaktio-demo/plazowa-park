@@ -7,7 +7,7 @@ import { unitKind, unitPlace } from "./unitType";
  * więc link do widoku da się wysłać komuś dalej.
  */
 export type Kolumna = "budynek" | "metraz" | "ogrod" | "cena" | "cenam2";
-export type Kierunek = "asc" | "desc";
+type Kierunek = "asc" | "desc";
 export type Sort = { k: Kolumna; d: Kierunek };
 
 export const NAZWA_KOLUMNY: Record<Kolumna, string> = {

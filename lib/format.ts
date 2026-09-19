@@ -1,4 +1,4 @@
-export const plnFmt = new Intl.NumberFormat("pl-PL", {
+const plnFmt = new Intl.NumberFormat("pl-PL", {
   style: "currency",
   currency: "PLN",
   maximumFractionDigits: 0,

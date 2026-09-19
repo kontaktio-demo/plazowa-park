@@ -9,7 +9,7 @@
  *
  * Poddasza tu nie ma: deweloper nie rysuje go na zadnym rzucie, mimo ze jest w cenie.
  */
-export type Pomieszczenie = { nazwa: string; m2: number };
+type Pomieszczenie = { nazwa: string; m2: number };
 export type Kondygnacja = {
   nazwa: "Parter" | "Piętro";
   pomieszczenia: Pomieszczenie[];
