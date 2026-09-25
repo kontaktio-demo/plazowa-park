@@ -28,9 +28,26 @@ const STATUS = { free: "available", reserved: "reserved", sold: "sold" };
 const BIURO = {
   "1.1A": "sold",
   "1.1B": "sold",
-  "6.1B": "sold",
+  "5.2A": "sold",
+  "5.2B": "sold",
+  "6.1B": "reserved",
   "10.2A": "sold",
   "10.2B": "sold",
+};
+
+/**
+ * Ceny zgloszone przez biuro sprzedazy, ktorych deweloper nie wprowadzil jeszcze
+ * u siebie. Zrodlo: materialy targowe ze stanem na 24.09.2026 - karta "Domy,
+ * metraze i ceny" oraz ulotka techniczna "Zestawienie lokali". API podaje wciaz
+ * kwoty sprzed podwyzki, wiec bez tej mapy kazda nocna synchronizacja cofalaby
+ * cennik do stanu z 16.09. Gdy deweloper wprowadzi ceny u siebie, wpis staje sie
+ * zbedny i mozna go stad usunac. Cena za metr liczy sie z tej kwoty, nie z API.
+ */
+const CENY_BIURA = {
+  "3.3A": 955000,
+  "3.3B": 921000,
+  "8.3A": 956000,
+  "8.3B": 918000,
 };
 
 const KOLEJNOSC = { available: 0, reserved: 1, sold: 2 };
@@ -86,8 +103,10 @@ const units = raw
     garden: m2(u.total_area),
     rooms: u.room_count,
     floors: u.floor_count,
-    price: money(u.cost),
-    pricePerM: money(u.cost_per_unit_area),
+    price: CENY_BIURA[String(u.display_name).trim()] ?? money(u.cost),
+    pricePerM: CENY_BIURA[String(u.display_name).trim()]
+      ? money(CENY_BIURA[String(u.display_name).trim()] / m2(u.area))
+      : money(u.cost_per_unit_area),
     status: status(String(u.display_name).trim(), STATUS[u.sales_status] ?? "available"),
     planUrl: plans.get(u.id) ?? null,
     viewThumb: u.thumbnail_url ? String(u.thumbnail_url).split("/").pop() : null,

@@ -1,5 +1,5 @@
 {
-  "uwaga": "Ceny z dnia uruchomienia mechanizmu. Konfigurator dewelopera nie przechowuje historii (price_history_count = 0 dla kazdego lokalu), wiec wczesniejsze zmiany cen, o ile byly, moze dostarczyc wylacznie deweloper. Kolejne wpisy dopisuje scripts/sync-units.mjs w dniu, w ktorym API dewelopera poda inna cene.",
+  "uwaga": "Ceny z dnia uruchomienia mechanizmu. Konfigurator dewelopera nie przechowuje historii (price_history_count = 0 dla kazdego lokalu), wiec wczesniejsze zmiany cen, o ile byly, moze dostarczyc wylacznie deweloper. Kolejne wpisy dopisuje scripts/sync-units.mjs w dniu, w ktorym API dewelopera poda inna cene. Wpisy z 2026-09-24 pochodza z materialow sprzedazowych biura (stan na 24.09.2026), ktorych API jeszcze nie odwzorowuje - ich zrodlem jest mapa CENY_BIURA w tym samym skrypcie, a data obowiazywania to data z materialu, nie dzien uruchomienia.",
   "start": "2026-09-16",
   "lokale": {
     "1.1A": [
@@ -35,6 +35,11 @@
         "od": "2026-09-16",
         "cena": 925000,
         "cenaM2": 6953
+      },
+      {
+        "od": "2026-09-24",
+        "cena": 955000,
+        "cenaM2": 7179
       }
     ],
     "3.3B": [
@@ -42,6 +47,11 @@
         "od": "2026-09-16",
         "cena": 891000,
         "cenaM2": 7000
+      },
+      {
+        "od": "2026-09-24",
+        "cena": 921000,
+        "cenaM2": 7236
       }
     ],
     "4.1A": [
@@ -105,6 +115,11 @@
         "od": "2026-09-16",
         "cena": 926000,
         "cenaM2": 6961
+      },
+      {
+        "od": "2026-09-24",
+        "cena": 956000,
+        "cenaM2": 7186
       }
     ],
     "8.3B": [
@@ -112,6 +127,11 @@
         "od": "2026-09-16",
         "cena": 888000,
         "cenaM2": 6977
+      },
+      {
+        "od": "2026-09-24",
+        "cena": 918000,
+        "cenaM2": 7212
       }
     ],
     "9.1A": [
@@ -146,7 +166,8 @@
   "sprzedane": {
     "1.1A": "2026-09-18",
     "1.1B": "2026-09-18",
-    "6.1B": "2026-09-18",
+    "5.2A": "2026-09-24",
+    "5.2B": "2026-09-24",
     "10.2A": "2026-09-18",
     "10.2B": "2026-09-18"
   }

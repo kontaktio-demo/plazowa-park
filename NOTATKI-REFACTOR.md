@@ -168,3 +168,36 @@ Kafle cen: stopień liczby zrównany z licznikami obok (`13`, `20`). Kafel jest 
 co licznik, a mniejszy tylko wtedy, gdy kafel jest za wąski na "633 000 zł" w jednym wierszu.
 Zmierzone: od 430 px w górę cena ma dokładnie stopień licznika (26 px przy 430-1024, 34,56 przy 1440,
 37,6 przy 1920), przy 390 px 22,7, przy 360 px 20. Zawsze jeden wiersz, zawsze mieści się w kaflu.
+
+## Aktualizacja z materialow targowych (stan na 24.09.2026)
+
+Zrodlo: `plazowa-materialy-2026-09-25.zip` - karty "Domy, metraze i ceny", "Mieszkania, metraze
+i ceny", "Etapy budowy", "Poznaj nasza inwestycje" oraz ulotka techniczna "Zestawienie lokali".
+Materialy byly przejrzane przed drukiem, wiec sa zrodlem rozstrzygajacym.
+
+Ceny czterech domow w gore o 30 000 zl: 3.3A 925 000 na 955 000, 3.3B 891 000 na 921 000,
+8.3A 926 000 na 956 000, 8.3B 888 000 na 918 000. Cena za metr przeliczona z nowej kwoty
+(7179, 7236, 7186, 7212). Mieszkania bez zmian cen i metrazy.
+
+Trzy zmiany statusu: 5.2A i 5.2B z rezerwacji na sprzedane, 6.1B ze sprzedanego na rezerwacje.
+Bilans po zmianie to 13 dostepnych, 1 rezerwacja, 6 sprzedanych - dokladnie tyle, ile podaje
+karta "Poznaj nasza inwestycje".
+
+API dewelopera (SenseVR, inwestycja 214) nadal podaje stan sprzed zmian: stare ceny domow,
+5.2A i 5.2B jako rezerwacje, 6.1B jako wolne. Bez nadpisan nocny `ceny.yml` cofalby wszystko
+co noc. Dlatego w `scripts/sync-units.mjs`:
+- `BIURO` rozszerzone o 5.2A i 5.2B (sold) oraz 6.1B przestawione ze `sold` na `reserved`;
+  regula "wygrywa status dalszy w sprzedazy" dziala tu poprawnie, bo API podaje dla 6.1B `free`,
+  wiec `reserved` z mapy i tak wygrywa,
+- nowa mapa `CENY_BIURA` z czterema cenami domow; cena za metr liczy sie z niej, nie z API.
+Gdy deweloper wprowadzi to u siebie, oba wpisy mozna usunac.
+
+`historia-cen.json`: cztery nowe wpisy cenowe i daty sprzedazy 5.2A i 5.2B z data **2026-09-24**,
+czyli data ze stanu materialu, a nie dzien uruchomienia skryptu. 6.1B wypadlo z `sprzedane`
+automatycznie (skrypt kasuje wpis, gdy lokal nie jest juz sprzedany), wiec wraca do cennika
+publikowanego dla dane.gov.pl. Plik ma teraz 14 lokali zamiast 15.
+
+FAQ zyskalo pytanie o terminy - jedyny fakt z materialow, ktorego strona w ogole nie miala:
+I etap (budynki 6 i 7) IV kwartal 2026, II etap (budynki 4 i 5) I kwartal 2027, pozostale
+budynki bez ogloszonej daty. Z zastrzezeniem, ze terminy sa planowane wedlug harmonogramu
+inwestora, tak jak na karcie.

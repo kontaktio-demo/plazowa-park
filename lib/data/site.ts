@@ -190,6 +190,10 @@ export const FAQ = [
     a: "Ceny zaczynają się od 633 000 zł. Cenę, cenę za m² i status każdego mieszkania i domu podajemy w zestawieniu w sekcji Mieszkania i domy oraz na jego podstronie.",
   },
   {
+    q: "Kiedy budynki będą gotowe?",
+    a: "Terminy są potwierdzone dla dwóch etapów: budynki 6 i 7 w IV kwartale 2026, budynki 4 i 5 w I kwartale 2027. Pozostałe budynki, czyli 1, 2, 3, 8, 9 i 10, stoją w stanie zaawansowanym i nie mają ogłoszonej daty, potwierdza ją biuro sprzedaży. Terminy są planowane, zgodnie z harmonogramem inwestora.",
+  },
+  {
     q: "Czy do mieszkania albo domu należy ogród i miejsce postojowe?",
     a: "Tak. Każde mieszkanie i każdy dom ma prywatny ogród i taras z panoramicznymi oknami oraz dwa miejsca postojowe; cztery domy w budynkach środkowych mają dodatkowo własny garaż.",
   },
