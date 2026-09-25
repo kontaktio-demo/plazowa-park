@@ -131,10 +131,13 @@ export default async function UnitPage({ params }: { params: Promise<{ slug: str
    * zarezerwowanym poruszamy się po pełnej dwudziestce, bo inaczej ten lokal
    * nie miałby w tej kolejności swojego miejsca.
    */
+  // Ta sama kolejność co lista na stronie głównej i co katalog: najpierw mieszkania
+  // budynkami, potem domy. `sort` jest stabilny, więc drugi przebieg tylko rozdziela
+  // grupy i nie rusza układu wewnątrz nich.
   const kolejnosc = posortuj(
     u.status === "available" ? UNITS.filter((x) => x.status === "available") : UNITS,
     DOMYSLNY_SORT
-  );
+  ).sort((a, b) => Number(unitKind(a) === "dom") - Number(unitKind(b) === "dom"));
   const pozycja = kolejnosc.findIndex((x) => x.id === u.id);
   const poprzedni = kolejnosc[pozycja - 1];
   const nastepny = kolejnosc[pozycja + 1];

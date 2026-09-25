@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactN
 import { UNITS, INVESTMENT, type Unit } from "@/lib/data/units";
 import { plnShort, area, STATUS_META } from "@/lib/format";
 import { unitSlug } from "@/lib/slug";
-import { OFERTA, garageArea, unitKind, unitLabel, unitPlace } from "@/lib/unitType";
+import { OFERTA, garageArea, unitKind, unitPlanLabel } from "@/lib/unitType";
 import { sectionEyebrow } from "@/lib/sections";
 import { SITE } from "@/lib/data/site";
 import { Icon } from "../Icons";
@@ -40,13 +40,20 @@ const subskrybujHash = (cb: () => void) => {
 
 const ZAJETE = UNITS.filter((u) => u.status !== "available").length;
 
+/** Szerokości kolumn, w kolejności KOLUMNY. Suma 100%. */
+const SZEROKOSCI = ["21%", "14%", "6%", "12%", "13%", "11%", "14%", "9%"];
+
+/** Dwie grupy w tej samej kolejności co w katalogu: najpierw mieszkania, potem domy. */
+const SEKCJE = [
+  { kind: "mieszkanie", tytul: "Mieszkania" },
+  { kind: "dom", tytul: "Domy" },
+] as const;
+
 const OPCJE_SORTU = PRESETY.map((s) => ({ key: sortDoUrl(s), label: etykietaSortu(s) }));
 
 // kolumny, które da się sortować klikiem w nagłówek
 const KOLUMNY: { l: string; k?: Kolumna }[] = [
-  { l: "Mieszkanie lub dom" },
-  { l: "Rodzaj" },
-  { l: "Budynek", k: "budynek" },
+  { l: "Budynek i lokal", k: "budynek" },
   { l: "Powierzchnia", k: "metraz" },
   { l: "Pokoje" },
   { l: "Ogród", k: "ogrod" },
@@ -300,129 +307,148 @@ export default function EstateExplorer() {
           )}
         </p>
 
-        {/* Jedna lista w dwóch układach: od `lg` zwykła tabela, niżej wiersze
+        {/* Układ z katalogu i ulotki technicznej: osobno mieszkania, osobno domy,
+            w każdej sekcji budynkami po kolei. Od `lg` zwykła tabela, niżej wiersze
             rozkładają się na karty, a etykieta komórki wraca jako tekst obok wartości. */}
-        <div className="mt-6" data-reveal>
-          <table className="w-full border-collapse text-left">
-            <caption className="sr-only">Zestawienie mieszkań i domów: metraż, ogród, cena i status</caption>
-            <thead className="hidden lg:table-header-group">
-              <tr className="bd border-y">
-                {KOLUMNY.map((kol) => (
-                  <th
-                    key={kol.l}
-                    scope="col"
-                    aria-sort={kierunek(kol.k)}
-                    className={`t-label py-3 pr-4 font-medium ${kol.l === "Szczegóły" ? "sr-only" : ""}`}
-                  >
-                    {kol.k ? (
-                      <button
-                        type="button"
-                        onClick={() => klikNaglowek(kol.k!)}
-                        className="flex items-center gap-1.5 hover:text-(--band-accent)"
-                        aria-label={`Sortuj: ${NAZWA_KOLUMNY[kol.k]} ${sort.k === kol.k && sort.d === "asc" ? "malejąco" : "rosnąco"}`}
-                      >
-                        {kol.l}
-                        <svg
-                          width="11"
-                          height="11"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          aria-hidden
-                          className={`transition-[opacity,transform] ${
-                            sort.k === kol.k ? "fg-accent opacity-100" : "opacity-0"
-                          } ${sort.k === kol.k && sort.d === "desc" ? "rotate-180" : ""}`}
+        <div className="mt-6 flex flex-col gap-12" data-reveal>
+          {SEKCJE.map(({ kind, tytul }) => {
+            const lista = wszystkie.filter((u) => unitKind(u) === kind);
+            const ile = lista.filter((u) => widoczne.has(u.id)).length;
+            return (
+              <section key={kind} className={ile === 0 ? "hidden" : ""} aria-labelledby={`grupa-${kind}`}>
+                <h3 id={`grupa-${kind}`} className="t-label fg-muted">
+                  {tytul} <span className="num">· {ile}</span>
+                </h3>
+                {/* Poniżej `lg` tabela jest blokiem: inaczej colgroup narzuca szerokości
+                      także kartom i wiersze ścinają się do ułamka ekranu. */}
+                <table className="mt-3 block w-full border-collapse text-left lg:table lg:table-fixed">
+                  <caption className="sr-only">{tytul}: budynek i lokal, metraż, pokoje, ogród, cena i status</caption>
+                  {/* Wspólna siatka dla obu sekcji: bez tego każda tabela liczy szerokości
+                      po swojej treści i kolumny mieszkań nie stoją w jednej linii z domami. */}
+                  <colgroup>
+                    {SZEROKOSCI.map((w, i) => (
+                      <col key={i} style={{ width: w }} />
+                    ))}
+                  </colgroup>
+                  <thead className="hidden lg:table-header-group">
+                    <tr className="bd border-y">
+                      {KOLUMNY.map((kol) => (
+                        <th
+                          key={kol.l}
+                          scope="col"
+                          aria-sort={kierunek(kol.k)}
+                          className={`t-label py-3 pr-4 font-medium ${kol.l === "Szczegóły" ? "sr-only" : ""}`}
                         >
-                          <path d="M12 19V5M5 12l7-7 7 7" />
-                        </svg>
-                      </button>
-                    ) : (
-                      kol.l
-                    )}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="block lg:table-row-group">
-              {wszystkie.map((u) => {
-                const s = STATUS_META[u.status];
-                const garaz = garageArea(u);
-                const wybrany = podswietlony === u.name;
-                // klasa "hidden" bez klas układu: inaczej lg:table-row przykryłoby
-                // ukrycie na szerokim ekranie i wiersz wróciłby do tabulatora
-                const ukryty = !widoczne.has(u.id);
-                return (
-                  <tr
-                    key={u.id}
-                    id={wierszId(u)}
-                    onPointerDown={(e) => (nacisniety.current = e.target)}
-                    onClick={(e) => wejdzWLokal(e, u)}
-                    className={
-                      ukryty
-                        ? "hidden"
-                        : `card bd mb-4 block cursor-pointer scroll-mt-28 p-4 transition-colors focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-(--band-focus) lg:mb-0 lg:table-row lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 ${
-                            u.status === "available" ? "" : "fg-muted"
-                          } ${
-                            wybrany
-                              ? "bg-sun/20 lg:[&>*]:bg-sun/20"
-                              : "hover:bg-sand-50/70 lg:hover:bg-transparent lg:[&:hover>*]:bg-sand-50/70"
-                          }`
-                    }
-                  >
-                    <th
-                      scope="row"
-                      className="bd block pb-2 text-left font-normal lg:table-cell lg:border-b lg:pt-3 lg:pr-4 lg:pb-3"
-                    >
-                      <Link
-                        href={`/mieszkania-i-domy/${unitSlug(u.name)}`}
-                        className="t-title hover:text-(--band-accent) lg:text-base"
-                      >
-                        {unitLabel(u)}
-                      </Link>
-                    </th>
-                    <Komorka label="Rodzaj">{unitKind(u) === "dom" ? "Dom" : "Mieszkanie"}</Komorka>
-                    <Komorka label="Budynek">{unitPlace(u).house}</Komorka>
-                    <Komorka label="Powierzchnia">
-                      <span className="num">{area(u.area)}</span>
-                      {garaz > 0 && <span className="t-meta-sm fg-muted num block">w tym garaż {area(garaz)}</span>}
-                    </Komorka>
-                    <Komorka label="Pokoje">{u.rooms}</Komorka>
-                    <Komorka label="Ogród">
-                      <span className="num">{area(u.garden)}</span>
-                    </Komorka>
-                    <Komorka label="Cena">
-                      <span className="num font-medium">{plnShort(u.price)}</span>
-                    </Komorka>
-                    <Komorka label="Cena za m²">
-                      <span className="num">{plnShort(u.pricePerM)}</span>
-                    </Komorka>
-                    <Komorka label="Status">
-                      <span className="inline-flex items-center gap-2">
-                        <span className="status-dot" style={{ background: s.color }} />
-                        {s.label}
-                      </span>
-                    </Komorka>
-                    <td className="bd block border-t pt-3 lg:table-cell lg:border-t-0 lg:border-b lg:py-3 lg:text-sm">
-                      <Link
-                        href={`/mieszkania-i-domy/${unitSlug(u.name)}`}
-                        tabIndex={-1}
-                        aria-hidden
-                        className="t-meta fg-accent inline-flex items-center gap-1.5 whitespace-nowrap"
-                      >
-                        Szczegóły
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                          <path d="M5 12h14M13 6l6 6-6 6" />
-                        </svg>
-                      </Link>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+                          {kol.k ? (
+                            <button
+                              type="button"
+                              onClick={() => klikNaglowek(kol.k!)}
+                              className="flex items-center gap-1.5 hover:text-(--band-accent)"
+                              aria-label={`Sortuj: ${NAZWA_KOLUMNY[kol.k]} ${sort.k === kol.k && sort.d === "asc" ? "malejąco" : "rosnąco"}`}
+                            >
+                              {kol.l}
+                              <svg
+                                width="11"
+                                height="11"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                aria-hidden
+                                className={`transition-[opacity,transform] ${
+                                  sort.k === kol.k ? "fg-accent opacity-100" : "opacity-0"
+                                } ${sort.k === kol.k && sort.d === "desc" ? "rotate-180" : ""}`}
+                              >
+                                <path d="M12 19V5M5 12l7-7 7 7" />
+                              </svg>
+                            </button>
+                          ) : (
+                            kol.l
+                          )}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="block lg:table-row-group">
+                    {lista.map((u) => {
+                      const st = STATUS_META[u.status];
+                      const garaz = garageArea(u);
+                      const wybrany = podswietlony === u.name;
+                      // klasa "hidden" bez klas układu: inaczej lg:table-row przykryłoby
+                      // ukrycie na szerokim ekranie i wiersz wróciłby do tabulatora
+                      const ukryty = !widoczne.has(u.id);
+                      return (
+                        <tr
+                          key={u.id}
+                          id={wierszId(u)}
+                          onPointerDown={(e) => (nacisniety.current = e.target)}
+                          onClick={(e) => wejdzWLokal(e, u)}
+                          className={
+                            ukryty
+                              ? "hidden"
+                              : `card bd mb-4 block cursor-pointer scroll-mt-28 p-4 transition-colors focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-(--band-focus) lg:mb-0 lg:table-row lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 ${
+                                  u.status === "available" ? "" : "fg-muted"
+                                } ${
+                                  wybrany
+                                    ? "bg-sun/20 lg:[&>*]:bg-sun/20"
+                                    : "hover:bg-sand-50/70 lg:hover:bg-transparent lg:[&:hover>*]:bg-sand-50/70"
+                                }`
+                          }
+                        >
+                          <th
+                            scope="row"
+                            className="bd block pb-2 text-left font-normal lg:table-cell lg:border-b lg:pt-3 lg:pr-4 lg:pb-3"
+                          >
+                            <Link
+                              href={`/mieszkania-i-domy/${unitSlug(u.name)}`}
+                              className="t-title hover:text-(--band-accent) lg:text-base"
+                            >
+                              {unitPlanLabel(u)}
+                            </Link>
+                          </th>
+                          <Komorka label="Powierzchnia">
+                            <span className="num">{area(u.area)}</span>
+                            {garaz > 0 && <span className="t-meta-sm fg-muted num block">w tym garaż {area(garaz)}</span>}
+                          </Komorka>
+                          <Komorka label="Pokoje">{u.rooms}</Komorka>
+                          <Komorka label="Ogród">
+                            <span className="num">{area(u.garden)}</span>
+                          </Komorka>
+                          <Komorka label="Cena">
+                            <span className="num font-medium">{plnShort(u.price)}</span>
+                          </Komorka>
+                          <Komorka label="Cena za m²">
+                            <span className="num">{plnShort(u.pricePerM)}</span>
+                          </Komorka>
+                          <Komorka label="Status">
+                            <span className="inline-flex items-center gap-2">
+                              <span className="status-dot" style={{ background: st.color }} />
+                              {st.label}
+                            </span>
+                          </Komorka>
+                          <td className="bd block border-t pt-3 lg:table-cell lg:border-t-0 lg:border-b lg:py-3 lg:text-sm">
+                            <Link
+                              href={`/mieszkania-i-domy/${unitSlug(u.name)}`}
+                              tabIndex={-1}
+                              aria-hidden
+                              className="t-meta fg-accent inline-flex items-center gap-1.5 whitespace-nowrap"
+                            >
+                              Szczegóły
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                                <path d="M5 12h14M13 6l6 6-6 6" />
+                              </svg>
+                            </Link>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </section>
+            );
+          })}
 
           {widoczne.size === 0 && (
             <p className="bd fg-muted border border-dashed p-12 text-center">Nic nie pasuje do wybranych filtrów.</p>

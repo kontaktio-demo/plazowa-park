@@ -43,6 +43,15 @@ export const ODMIANA: Record<UnitKind, { mianownik: string; dopelniacz: string; 
   dom: { mianownik: "dom", dopelniacz: "domu", miejscownik: "domu", wskazujacy: "ten dom" },
 };
 
+/**
+ * Oznaczenie z planu osiedla i z materiałów drukowanych: "Budynek 8 · lokal 3B".
+ * To samo, co lokal 8.3B w cenniku - tak tłumaczy to przypis na ulotce i w katalogu.
+ */
+export function unitPlanLabel(unit: Unit): string {
+  const { house, type } = unitPlace(unit);
+  return `Budynek ${house} · lokal ${type}`;
+}
+
 /** "Mieszkanie 2.2B" albo "Dom 3.3A" - używane też jako wpis w formularzu kontaktu. */
 export function unitLabel(unit: Unit): string {
   const n = ODMIANA[unitKind(unit)].mianownik;

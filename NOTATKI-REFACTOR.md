@@ -201,3 +201,31 @@ FAQ zyskalo pytanie o terminy - jedyny fakt z materialow, ktorego strona w ogole
 I etap (budynki 6 i 7) IV kwartal 2026, II etap (budynki 4 i 5) I kwartal 2027, pozostale
 budynki bez ogloszonej daty. Z zastrzezeniem, ze terminy sa planowane wedlug harmonogramu
 inwestora, tak jak na karcie.
+
+## Lista w ukladzie z katalogu
+
+Lista na stronie glownej byla plaska i sortowana cena rosnaco, a materialy drukowane ukladaja
+oferte inaczej: osobno mieszkania, osobno domy, w kazdej grupie budynkami po kolei. Teraz strona
+robi to samo co katalog (rozkladowka "Zestawienie wszystkich lokali") i ulotka techniczna:
+
+- dwie sekcje z naglowkiem i licznikiem: "Mieszkania · 16", "Domy · 4",
+- kolejnosc budynkami rosnaco, w budynku lokal A przed B - dokladnie jak w druku
+  (mieszkania 1, 1, 2, 2, 4, 4, 5, 5, 6, 6, 7, 7, 9, 9, 10, 10; domy 3, 3, 8, 8),
+- oznaczenie lokalu jak na planie i w materialach: "Budynek 8 · lokal 3B" zamiast "Dom 8.3B"
+  (`unitPlanLabel` w lib/unitType.ts). W cenniku dla dane.gov.pl zostaje numer 8.3B, tak jak
+  tlumaczy to przypis na ulotce.
+
+`DOMYSLNY_SORT` to teraz budynek rosnaco; sortowanie po cenie, metrazu i ogrodzie dziala dalej
+i porzadkuje wiersze wewnatrz sekcji, nie kasuje podzialu. Kolumny "Rodzaj" i "Budynek" wypadly:
+pierwsza jest zbedna przy podziale na sekcje, druga wchodzi w oznaczenie lokalu.
+
+Kolejnosc strzalek poprzedni/nastepny na podstronie lokalu idzie tym samym porzadkiem co lista
+(najpierw mieszkania budynkami, potem domy), a nie sama numeracja budynkow - inaczej Dom 3.3A
+wypadal miedzy mieszkaniami.
+
+Dwie pulapki ukladu, obie zmierzone i naprawione:
+- obie tabele liczyly szerokosci kolumn po swojej tresci, wiec kolumny mieszkan nie staly
+  w jednej linii z domami. Wspolna siatka: `lg:table-fixed` plus `colgroup` z SZEROKOSCI.
+- samo dodanie `colgroup` scielo karty na waskim ekranie do 201 px niezaleznie od szerokosci
+  okna, bo tabela zostawala tabela mimo `block` na tbody. Od `lg` w dol tabela jest blokiem
+  (`block lg:table`), wiec colgroup nie ma tam nic do powiedzenia.

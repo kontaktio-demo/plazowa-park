@@ -26,10 +26,12 @@ const WARTOSC: Record<Kolumna, (u: Unit) => number> = {
   cenam2: (u) => u.pricePerM,
 };
 
-export const DOMYSLNY_SORT: Sort = { k: "cena", d: "asc" };
+/** Kolejność z katalogu i ulotki technicznej: budynkami, w budynku lokal A przed B. */
+export const DOMYSLNY_SORT: Sort = { k: "budynek", d: "asc" };
 
-/** Sześć gotowych ustawień w menu. Nagłówki kolumn dają też pozostałe kombinacje. */
+/** Gotowe ustawienia w menu. Nagłówki kolumn dają też pozostałe kombinacje. */
 export const PRESETY: Sort[] = [
+  { k: "budynek", d: "asc" },
   { k: "cena", d: "asc" },
   { k: "cena", d: "desc" },
   { k: "metraz", d: "asc" },
