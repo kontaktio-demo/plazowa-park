@@ -35,6 +35,11 @@ export default function Page() {
         <strong>Plażowa Park</strong>, {SITE.address.street}, {SITE.address.postal} {SITE.address.city}. Zasady wynikają
         z Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 z 27 kwietnia 2016 r. (RODO).
       </p>
+      <p>
+        Klauzula dotyczy danych kontaktowych zostawionych w formularzu na stronie, w rozmowie z nami oraz na karcie
+        kontaktowej. Przetwarzanie danych analitycznych i plików cookie opisują{" "}
+        <a href="/polityka-prywatnosci">polityka prywatności</a> i <a href="/polityka-cookies">polityka cookies</a>.
+      </p>
 
       <h2>1. Administrator danych osobowych</h2>
       <p>
@@ -97,8 +102,8 @@ export default function Page() {
 
       <h2>5. Jak długo przechowujemy dane</h2>
       <p>
-        Dane przetwarzane na podstawie zgody przechowujemy do czasu jej cofnięcia, a jeżeli zgoda nie zostanie cofnięta
-        - nie dłużej niż <strong>24 miesiące</strong> od ostatniego kontaktu.
+        Dane przetwarzamy przez czas niezbędny do obsługi zapytania i prowadzenia rozmów handlowych, a następnie do
+        czasu przedawnienia ewentualnych roszczeń lub wycofania zgody.
       </p>
       <p>
         W razie zawarcia umowy dane przechowujemy przez czas jej trwania oraz przez okres przedawnienia roszczeń i okres
@@ -108,11 +113,12 @@ export default function Page() {
       <h2>6. Komu przekazujemy dane</h2>
       <p>Odbiorcami danych mogą być:</p>
       <ul>
-        <li>biuro sprzedaży obsługujące inwestycję,</li>
+        <li>biuro sprzedaży obsługujące inwestycję, MWW Mieszkanie,</li>
         <li>dostawcy usług IT, hostingu i poczty elektronicznej,</li>
-        <li>biuro rachunkowe,</li>
-        <li>kancelarie prawne i notarialne,</li>
-        <li>podmioty świadczące usługi marketingowe.</li>
+        <li>
+          Web3Forms, zewnętrzny operator formularza kontaktowego. Do jego systemu trafia komplet danych podanych
+          w formularzu, a na potrzeby ochrony przed spamem także adres IP i adres e-mail osoby wysyłającej.
+        </li>
       </ul>
       <p>
         Wszystkie te podmioty przetwarzają dane na podstawie umowy powierzenia i wyłącznie na polecenie administratora.
