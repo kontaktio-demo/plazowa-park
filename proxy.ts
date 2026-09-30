@@ -16,6 +16,15 @@ const INDEXABLE_HOSTS = new Set([
 ]);
 
 export function proxy(req: NextRequest) {
+  // Adres /rodo jest drukowany na karcie kontaktowej i zaszyty w kodzie QR, więc
+  // ktoś przepisze go wersalikami. Next dopasowuje ścieżki z uwzględnieniem
+  // wielkości liter, a to jedyny adres, który tego wymaga - stąd pojedyncza reguła
+  // zamiast łapania całego serwisu.
+  const sciezka = req.nextUrl.pathname;
+  if (sciezka !== "/rodo" && sciezka.toLowerCase() === "/rodo") {
+    return NextResponse.redirect(new URL("/rodo", req.url), 308);
+  }
+
   const res = NextResponse.next();
   const host = (req.headers.get("host") || "").toLowerCase().split(":")[0];
   if (!INDEXABLE_HOSTS.has(host)) {

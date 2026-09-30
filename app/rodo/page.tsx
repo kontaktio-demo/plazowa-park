@@ -13,6 +13,10 @@ export const metadata: Metadata = {
   title: "Klauzula informacyjna RODO",
   description:
     "Klauzula informacyjna o przetwarzaniu danych osobowych przez KS Prestige Sp. z o.o. w związku z inwestycją Plażowa Park w Głownie.",
+  // Pusta lista kasuje odziedziczone po layoucie <meta name="author">: autorem
+  // w metadanych serwisu jest deweloper inwestycji, a ta strona mówi o innym
+  // podmiocie jako administratorze danych.
+  authors: [],
   robots: {
     index: false,
     follow: false,

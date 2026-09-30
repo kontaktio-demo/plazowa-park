@@ -87,7 +87,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="t-meta-sm fg-muted">Deweloper</p>
+            <p className="t-meta-sm fg-muted">Deweloper inwestycji</p>
             <p className="mt-5 text-sm">{DEVELOPER.name}</p>
             <p className="t-body fg-muted mt-1 text-sm">
               {DEVELOPER.street}

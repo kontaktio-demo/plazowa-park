@@ -6,7 +6,6 @@ import { SITE } from "@/lib/data/site";
 import { OFERTA_TEKST } from "@/lib/unitCopy";
 import SiteMotion from "@/components/SiteMotion";
 import CookieConsent from "@/components/CookieConsent";
-import JsonLd from "@/components/JsonLd";
 import Analytics from "@/components/Analytics";
 
 // Space Grotesk w nagłówkach i w drobnych etykietach, Inter w tekście ciągłym.
@@ -104,7 +103,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="pl" className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <body>
         <SkipLink />
-        <JsonLd />
         <Analytics />
         <SiteMotion />
         {children}
