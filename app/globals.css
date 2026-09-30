@@ -434,6 +434,34 @@
 .legal li { margin-bottom: 0.4rem; }
 .legal a { color: var(--color-clay-600); text-decoration: underline; text-underline-offset: 2px; }
 .legal strong { color: var(--color-ink); font-weight: 600; }
+/* Miara wiersza: dokumenty czyta sie od lewej do prawej przez caly akapit,
+   a nie skanuje wzrokiem, wiec kolumna nie moze rosnac z szerokoscia okna. */
+.legal > p, .legal > ul, .legal > ol { max-width: 58ch; }
+
+/* --------------------------------------------- druk
+   Dokumenty prawne ida czasem na papier (klauzula RODO wisi pod kodem QR na karcie
+   kontaktowej). Na wydruku zostaje sama tresc: bez nawigacji, bez stopki, bez paska
+   zgody na cookies i bez tla pasm, zeby nie zjadalo toneru. */
+@media print {
+  header,
+  footer,
+  [aria-label="Zgoda na cookies"] {
+    display: none !important;
+  }
+  .band,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .sec { padding-block: 0 !important; }
+  .wrap-narrow { max-width: none; padding-inline: 0; }
+  .legal { color: #000; line-height: 1.55; }
+  .legal > p, .legal > ul, .legal > ol { max-width: none; }
+  .legal a { color: #000; text-decoration: underline; }
+  h1, h2 { break-after: avoid-page; }
+  .legal p, .legal li { break-inside: avoid; }
+  .eyebrow { display: none; }
+}
 
 /* --------------------------------------------- ruch */
 /* Sekwencja wejścia hero. Bez zaniku - elementy są widoczne od pierwszego

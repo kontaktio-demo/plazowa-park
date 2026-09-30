@@ -51,6 +51,25 @@ export const LEGAL_UPDATED = {
   prywatnosc: "2026-09-08",
   cookies: "2026-09-08",
   regulamin: "2026-09-16",
+  rodo: "2026-09-30",
+} as const;
+
+/**
+ * Administrator w klauzuli /rodo. Wartości przepisane 1:1 z /polityka-prywatnosci,
+ * żeby oba dokumenty na tej domenie wskazywały ten sam podmiot. Zgadza się to co do
+ * znaku z OPERATOR wyżej - tu stoi osobno, bo OPERATOR opisuje prowadzącego serwis,
+ * a ta stała administratora danych, i te role mogą się kiedyś rozejść.
+ *
+ * Bez REGON-u: polityka prywatności go nie podaje, a klauzula nie ma prawa dobierać
+ * pola z innego źródła. Jeśli REGON ma się tam znaleźć, najpierw trafia do polityki.
+ */
+export const RODO_ADMIN = {
+  name: "KS Prestige Sp. z o.o.",
+  street: "ul. Mikołaja Kopernika 30A",
+  postal: "95-015",
+  city: "Głowno",
+  krs: "0000817877",
+  nip: "7331362953",
 } as const;
 
 export const dataPl = (iso: string) =>

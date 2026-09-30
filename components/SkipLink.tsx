@@ -18,7 +18,7 @@ export default function SkipLink() {
         tresc.tabIndex = -1;
         tresc.focus();
       }}
-      className="fixed left-4 top-0 z-70 -translate-y-32 rounded-(--radius-card) bg-sun px-4 py-2.5 text-sm font-medium text-ink transition-transform focus:translate-y-2"
+      className="fixed left-4 top-0 z-70 print:hidden -translate-y-32 rounded-(--radius-card) bg-sun px-4 py-2.5 text-sm font-medium text-ink transition-transform focus:translate-y-2"
     >
       Przejdź do treści
     </button>

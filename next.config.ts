@@ -52,6 +52,13 @@ const nextConfig: NextConfig = {
       // Cennik na wskazany dzień to nowy adres każdej doby - bez tego w indeksie
       // narosłoby do tysiąca prawie identycznych plików, w dodatku linkowanych z portalu.
       { source: "/ceny-ofertowe/:plik", headers: bezIndeksu },
+      {
+        // Klauzula RODO spod QR na karcie kontaktowej. Ma działać wpisana z palca,
+        // ale nie ma po co stać w wynikach wyszukiwania. Nagłówek dubluje metadane
+        // strony, bo działa też dla żądań, które nie parsują HTML.
+        source: "/rodo",
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }],
+      },
     ];
   },
 };
